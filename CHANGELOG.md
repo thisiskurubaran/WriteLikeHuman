@@ -46,6 +46,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Eulogies and obituary notices, written with care.
 - Release notes and app store "What's new" text.
 - Interview thank-you notes as an email preset.
+- A consistency check for long documents: terms, spelling, numbers, and headings.
 
 ### Changed
 
