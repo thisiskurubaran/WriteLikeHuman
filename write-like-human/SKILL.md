@@ -75,6 +75,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | A flat for rent, PG, or roommate wanted post | [references/writing/rental-posts.md](references/writing/rental-posts.md) |
 | A note or message to a teacher, school, class group, or PTA | [references/writing/school-messages.md](references/writing/school-messages.md) |
 | A eulogy, obituary, or death notice | [references/writing/eulogies.md](references/writing/eulogies.md) |
+| Release notes, a changelog, or app store "What's new" text | [references/writing/release-notes.md](references/writing/release-notes.md) |
 
 ## Adjust, voice, and language (add any that match)
 
