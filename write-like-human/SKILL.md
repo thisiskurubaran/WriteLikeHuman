@@ -74,6 +74,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | An RTI (Right to Information) application | [references/writing/rti.md](references/writing/rti.md) |
 | A flat for rent, PG, or roommate wanted post | [references/writing/rental-posts.md](references/writing/rental-posts.md) |
 | A note or message to a teacher, school, class group, or PTA | [references/writing/school-messages.md](references/writing/school-messages.md) |
+| A eulogy, obituary, or death notice | [references/writing/eulogies.md](references/writing/eulogies.md) |
 
 ## Adjust, voice, and language (add any that match)
 
