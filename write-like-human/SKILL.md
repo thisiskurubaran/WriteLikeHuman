@@ -57,6 +57,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | A reply to a customer review of their own business | [references/writing/review-replies.md](references/writing/review-replies.md) |
 | A product or listing description (Meesho, Etsy, Amazon, Flipkart, OLX, Instagram shop) | [references/writing/listings.md](references/writing/listings.md) |
 | An invitation: wedding, housewarming, naming ceremony, birthday party | [references/writing/invitations.md](references/writing/invitations.md) |
+| An apology, a boundary, or saying no to friends or family | [references/writing/hard-conversations.md](references/writing/hard-conversations.md) |
 
 ## Adjust, voice, and language (add any that match)
 

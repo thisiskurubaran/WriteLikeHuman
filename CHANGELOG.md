@@ -11,6 +11,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Replies to customer reviews for small business owners, written as themselves.
 - Product and listing descriptions, with every fact taken from the seller.
 - Invitations for weddings, housewarmings, naming ceremonies, and birthdays.
+- Apologies, boundaries, and saying no to friends and family.
 
 ## [0.1.0] - 2026-11-07
 
