@@ -13,6 +13,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Invitations for weddings, housewarmings, naming ceremonies, and birthdays.
 - Apologies, boundaries, and saying no to friends and family.
 - Plain, inclusive job posts and job descriptions.
+- Newsletters and community notices for societies, schools, clubs, and offices.
 
 ## [0.1.0] - 2026-11-07
 
