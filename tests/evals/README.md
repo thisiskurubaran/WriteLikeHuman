@@ -15,3 +15,16 @@
 Add an object to `cases` with a unique `id`. Keep prompts in the words a normal person would type. If you add a module, add at least one case that should load it, and one prompt for something close to it that should not.
 
 `tests/test_evals.py` checks that the file is valid and that every module it names exists, so a renamed module can't quietly break the list.
+
+## Running them through the API (optional)
+
+`tests/run_evals.py` sends each case through the Claude API and grades the answer automatically. It is a first pass only, and it costs money on your own account, so it never runs on GitHub. Cases that need an attached file are skipped.
+
+```bash
+pip install anthropic
+export ANTHROPIC_API_KEY=...
+python tests/run_evals.py                      # all cases
+python tests/run_evals.py --case us-to-uk      # one case
+```
+
+It uses Claude Opus 5.5 by default (`--model` to change). A pass from the runner is a good sign, not proof. Still try a few cases in the Claude app before a release.
