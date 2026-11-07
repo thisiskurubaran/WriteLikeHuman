@@ -58,6 +58,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Gmail and Outlook drafts edited in place when a mail connector is attached. Nothing is ever sent.
 - An optional eval runner that sends the evals through the Claude API with your own key.
 - Releases build and attach WriteLikeHuman.zip automatically.
+- A language review issue form for native speakers.
 
 ### Changed
 
