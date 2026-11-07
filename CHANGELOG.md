@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Changed
+
+- The website has its own icon, a speech bubble with a hand-drawn line, in the header and the browser tab.
+
 ## [0.3.1] - 2026-11-07
 
 ### Added
