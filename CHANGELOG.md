@@ -53,6 +53,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - A before-you-send check: missing attachments, weekdays that don't match dates, unanswered questions, leftover placeholders.
 - Speech timing per section, with optional pause marks in a reading copy.
 - Apple Pages and Keynote files.
+- Web pages: visible text rewritten, tags, links, and code left exactly as they were.
 
 ### Changed
 
