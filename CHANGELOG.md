@@ -9,6 +9,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Fixed
 
 - The skill description now names the newer writing types and files, so requests for them trigger the skill.
+- Four modules now use the standard section headings, and the tone presets module has an Output section.
 
 ### Changed
 

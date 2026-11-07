@@ -29,7 +29,9 @@ Tell them this plainly when you hand over a new profile: "Save this somewhere ha
 
 Build profiles only from writing the user says is their own. Do not build a profile of a real third party (a celebrity, a boss, a famous author, a friend) to imitate them. If asked, decline in a line and offer to describe the general style instead ("short, punchy sentences, lots of questions") without copying the person.
 
-## Building a profile
+## Steps
+
+### Building a profile
 
 1. Ask for three to five samples of their own writing for one setting: work emails, WhatsApp messages, LinkedIn posts. More is better. Writing they did before using AI tools works best.
 2. Ask what to call the profile and where they will use it.
@@ -47,17 +49,17 @@ Build profiles only from writing the user says is their own. Do not build a prof
 
 Do not record anything private in the profile: phone numbers, addresses, account details, or other people's names from the samples.
 
-## From a WhatsApp chat export
+### From a WhatsApp chat export
 
 If the user would rather not pick samples by hand, they can attach an exported WhatsApp chat and you build the profile from their own messages only. Other people's messages, phone numbers, and links are dropped first. The steps and privacy rules are in `voice/chat-export.md`.
 
-## Several profiles
+### Several profiles
 
 - Each profile is its own block with its own name. They can sit in one file or separate files.
 - If the user attaches several, ask which one, or pick by setting ("this is an email to a client, so I'll use 'work me'") and say which you used.
 - If they want to update one, change only that block.
 
-## Applying a profile
+### Applying a profile
 
 1. Rewrite as usual (see the mode file).
 2. Then adjust the result to the profile: sentence length, word choices, greetings, sign-offs, punctuation, emoji.

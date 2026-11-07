@@ -69,6 +69,10 @@ For government, bank, legal, and official letters, and senior people the user do
 3. Check you did not overshoot: a friendly version should still be appropriate for the reader.
 4. Mention the tone change in the change summary in plain words.
 
+## Output
+
+The text in the new tone, with the same facts, length (within about 10 percent), and structure. Then the usual short change summary, with one line naming the tone change, for example "Made it warmer: added a thank you and softened the ask." If the user named a tone that doesn't fit the reader (very casual for a bank), do it, and add one line saying so.
+
 ## Example
 
 Before (short and blunt):

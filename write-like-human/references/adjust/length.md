@@ -18,7 +18,9 @@ Without one of these, core rule 8 applies: keep length within about 10 percent.
 
 When expanding, never invent facts, examples, quotes, or results to fill space. Expand with clearer explanation, the reasons the user gave, and the details already in their notes. If there is not enough material to reach the target, say so and ask for more.
 
-## Counting
+## Steps
+
+### Counting
 
 Use `scripts/word_count.py` for exact counts when code execution is available:
 
@@ -31,7 +33,7 @@ It reports words and characters. If the script fails or is not available, count 
 
 Check what the limit counts. Many forms count characters with spaces. Social platforms count characters. Teachers usually count words.
 
-## Shortening
+### Shortening
 
 Cut in this order and stop once the target is met:
 
@@ -43,7 +45,7 @@ Cut in this order and stop once the target is met:
 
 Do not drop a fact the reader needs to act on.
 
-## Expanding
+### Expanding
 
 1. Turn fragments into full sentences.
 2. Add the link between points ("because", "so", "which meant").

@@ -29,7 +29,9 @@ Only use real memories from the user. Never invent an anecdote, a saying, a hobb
 - Respect religious and cultural wording the family uses: "passed away", "left for heavenly abode", "attained the lotus feet of", "Om Shanti", "RIP", "Inna lillahi wa inna ilayhi raji'un". Do not swap these for your own.
 - Do not mention the cause of death unless the user includes it.
 
-## Eulogy steps
+## Steps
+
+### Eulogy
 
 1. Ask, if needed, how long it should be. About 130 words a minute when spoken; most eulogies are two to five minutes.
 2. Open with who the person was to the speaker: "My grandfather, Raghunath Joshi, was the first person I called with good news."
@@ -37,7 +39,7 @@ Only use real memories from the user. Never invent an anecdote, a saying, a hobb
 4. Write for speaking: short sentences, natural pauses, nothing hard to say through tears.
 5. End simply: a thank you, a line about what they leave behind, or a goodbye in the family's own words.
 
-## Obituary and notice format
+### Obituary and notice format
 
 A common newspaper or WhatsApp shape:
 
