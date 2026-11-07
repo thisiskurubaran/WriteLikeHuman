@@ -36,6 +36,8 @@ These show up constantly and make posts read as generated:
 
 **WhatsApp status.** Very short. A line or two, often with a photo.
 
+For how to lay out the result so it pastes cleanly into each app (line breaks, where "see more" cuts, hashtag placement, WhatsApp formatting), see the "Ready to paste" section in `lists/platform-limits.md`.
+
 ## Steps
 
 1. Identify the platform and the point of the post.

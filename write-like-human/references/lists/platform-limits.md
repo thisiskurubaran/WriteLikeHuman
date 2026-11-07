@@ -39,6 +39,24 @@ Counting tip: emoji can count as two characters on some platforms. Leave a littl
 
 **YouTube.** Put what the video is about in the first line or two. Links and timestamps below.
 
+## Ready to paste
+
+When the user will paste the result straight into an app, format it for that app. Most apps do not show Markdown, so `**bold**`, `#` headings, and `-` bullets appear as plain symbols. Leave them out unless the app supports them.
+
+LinkedIn. Plain text only. Blank lines between paragraphs survive, so use them. The post is cut after about two lines (roughly 200 characters) with "see more", so the point must sit above that cut. Hashtags go on their own line at the end. Bullets, if the user wants them, are plain characters like a hyphen or a dot at the start of a line.
+
+X. Plain text. If the post is too long, offer to shorten it before offering a thread. For a thread, separate the posts with a blank line and a label like "Post 1" so the user can see where each one ends. Add "1/4" numbering inside the posts only if the user wants it. Hashtags inline or at the end, one or two.
+
+Instagram. Plain text. Line breaks usually survive, but several blank lines in a row may collapse, so keep paragraph breaks simple. Only the first line or two show before "more", so the hook goes there. Hashtags at the end after a blank line, or offer them separately for the first comment.
+
+Facebook. Plain text, line breaks survive. Hashtags rarely needed.
+
+WhatsApp messages and status. WhatsApp has its own formatting: `*bold*`, `_italic_`, `~strikethrough~`, and a hyphen or number at the start of a line for lists. Use these sparingly and only where the user would. Never use Markdown double asterisks, which show up as stars. Keep status updates to a line or two.
+
+Email and plain forms. Plain paragraphs with blank lines between them. No Markdown symbols.
+
+In your reply, put the ready-to-paste text in a plain code block only if the user is copying it on a computer and the formatting matters (threads, WhatsApp symbols). Otherwise give it as normal text, since code blocks are awkward to copy on phones.
+
 ## How to use this file
 
 - Count characters when the user's text is close to a limit. Use `scripts/word_count.py` with the characters option if available, or count carefully.
