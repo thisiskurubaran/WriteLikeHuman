@@ -26,6 +26,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Plain text and Markdown files.
 - Subtitle files (.srt, .vtt): only caption text changes, never the timings.
 - Drafting replies from screenshots of chats and emails.
+- OpenDocument and RTF files, returned as Word files when they can't be edited directly.
 
 ## [0.1.0] - 2026-11-07
 
