@@ -18,6 +18,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - School and college essays, improved in the student's own words.
 - Email threads: read the whole thread before drafting the reply.
 - Protected words: a list of terms that must never change, kept on its own or inside a voice profile.
+- Switching between US, UK, Australian, and Indian English.
 
 ## [0.1.0] - 2026-11-07
 
