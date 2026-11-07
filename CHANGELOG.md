@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-07
+
 ### Added
 
 - Replies to customer reviews for small business owners, written as themselves.
@@ -36,6 +38,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Automatic style, structure, and script checks on every pull request.
 - Hindi and Tamil translations of the README and install guide, labeled as translations.
 
+### Changed
+
+- Language files and the contributing guide now ask native speakers to review them, and the guide asks for install screenshots.
+
+### Fixed
+
+- The dash check in the contributing guide now runs under a UTF-8 locale, so it no longer passes silently.
+
 ## [0.1.0] - 2026-11-07
 
 ### Added
@@ -55,5 +65,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Security policy with private reporting.
 - Issue templates for bugs and feature requests, and a pull request checklist.
 
-[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.1.0
