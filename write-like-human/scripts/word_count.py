@@ -11,10 +11,18 @@ between spaces that has at least one letter or digit in it, so a lone
   python word_count.py --target 150 --tolerance 5 < draft.txt
   python word_count.py --text "Thanks for the update, see you Monday."
   python word_count.py essay.txt --json
+  python word_count.py essay.txt --readability
 
 With --target, it reports how far off the text is and whether it is within
 the tolerance (10 percent by default). The exit code is 0 when within
 range and 2 when not, so it can be used in a quick check.
+
+With --readability (English only), it also gives two common reading
+scores: Flesch Reading Ease (higher is easier, 60 to 70 is plain English)
+and the Flesch-Kincaid grade (roughly the school year a reader needs).
+Syllables are counted with a simple rule of thumb, so treat both numbers
+as a rough guide. Text that is mostly not in the Latin alphabet is
+reported as not supported.
 
 Only uses the standard library.
 """
@@ -59,6 +67,57 @@ def stats(text, target=None, tolerance=10.0):
     return result
 
 
+VOWEL_GROUPS = re.compile(r"[aeiouy]+")
+
+
+def syllables(word):
+    w = re.sub(r"[^a-z]", "", word.lower())
+    if not w:
+        return 0
+    if len(w) <= 3:
+        return 1
+    w = re.sub(r"(?:[^laeiouy]es|ed|[^laeiouy]e)$", "", w)
+    w = re.sub(r"^y", "", w)
+    return max(1, len(VOWEL_GROUPS.findall(w)))
+
+
+def latin_share(text):
+    letters = [c for c in text if c.isalpha()]
+    if not letters:
+        return 0.0
+    return sum(1 for c in letters if c.isascii()) / float(len(letters))
+
+
+def readability(text):
+    if latin_share(text) < 0.8:
+        return {"supported": False,
+                "note": "Reading scores only work for English text."}
+    words = [w for w in text.split() if any(c.isalpha() for c in w)]
+    sentences = count_sentences(text)
+    if not words or not sentences:
+        return {"supported": False, "note": "Not enough text to score."}
+    syl = sum(syllables(w) for w in words)
+    wps = len(words) / float(sentences)
+    spw = syl / float(len(words))
+    ease = min(100.0, max(0.0, 206.835 - 1.015 * wps - 84.6 * spw))
+    grade = 0.39 * wps + 11.8 * spw - 15.59
+    if ease >= 80:
+        label = "very easy"
+    elif ease >= 60:
+        label = "plain English"
+    elif ease >= 50:
+        label = "fairly hard"
+    elif ease >= 30:
+        label = "hard"
+    else:
+        label = "very hard"
+    return {"supported": True,
+            "flesch_reading_ease": round(ease, 1),
+            "flesch_kincaid_grade": round(max(grade, 0.0), 1),
+            "label": label,
+            "note": "A rough guide only. Syllables are estimated."}
+
+
 def describe(r):
     lines = ["Words: %d" % r["words"],
              "Sentences: %d (about %s words each)" % (r["sentences"], r["average_sentence_words"]),
@@ -74,6 +133,12 @@ def describe(r):
         verdict = "OK" if r["within_range"] else "OUT OF RANGE"
         lines.append("Target: %d, %s, allowed %d to %d: %s"
                      % (r["target"], where, r["allowed_range"][0], r["allowed_range"][1], verdict))
+    if "readability" in r:
+        rd = r["readability"]
+        if rd["supported"]:
+            lines.append("Reading ease: %s (%s), grade level about %s"
+                         % (rd["flesch_reading_ease"], rd["label"], rd["flesch_kincaid_grade"]))
+        lines.append("Note: " + rd["note"])
     return "\n".join(lines)
 
 
@@ -85,6 +150,8 @@ def main():
     parser.add_argument("--tolerance", type=float, default=10.0,
                         help="allowed difference in percent (default 10)")
     parser.add_argument("--json", action="store_true", help="print JSON")
+    parser.add_argument("--readability", action="store_true",
+                        help="add rough reading scores (English only)")
     args = parser.parse_args()
 
     if args.text is not None:
@@ -96,6 +163,8 @@ def main():
         text = sys.stdin.read()
 
     r = stats(text, args.target, args.tolerance)
+    if args.readability:
+        r["readability"] = readability(text)
     print(json.dumps(r, ensure_ascii=False, indent=2) if args.json else describe(r))
     if args.target and not r["within_range"]:
         sys.exit(2)

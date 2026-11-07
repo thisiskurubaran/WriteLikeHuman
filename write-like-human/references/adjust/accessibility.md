@@ -49,6 +49,15 @@ Instructions
 
 For Word, PDF, and slide files, also read the matching file module so you can check images and headings.
 
+## Reading age (only if asked)
+
+If the user asks how hard the text is to read ("what reading level is this?", "would a 12 year old get this?"), you can give a rough reading age. Never add it by default.
+
+1. Run `python scripts/word_count.py FILE --readability` (or pipe the text in). This works for English text only.
+2. Report it in plain words as a rough guide: "This reads at about the level of a 13 year old." Add the one or two things pushing it up, such as long sentences or long words.
+3. Do not put the number in the change summary, and do not present it as a score or a grade the text passed or failed.
+4. If the script fails, or the text is not in English, describe it in words instead: "Most sentences are short and the words are everyday ones, so most adults will find it easy."
+
 ## Output
 
 ```

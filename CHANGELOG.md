@@ -30,6 +30,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Several files at once, with each file's facts kept separate.
 - A Word file that marks every change, for any input.
 - Building a voice profile from the user's own WhatsApp messages, with other people's messages dropped and contact details hidden.
+- An optional reading age in the accessibility check, only when asked.
 
 ## [0.1.0] - 2026-11-07
 
