@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-07
+
 ### Added
 
 - The WriteLikeHuman skill, shipped as one folder (`write-like-human/`) with a router that loads only the parts each request needs.
@@ -22,3 +24,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Contributing guide and Code of Conduct (Contributor Covenant 2.1).
 - Security policy with private reporting.
 - Issue templates for bugs and feature requests, and a pull request checklist.
+
+[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.1.0
