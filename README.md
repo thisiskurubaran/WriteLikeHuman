@@ -6,7 +6,7 @@
 
 A free Claude skill for emails, WhatsApp replies, letters, resumes, posts, and the files you already use.
 
-[![Version](https://img.shields.io/badge/version-0.1.0-2ea44f)](CHANGELOG.md)
+[![Latest release](https://img.shields.io/github/v/release/thisiskurubaran/WriteLikeHuman?label=release&color=2ea44f)](https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest)
 [![License: MIT](https://img.shields.io/github/license/thisiskurubaran/WriteLikeHuman?color=blue)](LICENSE)
 [![Claude Skill](https://img.shields.io/badge/Claude-Skill-D97757?logo=claude&logoColor=white)](https://support.claude.com/en/articles/12512180-use-skills-in-claude)
 [![Works on](https://img.shields.io/badge/works%20on-web%20%7C%20desktop%20%7C%20mobile-6f42c1)](INSTALL.md)
