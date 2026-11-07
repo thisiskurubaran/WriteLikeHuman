@@ -73,6 +73,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | A complaint to a company: online shop, airline, telecom, bank | [references/writing/consumer-complaints.md](references/writing/consumer-complaints.md) |
 | An RTI (Right to Information) application | [references/writing/rti.md](references/writing/rti.md) |
 | A flat for rent, PG, or roommate wanted post | [references/writing/rental-posts.md](references/writing/rental-posts.md) |
+| A note or message to a teacher, school, class group, or PTA | [references/writing/school-messages.md](references/writing/school-messages.md) |
 
 ## Adjust, voice, and language (add any that match)
 
