@@ -28,7 +28,7 @@ Each language has its own file in `write-like-human/references/languages/`. The 
 Two things we can't do well without you:
 
 - Screenshots for the install guide. If you have the skill installed, take a screenshot of each upload step in [INSTALL.md](INSTALL.md) (Settings, Capabilities, Customize, Skills, Upload a skill). Crop out your name, email, and chat history, then attach them to an issue or a pull request.
-- Native speaker review. None of the language files have been checked by a native speaker yet. If you speak one of the languages in `write-like-human/references/languages/`, read its file and fix anything that sounds wrong. Each file ends with a "Help wanted" note until someone has reviewed it. Remove that note in your pull request once you have.
+- Native speaker review. None of the language files have been checked by a native speaker yet. If you speak one of the languages in `write-like-human/references/languages/`, read its file and fix anything that sounds wrong. You can also open a **Language review** issue if you'd rather not edit the file yourself. Each file ends with a "Help wanted" note until someone has reviewed it. Remove that note in your pull request once you have.
 
 ## How the skill is organized
 
@@ -150,6 +150,10 @@ python -m unittest discover -s tests -v
 The same checks run on every pull request, so you'll see them on GitHub too.
 
 Then test your change: zip the `write-like-human/` folder, upload it to Claude, and try two prompts a normal person would type, plus one that should not use the skill. Add those prompts to `write-like-human/examples/test-prompts.md`. If you added a module, also add a case for it to `tests/evals/evals.json` (see [tests/evals/README.md](tests/evals/README.md)).
+
+## Releases
+
+Maintainers publish a release from the GitHub Releases page. Publishing it starts a workflow that builds `WriteLikeHuman.zip` from the tagged commit and attaches it to the release, so nobody has to zip the folder by hand. If the zip is ever missing, run the **Release zip** workflow from the Actions tab and give it the tag.
 
 ## Code of conduct
 

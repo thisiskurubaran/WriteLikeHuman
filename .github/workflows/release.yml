@@ -1,0 +1,47 @@
+# Builds WriteLikeHuman.zip and attaches it to a release, so nobody has
+# to zip the skill folder by hand. Runs when a release is published on
+# GitHub, or by hand from the Actions tab for an existing release.
+name: Release zip
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to attach the zip to, for example v0.3.0"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  zip:
+    name: Build and attach WriteLikeHuman.zip
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+
+      - name: Check the skill folder
+        run: |
+          grep -q "^name: write-like-human$" write-like-human/SKILL.md
+          test -d write-like-human/references
+
+      - name: Build the zip
+        # The write-like-human folder must sit at the top of the zip, or
+        # claude.ai rejects the upload.
+        run: |
+          zip -r WriteLikeHuman.zip write-like-human -x '*__pycache__*' -x '*.DS_Store'
+          if zipinfo -1 WriteLikeHuman.zip | grep -v '^write-like-human/'; then
+            echo "::error::Files outside write-like-human/ found in the zip"
+            exit 1
+          fi
+          echo "Files in zip: $(zipinfo -1 WriteLikeHuman.zip | wc -l)"
+
+      - name: Attach to the release
+        run: gh release upload "$TAG" WriteLikeHuman.zip --clobber --repo "$GITHUB_REPOSITORY"
