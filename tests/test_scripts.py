@@ -468,5 +468,115 @@ class ChatExportFilterTest(TempDirCase):
         self.assertIn("[phone]", out)
 
 
+HTML = """<!DOCTYPE html>
+<html><head><title>Sunrise Bakery</title>
+<style>p { color: red; }</style>
+<script>var s = "<p>Hidden</p>";</script></head>
+<body>
+  <!-- keep this comment -->
+  <h1 class="big">Welcome to our bakery!</h1>
+  <p>We are thrilled to offer <a href="/menu?a=1&amp;b=2">our menu</a> &amp; cakes from Rs 450.<br>Call 98765 43210.</p>
+  <pre>  spaced   code  </pre><code>x = 1</code>
+  <img src="cake.png" alt="cake">
+</body></html>
+"""
+
+
+class HtmlRewriteTest(TempDirCase):
+    def setUp(self):
+        super().setUp()
+        self.src = self.path("page.html")
+        with open(self.src, "w", encoding="utf-8") as fh:
+            fh.write(HTML)
+
+    def nodes(self):
+        proc = run("html_rewrite.py", "extract", self.src)
+        return {n["text"]: n["id"] for n in json.loads(proc.stdout)["nodes"]}
+
+    def test_skips_script_style_and_code(self):
+        texts = self.nodes()
+        self.assertIn("Welcome to our bakery!", texts)
+        self.assertIn("& cakes from Rs 450.", texts)
+        for hidden in ("Hidden", "spaced   code", "x = 1", "p { color: red; }"):
+            self.assertFalse(any(hidden in t for t in texts), hidden)
+
+    def test_markup_untouched(self):
+        ids = self.nodes()
+        changes = write_json(self.path("c.json"), {
+            ids["We are thrilled to offer"]: "We bake every morning. See",
+        })
+        run("html_rewrite.py", "apply", self.src, changes)
+        with open(self.path("page-humanized.html"), encoding="utf-8") as fh:
+            result = fh.read()
+        expected = HTML.replace("We are thrilled to offer", "We bake every morning. See")
+        self.assertEqual(result, expected)
+
+    def test_number_change_flagged(self):
+        ids = self.nodes()
+        changes = write_json(self.path("c.json"), {ids["& cakes from Rs 450."]: "& cakes from Rs 500."})
+        proc = run("html_rewrite.py", "apply", self.src, changes)
+        self.assertIn("CHECK", proc.stdout)
+        with open(self.path("page-humanized.html"), encoding="utf-8") as fh:
+            self.assertIn("&amp; cakes from Rs 500.", fh.read())
+
+    def test_refuses_overwrite(self):
+        proc = run("html_rewrite.py", "apply", self.src, write_json(self.path("c.json"), {}),
+                   "-o", self.src, expect=None)
+        self.assertNotEqual(proc.returncode, 0)
+        with open(self.src, encoding="utf-8") as fh:
+            self.assertEqual(fh.read(), HTML)
+
+
+class DateCheckTest(unittest.TestCase):
+    def check(self, text, *args, expect=None):
+        proc = run("date_check.py", "--json", "--today", "2026-11-07", "--text", text, *args, expect=expect)
+        return proc, json.loads(proc.stdout)
+
+    def test_match(self):
+        proc, data = self.check("Party on Saturday 14 March 2026.", expect=0)
+        self.assertEqual(data["to_fix"], 0)
+        self.assertTrue(data["dates"][0]["ok"])
+
+    def test_mismatch(self):
+        proc, data = self.check("Meeting: Mon, 14/03/2026 at 10.30.", expect=1)
+        item = data["dates"][0]
+        self.assertFalse(item["ok"])
+        self.assertEqual(item["actual_weekday"], "Saturday")
+        self.assertEqual(item["stated_weekday"], "Monday")
+
+    def test_weekday_after_date(self):
+        proc, data = self.check("Due 14 March 2026 (Tuesday).", expect=1)
+        self.assertEqual(data["dates"][0]["actual_weekday"], "Saturday")
+
+    def test_no_year_assumed(self):
+        proc, data = self.check("See you Monday 9 Nov.", expect=0)
+        self.assertEqual(data["dates"][0]["year_assumed"], 2026)
+        proc, data = self.check("Monday 9 Nov", "--year", "2027", expect=1)
+        self.assertEqual(data["dates"][0]["year_assumed"], 2027)
+        proc, data = self.check("Friday 6 Nov", expect=None)
+        self.assertEqual(data["dates"][0]["year_assumed"], 2027)
+
+    def test_us_order(self):
+        self.check("Saturday 03/14/2026", "--us", expect=0)
+        proc, data = self.check("Saturday 03/14/2026", expect=1)
+        self.assertIn("problem", data["dates"][0])
+
+    def test_no_dates(self):
+        proc, data = self.check("Nothing to check here, see you soon.", expect=0)
+        self.assertEqual(data["dates"], [])
+
+
+class WordCountSpeechTest(unittest.TestCase):
+    def test_speech_sections(self):
+        text = " ".join(["word"] * 95) + "\n\n" + " ".join(["word"] * 200)
+        proc = run("word_count.py", "--speech", "--text", text)
+        self.assertIn("Section 1: 95 words, about 45 seconds", proc.stdout)
+        self.assertIn("Section 2: 200 words, about 1 minute 30 seconds", proc.stdout)
+        data = json.loads(run("word_count.py", "--json", "--speech", "--wpm", "100", "--text", text).stdout)
+        self.assertEqual(data["speech"]["wpm"], 100)
+        self.assertEqual(data["speech"]["total_seconds"], 175)
+        self.assertEqual(len(data["speech"]["sections"]), 2)
+
+
 if __name__ == "__main__":
     unittest.main()
