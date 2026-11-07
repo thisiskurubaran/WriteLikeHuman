@@ -1,6 +1,6 @@
 {
   "name": "write-like-human",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Write or rewrite anything so it sounds like a real person, not AI, keeping formatting, facts, and numbers.",
   "author": { "name": "thisiskurubaran" },
   "homepage": "https://github.com/thisiskurubaran/WriteLikeHuman",

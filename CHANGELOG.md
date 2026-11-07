@@ -6,11 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
-### Fixed
+## [0.3.1] - 2026-11-07
 
-- The skill description now names the newer writing types and files, so requests for them trigger the skill.
-- Four modules now use the standard section headings, and the tone presets module has an Output section.
-- PDF text keeps its paragraph breaks, including greeting lines and numbered lists.
+### Added
+
+- Checks that every module has the standard sections, that the newest changelog section has entries, and that the plugin version matches the changelog.
+- Eval cases for every writing, file, adjust, voice, and mode module (81 cases in all).
+- Ten more before and after samples covering the v0.2.0 and v0.3.0 modules.
+- Web pages: image descriptions (alt text) and meta descriptions can be rewritten too, when asked.
 
 ### Changed
 
@@ -19,12 +22,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Spreadsheets with charts: a plainer warning, and the option to get only the rewritten text cells back.
 - A redesigned project website, with an interactive before and after, the plugin install, and every language.
 
-### Added
+### Fixed
 
-- Checks that every module has the standard sections, that the newest changelog section has entries, and that the plugin version matches the changelog.
-- Eval cases for every writing, file, adjust, voice, and mode module (81 cases in all).
-- Ten more before and after samples covering the v0.2.0 and v0.3.0 modules.
-- Web pages: image descriptions (alt text) and meta descriptions can be rewritten too, when asked.
+- The skill description now names the newer writing types and files, so requests for them trigger the skill.
+- Four modules now use the standard section headings, and the tone presets module has an Output section.
+- PDF text keeps its paragraph breaks, including greeting lines and numbered lists.
 
 ## [0.3.0] - 2026-11-07
 
@@ -114,7 +116,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Security policy with private reporting.
 - Issue templates for bugs and feature requests, and a pull request checklist.
 
-[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.1.0
