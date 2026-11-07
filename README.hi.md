@@ -1,3 +1,4 @@
+<!-- Translated from README.md at v0.3.1 -->
 <div align="center">
 
 # WriteLikeHuman
@@ -13,7 +14,7 @@ Email, WhatsApp reply, letter, resume, post और आपकी रोज़ क
 [![No coding needed](https://img.shields.io/badge/coding-not%20needed-success)](INSTALL.md)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
 
-[Install](#install) · [क्या पूछ सकते हैं](#ask) · [Features](#features) · [सवाल-जवाब](#faq) · [Contribute](#contributing)
+[Install](#install) · [क्या पूछ सकते हैं](#ask) · [Features](#features) · [सवाल-जवाब](#faq) · [Contribute](#contributing) · [Website](https://thisiskurubaran.github.io/WriteLikeHuman/)
 
 [English](README.md) · हिंदी · [தமிழ்](README.ta.md)
 
@@ -75,7 +76,14 @@ Hi team, the quarterly report deadline has moved to 15 March. Please send me you
 
 एक skill, एक बार upload. आपके account में आ गया, तो Claude की phone app में भी चलेगा।
 
-और मदद चाहिए, या Claude Code इस्तेमाल करते हैं? पूरी [install guide](INSTALL.hi.md) देखिए।
+Claude Code इस्तेमाल करते हैं? इसे plugin की तरह install कीजिए:
+
+```text
+/plugin marketplace add thisiskurubaran/WriteLikeHuman
+/plugin install write-like-human@writelikehuman
+```
+
+और मदद चाहिए? पूरी [install guide](INSTALL.hi.md) देखिए।
 
 <a name="ask"></a>
 ## क्या पूछ सकते हैं
@@ -126,17 +134,21 @@ Landlord ke is WhatsApp ka reply likh do, politely
 | OpenDocument और RTF (.odt, .rtf) | Word file की तरह edit, और बताया जाता है कि वापस किस format में मिलेगी। |
 | Chat और email के screenshots | Screen पर जो दिख रहा है उससे reply, किसी का phone number दोहराए बिना। |
 | एक साथ कई files | हर file अलग से ठीक होती है, एक file की बात दूसरी में नहीं मिलती। |
+| Apple Pages और Keynote | Convert करके edit, या पहले export करने के आसान steps. |
+| Web pages (.html) | दिखने वाला text बदलता है। Tags, links और code बिल्कुल वैसे ही रहते हैं। |
+| Posters और flyers | दोबारा type करने के लिए text का साफ़ version. Claude image को ख़ुद edit नहीं कर सकता। |
+| Gmail और Outlook drafts | Claude आपके mail से जुड़ा हो तो वहीं edit. कुछ भी भेजा नहीं जाता। |
 
 हर file एक नई copy बनकर आती है, नाम होता है `yourfile-humanized`, ताकि असली file सुरक्षित रहे। "a file showing what changed" माँगेंगे तो एक Word file भी मिलेगी जिसमें हर बदलाव mark होगा।
 
 <details>
-<summary><b>किस-किस तरह की लिखाई (21)</b></summary>
+<summary><b>किस-किस तरह की लिखाई (29)</b></summary>
 
 <br>
 
 | लिखाई | किस बात का ध्यान रखता है |
 |---|---|
-| Emails | जल्दी वाला reply, शालीनता से मना करना, follow-up, thank you, माफ़ी, कुछ माँगना, और पूरी thread का reply |
+| Emails | जल्दी वाला reply, शालीनता से मना करना, follow-up, thank you, माफ़ी, कुछ माँगना, पूरी thread का reply, और interview के बाद thank-you note |
 | WhatsApp और SMS | घरवालों, landlord, delivery वालों, building group को reply |
 | Formal letters | छुट्टी, शिकायत, bank, सरकारी दफ़्तर और school के letters, Indian format में |
 | Resume और cover letter | Buzzwords की जगह सीधे शब्द, और कोई मनगढ़ंत achievement नहीं |
@@ -157,6 +169,14 @@ Landlord ke is WhatsApp ka reply likh do, politely
 | Notices और newsletters | Housing society, school, club और office के notice |
 | Freelance proposals | Upwork, Fiverr और client quotes, बिना मनगढ़ंत अनुभव के |
 | Essays | School और college के essays, student के अपने शब्दों में बेहतर |
+| शादी का biodata | प्यार भरा पर सच्चा matrimony profile, कुछ भी बढ़ा-चढ़ाकर नहीं |
+| Cold messages | LinkedIn notes, referral माँगना, recruiters और clients को cold emails |
+| Companies से शिकायत | Online shop, airline, telecom, bank, order number बिल्कुल वैसे ही |
+| RTI applications | सूचना का अधिकार (RTI) की अर्ज़ी, standard Indian format में |
+| किराए के posts | Flat किराए पर, PG और roommate के posts, सबके साथ बराबरी वाले शब्दों में |
+| School को messages | Teacher, class group और PTA को notes |
+| श्रद्धांजलि और शोक सूचना | सीधे, सच्चे शब्द, सिर्फ़ आपकी असली यादों से |
+| Release notes | Changelogs और app store का "What's new" text |
 
 </details>
 
@@ -176,6 +196,11 @@ Landlord ke is WhatsApp ka reply likh do, politely
 | कौन सी English | "Make it UK English" से US, UK, Australian और Indian spelling और dates के बीच बदलाव |
 | Paste के लिए तैयार | हर app में ठीक दिखने वाली line breaks और formatting |
 | पढ़ने की उम्र | "What reading age is this?" से मोटा-मोटा अंदाज़ा, सिर्फ़ जब आप पूछें |
+| भेजने से पहले | "Check this before I send it" बताता है: attachment छूट गया, दिन और तारीख़ मेल नहीं खाते, किसी सवाल का जवाब नहीं दिया, या [name] जैसे placeholder रह गए |
+| एक जैसा लिखना | "Check this report for consistency" बताता है कि कहाँ शब्द, spelling या नंबर लिखने का तरीक़ा बीच में बदल गया |
+| दूसरे देश के लोग | "Will this sound okay to my client in Germany?" बताता है कि बाहर क्या अटपटा लग सकता है |
+| दो लंबाई | "Give me a short and a long version" |
+| Speech का समय | "How long will this speech take?" हर हिस्से का समय बताता है |
 
 </details>
 
@@ -196,14 +221,14 @@ Landlord ke is WhatsApp ka reply likh do, politely
 | भाषा | क्या करता है |
 |---|---|
 | Indian English | लाख, करोड़, Indian date format और आम Indian बोलचाल बनी रहती है। ज़बरदस्ती American style नहीं। |
-| Hinglish, Tanglish, Manglish, Benglish, Kanglish और दूसरे mix | आपका mix और आपकी script वैसी ही। आपको "सुधारकर" pure English में नहीं बदलता। |
-| हिंदी, तमिल, तेलुगु, कन्नड़, मलयालम, बांग्ला, मराठी, गुजराती, पंजाबी, ओड़िया, उर्दू, असमिया | किताबी, अकड़ी हुई या machine से translate जैसी भाषा ठीक करता है |
-| Spanish, French, German, Portuguese, Indonesian, Arabic, Japanese | यही काम, हर भाषा की अपनी आम ग़लतियों के साथ |
+| Hinglish, Tanglish, Manglish, Benglish, Kanglish, Taglish और दूसरे mix | आपका mix और आपकी script वैसी ही। आपको "सुधारकर" pure English में नहीं बदलता। |
+| हिंदी, तमिल, तेलुगु, कन्नड़, मलयालम, बांग्ला, मराठी, गुजराती, पंजाबी, ओड़िया, उर्दू, असमिया, नेपाली, सिंहली, कोंकणी | किताबी, अकड़ी हुई या machine से translate जैसी भाषा ठीक करता है |
+| Spanish, French, German, Portuguese, Italian, Turkish, Indonesian, Arabic, Japanese, Korean, Chinese, Filipino | यही काम, हर भाषा की अपनी आम ग़लतियों के साथ |
 | Translation | "Translate this into Hindi" से ऐसा version मिलता है जो सच में हिंदी जैसा लगे |
 
 जब तक आप न कहें, यह translate नहीं करता। तमिल में लिखेंगे तो जवाब तमिल में आएगा।
 
-भाषाओं वाली guides अभी तक native speakers ने जाँची नहीं हैं। अगर आप इनमें से कोई भाषा बोलते हैं, तो [आपकी मदद का स्वागत है](CONTRIBUTING.md#help-wanted)।
+भाषाओं वाली guides अभी तक native speakers ने जाँची नहीं हैं। अगर आप इनमें से कोई भाषा बोलते हैं, तो [आपकी मदद का स्वागत है](CONTRIBUTING.md#help-wanted)। सबसे आसान तरीक़ा है एक [language review issue](https://github.com/thisiskurubaran/WriteLikeHuman/issues/new?template=language_review.md)।
 
 </details>
 

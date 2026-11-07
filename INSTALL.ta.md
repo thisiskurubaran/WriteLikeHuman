@@ -1,3 +1,4 @@
+<!-- Translated from INSTALL.md at v0.3.1 -->
 # WriteLikeHuman-ஐ install செய்வது
 
 > இது English [INSTALL guide](INSTALL.md)-இன் தமிழ் மொழிபெயர்ப்பு. முதன்மையானது English version தான், அது இதைவிடப் புதியதாக இருக்கலாம். தமிழ் உங்கள் தாய்மொழி என்றால், ஏதாவது சரியில்லாமல் தோன்றினால் திருத்தி அனுப்புங்கள், [எப்படி என்று இங்கே பாருங்கள்](CONTRIBUTING.md#help-wanted).
@@ -57,6 +58,17 @@ Skills உங்கள் account-உடன் இணைந்தவை, அத�
 ## Claude Code-இல் பயன்படுத்துவது
 
 இந்தப் பகுதி Claude Code பயன்படுத்துபவர்களுக்கு மட்டும், அதாவது terminal-இல் ஓடும் Claude version. பெரும்பாலானவர்கள் இதைத் தவிர்க்கலாம்.
+
+எளிதான வழி இதை plugin ஆக install செய்வது. Claude Code-இல் இந்த இரண்டு commands-ஐ type செய்யுங்கள்:
+
+```text
+/plugin marketplace add thisiskurubaran/WriteLikeHuman
+/plugin install write-like-human@writelikehuman
+```
+
+உங்கள் கோரிக்கை பொருந்தும்போது skill தானாகவே load ஆகும், அல்லது `/write-like-human:write-like-human` மூலம் நேரடியாக அழைக்கலாம். பின்னர் புதிய versions பெற `/plugin marketplace update writelikehuman` என்று ஓட்டுங்கள்.
+
+Plugin வேண்டாம் என்றால், folder-ஐ கையால் copy செய்யுங்கள்:
 
 1. `WriteLikeHuman.zip`-ஐ download செய்து unzip செய்யுங்கள்.
 2. `write-like-human` folder-ஐ `~/.claude/skills/`-க்குள் copy செய்யுங்கள் (folder இல்லையென்றால் உருவாக்குங்கள்).

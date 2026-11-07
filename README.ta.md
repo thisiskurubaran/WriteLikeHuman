@@ -1,3 +1,4 @@
+<!-- Translated from README.md at v0.3.1 -->
 <div align="center">
 
 # WriteLikeHuman
@@ -13,7 +14,7 @@ Email, WhatsApp reply, letter, resume, post, நீங்கள் தினம�
 [![No coding needed](https://img.shields.io/badge/coding-not%20needed-success)](INSTALL.md)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
 
-[Install](#install) · [என்ன கேட்கலாம்](#ask) · [Features](#features) · [கேள்வி பதில்](#faq) · [Contribute](#contributing)
+[Install](#install) · [என்ன கேட்கலாம்](#ask) · [Features](#features) · [கேள்வி பதில்](#faq) · [Contribute](#contributing) · [Website](https://thisiskurubaran.github.io/WriteLikeHuman/)
 
 [English](README.md) · [हिंदी](README.hi.md) · தமிழ்
 
@@ -75,7 +76,14 @@ Hi team, the quarterly report deadline has moved to 15 March. Please send me you
 
 ஒரே skill, ஒரே upload. உங்கள் account-இல் வந்துவிட்டால், Claude phone app-இலும் வேலை செய்யும்.
 
-இன்னும் உதவி வேண்டுமா, அல்லது Claude Code பயன்படுத்துகிறீர்களா? முழு [install guide](INSTALL.ta.md)-ஐப் பாருங்கள்.
+Claude Code பயன்படுத்துகிறீர்களா? இதை plugin ஆக install செய்யுங்கள்:
+
+```text
+/plugin marketplace add thisiskurubaran/WriteLikeHuman
+/plugin install write-like-human@writelikehuman
+```
+
+இன்னும் உதவி வேண்டுமா? முழு [install guide](INSTALL.ta.md)-ஐப் பாருங்கள்.
 
 <a name="ask"></a>
 ## என்ன கேட்கலாம்
@@ -126,17 +134,21 @@ Owner anuppina WhatsApp-ku oru polite reply ezhudhi kudunga
 | OpenDocument, RTF (.odt, .rtf) | Word file ஆக edit செய்யப்படும், எந்த format-இல் திரும்ப வரும் என்றும் சொல்லும். |
 | Chat, email screenshots | Screen-இல் தெரிவதை வைத்து reply, யாருடைய phone number-ஐயும் திரும்பச் சொல்லாமல். |
 | ஒரே நேரத்தில் பல files | ஒவ்வொரு file-உம் தனியாகச் சரிசெய்யப்படும், ஒன்றின் விவரம் இன்னொன்றில் கலக்காது. |
+| Apple Pages, Keynote | Convert செய்து edit செய்யப்படும், அல்லது முதலில் export செய்வதற்கான எளிய steps. |
+| Web pages (.html) | கண்ணுக்குத் தெரியும் text மட்டும் மாறும். Tags, links, code அப்படியே இருக்கும். |
+| Posters, flyers | மீண்டும் type செய்ய text-இன் சுத்தமான version. Claude image-ஐ நேரடியாக edit செய்ய முடியாது. |
+| Gmail, Outlook drafts | Claude உங்கள் mail-உடன் இணைந்திருந்தால் அங்கேயே edit. எதுவும் அனுப்பப்படாது. |
 
 ஒவ்வொரு file-உம் `yourfile-humanized` என்ற பெயரில் புதிய copy-ஆக வரும், அதனால் original பத்திரமாக இருக்கும். "a file showing what changed" என்று கேட்டால், ஒவ்வொரு மாற்றமும் குறிக்கப்பட்ட ஒரு Word file-உம் கிடைக்கும்.
 
 <details>
-<summary><b>என்னென்ன வகை எழுத்துகள் (21)</b></summary>
+<summary><b>என்னென்ன வகை எழுத்துகள் (29)</b></summary>
 
 <br>
 
 | எழுத்து வகை | எதைக் கவனிக்கும் |
 |---|---|
-| Emails | சீக்கிரம் அனுப்பும் reply, மரியாதையாக மறுப்பது, follow-up, நன்றி, மன்னிப்பு, ஏதாவது கேட்பது, முழு thread-க்கும் reply |
+| Emails | சீக்கிரம் அனுப்பும் reply, மரியாதையாக மறுப்பது, follow-up, நன்றி, மன்னிப்பு, ஏதாவது கேட்பது, முழு thread-க்கும் reply, interview-க்குப் பிறகு நன்றி note |
 | WhatsApp, SMS | குடும்பம், house owner, delivery ஆட்கள், building group-க்கு reply |
 | Formal letters | விடுப்பு, புகார், bank, அரசு அலுவலகம், school letters, Indian format-இல் |
 | Resume, cover letter | Buzzwords-க்குப் பதிலாக எளிய வார்த்தைகள், கற்பனைச் சாதனைகள் இல்லை |
@@ -157,6 +169,14 @@ Owner anuppina WhatsApp-ku oru polite reply ezhudhi kudunga
 | Notices, newsletters | Housing society, school, club, office notices |
 | Freelance proposals | Upwork, Fiverr, client quotes, கற்பனை அனுபவம் இல்லாமல் |
 | Essays | School, college essays, மாணவரின் சொந்த வார்த்தைகளில் மேம்படுத்தியது |
+| திருமண biodata | அன்பான, உண்மையான matrimony profile, எதையும் மிகைப்படுத்தாமல் |
+| Cold messages | LinkedIn notes, referral கேட்பது, recruiters, clients-க்கு cold emails |
+| நிறுவனங்களிடம் புகார் | Online shop, airline, telecom, bank, order number அப்படியே |
+| RTI applications | தகவல் அறியும் உரிமை (RTI) மனு, standard Indian format-இல் |
+| வாடகை posts | Flat வாடகைக்கு, PG, roommate posts, எல்லோருக்கும் நியாயமான வார்த்தைகளில் |
+| School-க்கு messages | Teacher, class group, PTA-க்கு notes |
+| இரங்கல் உரை, மரண அறிவிப்பு | எளிய, உண்மையான வார்த்தைகள், உங்கள் சொந்த நினைவுகளிலிருந்து மட்டும் |
+| Release notes | Changelogs, app store-இன் "What's new" text |
 
 </details>
 
@@ -176,6 +196,11 @@ Owner anuppina WhatsApp-ku oru polite reply ezhudhi kudunga
 | எந்த English | "Make it UK English" என்றால் US, UK, Australian, Indian spelling, dates இடையே மாற்றும் |
 | Paste செய்யத் தயார் | ஒவ்வொரு app-இலும் சரியாகத் தெரியும் line breaks, formatting |
 | படிக்கும் வயது | "What reading age is this?" என்றால் ஒரு தோராயமான அளவு, நீங்கள் கேட்டால் மட்டும் |
+| அனுப்பும் முன் | "Check this before I send it" என்றால்: attachment விடுபட்டது, கிழமையும் தேதியும் பொருந்தாதது, பதில் சொல்லாத கேள்வி, [name] போன்ற placeholders மீதம் இருப்பது |
+| ஒரே மாதிரி எழுதுவது | "Check this report for consistency" என்றால் சொற்கள், spelling, எண்கள் எழுதும் முறை பாதியில் மாறிய இடங்களைக் காட்டும் |
+| வெளிநாட்டு வாசகர்கள் | "Will this sound okay to my client in Germany?" என்றால் வெளிநாட்டில் எது தவறாகப் படலாம் என்று சொல்லும் |
+| இரண்டு நீளம் | "Give me a short and a long version" |
+| Speech நேரம் | "How long will this speech take?" என்றால் ஒவ்வொரு பகுதிக்கும் ஆகும் நேரம் |
 
 </details>
 
@@ -196,14 +221,14 @@ Owner anuppina WhatsApp-ku oru polite reply ezhudhi kudunga
 | மொழி | என்ன செய்யும் |
 |---|---|
 | Indian English | லட்சம், கோடி, Indian date format, இயல்பான Indian பேச்சு வழக்கு அப்படியே. வலுக்கட்டாயமான American style இல்லை. |
-| Hinglish, Tanglish, Manglish, Benglish, Kanglish, மற்ற கலவைகள் | உங்கள் கலவையும் உங்கள் எழுத்துமுறையும் அப்படியே. உங்களை "திருத்தி" pure English ஆக்காது. |
-| இந்தி, தமிழ், தெலுங்கு, கன்னடம், மலையாளம், வங்காளம், மராத்தி, குஜராத்தி, பஞ்சாபி, ஒடியா, உருது, அஸ்ஸாமி | புத்தகத்தனமான, இறுக்கமான, அல்லது machine மொழிபெயர்ப்பு போன்ற வார்த்தைகளைச் சரிசெய்யும் |
-| Spanish, French, German, Portuguese, Indonesian, Arabic, Japanese | அதே வேலை, ஒவ்வொரு மொழியின் பொதுவான தவறுகளுடன் |
+| Hinglish, Tanglish, Manglish, Benglish, Kanglish, Taglish, மற்ற கலவைகள் | உங்கள் கலவையும் உங்கள் எழுத்துமுறையும் அப்படியே. உங்களை "திருத்தி" pure English ஆக்காது. |
+| இந்தி, தமிழ், தெலுங்கு, கன்னடம், மலையாளம், வங்காளம், மராத்தி, குஜராத்தி, பஞ்சாபி, ஒடியா, உருது, அஸ்ஸாமி, நேபாளி, சிங்களம், கொங்கணி | புத்தகத்தனமான, இறுக்கமான, அல்லது machine மொழிபெயர்ப்பு போன்ற வார்த்தைகளைச் சரிசெய்யும் |
+| Spanish, French, German, Portuguese, Italian, Turkish, Indonesian, Arabic, Japanese, Korean, Chinese, Filipino | அதே வேலை, ஒவ்வொரு மொழியின் பொதுவான தவறுகளுடன் |
 | மொழிபெயர்ப்பு | "Translate this into Tamil" என்றால் உண்மையான தமிழ் போலத் தோன்றும் version கிடைக்கும் |
 
 நீங்கள் கேட்காமல் மொழிபெயர்க்காது. தமிழில் எழுதினால் தமிழில் பதில் வரும்.
 
-மொழி guides-ஐ இன்னும் தாய்மொழியாகப் பேசுபவர்கள் சரிபார்க்கவில்லை. இவற்றில் ஏதாவது ஒரு மொழி உங்களுக்குத் தெரிந்தால், [உங்கள் உதவியை வரவேற்கிறோம்](CONTRIBUTING.md#help-wanted).
+மொழி guides-ஐ இன்னும் தாய்மொழியாகப் பேசுபவர்கள் சரிபார்க்கவில்லை. இவற்றில் ஏதாவது ஒரு மொழி உங்களுக்குத் தெரிந்தால், [உங்கள் உதவியை வரவேற்கிறோம்](CONTRIBUTING.md#help-wanted). எளிதான வழி ஒரு [language review issue](https://github.com/thisiskurubaran/WriteLikeHuman/issues/new?template=language_review.md).
 
 </details>
 
