@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-07
+
 ## [0.2.0] - 2026-11-07
 
 ### Added
@@ -89,6 +91,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Security policy with private reporting.
 - Issue templates for bugs and feature requests, and a pull request checklist.
 
-[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.1.0
