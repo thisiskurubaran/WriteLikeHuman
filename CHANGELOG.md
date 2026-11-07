@@ -40,6 +40,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Marriage biodata and matrimony profiles, warm and factual.
 - Cold messages: LinkedIn notes, referral requests, and cold emails.
 - Complaints to companies, with order numbers kept exact and an escalation path.
+- RTI applications in the standard Indian format.
 
 ### Changed
 

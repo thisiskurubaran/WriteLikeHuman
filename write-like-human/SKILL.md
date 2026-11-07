@@ -71,6 +71,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | A marriage biodata or matrimony profile | [references/writing/marriage-biodata.md](references/writing/marriage-biodata.md) |
 | A cold message: LinkedIn connection note, referral request, cold email to a recruiter or client | [references/writing/outreach.md](references/writing/outreach.md) |
 | A complaint to a company: online shop, airline, telecom, bank | [references/writing/consumer-complaints.md](references/writing/consumer-complaints.md) |
+| An RTI (Right to Information) application | [references/writing/rti.md](references/writing/rti.md) |
 
 ## Adjust, voice, and language (add any that match)
 
