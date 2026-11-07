@@ -4,146 +4,447 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WriteLikeHuman</title>
-<meta name="description" content="A free Claude skill that makes everyday writing sound like a person wrote it. Emails, WhatsApp replies, letters, resumes, posts, and your files.">
+<meta name="description" content="A free Claude skill that makes everyday writing sound like a person wrote it. Emails, WhatsApp replies, letters, resumes, posts, and the files you already use.">
+<meta property="og:title" content="WriteLikeHuman">
+<meta property="og:description" content="Make everyday writing sound like you wrote it. A free Claude skill.">
+<meta name="theme-color" content="#f8f4ec">
 <style>
 :root {
-  --bg: #fbfaf7;
-  --surface: #ffffff;
-  --text: #1f1d1a;
-  --muted: #5d5850;
-  --line: #e6e1d8;
-  --accent: #b5542f;
-  --accent-text: #ffffff;
-  --before: #fbeeea;
-  --after: #eaf4ec;
+  --bg: #f8f4ec;
+  --surface: #fffdf8;
+  --ink: #1d1a16;
+  --muted: #5f584e;
+  --line: #e4dccd;
+  --accent: #b4472a;
+  --accent-ink: #ffffff;
+  --green: #1e5b48;
+  --green-soft: #dcebe3;
+  --mark: #f5d76e;
+  --strike: #c9452a;
+  --shadow: #1d1a16;
+  --chip: #efe7d8;
+  --radius: 14px;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #171614;
-    --surface: #211f1c;
-    --text: #f1ede6;
-    --muted: #b3ab9f;
-    --line: #36322c;
-    --accent: #e58a63;
-    --accent-text: #171614;
-    --before: #3a2621;
-    --after: #1f3324;
+    --bg: #141310;
+    --surface: #1e1c18;
+    --ink: #f2ede4;
+    --muted: #b5ad9f;
+    --line: #34302a;
+    --accent: #ea8a62;
+    --accent-ink: #141310;
+    --green: #74c3a5;
+    --green-soft: #1f3a30;
+    --mark: #6b5a1c;
+    --strike: #f08a6e;
+    --shadow: #000000;
+    --chip: #2a2722;
   }
 }
 * { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
 body {
   margin: 0;
   background: var(--bg);
-  color: var(--text);
-  font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+  color: var(--ink);
+  font: 17px/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
 }
-main { max-width: 860px; margin: 0 auto; padding: 0 16px 64px; }
-header { text-align: center; padding: 56px 0 32px; }
-h1 { font-size: clamp(2rem, 6vw, 3rem); margin: 0 0 8px; letter-spacing: -0.02em; }
-h2 { font-size: 1.5rem; margin: 48px 0 12px; }
-p.lead { font-size: 1.2rem; color: var(--muted); margin: 0 auto 24px; max-width: 34em; }
-a { color: var(--accent); }
-.button {
-  display: inline-block; background: var(--accent); color: var(--accent-text);
-  padding: 12px 22px; border-radius: 10px; text-decoration: none; font-weight: 600;
-}
-.button.secondary { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
-.actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-.langs { margin-top: 16px; font-size: 0.95rem; color: var(--muted); }
-.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.compare div { padding: 16px 18px; border-radius: 12px; border: 1px solid var(--line); }
-.compare .before { background: var(--before); }
-.compare .after { background: var(--after); }
-.compare h3 { margin: 0 0 8px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
-.note { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; margin-top: 16px; }
-ol.steps { padding-left: 1.3em; }
-ol.steps li { margin-bottom: 8px; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
-.card h3 { margin: 0 0 6px; font-size: 1.05rem; }
-.card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
-code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; }
-pre { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; overflow-x: auto; }
-footer { text-align: center; color: var(--muted); font-size: 0.9rem; margin-top: 56px; }
-@media (max-width: 620px) { .compare { grid-template-columns: 1fr; } }
+a { color: inherit; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+.skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: var(--bg); padding: 8px 12px; border-radius: 8px; }
+.skip:focus { left: 8px; z-index: 10; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+/* Nav */
+nav { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; text-decoration: none; letter-spacing: -0.01em; }
+.brand-mark { width: 30px; height: 30px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; font-family: var(--serif); font-size: 18px; font-weight: 700; }
+.navlinks { display: flex; align-items: center; gap: 22px; font-size: 15px; }
+.navlinks a { text-decoration: none; color: var(--muted); }
+.navlinks a:hover { color: var(--ink); }
+.navlinks .gh { color: var(--ink); border: 1.5px solid var(--ink); padding: 6px 14px; border-radius: 999px; font-weight: 600; }
+@media (max-width: 720px) { .navlinks a:not(.gh) { display: none; } }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 12px; font-weight: 650; text-decoration: none; border: 2px solid var(--ink); transition: transform .12s ease, box-shadow .12s ease; }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--ink); box-shadow: 4px 4px 0 var(--shadow); }
+.btn-primary:hover { transform: translate(-1px, -1px); box-shadow: 5px 5px 0 var(--shadow); }
+.btn-ghost { background: transparent; color: var(--ink); }
+.btn-ghost:hover { background: var(--chip); }
+
+/* Hero */
+.hero { padding: 72px 0 56px; }
+.hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+@media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; gap: 40px; } .hero { padding-top: 48px; } }
+.eyebrow { display: inline-block; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--green); background: var(--green-soft); padding: 5px 12px; border-radius: 999px; margin-bottom: 18px; }
+h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(2.5rem, 6vw, 4.2rem); line-height: 1.04; letter-spacing: -0.025em; margin: 0 0 20px; }
+h1 em { font-style: italic; color: var(--accent); }
+.lede { font-size: 1.2rem; color: var(--muted); max-width: 32em; margin: 0 0 30px; }
+.cta { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.meta { margin-top: 22px; font-size: 14px; color: var(--muted); display: flex; gap: 18px; flex-wrap: wrap; }
+.meta span::before { content: "✓"; color: var(--green); font-weight: 800; margin-right: 6px; }
+
+/* Demo card */
+.demo { background: var(--surface); border: 2px solid var(--ink); border-radius: 18px; box-shadow: 8px 8px 0 var(--shadow); overflow: hidden; }
+.demo-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border-bottom: 2px solid var(--ink); background: var(--chip); flex-wrap: wrap; }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab, .toggle button { font: inherit; font-size: 13px; font-weight: 650; border: 1.5px solid var(--ink); background: var(--surface); color: var(--ink); padding: 5px 11px; border-radius: 999px; cursor: pointer; }
+.tab[aria-selected="true"] { background: var(--ink); color: var(--bg); }
+.toggle { display: inline-flex; border: 1.5px solid var(--ink); border-radius: 999px; overflow: hidden; }
+.toggle button { border: 0; border-radius: 0; background: transparent; }
+.toggle button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.demo-body { padding: 22px 22px 8px; min-height: 170px; font-size: 16px; }
+.demo-body p { margin: 0 0 12px; }
+.demo-body del { text-decoration: line-through; text-decoration-color: var(--strike); text-decoration-thickness: 2px; color: var(--muted); }
+.demo-body mark { background: var(--mark); color: inherit; padding: 0 3px; border-radius: 4px; }
+.demo-notes { border-top: 1px dashed var(--line); margin: 6px 22px 0; padding: 14px 0 20px; font-size: 14px; color: var(--muted); }
+.demo-notes strong { color: var(--ink); display: block; margin-bottom: 4px; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; }
+.demo-notes ul { margin: 0; padding-left: 18px; }
+
+/* Works with strip */
+.strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--surface); }
+.strip .wrap { display: flex; align-items: center; gap: 14px; padding-top: 18px; padding-bottom: 18px; flex-wrap: wrap; }
+.strip-label { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-right: 6px; }
+.pill { font-size: 14px; font-weight: 600; background: var(--chip); padding: 6px 12px; border-radius: 999px; }
+
+/* Sections */
+section.block { padding: 88px 0; }
+.kicker { font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 10px; }
+h2 { font-family: var(--serif); font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 14px; }
+.sub { color: var(--muted); font-size: 1.1rem; max-width: 40em; margin: 0 0 40px; }
+
+/* Tells */
+.tells { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.tell { background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius); padding: 20px; }
+.tell h3 { margin: 0 0 10px; font-size: 1rem; }
+.tell .from { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--strike); text-decoration-thickness: 2px; font-size: 15px; margin: 0 0 6px; }
+.tell .to { margin: 0; font-weight: 600; font-size: 15px; }
+.tell .to::before { content: "→ "; color: var(--green); font-weight: 800; }
+
+/* Features */
+.alt { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+@media (max-width: 900px) { .features { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .features { grid-template-columns: 1fr; } }
+.feature { border: 1.5px solid var(--line); border-radius: var(--radius); padding: 24px; background: var(--bg); }
+.icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 16px; border: 1.5px solid var(--ink); }
+.icon svg { width: 22px; height: 22px; stroke: var(--ink); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.i1 { background: var(--mark); } .i2 { background: var(--green-soft); } .i3 { background: var(--chip); }
+.feature h3 { margin: 0 0 8px; font-size: 1.1rem; }
+.feature p { margin: 0; color: var(--muted); font-size: 15.5px; }
+
+/* Languages */
+.langs { display: flex; flex-wrap: wrap; gap: 10px; }
+.lang { font-size: 17px; padding: 8px 15px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--surface); }
+.lang small { color: var(--muted); font-size: 12px; margin-left: 6px; }
+.lang.hl { border-color: var(--ink); background: var(--green-soft); }
+.lang-note { margin-top: 22px; color: var(--muted); font-size: 15px; }
+
+/* Install */
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; counter-reset: step; }
+@media (max-width: 820px) { .steps { grid-template-columns: 1fr; } }
+.step { position: relative; background: var(--surface); border: 2px solid var(--ink); border-radius: var(--radius); padding: 24px; box-shadow: 5px 5px 0 var(--shadow); }
+.step::before { counter-increment: step; content: counter(step); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-weight: 800; margin-bottom: 14px; }
+.step h3 { margin: 0 0 6px; font-size: 1.1rem; }
+.step p { margin: 0; color: var(--muted); font-size: 15.5px; }
+.code { margin-top: 28px; background: var(--ink); color: var(--bg); border-radius: var(--radius); padding: 18px 20px; display: flex; gap: 16px; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; }
+.code pre { margin: 0; font: 14.5px/1.7 var(--mono); white-space: pre-wrap; word-break: break-word; }
+.code .label { display: block; font: 600 12px var(--sans); letter-spacing: .08em; text-transform: uppercase; opacity: .7; margin-bottom: 6px; }
+.copy { font: 600 13px var(--sans); background: var(--bg); color: var(--ink); border: 0; padding: 8px 14px; border-radius: 999px; cursor: pointer; }
+
+/* Honest */
+.honest { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+@media (max-width: 820px) { .honest { grid-template-columns: 1fr; gap: 24px; } }
+.nolist { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.nolist li { background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding: 14px 16px 14px 48px; position: relative; }
+.nolist li::before { content: "✕"; position: absolute; left: 16px; top: 13px; width: 22px; height: 22px; border-radius: 50%; background: var(--strike); color: var(--surface); font-size: 12px; font-weight: 800; display: grid; place-items: center; }
+
+/* FAQ */
+.faq { max-width: 780px; }
+details { border-bottom: 1.5px solid var(--line); padding: 18px 0; }
+summary { cursor: pointer; font-weight: 650; font-size: 1.08rem; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-size: 1.4rem; line-height: 1; color: var(--accent); }
+details[open] summary::after { content: "−"; }
+details p { color: var(--muted); margin: 10px 0 0; }
+
+/* Final CTA */
+.final { background: var(--green); color: #fff; border-radius: 22px; padding: 56px 40px; text-align: center; border: 2px solid var(--ink); box-shadow: 8px 8px 0 var(--shadow); }
+@media (prefers-color-scheme: dark) { .final { color: #10231c; } }
+.final h2 { margin-bottom: 10px; }
+.final p { margin: 0 auto 26px; max-width: 34em; opacity: .92; font-size: 1.1rem; }
+.final .btn-primary { background: var(--bg); color: var(--ink); }
+
+footer { padding: 48px 0 56px; color: var(--muted); font-size: 14.5px; }
+footer .wrap { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+footer a { color: var(--muted); }
 </style>
 </head>
 <body>
-<main>
+<a class="skip" href="#main">Skip to content</a>
 
-<header>
-  <h1>WriteLikeHuman</h1>
-  <p class="lead">Make everyday writing sound like you wrote it. A free Claude skill for emails, WhatsApp replies, letters, resumes, posts, and the files you already use.</p>
-  <div class="actions">
-    <a class="button" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Download the skill</a>
-    <a class="button secondary" href="https://github.com/thisiskurubaran/WriteLikeHuman">View on GitHub</a>
+<nav aria-label="Main">
+  <div class="wrap">
+    <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">W</span>WriteLikeHuman</a>
+    <div class="navlinks">
+      <a href="#catches">What it fixes</a>
+      <a href="#features">Features</a>
+      <a href="#languages">Languages</a>
+      <a href="#install">Install</a>
+      <a class="gh" href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>
+    </div>
   </div>
-  <p class="langs">Read the guide in
-    <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/README.md">English</a>,
-    <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/README.hi.md">हिंदी</a>, or
-    <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/README.ta.md">தமிழ்</a>
-  </p>
+</nav>
+
+<main id="main">
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Free Claude skill</span>
+      <h1>Writing that sounds like <em>you</em>, not a chatbot.</h1>
+      <p class="lede">Paste an email, attach a Word file, or forward a WhatsApp message and say "make this sound less robotic". You get it back in plain, natural words, with every fact and number exactly where you left it.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Download the skill</a>
+        <a class="btn btn-ghost" href="#install">How to install</a>
+      </div>
+      <div class="meta"><span>No coding</span><span>Web, desktop, and phone</span><span>Your original file stays safe</span></div>
+    </div>
+
+    <div class="demo" aria-label="Before and after example">
+      <div class="demo-top">
+        <div class="tabs" role="tablist" aria-label="Example">
+          <button class="tab" role="tab" aria-selected="true" data-ex="email">Email</button>
+          <button class="tab" role="tab" aria-selected="false" data-ex="whatsapp">WhatsApp</button>
+          <button class="tab" role="tab" aria-selected="false" data-ex="linkedin">LinkedIn</button>
+        </div>
+        <div class="toggle" role="group" aria-label="Show version">
+          <button type="button" aria-pressed="false" data-view="before">Before</button>
+          <button type="button" aria-pressed="true" data-view="after">After</button>
+        </div>
+      </div>
+      <div class="demo-body" id="demo-body" aria-live="polite"></div>
+      <div class="demo-notes" id="demo-notes"></div>
+    </div>
+  </div>
 </header>
 
-<section aria-labelledby="diff">
-  <h2 id="diff">See the difference</h2>
-  <div class="compare">
-    <div class="before">
-      <h3>Before</h3>
-      I hope this message finds you well! I wanted to reach out regarding the quarterly report. It's important to note that the deadline has been moved to 15 March. Please ensure that all inputs are submitted accordingly. Let me know if you have any questions!
-    </div>
-    <div class="after">
-      <h3>After</h3>
-      Hi team, the quarterly report deadline has moved to 15 March. Please send me your inputs by then.
+<div class="strip">
+  <div class="wrap">
+    <span class="strip-label">Works with</span>
+    <span class="pill">Word</span><span class="pill">PDF</span><span class="pill">Google Docs</span><span class="pill">Excel and Sheets</span><span class="pill">PowerPoint</span><span class="pill">WhatsApp</span><span class="pill">Gmail and Outlook</span><span class="pill">Web pages</span><span class="pill">Subtitles</span><span class="pill">Screenshots</span>
+  </div>
+</div>
+
+<section class="block" id="catches" aria-labelledby="catches-h">
+  <div class="wrap">
+    <p class="kicker">What it fixes</p>
+    <h2 id="catches-h">The habits that give chatbot writing away</h2>
+    <p class="sub">One habit on its own proves nothing. A stack of them is what makes a message sound generated. WriteLikeHuman spots the stack and fixes it without making your writing sloppy.</p>
+    <div class="tells">
+      <div class="tell"><h3>Throat-clearing openers</h3><p class="from">In today's fast-paced world, staying organized matters.</p><p class="to">Here's how I keep track of bills.</p></div>
+      <div class="tell"><h3>Filler phrases</h3><p class="from">It's important to note that the office is closed.</p><p class="to">The office is closed on Monday.</p></div>
+      <div class="tell"><h3>Inflated importance</h3><p class="from">A significant milestone in our journey.</p><p class="to">The canteen has a new menu.</p></div>
+      <div class="tell"><h3>Chatbot sign-offs</h3><p class="from">I hope this helps! Feel free to reach out!</p><p class="to">Thanks, Arjun</p></div>
+      <div class="tell"><h3>Forced groups of three</h3><p class="from">Dedicated, passionate, and committed to excellence.</p><p class="to">Our team cares about getting it right.</p></div>
+      <div class="tell"><h3>Fancy words for plain ones</h3><p class="from">We will commence once all participants arrive.</p><p class="to">We'll start once everyone is here.</p></div>
     </div>
   </div>
-  <div class="note">
-    <strong>What I changed</strong>
-    <ul>
-      <li>Removed the stock opening and closing lines.</li>
-      <li>Cut "It's important to note that", which added nothing.</li>
-      <li>Kept the date exactly as it was.</li>
+</section>
+
+<section class="block alt" id="features" aria-labelledby="features-h">
+  <div class="wrap">
+    <p class="kicker">Features</p>
+    <h2 id="features-h">One skill, everything you write</h2>
+    <p class="sub">You upload one zip once. Claude picks the right approach from what you give it and what you ask for.</p>
+    <div class="features">
+      <div class="feature">
+        <div class="icon i1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></div>
+        <h3>Your files, kept intact</h3>
+        <p>Word, PDF, Google Docs, spreadsheets, slides, and web pages. Fonts, tables, and formulas stay put, and you get a new copy.</p>
+      </div>
+      <div class="feature">
+        <div class="icon i2" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>29 kinds of writing</h3>
+        <p>Emails, WhatsApp replies, Indian format letters, resumes, posts, speeches, wishes, complaints, RTI applications, and more.</p>
+      </div>
+      <div class="feature">
+        <div class="icon i3" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+        <h3>Sounds like you</h3>
+        <p>Share a few things you wrote and it builds a voice profile. Keep a "work me" and a "personal me".</p>
+      </div>
+      <div class="feature">
+        <div class="icon i2" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg></div>
+        <h3>Check before you send</h3>
+        <p>Spots a missing attachment, a weekday that doesn't match the date, or a question you forgot to answer.</p>
+      </div>
+      <div class="feature">
+        <div class="icon i3" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h10M4 17h6"/></svg></div>
+        <h3>Tone, length, reading level</h3>
+        <p>Friendlier, more formal, simpler for your dad, or cut to 150 words. It keeps the meaning and the facts.</p>
+      </div>
+      <div class="feature">
+        <div class="icon i1" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"/></svg></div>
+        <h3>Private and honest</h3>
+        <p>Your text stays in your chat. It never invents facts, and it won't write fake reviews.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="languages" aria-labelledby="languages-h">
+  <div class="wrap">
+    <p class="kicker">Languages</p>
+    <h2 id="languages-h">Natural in your language, and in your mix</h2>
+    <p class="sub">Keeps lakh and crore, Indian dates, and Hinglish or Tanglish exactly as you write them. It never translates unless you ask, and when you do, it sounds native.</p>
+    <div class="langs">
+      <span class="lang hl">Indian English</span><span class="lang hl">Hinglish</span><span class="lang hl">Tanglish</span>
+      <span class="lang">हिंदी</span><span class="lang">தமிழ்</span><span class="lang">తెలుగు</span><span class="lang">ಕನ್ನಡ</span><span class="lang">മലയാളം</span><span class="lang">বাংলা</span><span class="lang">मराठी</span><span class="lang">ગુજરાતી</span><span class="lang">ਪੰਜਾਬੀ</span><span class="lang">ଓଡ଼ିଆ</span><span class="lang" lang="ur" dir="rtl">اردو</span><span class="lang">অসমীয়া</span><span class="lang">नेपाली</span><span class="lang">සිංහල</span><span class="lang">कोंकणी</span>
+      <span class="lang">Español</span><span class="lang">Français</span><span class="lang">Deutsch</span><span class="lang">Português</span><span class="lang">Italiano</span><span class="lang">Türkçe</span><span class="lang">Bahasa Indonesia</span><span class="lang" lang="ar" dir="rtl">العربية</span><span class="lang">日本語</span><span class="lang">한국어</span><span class="lang">中文</span><span class="lang">Filipino</span>
+    </div>
+    <p class="lang-note">Speak one of these? The guides haven't been checked by native speakers yet. <a href="https://github.com/thisiskurubaran/WriteLikeHuman/issues/new?template=language_review.md">Suggest a fix</a>.</p>
+  </div>
+</section>
+
+<section class="block alt" id="install" aria-labelledby="install-h">
+  <div class="wrap">
+    <p class="kicker">Install</p>
+    <h2 id="install-h">Ready in two minutes</h2>
+    <p class="sub">If you can upload a photo, you can install this. Skills you add on the website show up in the Claude phone app too.</p>
+    <div class="steps">
+      <div class="step"><h3>Download the zip</h3><p>Get <strong>WriteLikeHuman.zip</strong> from the <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">latest release</a>. Don't unzip it.</p></div>
+      <div class="step"><h3>Turn on file creation</h3><p>In Claude, open <strong>Settings &gt; Capabilities</strong> and turn on <strong>Code execution and file creation</strong>.</p></div>
+      <div class="step"><h3>Upload the skill</h3><p>Go to <strong>Customize &gt; Skills</strong>, click <strong>+</strong>, choose <strong>Upload a skill</strong>, and pick the zip.</p></div>
+    </div>
+    <div class="code">
+      <div>
+        <span class="label">Using Claude Code? Install it as a plugin</span>
+        <pre id="plugin-cmd">/plugin marketplace add thisiskurubaran/WriteLikeHuman
+/plugin install write-like-human@writelikehuman</pre>
+      </div>
+      <button class="copy" type="button" data-copy="plugin-cmd">Copy</button>
+    </div>
+    <p style="margin-top:22px;color:var(--muted)">Stuck? The <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.md">install guide</a> has every step, also in <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.hi.md">हिंदी</a> and <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.ta.md">தமிழ்</a>.</p>
+  </div>
+</section>
+
+<section class="block" aria-labelledby="honest-h">
+  <div class="wrap honest">
+    <div>
+      <p class="kicker">Honest by design</p>
+      <h2 id="honest-h">Better writing, not pretending</h2>
+      <p class="sub" style="margin-bottom:0">WriteLikeHuman helps you say what you mean in your own words. Some things it simply won't do.</p>
+    </div>
+    <ul class="nolist">
+      <li>Change your names, numbers, dates, amounts, or quotes</li>
+      <li>Promise that writing will get past any checker</li>
+      <li>Write fake reviews, or reviews of things you haven't used</li>
+      <li>Add experiences or qualifications you don't have</li>
+      <li>Imitate a real person other than you</li>
     </ul>
   </div>
 </section>
 
-<section aria-labelledby="install">
-  <h2 id="install">Install in two minutes</h2>
-  <ol class="steps">
-    <li>Download <code>WriteLikeHuman.zip</code> from the <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">latest release</a>. Don't unzip it.</li>
-    <li>In Claude, open <strong>Settings &gt; Capabilities</strong> and turn on <strong>Code execution and file creation</strong>.</li>
-    <li>Go to <strong>Customize &gt; Skills</strong>, click <strong>+</strong>, then <strong>Upload a skill</strong>, and pick the zip.</li>
-    <li>Check the switch next to WriteLikeHuman is on. That's it.</li>
-  </ol>
-  <p>Once it's on your account, it works in the Claude phone app too. Full steps are in the <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.md">install guide</a>.</p>
-</section>
-
-<section aria-labelledby="ask">
-  <h2 id="ask">Just ask</h2>
-  <pre>Make this email sound less robotic
-Humanize this Word file
-Does this sound like AI?
-Write a farewell speech for my manager
-Reply to this WhatsApp from my landlord
-Check this before I send it</pre>
-</section>
-
-<section aria-labelledby="what">
-  <h2 id="what">What it handles</h2>
-  <div class="grid">
-    <div class="card"><h3>Your files</h3><p>Word, PDF, Google Docs, spreadsheets, slides, text, subtitles, web pages. Formatting, numbers, and formulas stay put.</p></div>
-    <div class="card"><h3>Everyday writing</h3><p>Emails, WhatsApp replies, letters, resumes, posts, speeches, wishes, reviews, invitations, complaints, and more.</p></div>
-    <div class="card"><h3>Your own voice</h3><p>Learns how you write from your own samples, so the result sounds like you, not like a template.</p></div>
-    <div class="card"><h3>Many languages</h3><p>Indian English, Hinglish, Tanglish, and 27 other languages from India, the rest of Asia, and Europe. It never translates unless you ask.</p></div>
-    <div class="card"><h3>Checks before you send</h3><p>Spots a missing attachment, a weekday that doesn't match the date, or a question you forgot to answer.</p></div>
-    <div class="card"><h3>Honest by design</h3><p>Keeps your facts. No fake reviews, no invented experiences, no pretending to be someone else.</p></div>
+<section class="block alt" aria-labelledby="faq-h">
+  <div class="wrap">
+    <p class="kicker">Questions</p>
+    <h2 id="faq-h">Good to know</h2>
+    <div class="faq">
+      <details><summary>Is it free?</summary><p>Yes. WriteLikeHuman is free and open source under the MIT license. You need a Claude account where skills are available.</p></details>
+      <details><summary>Will it mess up my document?</summary><p>It changes words, not layout. Fonts, tables, lists, and formulas stay put, and you always get a new copy named with "-humanized", so your original is untouched.</p></details>
+      <details><summary>Does it work on my phone?</summary><p>Yes. Upload it once on the Claude website or desktop app, then use it in the Claude phone app with the same account.</p></details>
+      <details><summary>It didn't kick in. What now?</summary><p>Start your message with "Use WriteLikeHuman to...". If that doesn't help, check the switch is on under Customize &gt; Skills.</p></details>
+      <details><summary>Does it keep my writing private?</summary><p>Your text is only used in your own chat with Claude. The skill doesn't save or send it anywhere.</p></details>
+    </div>
   </div>
 </section>
 
-<footer>
-  <p>Free and open source under the MIT license. <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md">Help improve it</a>.</p>
-</footer>
+<section class="block" aria-labelledby="final-h">
+  <div class="wrap">
+    <div class="final">
+      <h2 id="final-h">Try it on your next email</h2>
+      <p>Download once, upload once, and every message after that sounds a little more like you.</p>
+      <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Download WriteLikeHuman</a>
+    </div>
+  </div>
+</section>
 
 </main>
+
+<footer>
+  <div class="wrap">
+    <span>WriteLikeHuman is free and open source under the MIT license.</span>
+    <span><a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a> · <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md">Contribute</a> · <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CHANGELOG.md">Changelog</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var examples = {
+    email: {
+      before: '<p><del>I hope this message finds you well!</del> <del>I wanted to reach out regarding</del> the quarterly report. <del>It\'s important to note that</del> the deadline has been moved to <mark>15 March</mark>. <del>Please ensure that all inputs are submitted accordingly.</del> <del>Let me know if you have any questions!</del></p>',
+      after: '<p>Hi team, the quarterly report deadline has moved to <mark>15 March</mark>. Please send me your inputs by then.</p>',
+      notes: ['Removed the stock opening and closing lines.', 'Cut "It\'s important to note that", which added nothing.', 'Kept the date exactly as it was.']
+    },
+    whatsapp: {
+      before: '<p><del>Dear Sir, I hope you are doing well.</del> <del>I would like to kindly inform you that</del> I will transfer the rent of <mark>Rs 18,000</mark> by the <mark>30th</mark>. <del>Please do not hesitate to contact me should you require anything further.</del></p>',
+      after: '<p>Sure uncle, I\'ll transfer the <mark>Rs 18,000</mark> by the <mark>30th</mark>. Safe travels!</p>',
+      notes: ['Made it sound like a text message, not a letter.', 'Kept the amount and the date exactly.', 'Matched the friendly "uncle" tone of the chat.']
+    },
+    linkedin: {
+      before: '<p><del>I\'m thrilled to announce that I\'ve started a new chapter!</del> After an incredible journey, I\'m joining <mark>Brightlane</mark> as a <mark>Product Designer</mark>.</p><p><del>Grateful. Humbled. Excited.</del></p><p><del>#NewJob #Grateful #Design #Career #Growth</del></p>',
+      after: '<p>I\'ve joined <mark>Brightlane</mark> as a <mark>Product Designer</mark>. I\'ll be working on their delivery app, which I\'ve used for years. Thanks to everyone at Northbay for four good years.</p><p>#ProductDesign</p>',
+      notes: ['Dropped the three one-word lines and the hashtag wall.', 'Used the details you gave about the app and your old team.', 'Kept the company and job title exactly.']
+    }
+  };
+  var current = 'email', view = 'after';
+  var body = document.getElementById('demo-body');
+  var notes = document.getElementById('demo-notes');
+  function render() {
+    var ex = examples[current];
+    body.innerHTML = ex[view];
+    if (view === 'after') {
+      notes.innerHTML = '<strong>What I changed</strong><ul>' + ex.notes.map(function (n) { return '<li>' + n + '</li>'; }).join('') + '</ul>';
+    } else {
+      notes.innerHTML = '<strong>Before</strong>Struck-through parts are the habits it removes. Highlighted parts are facts it never changes.';
+    }
+  }
+  document.querySelectorAll('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.tab').forEach(function (t) { t.setAttribute('aria-selected', 'false'); });
+      tab.setAttribute('aria-selected', 'true');
+      current = tab.getAttribute('data-ex');
+      render();
+    });
+  });
+  document.querySelectorAll('.toggle button').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.toggle button').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+      btn.setAttribute('aria-pressed', 'true');
+      view = btn.getAttribute('data-view');
+      render();
+    });
+  });
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.getAttribute('data-copy')).textContent;
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1600); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { btn.textContent = 'Select and copy'; });
+      } else {
+        btn.textContent = 'Select and copy';
+      }
+    });
+  });
+  render();
+})();
+</script>
 </body>
 </html>
