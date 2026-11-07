@@ -11,6 +11,8 @@
 - [ ] No real personal data (names, emails, phone numbers, addresses, documents)
 - [ ] Follows the ethics rules in `CONTRIBUTING.md`
 - [ ] `CHANGELOG.md` updated under `[Unreleased]`
+- [ ] New modules have a case in `tests/evals/evals.json`, and new scripts have a test in `tests/test_scripts.py`
+- [ ] The automatic checks on this pull request pass
 - [ ] Tested by uploading the zipped skill and trying a few everyday prompts
 
 ## Test prompts I tried
