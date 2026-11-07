@@ -33,6 +33,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - An optional reading age in the accessibility check, only when asked.
 - Tests for every helper script, using sample files made at run time.
 - Skill evals: prompts with expected behavior to run before each release.
+- Automatic style, structure, and script checks on every pull request.
 
 ## [0.1.0] - 2026-11-07
 

@@ -1,0 +1,86 @@
+# Runs the same checks as CONTRIBUTING.md, plus the script tests,
+# on every pull request and every push to main.
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  style:
+    name: Style and structure
+    runs-on: ubuntu-latest
+    env:
+      LC_ALL: C.UTF-8
+      EX: --exclude-dir=.git --exclude=CONTRIBUTING.md --exclude=ai-patterns.md --exclude=buzzwords.md
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: No em or en dashes
+        run: |
+          if grep -rnP '\x{2014}|\x{2013}' --exclude-dir=.git .; then
+            echo "::error::Em or en dashes found. Use a comma, colon, period, or plain hyphen."
+            exit 1
+          fi
+
+      - name: No stock AI words outside the lists that name them
+        # The brackets keep this file from matching its own search.
+        run: |
+          if grep -rniwE "d[e]lve|l[e]verage|s[e]amless|r[o]bust|e[l]evate|u[n]lock|e[m]power|t[a]pestry|game-[c]hanger|cutting-[e]dge|t[e]stament" $EX .; then
+            echo "::error::Stock AI words found. See the style rules in CONTRIBUTING.md."
+            exit 1
+          fi
+
+      - name: No language about fooling AI checkers
+        # The brackets keep this file from matching its own search.
+        run: |
+          if grep -rniE "gpt[z]ero|turn[i]tin|undetect[a]ble|by[p]ass|100% hu[m]an|ai detec[t]or" --exclude-dir=.git .; then
+            echo "::error::Checker language found. See the ethics rules in CONTRIBUTING.md."
+            exit 1
+          fi
+
+      - name: Skill name matches the folder
+        run: |
+          grep -q "^name: write-like-human$" write-like-human/SKILL.md
+
+      - name: Skill description is under 1024 characters
+        run: |
+          len=$(awk '/^description:/{sub(/^description: /,""); print length($0)}' write-like-human/SKILL.md)
+          echo "Description length: $len"
+          [ "$len" -le 1024 ]
+
+      - name: Every module is linked from SKILL.md
+        run: |
+          missing=0
+          cd write-like-human/references
+          for f in $(find . -name '*.md' | sed 's|^\./||'); do
+            case "$f" in
+              languages/*) name="${f#languages/}" ;;
+              *) name="$f" ;;
+            esac
+            if ! grep -q "$name" ../SKILL.md; then
+              echo "::error::$f is not linked from SKILL.md"
+              missing=1
+            fi
+          done
+          exit $missing
+
+  scripts:
+    name: Script tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the libraries claude.ai provides
+        run: pip install python-docx openpyxl python-pptx pypdf
+
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
