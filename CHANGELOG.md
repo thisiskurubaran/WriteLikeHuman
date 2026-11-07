@@ -54,6 +54,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Speech timing per section, with optional pause marks in a reading copy.
 - Apple Pages and Keynote files.
 - Web pages: visible text rewritten, tags, links, and code left exactly as they were.
+- Posters and flyers: a cleaner version of the text to retype.
 
 ### Changed
 
