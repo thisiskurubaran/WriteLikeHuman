@@ -50,6 +50,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | A .pages or .key file (Apple Pages or Keynote) | [references/files/pages-keynote.md](references/files/pages-keynote.md) |
 | An .html web page file | [references/files/web-pages.md](references/files/web-pages.md) |
 | A photo or image of a poster, flyer, banner, or menu card | [references/files/posters.md](references/files/posters.md) |
+| "Fix my draft in Gmail or Outlook" (with a mail connector) | [references/files/email-drafts.md](references/files/email-drafts.md) + [references/writing/email.md](references/writing/email.md) |
 | An email, a whole email thread, or an .eml file | [references/writing/email.md](references/writing/email.md) |
 | A WhatsApp or SMS message | [references/writing/chat-replies.md](references/writing/chat-replies.md) |
 | A leave, complaint, bank, government, or school letter | [references/writing/formal-letters.md](references/writing/formal-letters.md) |
