@@ -88,6 +88,9 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | "Make it inclusive", "gender neutral" | [references/adjust/inclusive-language.md](references/adjust/inclusive-language.md) |
 | "Don't change these words", "keep our product name as is", a list of terms to leave alone, or a voice profile with "Never change these words" | [references/adjust/protected-words.md](references/adjust/protected-words.md) |
 | "Make it American English", "UK spelling", "for my Australian client", "change it to Indian style" | [references/adjust/english-variants.md](references/adjust/english-variants.md) |
+| "Check this before I send it", "did I miss anything?", "final check" | [references/adjust/before-send.md](references/adjust/before-send.md) |
+| "Check this report for consistency", "make the terms consistent", a long document to read as one piece | [references/adjust/consistency.md](references/adjust/consistency.md) |
+| "Will this sound okay to my client in Germany?", "is this too direct for a US reader?", a message going to another country | [references/adjust/cross-cultural.md](references/adjust/cross-cultural.md) |
 | Pastes or attaches a voice profile, "make it sound like me", "use my work voice" | [references/voice/voice-profile.md](references/voice/voice-profile.md) (the blank form is [references/voice/voice-profile-template.md](references/voice/voice-profile-template.md)) |
 | Attaches a WhatsApp chat export, "build my profile from my WhatsApp messages" | [references/voice/chat-export.md](references/voice/chat-export.md) |
 | "Translate this into..." | [references/languages/translate-humanize.md](references/languages/translate-humanize.md) + the target language file |

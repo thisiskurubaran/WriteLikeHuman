@@ -50,6 +50,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - A cross-cultural check that notes what might read badly to a reader in another country.
 - Two lengths at once, only when asked.
 - Nepali, Sinhala, Konkani, Italian, Turkish, Korean, Chinese, and Filipino language guides, and Taglish in the mixed language guide.
+- A before-you-send check: missing attachments, weekdays that don't match dates, unanswered questions, leftover placeholders.
 
 ### Changed
 
