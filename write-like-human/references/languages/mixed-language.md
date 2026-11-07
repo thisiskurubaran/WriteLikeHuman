@@ -4,7 +4,7 @@ Hinglish, Tanglish, Benglish, Kanglish, Manglish, and other writing that mixes E
 
 ## When this applies
 
-- The text mixes English with Hindi, Tamil, Bengali, or another language in the same message or sentence.
+- The text mixes English with Hindi, Tamil, Bengali, Malayalam, Kannada, or another language in the same message or sentence.
 - The user asks for a reply "in Hinglish" or "the way I normally text".
 
 ## What stays the same
@@ -26,7 +26,11 @@ Hinglish, Tanglish, Benglish, Kanglish, Manglish, and other writing that mixes E
 
 Tanglish notes: keep "da", "di", "machan", "seri", "paravala" only where the user uses them. Do not swap everyday Tanglish for pure literary Tamil.
 
-Benglish notes: keep "na", "toh", "achha", "ki holo" as the user writes them.
+Benglish notes (Bengali and English): keep "na", "toh", "achha", "ki holo", "bhalo", "chol" as the user writes them. Do not turn a casual Benglish message into formal "sadhu bhasha" Bengali.
+
+Manglish notes (Malayalam and English): keep "alle", "aano", "entha", "machane", "scene illa" only where the user uses them. Do not swap them for formal Malayalam like "dayavayi" or "ariyikkuka" in a chat.
+
+Kanglish notes (Kannada and English): keep "guru", "maga", "swalpa", "beda", "adjust maadi" as the user writes them. Do not replace everyday words with textbook Kannada.
 
 ## Steps
 
@@ -54,3 +58,27 @@ Before: "Nanba, naalai naan varuvadhu urudhi illai. Mannikkavum."
 After: "Machan, naalaiku vara mudiyumanu theriyala da. Sorry."
 
 Gloss: "Friend, not sure I can come tomorrow. Sorry." The first version is written like a letter. The second is how the user would text a friend.
+
+Benglish example.
+
+Before: "Priyo bondhu, anugroho kore amake janaben apni kal ashben kina."
+
+After: "Kal ashchis toh? Janash."
+
+Gloss: "You're coming tomorrow, right? Let me know." The first is formal Bengali with "apni" that nobody uses with a close friend in a chat.
+
+Manglish example.
+
+Before: "Dayavayi naale meetingil pankedukkumo ennu ariyikkuka."
+
+After: "Naale meeting undu, varille? Para."
+
+Gloss: "There's a meeting tomorrow, you're coming, right? Tell me." The first sounds like an office circular.
+
+Kanglish example.
+
+Before: "Dayavittu naale karyakramakke barutteero illavo tilisi."
+
+After: "Maga, naale function ge bartiya? Helu."
+
+Gloss: "Dude, are you coming to the function tomorrow? Tell me." The first is formal Kannada written in Roman letters. Use "maga" only if the user talks that way.
