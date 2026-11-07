@@ -23,6 +23,13 @@ Open a **Feature request** issue. Tell us what people would give the skill (a fi
 
 Each language has its own file in `write-like-human/references/languages/`. The most helpful thing a native speaker can add is a list of phrases that sound machine translated or stiff, with natural versions next to them. Never add a rule that makes the skill translate when the user did not ask.
 
+### Help wanted
+
+Two things we can't do well without you:
+
+- Screenshots for the install guide. If you have the skill installed, take a screenshot of each upload step in [INSTALL.md](INSTALL.md) (Settings, Capabilities, Customize, Skills, Upload a skill). Crop out your name, email, and chat history, then attach them to an issue or a pull request.
+- Native speaker review. None of the language files have been checked by a native speaker yet. If you speak one of the languages in `write-like-human/references/languages/`, read its file and fix anything that sounds wrong. Each file ends with a "Help wanted" note until someone has reviewed it. Remove that note in your pull request once you have.
+
 ## How the skill is organized
 
 The skill lives in the `write-like-human/` folder. That folder is what gets zipped and uploaded.
