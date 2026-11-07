@@ -48,6 +48,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Interview thank-you notes as an email preset.
 - A consistency check for long documents: terms, spelling, numbers, and headings.
 - A cross-cultural check that notes what might read badly to a reader in another country.
+- Two lengths at once, only when asked.
 
 ### Changed
 

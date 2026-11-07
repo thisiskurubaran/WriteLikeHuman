@@ -52,6 +52,22 @@ Do not drop a fact the reader needs to act on.
 
 Do not add generic padding to hit a number.
 
+## Two lengths at once
+
+Only when the user asks for it ("give me a short and a long version", "one for WhatsApp and one for email"), give exactly two versions, labeled with their word counts:
+
+```
+Short (38 words)
+...
+
+Longer (112 words)
+...
+```
+
+Both versions follow every rule above: same facts, nothing invented, and the longer one grows only from what the user gave you. Put one change summary after both, not one per version.
+
+Otherwise never offer several versions. One good version is the default, and a menu of options is itself a chatbot habit.
+
 ## Output
 
 The new version with its count ("187 words" or "about 190 words"), then a brief change summary saying what was cut or added.
