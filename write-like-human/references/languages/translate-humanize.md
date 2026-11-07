@@ -25,6 +25,15 @@ Load the file for the target language as well:
 | Spanish | `spanish.md` |
 | French | `french.md` |
 | German | `german.md` |
+| Gujarati | `gujarati.md` |
+| Punjabi | `punjabi.md` |
+| Odia | `odia.md` |
+| Urdu | `urdu.md` |
+| Assamese | `assamese.md` |
+| Portuguese | `portuguese.md` |
+| Indonesian | `indonesian.md` |
+| Arabic | `arabic.md` |
+| Japanese | `japanese.md` |
 | English for an Indian reader | `indian-english.md` |
 | A code-mixed result (Hinglish, Tanglish) | `mixed-language.md` |
 

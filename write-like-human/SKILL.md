@@ -76,10 +76,10 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | "Make it American English", "UK spelling", "for my Australian client", "change it to Indian style" | [references/adjust/english-variants.md](references/adjust/english-variants.md) |
 | Pastes or attaches a voice profile, "make it sound like me", "use my work voice" | [references/voice/voice-profile.md](references/voice/voice-profile.md) (the blank form is [references/voice/voice-profile-template.md](references/voice/voice-profile-template.md)) |
 | "Translate this into..." | [references/languages/translate-humanize.md](references/languages/translate-humanize.md) + the target language file |
-| Hinglish, Tanglish, or other mixed-language writing | [references/languages/mixed-language.md](references/languages/mixed-language.md) |
+| Hinglish, Tanglish, Manglish, Benglish, Kanglish, or other mixed-language writing | [references/languages/mixed-language.md](references/languages/mixed-language.md) |
 | Text that is not US or UK English | The matching file in `references/languages/` |
 
-Language files: `indian-english.md`, `hindi.md`, `tamil.md`, `telugu.md`, `kannada.md`, `malayalam.md`, `bengali.md`, `marathi.md`, `spanish.md`, `french.md`, `german.md`. Each lists the AI tells for that language. Never translate unless the user asks. If someone writes in Hindi, answer in Hindi.
+Language files: `indian-english.md`, `hindi.md`, `tamil.md`, `telugu.md`, `kannada.md`, `malayalam.md`, `bengali.md`, `marathi.md`, `gujarati.md`, `punjabi.md`, `odia.md`, `urdu.md`, `assamese.md`, `spanish.md`, `french.md`, `german.md`, `portuguese.md`, `indonesian.md`, `arabic.md`, `japanese.md`. Each lists the AI tells for that language. Never translate unless the user asks. If someone writes in Hindi, answer in Hindi.
 
 ## Core rules
 
