@@ -40,14 +40,16 @@ write-like-human/
 ├── references/
 │   ├── ai-patterns.md   the catalog of AI tells, always loaded
 │   ├── modes/           rewrite, draft, check, side by side
-│   ├── files/           Word, PDF, Google Docs, spreadsheets, slides
+│   ├── files/           Word, PDF, Google Docs, spreadsheets, slides, text, subtitles, and more
 │   ├── writing/         email, letters, resumes, posts, speeches, and more
 │   ├── adjust/          tone, reading level, length, accessibility, inclusive wording
 │   ├── voice/           personal voice profiles
 │   ├── lists/           buzzwords and platform limits
 │   └── languages/       one file per language, plus translation and mixed language
-├── scripts/          small Python helpers for Office files and word counts
+├── scripts/          small Python helpers for files, word counts, and chat exports
 └── examples/         before and after samples and test prompts
+
+tests/                script tests and skill evals (not part of the zip)
 ```
 
 `SKILL.md` stays short. It holds the routing tables, the core rules, and the change summary format. Everything else goes in `references/` so Claude reads only what a request needs.
@@ -64,7 +66,7 @@ Every module uses the same sections, in this order:
 4. **Output**: what the user gets back.
 5. **Example**: one short before and after in everyday language.
 
-Scripts must use only `python-docx`, `openpyxl`, `python-pptx`, and `pypdf`, since those are what claude.ai has. Every script needs a plain fallback written into its module, in case it fails. Scripts write a new file and never overwrite the original.
+Scripts must use only the Python standard library plus `python-docx`, `openpyxl`, `python-pptx`, and `pypdf`, since those are what claude.ai has. Add a test for each script in `tests/test_scripts.py`. Every script needs a plain fallback written into its module, in case it fails. Scripts write a new file and never overwrite the original.
 
 ## Style rules
 
@@ -134,14 +136,20 @@ grep -rniE "gpt[z]ero|turn[i]tin|undetect[a]ble|by[p]ass|100% hu[m]an|ai detec[t
 # Skill name matches the folder
 grep -q "^name: write-like-human$" write-like-human/SKILL.md || echo "FIX: name mismatch"
 
-# Every module is linked from SKILL.md (language files are linked as a group)
+# Every module is linked from SKILL.md (language files are listed by name)
 for f in $(cd write-like-human/references && find . -name '*.md' | sed 's|^\./||'); do
-  case "$f" in languages/*) continue;; esac
-  grep -q "$f" write-like-human/SKILL.md || echo "FIX: $f not linked from SKILL.md"
+  case "$f" in languages/*) name="${f#languages/}";; *) name="$f";; esac
+  grep -q "$name" write-like-human/SKILL.md || echo "FIX: $f not linked from SKILL.md"
 done
+
+# Script tests and the eval file check
+pip install python-docx openpyxl python-pptx pypdf
+python -m unittest discover -s tests -v
 ```
 
-Then test your change: zip the `write-like-human/` folder, upload it to Claude, and try two prompts a normal person would type, plus one that should not use the skill. Add those prompts to `write-like-human/examples/test-prompts.md`.
+The same checks run on every pull request, so you'll see them on GitHub too.
+
+Then test your change: zip the `write-like-human/` folder, upload it to Claude, and try two prompts a normal person would type, plus one that should not use the skill. Add those prompts to `write-like-human/examples/test-prompts.md`. If you added a module, also add a case for it to `tests/evals/evals.json` (see [tests/evals/README.md](tests/evals/README.md)).
 
 ## Code of conduct
 
