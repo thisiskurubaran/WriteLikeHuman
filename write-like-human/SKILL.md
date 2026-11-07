@@ -54,6 +54,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | A review of a product, place, or service | [references/writing/reviews.md](references/writing/reviews.md) |
 | A personal statement, visa letter, or scholarship answer | [references/writing/form-answers.md](references/writing/form-answers.md) |
 | A voice note transcript | [references/writing/voice-notes.md](references/writing/voice-notes.md) |
+| A reply to a customer review of their own business | [references/writing/review-replies.md](references/writing/review-replies.md) |
 
 ## Adjust, voice, and language (add any that match)
 
