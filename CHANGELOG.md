@@ -9,6 +9,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 
 - The website has its own icon, a speech bubble with a hand-drawn line, in the header and the browser tab.
+- A simpler, more modern website with a bento grid of interactive examples, a typing prompt bar, and a language marquee.
 
 ## [0.3.1] - 2026-11-07
 
