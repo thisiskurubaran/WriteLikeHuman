@@ -15,6 +15,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - The router's input table is split into groups (files, work, official, selling, personal) so the right module is easier to find.
 
+### Added
+
+- Checks that every module has the standard sections, that the newest changelog section has entries, and that the plugin version matches the changelog.
+
 ## [0.3.0] - 2026-11-07
 
 ### Added

@@ -69,6 +69,57 @@ jobs:
           done
           exit $missing
 
+      - name: Every module has the standard sections
+        shell: python
+        run: |
+          import glob, sys
+          need = ["## When this applies", "## What stays the same", "## Steps", "## Output", "## Example"]
+          skip = ("ai-patterns.md", "voice/voice-profile-template.md")
+          bad = 0
+          for path in sorted(glob.glob("write-like-human/references/**/*.md", recursive=True)):
+              rel = path.split("references/", 1)[1]
+              if rel in skip or rel.startswith("lists/"):
+                  continue
+              text = open(path, encoding="utf-8").read()
+              heads = [line.strip() for line in text.splitlines() if line.startswith("## ")]
+              missing = [n for n in need if not any(h == n or h.startswith(n + " ") for h in heads)]
+              if missing:
+                  print("::error file=%s::missing %s" % (path, ", ".join(missing)))
+                  bad = 1
+          sys.exit(bad)
+
+      - name: Changelog and plugin version agree
+        shell: python
+        run: |
+          import json, re, sys
+          log = open("CHANGELOG.md", encoding="utf-8").read()
+          errors = []
+          if "## [Unreleased]" not in log:
+              errors.append("CHANGELOG.md has no [Unreleased] section")
+          versions = re.findall(r"^## \[(\d+\.\d+\.\d+)\]", log, re.M)
+          if not versions:
+              errors.append("CHANGELOG.md has no released versions")
+          else:
+              newest = versions[0]
+              start = log.index("## [%s]" % newest)
+              nxt = log.find("\n## [", start + 5)
+              section = log[start: nxt if nxt != -1 else len(log)]
+              if not re.search(r"^- ", section, re.M):
+                  errors.append("The %s section of CHANGELOG.md has no entries" % newest)
+              if not re.search(r"^\[%s\]: " % re.escape(newest), log, re.M):
+                  errors.append("CHANGELOG.md has no link line for [%s] at the bottom" % newest)
+              plugin = json.load(open(".claude-plugin/plugin.json", encoding="utf-8"))
+              if plugin.get("version") != newest:
+                  errors.append(".claude-plugin/plugin.json version %s does not match the newest CHANGELOG version %s"
+                                % (plugin.get("version"), newest))
+          market = json.load(open(".claude-plugin/marketplace.json", encoding="utf-8"))
+          names = [p.get("name") for p in market.get("plugins", [])]
+          if "write-like-human" not in names:
+              errors.append("marketplace.json does not list the write-like-human plugin")
+          for e in errors:
+              print("::error::" + e)
+          sys.exit(1 if errors else 0)
+
   scripts:
     name: Script tests
     runs-on: ubuntu-latest
