@@ -69,6 +69,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | A freelance proposal or quote | [references/writing/proposals.md](references/writing/proposals.md) |
 | A school or college essay, or a college application essay | [references/writing/essays.md](references/writing/essays.md) |
 | A marriage biodata or matrimony profile | [references/writing/marriage-biodata.md](references/writing/marriage-biodata.md) |
+| A cold message: LinkedIn connection note, referral request, cold email to a recruiter or client | [references/writing/outreach.md](references/writing/outreach.md) |
 
 ## Adjust, voice, and language (add any that match)
 
