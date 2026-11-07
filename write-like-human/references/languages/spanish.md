@@ -43,3 +43,7 @@ Before: "Estimado Carlos, espero que este correo le encuentre bien. Le escribo i
 After: "Hola Carlos: te escribo para avisarte que pasamos la reunión al lunes."
 
 Gloss: "Hi Carlos, just letting you know we moved the meeting to Monday." The first uses a translated English opener, a gerund, a passive, a capital on "Lunes", and "usted" with a colleague the user normally calls "tú". Only switch to "tú" if that matches how the user addresses Carlos.
+
+## Help wanted
+
+This file has not yet been reviewed by a native speaker. If you speak Spanish, corrections are welcome. See CONTRIBUTING.md.

@@ -44,3 +44,7 @@ Before (to a friend): "मित्रा, मी उद्या येणा�
 After: "उद्या येतोय रे."
 
 Gloss: The first reads like an official notice: "Friend, I give you notice that I am going to come tomorrow." The second sounds like a real text: "Coming tomorrow."
+
+## Help wanted
+
+This file has not yet been reviewed by a native speaker. If you speak Marathi, corrections are welcome. See CONTRIBUTING.md.

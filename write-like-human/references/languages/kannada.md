@@ -44,3 +44,7 @@ Before (to a friend): "ಸ್ನೇಹಿತನೇ, ನಾನು ನಾಳೆ �
 After: "ನಾಳೆ ಬರ್ತೀನಿ ಕಣೋ."
 
 Gloss: The first reads like a notice: "Friend, I inform you that I will come tomorrow." The second is how you would text a friend: "I'll come tomorrow, man."
+
+## Help wanted
+
+This file has not yet been reviewed by a native speaker. If you speak Kannada, corrections are welcome. See CONTRIBUTING.md.

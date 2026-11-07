@@ -45,3 +45,7 @@ Before: "प्रिय मित्र, मैं आशा करता ह�
 After: "अरे अमित, कैसे हो? कल के प्रोग्राम में आ रहे हो ना? बता देना।"
 
 Gloss: The first version reads like a government letter: "Dear friend, I hope you are healthy. Kindly inform me whether you will be present at tomorrow's event." The rewrite is how you would text a friend: "Hey Amit, how are you? You're coming to tomorrow's event, right? Let me know."
+
+## Help wanted
+
+This file has not yet been reviewed by a native speaker. If you speak Hindi, corrections are welcome. See CONTRIBUTING.md.

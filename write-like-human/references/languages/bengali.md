@@ -44,3 +44,7 @@ Before (to a friend): "বন্ধু, আমি আগামীকাল আ�
 After: "কাল আসছি রে।"
 
 Gloss: The first uses old literary forms: "Friend, I am informing you that I shall come tomorrow." The second sounds like a real text: "Coming tomorrow."
+
+## Help wanted
+
+This file has not yet been reviewed by a native speaker. If you speak Bengali, corrections are welcome. See CONTRIBUTING.md.

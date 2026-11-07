@@ -44,3 +44,7 @@ Before (to a friend): "സുഹൃത്തേ, നാളെ ഞാൻ വര�
 After: "നാളെ ഞാൻ വരാം ട്ടോ."
 
 Gloss: The first reads like a notice: "Friend, I inform you that I will come tomorrow." The second sounds like a real text: "I'll come tomorrow, okay."
+
+## Help wanted
+
+This file has not yet been reviewed by a native speaker. If you speak Malayalam, corrections are welcome. See CONTRIBUTING.md.

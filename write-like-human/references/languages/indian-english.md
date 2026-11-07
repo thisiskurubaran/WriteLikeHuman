@@ -44,3 +44,7 @@ Before: "I hope this email finds you well. I am writing to inform you that the p
 After: "Hi Ramesh, the payment of ₹1,50,000 went through on 07/11/2026. Let me know if you need anything else."
 
 Note: if the original date was really 7 November, keep it as 07/11/2026. If you cannot tell which format the user meant, ask rather than guess.
+
+## Help wanted
+
+This file has not yet been reviewed by a reviewer from India. If you write Indian English every day, corrections are welcome. See CONTRIBUTING.md.

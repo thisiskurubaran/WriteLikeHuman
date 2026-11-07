@@ -42,3 +42,7 @@ Before: "Sehr geehrter Herr Becker, ich hoffe, diese E-Mail findet Sie gut. Die 
 After: "Sehr geehrter Herr Becker, sobald Sie uns bestätigen, reparieren wir das Gerät."
 
 Gloss: "Dear Mr Becker, as soon as you confirm, we will repair the device." The first used a translated English opener and a pile of nouns ("Durchführung", "Erhalt", "Bestätigung") where one verb does the job.
+
+## Help wanted
+
+This file has not yet been reviewed by a native speaker. If you speak German, corrections are welcome. See CONTRIBUTING.md.

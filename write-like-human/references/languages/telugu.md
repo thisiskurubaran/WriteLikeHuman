@@ -44,3 +44,7 @@ Before (to a friend): "మిత్రమా, రేపు నేను రా�
 After: "రేపు రాగలనో లేదో తెలీదురా."
 
 Gloss: Both mean "I don't know if I can come tomorrow." The first is stiff, opening with "O friend". The second sounds like a real text to a friend.
+
+## Help wanted
+
+This file has not yet been reviewed by a native speaker. If you speak Telugu, corrections are welcome. See CONTRIBUTING.md.

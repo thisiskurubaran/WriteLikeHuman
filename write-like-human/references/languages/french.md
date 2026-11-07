@@ -42,3 +42,7 @@ Before: "Bonjour Julie, j'espère que ce message vous trouve bien. Je voulais ad
 After: "Bonjour Julie, j'espère que vous allez bien. Je voulais revenir sur la facture de novembre. On peut en parler lundi ?"
 
 Gloss: "Hi Julie, hope you're well. I wanted to follow up on the November invoice. Can we talk about it on Monday?" The first had three calques, two wrong capitals, and no space before the question mark.
+
+## Help wanted
+
+This file has not yet been reviewed by a native speaker. If you speak French, corrections are welcome. See CONTRIBUTING.md.

@@ -44,3 +44,7 @@ Before (to a friend): "நண்பா, நாளை நான் வருக�
 After: "டேய், நாளைக்கு கண்டிப்பா வர்றேன்."
 
 Gloss: The first reads like a formal notice: "Friend, I confirm that I will come tomorrow." The second is how you would text a friend: "Hey, I'm definitely coming tomorrow."
+
+## Help wanted
+
+This file has not yet been reviewed by a native speaker. If you speak Tamil, corrections are welcome. See CONTRIBUTING.md.
