@@ -39,6 +39,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Hindi and Tamil translations of the README and install guide, labeled as translations.
 - Marriage biodata and matrimony profiles, warm and factual.
 - Cold messages: LinkedIn notes, referral requests, and cold emails.
+- Complaints to companies, with order numbers kept exact and an escalation path.
 
 ### Changed
 
