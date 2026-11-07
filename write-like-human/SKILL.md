@@ -34,6 +34,10 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 
 ## Input (add any that match)
 
+Find the group first, then the row. A request can match rows in more than one group, such as a resume sent as a .docx.
+
+### Files
+
 | User gives | Read |
 |---|---|
 | A .docx file | [references/files/word.md](references/files/word.md) |
@@ -51,35 +55,55 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | An .html web page file | [references/files/web-pages.md](references/files/web-pages.md) |
 | A photo or image of a poster, flyer, banner, or menu card | [references/files/posters.md](references/files/posters.md) |
 | "Fix my draft in Gmail or Outlook" (with a mail connector) | [references/files/email-drafts.md](references/files/email-drafts.md) + [references/writing/email.md](references/writing/email.md) |
+
+### Work and career
+
+| User gives | Read |
+|---|---|
 | An email, a whole email thread, or an .eml file | [references/writing/email.md](references/writing/email.md) |
-| A WhatsApp or SMS message | [references/writing/chat-replies.md](references/writing/chat-replies.md) |
-| A leave, complaint, bank, government, or school letter | [references/writing/formal-letters.md](references/writing/formal-letters.md) |
 | A resume or cover letter | [references/writing/resume.md](references/writing/resume.md) + [references/lists/buzzwords.md](references/lists/buzzwords.md) |
-| A social media post | [references/writing/social-post.md](references/writing/social-post.md) + [references/lists/platform-limits.md](references/lists/platform-limits.md) |
-| A bio, dating profile, or About page | [references/writing/bios.md](references/writing/bios.md) |
 | A school or work report | [references/writing/report.md](references/writing/report.md) |
 | Meeting notes | [references/writing/meeting-notes.md](references/writing/meeting-notes.md) |
-| A speech or toast | [references/writing/speeches.md](references/writing/speeches.md) |
-| A greeting, card, or condolence message | [references/writing/wishes-cards.md](references/writing/wishes-cards.md) |
-| A review of a product, place, or service | [references/writing/reviews.md](references/writing/reviews.md) |
-| A personal statement, visa letter, or scholarship answer | [references/writing/form-answers.md](references/writing/form-answers.md) |
-| A voice note transcript | [references/writing/voice-notes.md](references/writing/voice-notes.md) |
-| A reply to a customer review of their own business | [references/writing/review-replies.md](references/writing/review-replies.md) |
-| A product or listing description (Meesho, Etsy, Amazon, Flipkart, OLX, Instagram shop) | [references/writing/listings.md](references/writing/listings.md) |
-| An invitation: wedding, housewarming, naming ceremony, birthday party | [references/writing/invitations.md](references/writing/invitations.md) |
-| An apology, a boundary, or saying no to friends or family | [references/writing/hard-conversations.md](references/writing/hard-conversations.md) |
 | A job post or job description | [references/writing/job-posts.md](references/writing/job-posts.md) + [references/lists/buzzwords.md](references/lists/buzzwords.md) |
-| A newsletter or notice for a society, school, club, or office | [references/writing/notices.md](references/writing/notices.md) |
 | A freelance proposal or quote | [references/writing/proposals.md](references/writing/proposals.md) |
-| A school or college essay, or a college application essay | [references/writing/essays.md](references/writing/essays.md) |
-| A marriage biodata or matrimony profile | [references/writing/marriage-biodata.md](references/writing/marriage-biodata.md) |
 | A cold message: LinkedIn connection note, referral request, cold email to a recruiter or client | [references/writing/outreach.md](references/writing/outreach.md) |
+| Release notes, a changelog, or app store "What's new" text | [references/writing/release-notes.md](references/writing/release-notes.md) |
+
+### Official, school, and complaints
+
+| User gives | Read |
+|---|---|
+| A leave, complaint, bank, government, or school letter | [references/writing/formal-letters.md](references/writing/formal-letters.md) |
+| A personal statement, visa letter, or scholarship answer | [references/writing/form-answers.md](references/writing/form-answers.md) |
+| A newsletter or notice for a society, school, club, or office | [references/writing/notices.md](references/writing/notices.md) |
+| A school or college essay, or a college application essay | [references/writing/essays.md](references/writing/essays.md) |
 | A complaint to a company: online shop, airline, telecom, bank | [references/writing/consumer-complaints.md](references/writing/consumer-complaints.md) |
 | An RTI (Right to Information) application | [references/writing/rti.md](references/writing/rti.md) |
-| A flat for rent, PG, or roommate wanted post | [references/writing/rental-posts.md](references/writing/rental-posts.md) |
 | A note or message to a teacher, school, class group, or PTA | [references/writing/school-messages.md](references/writing/school-messages.md) |
+
+### Selling and reviews
+
+| User gives | Read |
+|---|---|
+| A review of a product, place, or service | [references/writing/reviews.md](references/writing/reviews.md) |
+| A reply to a customer review of their own business | [references/writing/review-replies.md](references/writing/review-replies.md) |
+| A product or listing description (Meesho, Etsy, Amazon, Flipkart, OLX, Instagram shop) | [references/writing/listings.md](references/writing/listings.md) |
+| A flat for rent, PG, or roommate wanted post | [references/writing/rental-posts.md](references/writing/rental-posts.md) |
+
+### Personal, family, and social
+
+| User gives | Read |
+|---|---|
+| A WhatsApp or SMS message | [references/writing/chat-replies.md](references/writing/chat-replies.md) |
+| A speech or toast | [references/writing/speeches.md](references/writing/speeches.md) |
+| A greeting, card, or condolence message | [references/writing/wishes-cards.md](references/writing/wishes-cards.md) |
+| A voice note transcript | [references/writing/voice-notes.md](references/writing/voice-notes.md) |
+| An invitation: wedding, housewarming, naming ceremony, birthday party | [references/writing/invitations.md](references/writing/invitations.md) |
+| An apology, a boundary, or saying no to friends or family | [references/writing/hard-conversations.md](references/writing/hard-conversations.md) |
+| A marriage biodata or matrimony profile | [references/writing/marriage-biodata.md](references/writing/marriage-biodata.md) |
 | A eulogy, obituary, or death notice | [references/writing/eulogies.md](references/writing/eulogies.md) |
-| Release notes, a changelog, or app store "What's new" text | [references/writing/release-notes.md](references/writing/release-notes.md) |
+| A social media post | [references/writing/social-post.md](references/writing/social-post.md) + [references/lists/platform-limits.md](references/lists/platform-limits.md) |
+| A bio, dating profile, or About page | [references/writing/bios.md](references/writing/bios.md) |
 
 ## Adjust, voice, and language (add any that match)
 

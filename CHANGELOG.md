@@ -10,6 +10,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - The skill description now names the newer writing types and files, so requests for them trigger the skill.
 
+### Changed
+
+- The router's input table is split into groups (files, work, official, selling, personal) so the right module is easier to find.
+
 ## [0.3.0] - 2026-11-07
 
 ### Added
