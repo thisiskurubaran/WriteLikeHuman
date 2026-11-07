@@ -109,6 +109,9 @@ formula cell could silently break someone's budget.
 Run these from the repo root and fix anything they find:
 
 ```bash
+# Use a UTF-8 locale, or the dash check below fails quietly and finds nothing
+export LC_ALL=C.UTF-8
+
 EX="--exclude-dir=.git --exclude=CONTRIBUTING.md --exclude=ai-patterns.md --exclude=buzzwords.md"
 
 # Em and en dashes
