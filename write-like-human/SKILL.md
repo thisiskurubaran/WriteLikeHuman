@@ -81,6 +81,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | "Don't change these words", "keep our product name as is", a list of terms to leave alone, or a voice profile with "Never change these words" | [references/adjust/protected-words.md](references/adjust/protected-words.md) |
 | "Make it American English", "UK spelling", "for my Australian client", "change it to Indian style" | [references/adjust/english-variants.md](references/adjust/english-variants.md) |
 | Pastes or attaches a voice profile, "make it sound like me", "use my work voice" | [references/voice/voice-profile.md](references/voice/voice-profile.md) (the blank form is [references/voice/voice-profile-template.md](references/voice/voice-profile-template.md)) |
+| Attaches a WhatsApp chat export, "build my profile from my WhatsApp messages" | [references/voice/chat-export.md](references/voice/chat-export.md) |
 | "Translate this into..." | [references/languages/translate-humanize.md](references/languages/translate-humanize.md) + the target language file |
 | Hinglish, Tanglish, Manglish, Benglish, Kanglish, or other mixed-language writing | [references/languages/mixed-language.md](references/languages/mixed-language.md) |
 | Text that is not US or UK English | The matching file in `references/languages/` |

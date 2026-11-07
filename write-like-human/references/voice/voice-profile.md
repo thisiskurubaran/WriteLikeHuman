@@ -47,6 +47,10 @@ Build profiles only from writing the user says is their own. Do not build a prof
 
 Do not record anything private in the profile: phone numbers, addresses, account details, or other people's names from the samples.
 
+## From a WhatsApp chat export
+
+If the user would rather not pick samples by hand, they can attach an exported WhatsApp chat and you build the profile from their own messages only. Other people's messages, phone numbers, and links are dropped first. The steps and privacy rules are in `voice/chat-export.md`.
+
 ## Several profiles
 
 - Each profile is its own block with its own name. They can sit in one file or separate files.
