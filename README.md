@@ -13,7 +13,7 @@ A free Claude skill for emails, WhatsApp replies, letters, resumes, posts, and t
 [![No coding needed](https://img.shields.io/badge/coding-not%20needed-success)](INSTALL.md)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
 
-[Install](#install-in-two-minutes) · [What you can ask](#what-you-can-ask) · [Features](#features) · [FAQ](#faq) · [Contributing](#contributing)
+[Install](#install-in-two-minutes) · [What you can ask](#what-you-can-ask) · [Features](#features) · [FAQ](#faq) · [Contributing](#contributing) · [Website](https://thisiskurubaran.github.io/WriteLikeHuman/)
 
 English · [हिंदी](README.hi.md) · [தமிழ்](README.ta.md)
 
@@ -70,7 +70,14 @@ More samples: [before-after.md](write-like-human/examples/before-after.md)
 
 It's one skill and one upload. Once it's on your account, it works in the Claude phone app too.
 
-Need more help, or use Claude Code? See the full [install guide](INSTALL.md).
+Use Claude Code? Install it as a plugin:
+
+```text
+/plugin marketplace add thisiskurubaran/WriteLikeHuman
+/plugin install write-like-human@writelikehuman
+```
+
+Need more help? See the full [install guide](INSTALL.md).
 
 ## What you can ask
 
@@ -111,17 +118,21 @@ Show me each change so I can approve it
 | OpenDocument and RTF (.odt, .rtf) | Edited as a Word file, and you're told which format you get back. |
 | Screenshots of chats and emails | A reply drafted from what's on screen, without repeating anyone's phone number. |
 | Several files at once | Each file fixed on its own, with no details mixed between them. |
+| Apple Pages and Keynote | Converted and edited, or simple steps to export them first. |
+| Web pages (.html) | Visible text reworded. Tags, links, and code stay exactly as they were. |
+| Posters and flyers | A cleaner version of the text to retype. Claude can't edit the image itself. |
+| Gmail and Outlook drafts | Edited in place when Claude is connected to your mail. Nothing is ever sent. |
 
 Every file comes back as a new copy named `yourfile-humanized`, so the original stays safe. Ask for "a file showing what changed" and you also get a Word file with every change marked.
 
 <details>
-<summary><b>Kinds of writing it knows (21)</b></summary>
+<summary><b>Kinds of writing it knows (29)</b></summary>
 
 <br>
 
 | Writing | What it pays attention to |
 |---|---|
-| Emails | Quick replies, polite no's, follow-ups, thank yous, apologies, asking for something, and replies to whole threads |
+| Emails | Quick replies, polite no's, follow-ups, thank yous, apologies, asking for something, replies to whole threads, and interview thank-you notes |
 | WhatsApp and SMS | Replies to family, landlords, delivery people, building groups |
 | Formal letters | Leave, complaint, bank, government, and school letters in Indian formats |
 | Resumes and cover letters | Plain words instead of buzzwords, and no invented achievements |
@@ -142,6 +153,14 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 | Notices and newsletters | Housing society, school, club, and office notices |
 | Freelance proposals | Upwork, Fiverr, and client quotes, with no invented experience |
 | Essays | School and college essays, improved in the student's own words |
+| Marriage biodata | Warm, factual matrimony profiles, with nothing inflated |
+| Cold messages | LinkedIn notes, referral requests, cold emails to recruiters and clients |
+| Complaints to companies | Online shops, airlines, telecom, banks, with order numbers kept exact |
+| RTI applications | Right to Information requests in the standard Indian format |
+| Rental posts | Flat for rent, PG, and roommate posts with fair wording |
+| Messages to schools | Notes to teachers, class groups, and the PTA |
+| Eulogies and obituaries | Simple, sincere words, using only your real memories |
+| Release notes | Changelogs and app store "What's new" text |
 
 </details>
 
@@ -161,6 +180,11 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 | Kind of English | "Make it UK English" switches between US, UK, Australian, and Indian spelling and dates |
 | Ready to paste | Line breaks and formatting that work in each app |
 | Reading age | "What reading age is this?" gives a rough guide, only when you ask |
+| Before you send | "Check this before I send it" spots missing attachments, a weekday that doesn't match the date, unanswered questions, and leftover placeholders |
+| Consistency | "Check this report for consistency" finds terms, spellings, and number styles that change partway through |
+| Other countries | "Will this sound okay to my client in Germany?" notes what might read badly abroad |
+| Two lengths | "Give me a short and a long version" |
+| Speech timing | "How long will this speech take?" shows the time for each part |
 
 </details>
 
@@ -181,14 +205,14 @@ Share a few things you wrote yourself and WriteLikeHuman builds a short voice pr
 | Language | What it does |
 |---|---|
 | Indian English | Keeps lakh, crore, Indian date formats, and natural Indian phrasing. No forced American style. |
-| Hinglish, Tanglish, Manglish, Benglish, Kanglish, and other mixes | Keeps your mix and your script. It won't "correct" you into pure English. |
-| Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi, Odia, Urdu, Assamese | Fixes stiff, textbook, or machine-translated wording |
-| Spanish, French, German, Portuguese, Indonesian, Arabic, Japanese | The same, with each language's own common slips |
+| Hinglish, Tanglish, Manglish, Benglish, Kanglish, Taglish, and other mixes | Keeps your mix and your script. It won't "correct" you into pure English. |
+| Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi, Odia, Urdu, Assamese, Nepali, Sinhala, Konkani | Fixes stiff, textbook, or machine-translated wording |
+| Spanish, French, German, Portuguese, Italian, Turkish, Indonesian, Arabic, Japanese, Korean, Chinese, Filipino | The same, with each language's own common slips |
 | Translation | "Translate this into Hindi" gives you a version that sounds native |
 
 It never translates unless you ask. Write in Tamil and it answers in Tamil.
 
-The language guides haven't been checked by native speakers yet. If you speak one of these languages, [your help is welcome](CONTRIBUTING.md#help-wanted).
+The language guides haven't been checked by native speakers yet. If you speak one of these languages, [your help is welcome](CONTRIBUTING.md#help-wanted). The quickest way is a [language review issue](https://github.com/thisiskurubaran/WriteLikeHuman/issues/new?template=language_review.md).
 
 </details>
 
