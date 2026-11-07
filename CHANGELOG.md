@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Fixed
+
+- The skill description now names the newer writing types and files, so requests for them trigger the skill.
+
 ## [0.3.0] - 2026-11-07
 
 ### Added

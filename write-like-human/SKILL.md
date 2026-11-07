@@ -1,6 +1,6 @@
 ---
 name: write-like-human
-description: Write or rewrite anything so it sounds like a real person, not AI. Works on pasted text, Word, PDF, Google Docs, spreadsheets, slides, emails, WhatsApp replies, letters, resumes, social posts, bios, reports, speeches, wishes, reviews, and form answers, keeping formatting, facts, and numbers. Use when someone asks to humanize text, make it sound natural, less robotic, less like ChatGPT, more like them, friendlier, simpler, shorter, or asks if text sounds AI written. Handles Indian English, Hinglish, and many languages.
+description: Write or rewrite anything so it sounds like a real person, not AI. Works on pasted text, Word, PDF, Google Docs, spreadsheets, slides, web pages, subtitles, and screenshots, keeping formatting, facts, and numbers. Covers emails, WhatsApp replies, formal and RTI letters, complaints, resumes, cover letters, cold messages, social posts, bios, marriage biodata, listings, job posts, invitations, notices, speeches, wishes, condolences, eulogies, reviews, review replies, essays, reports, form answers, and voice notes. Use when someone asks to humanize text, make it sound natural, less robotic, less like ChatGPT, more like them, friendlier, simpler, shorter, or more professional, asks if text sounds AI written, or wants a message checked before sending. Handles Indian English, Hinglish, Tanglish, and many other languages, and translates so it sounds native.
 ---
 
 # WriteLikeHuman
