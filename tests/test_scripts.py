@@ -527,6 +527,121 @@ class HtmlRewriteTest(TempDirCase):
             self.assertEqual(fh.read(), HTML)
 
 
+ATTR_HTML = (
+    '<html><head><meta name="description" content="We harness synergies to bake bread.">'
+    "<meta property='og:description' content='Bread &amp; cakes'></head>"
+    '<body><img src="a.jpg" alt="A delightful image of bread"><input placeholder=Search>'
+    "<p title='Opening hours'>Open daily.</p><code><img alt=\"skip me\"></code></body></html>"
+)
+
+
+class HtmlAttributesTest(TempDirCase):
+    def setUp(self):
+        super().setUp()
+        self.src = self.path("attrs.html")
+        with open(self.src, "w", encoding="utf-8") as fh:
+            fh.write(ATTR_HTML)
+
+    def test_default_extract_has_no_attributes(self):
+        nodes = json.loads(run("html_rewrite.py", "extract", self.src).stdout)["nodes"]
+        self.assertEqual([n["id"] for n in nodes], ["t1"])
+
+    def test_attributes_listed_and_code_skipped(self):
+        nodes = json.loads(run("html_rewrite.py", "extract", self.src, "--attributes").stdout)["nodes"]
+        tags = {n["tag"]: n["text"] for n in nodes if n["id"].startswith("attr-")}
+        self.assertEqual(tags["img@alt"], "A delightful image of bread")
+        self.assertEqual(tags["input@placeholder"], "Search")
+        self.assertEqual(tags["p@title"], "Opening hours")
+        self.assertIn("Bread & cakes", [n["text"] for n in nodes])
+        self.assertFalse(any(n["text"] == "skip me" for n in nodes))
+
+    def test_attributes_updated_and_quoting_kept(self):
+        nodes = json.loads(run("html_rewrite.py", "extract", self.src, "--attributes").stdout)["nodes"]
+        ids = {n["text"]: n["id"] for n in nodes}
+        changes = write_json(self.path("c.json"), {
+            ids["We harness synergies to bake bread."]: "We bake bread every morning.",
+            ids["Bread & cakes"]: 'Bread & "fresh" cakes',
+            ids["A delightful image of bread"]: "Loaves of bread on a table",
+            ids["Search"]: "Search the menu",
+            ids["Opening hours"]: "When we're open",
+        })
+        run("html_rewrite.py", "apply", self.src, changes)
+        with open(self.path("attrs-humanized.html"), encoding="utf-8") as fh:
+            result = fh.read()
+        self.assertIn('content="We bake bread every morning."', result)
+        self.assertIn("content='Bread &amp; \"fresh\" cakes'", result)
+        self.assertIn('alt="Loaves of bread on a table"', result)
+        self.assertIn('placeholder="Search the menu"', result)
+        self.assertIn("title='When we&#39;re open'", result)
+        self.assertIn('<code><img alt="skip me"></code>', result)
+        self.assertIn("<p title=", result)
+        self.assertIn(">Open daily.</p>", result)
+
+
+def make_letter_pdf(path):
+    from reportlab.pdfgen import canvas
+    c = canvas.Canvas(path)
+    y = 760
+    for text, gap in [
+        ("Dear Mr Sharma,", 28),
+        ("Thank you for your letter about the water supply in our build-", 14),
+        ("ing. We have checked the tank and the pipes, and it is now fixed.", 28),
+        ("Please note:", 16),
+        ("1. Keep the main valve open at all times during the day.", 14),
+        ("2. Call the office if the water pressure drops again.", 28),
+        ("Yours sincerely,", 14),
+        ("Anita Rao", 14),
+    ]:
+        c.drawString(72, y, text)
+        y -= gap
+    c.save()
+
+
+try:
+    import reportlab  # noqa: F401
+    HAVE_REPORTLAB = True
+except ImportError:
+    HAVE_REPORTLAB = False
+
+
+@unittest.skipUnless(HAVE_PYPDF and HAVE_REPORTLAB, "pypdf or reportlab is not installed")
+class PdfParagraphTest(TempDirCase):
+    def paragraphs(self):
+        src = self.path("letter.pdf")
+        make_letter_pdf(src)
+        data = json.loads(run("pdf_extract.py", "extract", src).stdout)
+        return data["pages"][0]["text"].split("\n\n")
+
+    def test_salutation_on_its_own(self):
+        paras = self.paragraphs()
+        self.assertEqual(paras[0], "Dear Mr Sharma,")
+        self.assertTrue(paras[1].startswith("Thank you for your letter"))
+
+    def test_hyphen_joined_and_lines_merged(self):
+        paras = self.paragraphs()
+        self.assertIn("in our building. We have checked", paras[1])
+
+    def test_numbered_items_kept_apart(self):
+        text = "\n\n".join(self.paragraphs())
+        self.assertIn("1. Keep the main valve open at all times during the day.\n2. Call the office", text)
+        self.assertIn("Yours sincerely,", self.paragraphs())
+
+
+class TidyTextOnlyTest(unittest.TestCase):
+    def test_text_only_fallback(self):
+        sys.path.insert(0, SCRIPTS)
+        try:
+            import pdf_extract
+        finally:
+            sys.path.pop(0)
+        text = ("Dear Ms Iyer,\nThe parcel reached us on 3 May and we have sent a\n"
+                "replacement today.\n- Order 4471\n- Courier: BlueDart")
+        out = pdf_extract.tidy(text)
+        self.assertEqual(out.split("\n\n")[0], "Dear Ms Iyer,")
+        self.assertIn("we have sent a replacement today.", out)
+        self.assertIn("- Order 4471\n- Courier: BlueDart", out)
+
+
 class DateCheckTest(unittest.TestCase):
     def check(self, text, *args, expect=None):
         proc = run("date_check.py", "--json", "--today", "2026-11-07", "--text", text, *args, expect=expect)

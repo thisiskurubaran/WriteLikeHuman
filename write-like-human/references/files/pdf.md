@@ -28,7 +28,7 @@ What cannot be kept: the exact page layout, fonts, colours, logos, and images of
    - Read those pages yourself by looking at them as images, if you can see the PDF pages, and type out the text carefully.
    - Tell the user which pages were scanned and that you read them from the image, so they should check names and numbers on those pages.
    - If the image is too blurry to read with confidence, say which page and ask for a clearer copy or the text itself. Never guess at a name, number, or date.
-3. **Fix the layout breaks.** PDF text often comes out with lines broken mid-sentence, words split by hyphens, page numbers and running headers mixed in. The script joins most broken lines. Also remove repeated headers, footers, and page numbers, and put paragraph breaks back where the original clearly had them.
+3. **Fix the layout breaks.** PDF text often comes out with lines broken mid-sentence, words split by hyphens, page numbers and running headers mixed in. The script joins broken lines, rejoins hyphenated words, and keeps greetings, sign-offs, list items, and real paragraph breaks on their own. Remove repeated headers, footers, and page numbers, then check the paragraph breaks against the original and fix any it missed.
 4. **Mark structure** in the page text so the Word file comes out right: `# ` for a main heading, `## ` for a subheading, `- ` for a bullet, a blank line between paragraphs.
 5. **Rewrite** following `ai-patterns.md`, the mode module, and any writing or adjust modules.
 6. **Build the Word file** from the edited JSON:

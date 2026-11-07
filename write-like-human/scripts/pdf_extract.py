@@ -63,31 +63,152 @@ def page_has_images(page):
     return False
 
 
-def tidy(text):
-    """Join lines broken by the PDF layout back into paragraphs."""
-    text = text.replace("\r\n", "\n").replace("\r", "\n")
-    # Words split across lines with a hyphen: "exam-\nple" -> "example".
-    text = re.sub(r"(\w)-\n(\w)", r"\1\2", text)
-    paragraphs = re.split(r"\n\s*\n", text)
+BULLET = re.compile(r"^([-*\u2022\u25aa\u25cf]|\(?\d{1,3}[.)]|\(?[a-zA-Z][.)])\s")
+SALUTATION = re.compile(
+    r"^(dear|respected|hi|hello|to|sir|madam|yours\s+(sincerely|faithfully|truly)|"
+    r"regards|warm regards|best regards|thanks|thank you|sincerely)\b.{0,60}[,:]?$",
+    re.IGNORECASE)
+SENTENCE_END = re.compile(r"[.!?:;\u0964][\"')\]]*$")
+
+
+def _median(values):
+    values = sorted(values)
+    if not values:
+        return 0
+    mid = len(values) // 2
+    return values[mid] if len(values) % 2 else (values[mid - 1] + values[mid]) / 2.0
+
+
+def page_lines(page):
+    """Lines of a page with their height on the page and font size.
+
+    Uses pypdf's text visitor when it works. Returns a list of dicts
+    {"text", "y", "size"}; y and size are None when positions are not
+    available, and the caller falls back to text-only rules.
+    """
+    frags = []
+
+    def visit(text, cm, tm, font, size):
+        if not text:
+            return
+        try:
+            y = tm[4] * cm[1] + tm[5] * cm[3] + cm[5]
+            scale = abs(tm[3] * cm[3]) or 1.0
+            frags.append((text, round(y, 1), (size or 0) * scale))
+        except Exception:
+            frags.append((text, None, None))
+
+    try:
+        raw = page.extract_text(visitor_text=visit) or ""
+    except Exception:
+        raw, frags = "", []
+    lines, cur, cur_y, cur_size = [], "", None, None
+
+    def push():
+        if cur.strip() or cur == "":
+            lines.append({"text": cur.strip(), "y": cur_y, "size": cur_size})
+
+    for text, y, size in frags:
+        parts = text.split("\n")
+        for i, part in enumerate(parts):
+            if i > 0:
+                push()
+                cur, cur_y, cur_size = "", None, None
+            if part == "":
+                continue
+            if cur and y is not None and cur_y is not None and abs(y - cur_y) > 2:
+                push()
+                cur, cur_y, cur_size = "", None, None
+            cur = cur + part if cur else part
+            if cur_y is None:
+                cur_y, cur_size = y, size
+    push()
+    # Drop empty duplicates created by explicit newlines; keep real blank lines
+    # only when they separate text.
     cleaned = []
-    for para in paragraphs:
-        lines = [ln.strip() for ln in para.split("\n") if ln.strip()]
-        if not lines:
+    for ln in lines:
+        if not ln["text"] and (not cleaned or not cleaned[-1]["text"]):
             continue
-        # Keep bullet-like lines on their own, join the rest.
-        out, buf = [], []
-        for ln in lines:
-            if re.match(r"^([-*•]|\d+[.)])\s", ln):
-                if buf:
-                    out.append(" ".join(buf))
-                    buf = []
-                out.append(ln)
-            else:
-                buf.append(ln)
-        if buf:
-            out.append(" ".join(buf))
-        cleaned.append("\n".join(out))
-    return "\n\n".join(cleaned)
+        cleaned.append(ln)
+    if not any(ln["text"] for ln in cleaned):
+        return [{"text": t.strip(), "y": None, "size": None} for t in raw.split("\n")]
+    return cleaned
+
+
+def join_lines(lines):
+    """Join PDF lines into paragraphs and keep real paragraph breaks.
+
+    A new paragraph starts at a blank line, a bullet or numbered item, the
+    line after a greeting or sign-off ("Dear Mr Sharma,"), the line after a
+    short line, a bigger vertical gap than usual, or a change of font size.
+    Words split with a hyphen at a line end are joined back together.
+    """
+    texts = [ln["text"] for ln in lines if ln["text"]]
+    if not texts:
+        return ""
+    typical = _median([len(t) for t in texts]) or 1
+    gaps = []
+    prev = None
+    for ln in lines:
+        if ln["text"] and ln.get("y") is not None:
+            if prev is not None and prev["y"] is not None and prev["y"] > ln["y"]:
+                gaps.append(prev["y"] - ln["y"])
+            prev = ln
+    usual_gap = _median(gaps)
+
+    paragraphs, buf, last = [], "", None
+    blank_before = False
+
+    def new_para(line):
+        if not buf or last is None:
+            return False
+        if blank_before or BULLET.match(line["text"]) or BULLET.match(last["text"]):
+            return True
+        if SALUTATION.match(last["text"]) and len(last["text"]) < 0.8 * typical:
+            return True
+        if len(last["text"]) < 0.6 * typical:
+            return True
+        if usual_gap and last.get("y") is not None and line.get("y") is not None:
+            gap = last["y"] - line["y"]
+            if gap > 1.5 * usual_gap:
+                return True
+            if SENTENCE_END.search(last["text"]) and line["text"][:1].isupper() and gap > 1.15 * usual_gap:
+                return True
+        if last.get("size") and line.get("size"):
+            big, small = max(last["size"], line["size"]), min(last["size"], line["size"])
+            if small and big / small > 1.15:
+                return True
+        return False
+
+    for line in lines:
+        text = line["text"]
+        if not text:
+            blank_before = True
+            continue
+        if new_para(line):
+            paragraphs.append(buf)
+            buf = text
+        elif buf and re.search(r"[A-Za-z]-$", buf) and text[:1].islower():
+            buf = buf[:-1] + text
+        else:
+            buf = (buf + " " + text) if buf else text
+        last, blank_before = line, False
+    if buf:
+        paragraphs.append(buf)
+
+    out = []
+    for i, para in enumerate(paragraphs):
+        if i and BULLET.match(para) and BULLET.match(paragraphs[i - 1]):
+            out.append("\n" + para)
+        else:
+            out.append(("\n\n" if i else "") + para)
+    return "".join(out)
+
+
+def tidy(text):
+    """Join lines broken by the PDF layout back into paragraphs (text only)."""
+    text = text.replace("\r\n", "\n").replace("\r", "\n")
+    return join_lines([{"text": ln.strip(), "y": None, "size": None} for ln in text.split("\n")])
 
 
 def cmd_extract(args):
@@ -103,11 +224,13 @@ def cmd_extract(args):
             sys.exit("This PDF is password protected. Ask the user for an unlocked copy.")
     pages = []
     for i, page in enumerate(reader.pages, start=1):
-        try:
-            raw = page.extract_text() or ""
-        except Exception:
-            raw = ""
-        text = raw if args.raw else tidy(raw)
+        if args.raw:
+            try:
+                text = page.extract_text() or ""
+            except Exception:
+                text = ""
+        else:
+            text = join_lines(page_lines(page))
         visible = len(re.sub(r"\s", "", text))
         scanned = visible < SCANNED_MIN_CHARS and (page_has_images(page) or visible == 0)
         pages.append({"page": i, "text": text, "words": word_count(text), "scanned": scanned})

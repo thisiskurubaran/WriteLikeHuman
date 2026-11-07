@@ -10,17 +10,20 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - The skill description now names the newer writing types and files, so requests for them trigger the skill.
 - Four modules now use the standard section headings, and the tone presets module has an Output section.
+- PDF text keeps its paragraph breaks, including greeting lines and numbered lists.
 
 ### Changed
 
 - The router's input table is split into groups (files, work, official, selling, personal) so the right module is easier to find.
 - Hindi and Tamil README and install guide brought up to date, including the plugin install.
+- Spreadsheets with charts: a plainer warning, and the option to get only the rewritten text cells back.
 
 ### Added
 
 - Checks that every module has the standard sections, that the newest changelog section has entries, and that the plugin version matches the changelog.
 - Eval cases for every writing, file, adjust, voice, and mode module (81 cases in all).
 - Ten more before and after samples covering the v0.2.0 and v0.3.0 modules.
+- Web pages: image descriptions (alt text) and meta descriptions can be rewritten too, when asked.
 
 ## [0.3.0] - 2026-11-07
 

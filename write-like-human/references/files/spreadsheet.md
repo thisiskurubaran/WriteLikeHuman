@@ -76,10 +76,10 @@ The formula and the 15000 stay exactly as they were.
 
 ## If something goes wrong
 
-- **The script stops because of charts, images, or pivot tables:** saving with it would drop them. Tell the user in one line and offer a choice:
-  1. Use Claude's built in xlsx skill if it is there, which may keep them.
-  2. Give them the rewritten notes as a list with cell references ("E2: ...", "E3: ..."), so they can paste them into their own file. This is the safest choice.
-  3. Run with `--force` only if the user says the charts and images don't matter.
+- **The script stops and asks for `--force`:** the workbook has charts, images, or pivot tables. The library the script uses (openpyxl) can quietly drop those when it saves, so the script won't save without your say-so. Tell the user plainly, for example: "Your sheet has charts. Saving it with my tool could remove them, so I've stopped before changing anything." Then offer a choice:
+  1. Get only the rewritten text cells back as a list with cell references ("E2: ...", "E3: ...") or as a small CSV, to paste into their own file. Nothing in their workbook can break this way, so suggest it first.
+  2. Use Claude's built in xlsx skill if it is there, which may keep the charts.
+  3. Run with `--force` only if the user says the charts and images don't matter, and say again that they may be lost in the new copy (the original stays safe either way).
 - **The script fails to run:** give the rewritten text as a list of cell references and new text, ready to paste. Never rebuild the spreadsheet from scratch.
 - **The file is .xls (old Excel) or .ods:** ask the user to save it as .xlsx, or paste the column.
 - **The file has macros (.xlsm):** do not edit it with the script. Give the new text as a list with cell references instead.

@@ -20,6 +20,13 @@ Two steps:
 
        python html_rewrite.py apply about.html changes.json
 
+     With --attributes, extract also lists text that people read or hear
+     but that sits inside a tag: alt, title, placeholder, and aria-label
+     values, and the content of meta description tags (description,
+     og:description, twitter:description). These get ids like "attr-2"
+     and "tag" shows the element and attribute, for example "img@alt".
+     Without the flag, extract output is exactly as before.
+
      changes.json can be {"t3": "new text", ...} or the edited output of
      extract (only nodes whose text changed are applied). Saved as
      about-humanized.html, next to the original, which is never
@@ -45,6 +52,10 @@ SKIP_TAGS = {"script", "style", "code", "pre", "textarea", "template"}
 VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link",
              "meta", "param", "source", "track", "wbr"}
 NUMBER = re.compile(r"\d(?:[\d,.:/]*\d)?")
+TEXT_ATTRS = {"alt", "title", "placeholder", "aria-label"}
+META_NAMES = {"description", "og:description", "twitter:description"}
+ATTR_RE = re.compile(
+    r"""\s([^\s"'>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?""")
 
 
 class _Spans(HTMLParser):
@@ -59,6 +70,7 @@ class _Spans(HTMLParser):
         self.stack = []
         self.prev_end = 0
         self.spans = []  # (start, end, tag, skipped)
+        self.attrs = []  # (start, end, label, quote) of readable attribute values
 
     def _offset(self):
         line, col = self.getpos()
@@ -81,14 +93,38 @@ class _Spans(HTMLParser):
             return len(self.source) if i < 0 else i + len(marker)
         return find
 
+    def _attributes(self, tag, start, text):
+        if any(t in SKIP_TAGS for t in self.stack) or tag in SKIP_TAGS:
+            return
+        found = []
+        for m in ATTR_RE.finditer(text):
+            name = m.group(1).lower()
+            for group, quote in ((2, '"'), (3, "'"), (4, "")):
+                if m.group(group) is not None:
+                    found.append((name, start + m.start(group), start + m.end(group), quote))
+                    break
+        names = {f[0]: f for f in found}
+        if tag == "meta":
+            key = (self.source[names["name"][1]:names["name"][2]] if "name" in names else
+                   self.source[names["property"][1]:names["property"][2]] if "property" in names else "")
+            if key.strip().lower() in META_NAMES and "content" in names:
+                _, a, b, q = names["content"]
+                self.attrs.append((a, b, "meta@content", q))
+            return
+        for name, a, b, q in found:
+            if name in TEXT_ATTRS:
+                self.attrs.append((a, b, "%s@%s" % (tag, name), q))
+
     def handle_starttag(self, tag, attrs):
         text = self.get_starttag_text() or ""
+        self._attributes(tag, self._offset(), text)
         self._markup(lambda s: s + len(text))
         if tag not in VOID_TAGS:
             self.stack.append(tag)
 
     def handle_startendtag(self, tag, attrs):
         text = self.get_starttag_text() or ""
+        self._attributes(tag, self._offset(), text)
         self._markup(lambda s: s + len(text))
 
     def handle_endtag(self, tag):
@@ -117,10 +153,11 @@ class _Spans(HTMLParser):
         return self.spans
 
 
-def find_nodes(source):
+def find_nodes(source, attributes=False):
+    parser = _Spans(source)
     nodes = []
     n = 0
-    for start, end, tag, skipped in _Spans(source).finish():
+    for start, end, tag, skipped in parser.finish():
         raw = source[start:end]
         if skipped or not raw.strip():
             continue
@@ -131,6 +168,15 @@ def find_nodes(source):
         nodes.append({"id": "t%d" % n, "tag": tag,
                       "text": html.unescape(core),
                       "_start": start + lead, "_end": end - trail})
+    if attributes:
+        a = 0
+        for start, end, label, quote in parser.attrs:
+            raw = source[start:end]
+            if not raw.strip():
+                continue
+            a += 1
+            nodes.append({"id": "attr-%d" % a, "tag": label, "text": html.unescape(raw),
+                          "_start": start, "_end": end, "_quote": quote})
     return nodes
 
 
@@ -140,7 +186,7 @@ def read(path):
 
 
 def cmd_extract(args):
-    nodes = find_nodes(read(args.file))
+    nodes = find_nodes(read(args.file), attributes=args.attributes)
     out = {"file": os.path.basename(args.file),
            "nodes": [{k: v for k, v in n.items() if not k.startswith("_")} for n in nodes]}
     text = json.dumps(out, ensure_ascii=False, indent=2)
@@ -171,7 +217,7 @@ def default_output(path):
 
 def cmd_apply(args):
     source = read(args.file)
-    nodes = find_nodes(source)
+    nodes = find_nodes(source, attributes=True)
     changes = load_changes(args.changes, nodes)
     by_id = {n["id"]: n for n in nodes}
     unknown = [k for k in changes if k not in by_id]
@@ -187,7 +233,7 @@ def cmd_apply(args):
     pieces = []
     pos = 0
     changed = 0
-    for node in nodes:
+    for node in sorted(nodes, key=lambda n: n["_start"]):
         new = changes.get(node["id"])
         if new is None or new == node["text"]:
             continue
@@ -197,14 +243,26 @@ def cmd_apply(args):
             print("CHECK %s: numbers changed from %s to %s"
                   % (node["id"], old_numbers or "none", new_numbers or "none"))
         pieces.append(source[pos:node["_start"]])
-        pieces.append(html.escape(new, quote=False))
+        if "_quote" not in node:
+            pieces.append(html.escape(new, quote=False))
+        elif node["_quote"] == '"':
+            pieces.append(html.escape(new, quote=False).replace('"', "&quot;"))
+        elif node["_quote"] == "'":
+            pieces.append(html.escape(new, quote=False).replace("'", "&#39;"))
+        else:
+            # Unquoted value: keep it unquoted if it is still one safe word.
+            escaped = html.escape(new, quote=False)
+            if re.fullmatch(r"[^\s\"'=<>`]+", escaped):
+                pieces.append(escaped)
+            else:
+                pieces.append('"' + escaped.replace('"', "&quot;") + '"')
         pos = node["_end"]
         changed += 1
     pieces.append(source[pos:])
 
     with open(out_path, "w", encoding="utf-8") as fh:
         fh.write("".join(pieces))
-    print("Changed %d of %d text pieces. Saved %s" % (changed, len(nodes), out_path))
+    print("Changed %d text pieces. Saved %s" % (changed, out_path))
 
 
 def main():
@@ -213,6 +271,8 @@ def main():
     ex = sub.add_parser("extract", help="list visible text as JSON")
     ex.add_argument("file")
     ex.add_argument("-o", "--output", help="write JSON here instead of printing it")
+    ex.add_argument("--attributes", action="store_true",
+                    help="also list alt, title, placeholder, aria-label, and meta description text")
     ex.set_defaults(func=cmd_extract)
     ap = sub.add_parser("apply", help="write new text into a copy of the page")
     ap.add_argument("file")

@@ -130,8 +130,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install the libraries claude.ai provides
-        run: pip install python-docx openpyxl python-pptx pypdf
+      - name: Install the libraries claude.ai provides, plus reportlab to build test PDFs
+        run: pip install python-docx openpyxl python-pptx pypdf reportlab
 
       - name: Run tests
         run: python -m unittest discover -s tests -v
