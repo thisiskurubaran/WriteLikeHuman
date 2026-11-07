@@ -1,0 +1,272 @@
+<div align="center">
+
+# WriteLikeHuman
+
+**रोज़ की लिखाई ऐसी लगे जैसे आपने ख़ुद लिखी हो।**
+
+Email, WhatsApp reply, letter, resume, post और आपकी रोज़ की files के लिए एक free Claude skill.
+
+[![Latest release](https://img.shields.io/github/v/release/thisiskurubaran/WriteLikeHuman?label=release&color=2ea44f)](https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest)
+[![License: MIT](https://img.shields.io/github/license/thisiskurubaran/WriteLikeHuman?color=blue)](LICENSE)
+[![Claude Skill](https://img.shields.io/badge/Claude-Skill-D97757?logo=claude&logoColor=white)](https://support.claude.com/en/articles/12512180-use-skills-in-claude)
+[![Works on](https://img.shields.io/badge/works%20on-web%20%7C%20desktop%20%7C%20mobile-6f42c1)](INSTALL.md)
+[![No coding needed](https://img.shields.io/badge/coding-not%20needed-success)](INSTALL.md)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)](CONTRIBUTING.md)
+
+[Install](#install) · [क्या पूछ सकते हैं](#ask) · [Features](#features) · [सवाल-जवाब](#faq) · [Contribute](#contributing)
+
+[English](README.md) · हिंदी · [தமிழ்](README.ta.md)
+
+</div>
+
+> यह English [README](README.md) का हिंदी अनुवाद है। असली version English वाला है, और वह इससे नया हो सकता है। अगर आपकी भाषा हिंदी है और कुछ अटपटा लगे, तो सुधार भेजिए, [यहाँ देखें कैसे](CONTRIBUTING.md#help-wanted)।
+
+---
+
+## WriteLikeHuman क्यों?
+
+आप Claude से कोई message लिखवाते हैं और वह किसी brochure जैसा लगता है। "I hope this finds you well." "It's important to note." हर जगह लंबे dash. कोई इंसान ऐसे बात नहीं करता।
+
+WriteLikeHuman यही ठीक करता है। अपना text paste कीजिए या file लगाइए, बोलिए "make this sound less robotic", और आपको वही बात सीधे, आम शब्दों में वापस मिलेगी। आपकी बातें, नंबर और formatting वैसे के वैसे रहते हैं, और आपकी असली file कभी overwrite नहीं होती।
+
+Code के बारे में कुछ जानने की ज़रूरत नहीं। अगर आप फ़ोटो upload कर सकते हैं, तो इसे भी install कर सकते हैं।
+
+## फ़र्क़ देखिए
+
+<table>
+<tr>
+<th width="50%">पहले</th>
+<th width="50%">बाद में</th>
+</tr>
+<tr>
+<td valign="top">
+
+I hope this message finds you well! I wanted to reach out regarding the quarterly report. It's important to note that the deadline has been moved to 15 March. Please ensure that all inputs are submitted accordingly. Let me know if you have any questions!
+
+</td>
+<td valign="top">
+
+Hi team, the quarterly report deadline has moved to 15 March. Please send me your inputs by then.
+
+</td>
+</tr>
+</table>
+
+हर जवाब के आख़िर में आसान शब्दों में एक छोटा note आता है:
+
+> **What I changed**
+> - Removed the stock opening and closing lines.
+> - Cut "It's important to note that", which added nothing.
+> - Kept the date exactly as it was.
+
+(यह example English में है, क्योंकि text English में था। आप हिंदी में लिखेंगे तो note भी हिंदी में मिलेगा।)
+
+और examples: [before-after.md](write-like-human/examples/before-after.md)
+
+<a name="install"></a>
+## दो मिनट में install
+
+| Step | क्या करना है |
+|:---:|---|
+| 1 | [Releases page](https://github.com/thisiskurubaran/WriteLikeHuman/releases) से **`WriteLikeHuman.zip`** download कीजिए। इसे unzip मत कीजिए। |
+| 2 | Claude में **Settings > Capabilities** खोलिए और **Code execution and file creation** चालू कीजिए। |
+| 3 | **Customize > Skills** पर जाइए, **+** दबाइए, फिर **Upload a skill**, और zip चुनिए। |
+| 4 | देख लीजिए कि WriteLikeHuman के आगे वाला switch on है। बस हो गया। |
+
+एक skill, एक बार upload. आपके account में आ गया, तो Claude की phone app में भी चलेगा।
+
+और मदद चाहिए, या Claude Code इस्तेमाल करते हैं? पूरी [install guide](INSTALL.hi.md) देखिए।
+
+<a name="ask"></a>
+## क्या पूछ सकते हैं
+
+बस आम तरीक़े से बात कीजिए। कोई command याद नहीं करनी।
+
+```text
+Make this email sound less robotic
+Humanize this Word file
+Does this sound like AI?
+Write a farewell speech for my manager
+Reply to this WhatsApp from my landlord
+Make this simpler for my dad
+Show me each change so I can approve it
+```
+
+हिंदी या Hinglish में भी पूछ सकते हैं:
+
+```text
+यह email थोड़ा natural बना दो, बहुत robotic लग रहा है
+Landlord ke is WhatsApp ka reply likh do, politely
+मम्मी के लिए इसे आसान हिंदी में लिख दो
+```
+
+<a name="features"></a>
+## Features
+
+### काम करने के चार तरीक़े
+
+| तरीक़ा | ऐसे बोलिए |
+|---|---|
+| जो text है उसे ठीक करना | "Make this sound natural" |
+| कुछ नया लिखवाना, जो पहली बार में ही सही लगे | "Write a thank you note to my teacher" |
+| बिना बदले बताना कि क्या अटपटा लग रहा है | "Does this sound like AI?" |
+| हर बदलाव एक-एक करके मंज़ूर या नामंज़ूर करना | "Show me the changes side by side" |
+
+### आपकी files, जैसी थीं वैसी
+
+| File | आपको क्या वापस मिलता है |
+|---|---|
+| Word (.docx) | वही fonts, styles, tables और lists. चाहें तो tracked changes भी। |
+| PDF | Edit होने वाली Word copy, और अगर कोई page scan की हुई image है तो उसकी सूचना। |
+| Google Docs और Claude docs | Claude आपके Google account से जुड़ा हो तो वहीं edit, नहीं तो paste करने के लिए साफ़ copy. |
+| Spreadsheets (.xlsx, .csv, Google Sheets) | सिर्फ़ text cells, notes और comments बदलते हैं। नंबर और formulas को हाथ नहीं लगाया जाता। |
+| Slides (.pptx, Google Slides) | Slide का text और speaker notes, layout वैसा ही। |
+| Text और Markdown (.txt, .md) | Markdown, links और code blocks जैसे थे वैसे। |
+| Subtitles (.srt, .vtt) | Captions के शब्द बदलते हैं, timing नहीं, ताकि video के साथ sync रहें। |
+| OpenDocument और RTF (.odt, .rtf) | Word file की तरह edit, और बताया जाता है कि वापस किस format में मिलेगी। |
+| Chat और email के screenshots | Screen पर जो दिख रहा है उससे reply, किसी का phone number दोहराए बिना। |
+| एक साथ कई files | हर file अलग से ठीक होती है, एक file की बात दूसरी में नहीं मिलती। |
+
+हर file एक नई copy बनकर आती है, नाम होता है `yourfile-humanized`, ताकि असली file सुरक्षित रहे। "a file showing what changed" माँगेंगे तो एक Word file भी मिलेगी जिसमें हर बदलाव mark होगा।
+
+<details>
+<summary><b>किस-किस तरह की लिखाई (21)</b></summary>
+
+<br>
+
+| लिखाई | किस बात का ध्यान रखता है |
+|---|---|
+| Emails | जल्दी वाला reply, शालीनता से मना करना, follow-up, thank you, माफ़ी, कुछ माँगना, और पूरी thread का reply |
+| WhatsApp और SMS | घरवालों, landlord, delivery वालों, building group को reply |
+| Formal letters | छुट्टी, शिकायत, bank, सरकारी दफ़्तर और school के letters, Indian format में |
+| Resume और cover letter | Buzzwords की जगह सीधे शब्द, और कोई मनगढ़ंत achievement नहीं |
+| Social posts | LinkedIn, Instagram, X, WhatsApp और Facebook, हर एक की limit के अंदर |
+| Bios | Instagram bio, dating profile, website का About page |
+| Reports | School और office की reports, साफ़ और आपके ही शब्दों में |
+| Meeting notes | कच्चे notes से पढ़ने लायक minutes |
+| Speeches और toasts | शादी, birthday, farewell, बोलकर पढ़ने के हिसाब से |
+| Wishes और cards | त्योहार, बधाई, और शोक संदेश, ध्यान से लिखे हुए |
+| Reviews | आपका अपना असली अनुभव, आपके शब्दों में |
+| Form answers | Personal statement, visa letter, scholarship के जवाब, सच के साथ |
+| Voice notes | Speech-to-text transcript से पढ़ने लायक text |
+| Reviews के reply | Business वाले ख़ुद अपनी तरफ़ से customer reviews का जवाब दें |
+| Listings | Meesho, Etsy, Amazon, Flipkart, OLX और Instagram shop के product description, सिर्फ़ seller की दी हुई जानकारी से |
+| Invitations | शादी, गृह प्रवेश, नामकरण, birthday party |
+| मुश्किल बातें | माफ़ी माँगना, अपनी हद तय करना, घरवालों को मना करना |
+| Job posts | सीधी, सबको शामिल करने वाली job description |
+| Notices और newsletters | Housing society, school, club और office के notice |
+| Freelance proposals | Upwork, Fiverr और client quotes, बिना मनगढ़ंत अनुभव के |
+| Essays | School और college के essays, student के अपने शब्दों में बेहतर |
+
+</details>
+
+<details>
+<summary><b>बदलाव जो आप माँग सकते हैं</b></summary>
+
+<br>
+
+| बदलाव | ऐसे बोलिए |
+|---|---|
+| Tone | "Friendlier", "more professional", "warmer", "short and direct", "more formal" |
+| पढ़ने का level | "Simpler for my mom", "for a 10 year old", "English is their second language" |
+| लंबाई | "Cut this to 200 words", "turn these notes into a paragraph" |
+| पढ़ने में आसान | "Is this easy to read?" लंबे वाक्य, मुश्किल शब्द और अस्पष्ट links बताता है |
+| सबको शामिल करने वाले शब्द | "Make it gender neutral" (सिर्फ़ जब आप कहें) |
+| जो शब्द नहीं बदलने | "Never change 'FlexiPlan Pro'" से brand नाम, ख़ास शब्द और nicknames वैसे ही रहते हैं |
+| कौन सी English | "Make it UK English" से US, UK, Australian और Indian spelling और dates के बीच बदलाव |
+| Paste के लिए तैयार | हर app में ठीक दिखने वाली line breaks और formatting |
+| पढ़ने की उम्र | "What reading age is this?" से मोटा-मोटा अंदाज़ा, सिर्फ़ जब आप पूछें |
+
+</details>
+
+<details>
+<summary><b>आपकी अपनी आवाज़</b></summary>
+
+<br>
+
+अपनी लिखी हुई कुछ चीज़ें दीजिए और WriteLikeHuman एक छोटा voice profile बना देता है: आपके वाक्य कितने लंबे होते हैं, कौन से शब्द आपको पसंद हैं, आप message कैसे ख़त्म करते हैं। इसे note या file की तरह रख लीजिए और अगली बार साथ लगा दीजिए। एक से ज़्यादा भी रख सकते हैं, जैसे "work me" और "personal me"। अपनी WhatsApp chat export से भी बना सकते हैं: सिर्फ़ आपके messages लिए जाते हैं, और phone number, email और links पहले ही छिपा दिए जाते हैं।
+
+</details>
+
+<details>
+<summary><b>भाषाएँ</b></summary>
+
+<br>
+
+| भाषा | क्या करता है |
+|---|---|
+| Indian English | लाख, करोड़, Indian date format और आम Indian बोलचाल बनी रहती है। ज़बरदस्ती American style नहीं। |
+| Hinglish, Tanglish, Manglish, Benglish, Kanglish और दूसरे mix | आपका mix और आपकी script वैसी ही। आपको "सुधारकर" pure English में नहीं बदलता। |
+| हिंदी, तमिल, तेलुगु, कन्नड़, मलयालम, बांग्ला, मराठी, गुजराती, पंजाबी, ओड़िया, उर्दू, असमिया | किताबी, अकड़ी हुई या machine से translate जैसी भाषा ठीक करता है |
+| Spanish, French, German, Portuguese, Indonesian, Arabic, Japanese | यही काम, हर भाषा की अपनी आम ग़लतियों के साथ |
+| Translation | "Translate this into Hindi" से ऐसा version मिलता है जो सच में हिंदी जैसा लगे |
+
+जब तक आप न कहें, यह translate नहीं करता। तमिल में लिखेंगे तो जवाब तमिल में आएगा।
+
+भाषाओं वाली guides अभी तक native speakers ने जाँची नहीं हैं। अगर आप इनमें से कोई भाषा बोलते हैं, तो [आपकी मदद का स्वागत है](CONTRIBUTING.md#help-wanted)।
+
+</details>
+
+## यह क्या नहीं करेगा
+
+WriteLikeHuman बेहतर लिखने में मदद करता है। किसी को दिखावा करने में नहीं।
+
+- आपकी बातें नहीं बदलेगा। नाम, नंबर, तारीख़, रक़म और quotes वैसे ही रहेंगे जैसे आपने लिखे। कुछ साफ़ न हो तो पूछेगा।
+- किसी checker को लेकर वादा नहीं करेगा। यह लिखाई को साफ़ और natural बनाता है, बस इतना ही दावा है।
+- नकली reviews नहीं लिखेगा, न ही उन चीज़ों के reviews जो आपने इस्तेमाल नहीं कीं।
+- Personal statement, visa letter या scholarship के जवाब में ऐसा अनुभव नहीं जोड़ेगा जो हुआ ही नहीं।
+- आपके अलावा किसी और की नक़ल नहीं करेगा।
+
+<a name="faq"></a>
+## सवाल-जवाब
+
+<details>
+<summary><b>क्या यह free है?</b></summary>
+
+<br>
+
+हाँ। WriteLikeHuman MIT license के तहत free और open source है। आपको ऐसा Claude account चाहिए जिसमें skills मिलती हों। ज़्यादा जानकारी [install guide](INSTALL.hi.md) में है।
+
+</details>
+
+<details>
+<summary><b>क्या यह मेरे phone पर चलेगा?</b></summary>
+
+<br>
+
+हाँ। एक बार Claude की website या desktop app पर upload कर दीजिए, फिर उसी account से phone की Claude app में इस्तेमाल कीजिए।
+
+</details>
+
+<details>
+<summary><b>कहीं मेरा document बिगड़ तो नहीं जाएगा?</b></summary>
+
+<br>
+
+यह शब्द बदलता है, layout नहीं। Fonts, tables, lists और formulas अपनी जगह रहते हैं, और आपको हमेशा नई copy मिलती है, तो असली file को कुछ नहीं होता।
+
+</details>
+
+<details>
+<summary><b>यह चला ही नहीं। अब क्या करें?</b></summary>
+
+<br>
+
+Message की शुरुआत "Use WriteLikeHuman to..." से कीजिए। फिर भी न चले, तो **Customize > Skills** में देखिए कि switch on है। बाक़ी उपाय [install guide](INSTALL.md#something-not-working) में हैं।
+
+</details>
+
+## Privacy
+
+आपका text Claude के साथ आपकी अपनी chat में ही रहता है। यह skill आपकी लिखाई कहीं save या send नहीं करता। अगर कभी लगे कि ऐसा हो सकता है, तो [चुपचाप हमें बताइए](SECURITY.md)।
+
+<a name="contributing"></a>
+## Contribute कीजिए
+
+कोई AI वाली आदत है जो हमसे छूट गई? अपनी भाषा या कोई नई तरह की लिखाई जुड़वानी है? Contributions का स्वागत है। [CONTRIBUTING.md](CONTRIBUTING.md) से शुरू कीजिए और [Code of Conduct](CODE_OF_CONDUCT.md) का पालन कीजिए।
+
+कोई bug मिला? [Issue खोलिए](https://github.com/thisiskurubaran/WriteLikeHuman/issues/new/choose), और अपनी असली files की जगह बनाया हुआ text इस्तेमाल कीजिए।
+
+## License
+
+[MIT License](LICENSE) के तहत जारी। इस्तेमाल कीजिए, बाँटिए, बेहतर बनाइए।

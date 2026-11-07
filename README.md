@@ -15,6 +15,8 @@ A free Claude skill for emails, WhatsApp replies, letters, resumes, posts, and t
 
 [Install](#install-in-two-minutes) · [What you can ask](#what-you-can-ask) · [Features](#features) · [FAQ](#faq) · [Contributing](#contributing)
 
+English · [हिंदी](README.hi.md) · [தமிழ்](README.ta.md)
+
 </div>
 
 ---
