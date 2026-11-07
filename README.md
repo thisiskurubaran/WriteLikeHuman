@@ -104,17 +104,22 @@ Show me each change so I can approve it
 | Google Docs and Claude docs | Edited in place when Claude is connected to your Google account, or a clean copy to paste back. |
 | Spreadsheets (.xlsx, .csv, Google Sheets) | Only text cells, notes, and comments change. Numbers and formulas are never touched. |
 | Slides (.pptx, Google Slides) | Slide text and speaker notes, with the layout left alone. |
+| Text and Markdown (.txt, .md) | Markdown, links, and code blocks kept as they were. |
+| Subtitles (.srt, .vtt) | Captions reworded, timings untouched, so they stay in sync. |
+| OpenDocument and RTF (.odt, .rtf) | Edited as a Word file, and you're told which format you get back. |
+| Screenshots of chats and emails | A reply drafted from what's on screen, without repeating anyone's phone number. |
+| Several files at once | Each file fixed on its own, with no details mixed between them. |
 
-Every file comes back as a new copy named `yourfile-humanized`, so the original stays safe.
+Every file comes back as a new copy named `yourfile-humanized`, so the original stays safe. Ask for "a file showing what changed" and you also get a Word file with every change marked.
 
 <details>
-<summary><b>Kinds of writing it knows (13)</b></summary>
+<summary><b>Kinds of writing it knows (21)</b></summary>
 
 <br>
 
 | Writing | What it pays attention to |
 |---|---|
-| Emails | Quick replies, polite no's, follow-ups, thank yous, apologies, asking for something |
+| Emails | Quick replies, polite no's, follow-ups, thank yous, apologies, asking for something, and replies to whole threads |
 | WhatsApp and SMS | Replies to family, landlords, delivery people, building groups |
 | Formal letters | Leave, complaint, bank, government, and school letters in Indian formats |
 | Resumes and cover letters | Plain words instead of buzzwords, and no invented achievements |
@@ -127,6 +132,14 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 | Reviews | Your own real experience, in your own words |
 | Form answers | Personal statements, visa letters, scholarship answers, kept true |
 | Voice notes | Speech-to-text transcripts turned into readable text |
+| Replies to reviews | Business owners answering customer reviews as themselves |
+| Listings | Product descriptions for Meesho, Etsy, Amazon, Flipkart, OLX, and Instagram shops, with only the seller's facts |
+| Invitations | Weddings, housewarmings, naming ceremonies, birthday parties |
+| Hard conversations | Apologies, setting boundaries, saying no to family |
+| Job posts | Plain, inclusive job descriptions |
+| Notices and newsletters | Housing society, school, club, and office notices |
+| Freelance proposals | Upwork, Fiverr, and client quotes, with no invented experience |
+| Essays | School and college essays, improved in the student's own words |
 
 </details>
 
@@ -142,6 +155,10 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 | Length | "Cut this to 200 words", "turn these notes into a paragraph" |
 | Easy to read | "Is this easy to read?" flags long sentences, jargon, and unclear links |
 | Inclusive wording | "Make it gender neutral" (only when you ask) |
+| Words to leave alone | "Never change 'FlexiPlan Pro'" keeps brand names, jargon, and nicknames exactly as written |
+| Kind of English | "Make it UK English" switches between US, UK, Australian, and Indian spelling and dates |
+| Ready to paste | Line breaks and formatting that work in each app |
+| Reading age | "What reading age is this?" gives a rough guide, only when you ask |
 
 </details>
 
@@ -150,7 +167,7 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 
 <br>
 
-Share a few things you wrote yourself and WriteLikeHuman builds a short voice profile: how long your sentences run, the words you like, how you sign off. Keep it as a note or file and attach it next time. You can have more than one, like "work me" and "personal me".
+Share a few things you wrote yourself and WriteLikeHuman builds a short voice profile: how long your sentences run, the words you like, how you sign off. Keep it as a note or file and attach it next time. You can have more than one, like "work me" and "personal me". You can also build one from your own WhatsApp chat export: only your messages are used, and phone numbers, emails, and links are hidden first.
 
 </details>
 
@@ -162,12 +179,14 @@ Share a few things you wrote yourself and WriteLikeHuman builds a short voice pr
 | Language | What it does |
 |---|---|
 | Indian English | Keeps lakh, crore, Indian date formats, and natural Indian phrasing. No forced American style. |
-| Hinglish, Tanglish, and other mixes | Keeps your mix and your script. It won't "correct" you into pure English. |
-| Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi | Fixes stiff, textbook, or machine-translated wording |
-| Spanish, French, German | The same, with each language's own common slips |
+| Hinglish, Tanglish, Manglish, Benglish, Kanglish, and other mixes | Keeps your mix and your script. It won't "correct" you into pure English. |
+| Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi, Odia, Urdu, Assamese | Fixes stiff, textbook, or machine-translated wording |
+| Spanish, French, German, Portuguese, Indonesian, Arabic, Japanese | The same, with each language's own common slips |
 | Translation | "Translate this into Hindi" gives you a version that sounds native |
 
 It never translates unless you ask. Write in Tamil and it answers in Tamil.
+
+The language guides haven't been checked by native speakers yet. If you speak one of these languages, [your help is welcome](CONTRIBUTING.md#help-wanted).
 
 </details>
 
