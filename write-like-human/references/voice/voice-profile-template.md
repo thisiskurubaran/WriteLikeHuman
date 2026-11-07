@@ -46,6 +46,12 @@ You can keep more than one profile. Copy the whole block below for each one, for
 
 (for example: English with some Hindi words in casual messages, like "haan", "theek hai", "yaar")
 
+## Never change these words
+
+Words Claude must always keep exactly as written: brand or product names, work jargon, nicknames, your own spelling of your name.
+
+(for example: PayNest, KYC, "Kuttu", Shreeya)
+
 ## Sample lines
 
 Three to five short lines I actually wrote:
