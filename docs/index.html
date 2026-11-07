@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WriteLikeHuman</title>
+<meta name="description" content="A free Claude skill that makes everyday writing sound like a person wrote it. Emails, WhatsApp replies, letters, resumes, posts, and your files.">
+<style>
+:root {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --text: #1f1d1a;
+  --muted: #5d5850;
+  --line: #e6e1d8;
+  --accent: #b5542f;
+  --accent-text: #ffffff;
+  --before: #fbeeea;
+  --after: #eaf4ec;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #171614;
+    --surface: #211f1c;
+    --text: #f1ede6;
+    --muted: #b3ab9f;
+    --line: #36322c;
+    --accent: #e58a63;
+    --accent-text: #171614;
+    --before: #3a2621;
+    --after: #1f3324;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+}
+main { max-width: 860px; margin: 0 auto; padding: 0 16px 64px; }
+header { text-align: center; padding: 56px 0 32px; }
+h1 { font-size: clamp(2rem, 6vw, 3rem); margin: 0 0 8px; letter-spacing: -0.02em; }
+h2 { font-size: 1.5rem; margin: 48px 0 12px; }
+p.lead { font-size: 1.2rem; color: var(--muted); margin: 0 auto 24px; max-width: 34em; }
+a { color: var(--accent); }
+.button {
+  display: inline-block; background: var(--accent); color: var(--accent-text);
+  padding: 12px 22px; border-radius: 10px; text-decoration: none; font-weight: 600;
+}
+.button.secondary { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+.actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.langs { margin-top: 16px; font-size: 0.95rem; color: var(--muted); }
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.compare div { padding: 16px 18px; border-radius: 12px; border: 1px solid var(--line); }
+.compare .before { background: var(--before); }
+.compare .after { background: var(--after); }
+.compare h3 { margin: 0 0 8px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.note { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; margin-top: 16px; }
+ol.steps { padding-left: 1.3em; }
+ol.steps li { margin-bottom: 8px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+.card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.92em; }
+pre { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; overflow-x: auto; }
+footer { text-align: center; color: var(--muted); font-size: 0.9rem; margin-top: 56px; }
+@media (max-width: 620px) { .compare { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <h1>WriteLikeHuman</h1>
+  <p class="lead">Make everyday writing sound like you wrote it. A free Claude skill for emails, WhatsApp replies, letters, resumes, posts, and the files you already use.</p>
+  <div class="actions">
+    <a class="button" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Download the skill</a>
+    <a class="button secondary" href="https://github.com/thisiskurubaran/WriteLikeHuman">View on GitHub</a>
+  </div>
+  <p class="langs">Read the guide in
+    <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/README.md">English</a>,
+    <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/README.hi.md">हिंदी</a>, or
+    <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/README.ta.md">தமிழ்</a>
+  </p>
+</header>
+
+<section aria-labelledby="diff">
+  <h2 id="diff">See the difference</h2>
+  <div class="compare">
+    <div class="before">
+      <h3>Before</h3>
+      I hope this message finds you well! I wanted to reach out regarding the quarterly report. It's important to note that the deadline has been moved to 15 March. Please ensure that all inputs are submitted accordingly. Let me know if you have any questions!
+    </div>
+    <div class="after">
+      <h3>After</h3>
+      Hi team, the quarterly report deadline has moved to 15 March. Please send me your inputs by then.
+    </div>
+  </div>
+  <div class="note">
+    <strong>What I changed</strong>
+    <ul>
+      <li>Removed the stock opening and closing lines.</li>
+      <li>Cut "It's important to note that", which added nothing.</li>
+      <li>Kept the date exactly as it was.</li>
+    </ul>
+  </div>
+</section>
+
+<section aria-labelledby="install">
+  <h2 id="install">Install in two minutes</h2>
+  <ol class="steps">
+    <li>Download <code>WriteLikeHuman.zip</code> from the <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">latest release</a>. Don't unzip it.</li>
+    <li>In Claude, open <strong>Settings &gt; Capabilities</strong> and turn on <strong>Code execution and file creation</strong>.</li>
+    <li>Go to <strong>Customize &gt; Skills</strong>, click <strong>+</strong>, then <strong>Upload a skill</strong>, and pick the zip.</li>
+    <li>Check the switch next to WriteLikeHuman is on. That's it.</li>
+  </ol>
+  <p>Once it's on your account, it works in the Claude phone app too. Full steps are in the <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.md">install guide</a>.</p>
+</section>
+
+<section aria-labelledby="ask">
+  <h2 id="ask">Just ask</h2>
+  <pre>Make this email sound less robotic
+Humanize this Word file
+Does this sound like AI?
+Write a farewell speech for my manager
+Reply to this WhatsApp from my landlord
+Check this before I send it</pre>
+</section>
+
+<section aria-labelledby="what">
+  <h2 id="what">What it handles</h2>
+  <div class="grid">
+    <div class="card"><h3>Your files</h3><p>Word, PDF, Google Docs, spreadsheets, slides, text, subtitles, web pages. Formatting, numbers, and formulas stay put.</p></div>
+    <div class="card"><h3>Everyday writing</h3><p>Emails, WhatsApp replies, letters, resumes, posts, speeches, wishes, reviews, invitations, complaints, and more.</p></div>
+    <div class="card"><h3>Your own voice</h3><p>Learns how you write from your own samples, so the result sounds like you, not like a template.</p></div>
+    <div class="card"><h3>Many languages</h3><p>Indian English, Hinglish, Tanglish, and 27 other languages from India, the rest of Asia, and Europe. It never translates unless you ask.</p></div>
+    <div class="card"><h3>Checks before you send</h3><p>Spots a missing attachment, a weekday that doesn't match the date, or a question you forgot to answer.</p></div>
+    <div class="card"><h3>Honest by design</h3><p>Keeps your facts. No fake reviews, no invented experiences, no pretending to be someone else.</p></div>
+  </div>
+</section>
+
+<footer>
+  <p>Free and open source under the MIT license. <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md">Help improve it</a>.</p>
+</footer>
+
+</main>
+</body>
+</html>

@@ -60,6 +60,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Releases build and attach WriteLikeHuman.zip automatically.
 - A language review issue form for native speakers.
 - Claude Code plugin: install with two commands instead of copying the folder.
+- A simple project website in docs/, ready for GitHub Pages.
 
 ### Changed
 
