@@ -1,10 +1,10 @@
 # Mixed language writing
 
-Hinglish, Tanglish, Benglish, Kanglish, Manglish, and other writing that mixes English with an Indian language. Most people in India text this way. Treat it as normal writing, not as a mistake.
+Hinglish, Tanglish, Benglish, Kanglish, Manglish, Taglish, and other writing that mixes English with another language. Most people in India and the Philippines text this way. Treat it as normal writing, not as a mistake.
 
 ## When this applies
 
-- The text mixes English with Hindi, Tamil, Bengali, Malayalam, Kannada, or another language in the same message or sentence.
+- The text mixes English with Hindi, Tamil, Bengali, Malayalam, Kannada, Tagalog, or another language in the same message or sentence.
 - The user asks for a reply "in Hinglish" or "the way I normally text".
 
 ## What stays the same
@@ -31,6 +31,8 @@ Benglish notes (Bengali and English): keep "na", "toh", "achha", "ki holo", "bha
 Manglish notes (Malayalam and English): keep "alle", "aano", "entha", "machane", "scene illa" only where the user uses them. Do not swap them for formal Malayalam like "dayavayi" or "ariyikkuka" in a chat.
 
 Kanglish notes (Kannada and English): keep "guru", "maga", "swalpa", "beda", "adjust maadi" as the user writes them. Do not replace everyday words with textbook Kannada.
+
+Taglish notes (Tagalog and English): keep "po", "naman", "na lang", "kasi", "sana" and English words like "meeting", "deadline", "load" as the user writes them. Do not turn a Taglish chat into deep, formal Tagalog or into pure English.
 
 ## Steps
 
@@ -82,3 +84,11 @@ Before: "Dayavittu naale karyakramakke barutteero illavo tilisi."
 After: "Maga, naale function ge bartiya? Helu."
 
 Gloss: "Dude, are you coming to the function tomorrow? Tell me." The first is formal Kannada written in Roman letters. Use "maga" only if the user talks that way.
+
+Taglish example.
+
+Before: "Mangyaring ipagbigay-alam kung kayo ay makadadalo sa pulong bukas."
+
+After: "Pwede ka ba sa meeting bukas? Update mo lang ako."
+
+Gloss: "Can you make the meeting tomorrow? Just update me." The first is deep, formal Tagalog that reads like a government notice. Use the Taglish version only for colleagues or friends the user already texts this way.

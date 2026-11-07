@@ -34,8 +34,16 @@ Load the file for the target language as well:
 | Indonesian | `indonesian.md` |
 | Arabic | `arabic.md` |
 | Japanese | `japanese.md` |
+| Nepali | `nepali.md` |
+| Sinhala | `sinhala.md` |
+| Konkani | `konkani.md` |
+| Italian | `italian.md` |
+| Turkish | `turkish.md` |
+| Korean | `korean.md` |
+| Chinese | `chinese.md` |
+| Filipino (Tagalog) | `filipino.md` |
 | English for an Indian reader | `indian-english.md` |
-| A code-mixed result (Hinglish, Tanglish) | `mixed-language.md` |
+| A code-mixed result (Hinglish, Tanglish, Taglish) | `mixed-language.md` |
 
 For a language with no file, follow the general steps here and keep it plain.
 
