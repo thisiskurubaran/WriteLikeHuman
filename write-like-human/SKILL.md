@@ -61,6 +61,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | A job post or job description | [references/writing/job-posts.md](references/writing/job-posts.md) + [references/lists/buzzwords.md](references/lists/buzzwords.md) |
 | A newsletter or notice for a society, school, club, or office | [references/writing/notices.md](references/writing/notices.md) |
 | A freelance proposal or quote | [references/writing/proposals.md](references/writing/proposals.md) |
+| A school or college essay, or a college application essay | [references/writing/essays.md](references/writing/essays.md) |
 
 ## Adjust, voice, and language (add any that match)
 
