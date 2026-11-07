@@ -52,6 +52,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Nepali, Sinhala, Konkani, Italian, Turkish, Korean, Chinese, and Filipino language guides, and Taglish in the mixed language guide.
 - A before-you-send check: missing attachments, weekdays that don't match dates, unanswered questions, leftover placeholders.
 - Speech timing per section, with optional pause marks in a reading copy.
+- Apple Pages and Keynote files.
 
 ### Changed
 
