@@ -1,0 +1,10 @@
+{
+  "name": "write-like-human",
+  "version": "0.3.0",
+  "description": "Write or rewrite anything so it sounds like a real person, not AI, keeping formatting, facts, and numbers.",
+  "author": { "name": "thisiskurubaran" },
+  "homepage": "https://github.com/thisiskurubaran/WriteLikeHuman",
+  "repository": "https://github.com/thisiskurubaran/WriteLikeHuman",
+  "license": "MIT",
+  "skills": ["./write-like-human"]
+}

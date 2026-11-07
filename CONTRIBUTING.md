@@ -155,6 +155,8 @@ Then test your change: zip the `write-like-human/` folder, upload it to Claude, 
 
 Maintainers publish a release from the GitHub Releases page. Publishing it starts a workflow that builds `WriteLikeHuman.zip` from the tagged commit and attaches it to the release, so nobody has to zip the folder by hand. If the zip is ever missing, run the **Release zip** workflow from the Actions tab and give it the tag.
 
+Before a release, bump `version` in `.claude-plugin/plugin.json` to match the new version in `CHANGELOG.md`. Claude Code users only get the update when that number changes.
+
 ## Code of conduct
 
 By taking part you agree to follow our [Code of Conduct](CODE_OF_CONDUCT.md).

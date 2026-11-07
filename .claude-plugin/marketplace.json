@@ -1,0 +1,12 @@
+{
+  "name": "writelikehuman",
+  "description": "WriteLikeHuman: make everyday writing sound like a person wrote it.",
+  "owner": { "name": "thisiskurubaran" },
+  "plugins": [
+    {
+      "name": "write-like-human",
+      "source": "./",
+      "description": "Write or rewrite anything so it sounds like a real person, not AI, keeping formatting, facts, and numbers."
+    }
+  ]
+}

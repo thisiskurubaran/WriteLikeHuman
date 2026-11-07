@@ -54,6 +54,17 @@ Your skills belong to your account, so the phone app uses the same ones. If it d
 
 This part is only for people who use Claude Code, the version of Claude that runs in a terminal. Most people can skip it.
 
+The easiest way is to install it as a plugin. In Claude Code, type these two commands:
+
+```text
+/plugin marketplace add thisiskurubaran/WriteLikeHuman
+/plugin install write-like-human@writelikehuman
+```
+
+The skill loads on its own when your request matches, or you can call it with `/write-like-human:write-like-human`. To get new versions later, run `/plugin marketplace update writelikehuman`.
+
+If you'd rather not use plugins, copy the folder by hand:
+
 1. Download and unzip `WriteLikeHuman.zip`.
 2. Copy the `write-like-human` folder into `~/.claude/skills/` (create the folder if it is not there).
 3. Start Claude Code. The skill loads on its own.

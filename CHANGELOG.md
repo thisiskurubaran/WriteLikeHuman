@@ -59,6 +59,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - An optional eval runner that sends the evals through the Claude API with your own key.
 - Releases build and attach WriteLikeHuman.zip automatically.
 - A language review issue form for native speakers.
+- Claude Code plugin: install with two commands instead of copying the folder.
 
 ### Changed
 
