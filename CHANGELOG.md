@@ -32,6 +32,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Building a voice profile from the user's own WhatsApp messages, with other people's messages dropped and contact details hidden.
 - An optional reading age in the accessibility check, only when asked.
 - Tests for every helper script, using sample files made at run time.
+- Skill evals: prompts with expected behavior to run before each release.
 
 ## [0.1.0] - 2026-11-07
 
