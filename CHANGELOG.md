@@ -45,6 +45,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Notes and messages to teachers, schools, and class groups.
 - Eulogies and obituary notices, written with care.
 - Release notes and app store "What's new" text.
+- Interview thank-you notes as an email preset.
 
 ### Changed
 

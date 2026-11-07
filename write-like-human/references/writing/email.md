@@ -39,6 +39,18 @@ Use these as a shape, not a script. Keep the user's own details.
 
 **Asking for something.** Say what you need, by when, and why it matters, in that order. Make it easy to say yes: one clear question, not five.
 
+### Interview thank-you notes
+
+A short note after an interview or a work meeting, ideally sent the same day or the next.
+
+- Three to five lines. Thank them for their time, mention one real thing from the conversation, and say you look forward to hearing back.
+- The detail must come from the user. "I enjoyed hearing how your team plans the festive sale" works only if they told you that came up. If they gave no detail, ask for one, or leave it out.
+- Never invent what was discussed, a promise the interviewer made, or a skill the user did not mention.
+- No repeat of the whole resume. One line about fit is enough, and only if the user wants it.
+- Subject line: "Thank you, [role] interview" or simply reply on the interview invite thread.
+
+Example: "Hi Ms. Rao, thank you for meeting me today about the operations analyst role. I enjoyed hearing how your team moved the warehouse reports from paper to a shared sheet. I'd be glad to help with the next step of that. Looking forward to hearing from you. Regards, Karan"
+
 ## Subject lines
 
 - Say the topic: "Leave on 14 and 15 June", "Invoice 2231 still unpaid", "Can we move Tuesday's call?"
