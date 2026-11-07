@@ -40,7 +40,7 @@ write-like-human/
 ├── references/
 │   ├── ai-patterns.md   the catalog of AI tells, always loaded
 │   ├── modes/           rewrite, draft, check, side by side
-│   ├── files/           Word, PDF, Google Docs, spreadsheets, slides, text, subtitles, and more
+│   ├── files/           Word, PDF, Google Docs, spreadsheets, slides, web pages, subtitles, and more
 │   ├── writing/         email, letters, resumes, posts, speeches, and more
 │   ├── adjust/          tone, reading level, length, accessibility, inclusive wording
 │   ├── voice/           personal voice profiles
@@ -50,6 +50,8 @@ write-like-human/
 └── examples/         before and after samples and test prompts
 
 tests/                script tests and skill evals (not part of the zip)
+docs/                 the project website (GitHub Pages)
+.claude-plugin/       plugin files so Claude Code users can install with /plugin
 ```
 
 `SKILL.md` stays short. It holds the routing tables, the core rules, and the change summary format. Everything else goes in `references/` so Claude reads only what a request needs.
