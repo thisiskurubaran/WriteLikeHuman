@@ -51,6 +51,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Two lengths at once, only when asked.
 - Nepali, Sinhala, Konkani, Italian, Turkish, Korean, Chinese, and Filipino language guides, and Taglish in the mixed language guide.
 - A before-you-send check: missing attachments, weekdays that don't match dates, unanswered questions, leftover placeholders.
+- Speech timing per section, with optional pause marks in a reading copy.
 
 ### Changed
 

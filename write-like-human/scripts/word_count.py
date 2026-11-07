@@ -12,6 +12,8 @@ between spaces that has at least one letter or digit in it, so a lone
   python word_count.py --text "Thanks for the update, see you Monday."
   python word_count.py essay.txt --json
   python word_count.py essay.txt --readability
+  python word_count.py speech.txt --speech
+  python word_count.py speech.txt --speech --wpm 110
 
 With --target, it reports how far off the text is and whether it is within
 the tolerance (10 percent by default). The exit code is 0 when within
@@ -23,6 +25,12 @@ and the Flesch-Kincaid grade (roughly the school year a reader needs).
 Syllables are counted with a simple rule of thumb, so treat both numbers
 as a rough guide. Text that is mostly not in the Latin alphabet is
 reported as not supported.
+
+With --speech, it estimates how long the text takes to say out loud, at
+about 130 words per minute (change it with --wpm). It gives the total and
+a line for each section, where sections are split on blank lines, like
+"Section 1: 95 words, about 45 seconds". Times are rounded to the nearest
+5 seconds, since people speak at different speeds.
 
 Only uses the standard library.
 """
@@ -118,6 +126,29 @@ def readability(text):
             "note": "A rough guide only. Syllables are estimated."}
 
 
+def speech(text, wpm=130):
+    sections = [p for p in re.split(r"\n\s*\n", text) if p.strip()]
+    out = []
+    for i, part in enumerate(sections, 1):
+        words = count_words(part)
+        out.append({"section": i, "words": words,
+                    "seconds": round(words * 60.0 / wpm / 5) * 5})
+    total_words = count_words(text)
+    return {"wpm": wpm, "total_words": total_words,
+            "total_seconds": round(total_words * 60.0 / wpm / 5) * 5,
+            "sections": out}
+
+
+def say_time(seconds):
+    if seconds < 60:
+        return "about %d seconds" % max(seconds, 5)
+    minutes, secs = divmod(seconds, 60)
+    text = "about %d minute%s" % (minutes, "" if minutes == 1 else "s")
+    if secs:
+        text += " %d seconds" % secs
+    return text
+
+
 def describe(r):
     lines = ["Words: %d" % r["words"],
              "Sentences: %d (about %s words each)" % (r["sentences"], r["average_sentence_words"]),
@@ -139,6 +170,14 @@ def describe(r):
             lines.append("Reading ease: %s (%s), grade level about %s"
                          % (rd["flesch_reading_ease"], rd["label"], rd["flesch_kincaid_grade"]))
         lines.append("Note: " + rd["note"])
+    if "speech" in r:
+        sp = r["speech"]
+        lines.append("Speaking time at %d words a minute: %s"
+                     % (sp["wpm"], say_time(sp["total_seconds"])))
+        if len(sp["sections"]) > 1:
+            for sec in sp["sections"]:
+                lines.append("Section %d: %d words, %s"
+                             % (sec["section"], sec["words"], say_time(sec["seconds"])))
     return "\n".join(lines)
 
 
@@ -152,6 +191,10 @@ def main():
     parser.add_argument("--json", action="store_true", help="print JSON")
     parser.add_argument("--readability", action="store_true",
                         help="add rough reading scores (English only)")
+    parser.add_argument("--speech", action="store_true",
+                        help="estimate speaking time, overall and per section")
+    parser.add_argument("--wpm", type=int, default=130,
+                        help="speaking speed for --speech (default 130 words a minute)")
     args = parser.parse_args()
 
     if args.text is not None:
@@ -165,6 +208,8 @@ def main():
     r = stats(text, args.target, args.tolerance)
     if args.readability:
         r["readability"] = readability(text)
+    if args.speech:
+        r["speech"] = speech(text, max(args.wpm, 1))
     print(json.dumps(r, ensure_ascii=False, indent=2) if args.json else describe(r))
     if args.target and not r["within_range"]:
         sys.exit(2)

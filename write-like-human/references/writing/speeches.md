@@ -50,6 +50,29 @@ People speak at about 130 words per minute when they are a little nervous. Use t
 
 Tell the user the rough speaking time in the change summary. Use `scripts/word_count.py` for an exact count when it is available.
 
+## Timing and pauses
+
+To see how long each part takes to say, run:
+
+```
+python scripts/word_count.py speech.txt --speech
+```
+
+It prints the total speaking time and the time for each section (sections are split on blank lines), at about 130 words per minute. Add `--wpm 110` for a slow, emotional speech or `--wpm 150` for a confident speaker. If the script fails, count the words and divide by 130.
+
+Use the per-section times to spot a section that runs long ("the story about the trip takes 90 seconds of a 3 minute toast"), and say so in one line.
+
+Only if the user asks for a reading copy, mark pauses so the speech is easier to deliver:
+
+- a single `/` for a short breath
+- `(pause)` before a punchline or after an emotional line, where the room needs a moment
+
+Keep pause marks out of the normal version. They are for the copy the speaker holds, not for sharing.
+
+Example reading copy:
+
+> I met Kiran on our first day at work. / She was the only one who knew where the canteen was. (pause) / Nine years later, she still knows where everything is.
+
 ## Steps
 
 1. Collect the real material (see above).
