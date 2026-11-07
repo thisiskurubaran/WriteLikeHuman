@@ -157,3 +157,134 @@ After:
 > Customer unhappy about the late delivery.
 
 Numbers, dates, and formula cells in the same sheet were not touched.
+
+## Reply to a customer review
+
+Review (3 stars): "Cake was nice but delivery was an hour late. Not happy."
+
+Draft (from the owner):
+
+> Thanks for the honest review, and sorry the cake reached you an hour late. That's on us. We've added an extra delivery slot on weekends so it doesn't happen again. Glad you liked the cake itself. Nisha, Sugar Loaf Bakes
+
+## Product listing
+
+Seller's notes: "cotton blend kurti, S to XL, Rs 449, machine wash, colour may fade slightly first wash"
+
+Before (a draft the seller found online):
+
+> Step into elegance with this premium designer kurti, crafted for the modern woman who demands the very best.
+
+After:
+
+> Cotton blend kurti in sizes S to XL. Machine washable. The colour may fade a little after the first wash, so wash it separately the first time. Rs 449.
+
+## Invitation
+
+Draft (WhatsApp):
+
+> Hi everyone, we're doing a small griha pravesh at our new place on Sunday 24 November. Puja at 10 am, lunch after. Flat 3B, Lakeview Apartments, Whitefield. Do come, and let us know by Thursday so we can plan food. Anita and Vivek
+
+## Essay: helping with the student's own draft
+
+Student's line:
+
+> Since the dawn of time, technology has played a pivotal role in shaping the multifaceted landscape of human existence.
+
+Suggestion (side by side):
+
+```
+1. "Since the dawn of time, technology has played a pivotal role
+   in shaping the multifaceted landscape of human existence."
+   -> Start with your own example instead. You mentioned your
+      grandmother learning UPI last year. That could be your
+      first line.
+   Why: the opening is general and could be in any essay
+```
+
+(The student writes the new line. The skill points to their own material and does not write the essay for them.)
+
+## Subtitles
+
+Before:
+
+```
+12
+00:01:04,200 --> 00:01:07,900
+It is imperative that we commence the procedure forthwith.
+```
+
+After:
+
+```
+12
+00:01:04,200 --> 00:01:07,900
+We need to start right away.
+```
+
+The cue number and timing line are exactly the same, so the captions stay in sync.
+
+## Before you send
+
+Message: "Hi Ravi, please find attached the quote. Let's meet on Monday 14 March 2027 at 11. Regards, [name]"
+
+Check:
+
+```
+Before you send
+- You say the quote is attached, but I don't see an attachment.
+- 14 March 2027 is a Sunday, not a Monday.
+- "[name]" is still a placeholder at the end.
+```
+
+## Message going abroad
+
+Message to a client in Germany: "Kindly do the needful and revert at the earliest."
+
+Note:
+
+```
+This may confuse a reader outside India.
+- "Do the needful" isn't used much elsewhere. Say what you need:
+  "Please sign and return the form."
+- "Revert" usually means "go back to an earlier state", not "reply".
+  Try "Please reply by Friday."
+Want me to rewrite it?
+```
+
+## Marriage biodata
+
+Before:
+
+> She is an extremely beautiful, fair, and homely girl from a highly reputed family.
+
+After:
+
+> Priya is 27 and works as a QA analyst in Pune. She has an MSc in Chemistry. She enjoys cooking and weekend treks. Her father is a retired bank officer.
+
+What I changed
+- Used only the details you gave: age, job, city, degree, hobbies, family.
+- Dropped "fair", since skin colour doesn't belong in a profile. Tell me if you want it back.
+
+## Complaint to a company
+
+Before:
+
+> I am extremely disappointed and frustrated by your pathetic service!!! This is unacceptable!!!
+
+After:
+
+> My bag did not arrive on flight 6E 512 on 2 November (PNR AB12CD). It has been five days and I have had no update. Please tell me where the bag is and when it will be delivered. If it can't be found, please explain how to claim compensation.
+
+(The flight, date, and PNR came from the user. They stay exactly as given.)
+
+## Tamil message
+
+Before (stiff, like machine translation):
+
+> தயவுசெய்து நாளை காலை 9 மணிக்கு வரவும்.
+
+After (how people text):
+
+> நாளைக்கு காலை 9 மணிக்கு வந்துடுங்க.
+
+(Gloss: "Please come tomorrow at 9 am." Kept the time and the polite form. Changed only the formal written style to everyday spoken Tamil.)

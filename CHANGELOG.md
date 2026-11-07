@@ -20,6 +20,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - Checks that every module has the standard sections, that the newest changelog section has entries, and that the plugin version matches the changelog.
 - Eval cases for every writing, file, adjust, voice, and mode module (81 cases in all).
+- Ten more before and after samples covering the v0.2.0 and v0.3.0 modules.
 
 ## [0.3.0] - 2026-11-07
 
