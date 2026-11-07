@@ -58,6 +58,19 @@ Indian work email often uses "Regards" or "Thanks and regards". That is normal, 
 
 Avoid "Best wishes and warm regards", "Looking forward to hearing from you at your earliest convenience", and stacked closings.
 
+## Email threads
+
+When the user pastes a whole thread or attaches an .eml file:
+
+1. Read the thread from the oldest message to the newest, so you know what has already been asked and answered.
+2. Reply to the latest message. That is the one the user needs to answer.
+3. Do not repeat points that were already settled earlier in the thread. "As agreed on Monday, the delivery is on the 12th" is enough, there is no need to restate the whole discussion.
+4. Take names, dates, amounts, and reference numbers from the thread exactly as written. If two messages disagree (one says the 12th, a later one says the 14th), go with the later one and mention the change to the user in one line.
+5. Address the reply to the right person. In a long thread with several people, check who asked the latest question.
+6. Do not quote the thread back. Give only the new reply.
+
+If the .eml file has attachments, mention that you can see them listed but only read them if the user asks.
+
 ## Output
 
 The rewritten email with its subject line, ready to copy. Then the change summary. If you are replying to an email the user received, give only the reply, not the original.

@@ -16,6 +16,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Newsletters and community notices for societies, schools, clubs, and offices.
 - Freelance proposals and quotes, with no invented clients or credentials.
 - School and college essays, improved in the student's own words.
+- Email threads: read the whole thread before drafting the reply.
 
 ## [0.1.0] - 2026-11-07
 
