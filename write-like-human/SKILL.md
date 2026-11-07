@@ -46,6 +46,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | A screenshot of a chat or email | [references/files/screenshots.md](references/files/screenshots.md) |
 | A .odt or .rtf file | [references/files/opendocument.md](references/files/opendocument.md) |
 | Several files at once | [references/files/batch.md](references/files/batch.md) + the module for each file type |
+| "Give me a file showing the changes", "mark up what changed" | [references/files/change-report.md](references/files/change-report.md) |
 | An email, a whole email thread, or an .eml file | [references/writing/email.md](references/writing/email.md) |
 | A WhatsApp or SMS message | [references/writing/chat-replies.md](references/writing/chat-replies.md) |
 | A leave, complaint, bank, government, or school letter | [references/writing/formal-letters.md](references/writing/formal-letters.md) |
