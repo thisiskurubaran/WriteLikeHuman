@@ -48,7 +48,68 @@ Ask in your own words. For example:
 
 ## What it handles
 
-It works on pasted text, Word files, PDFs, Google Docs, spreadsheets, and slides. It covers emails, WhatsApp replies, letters, resumes, social posts, speeches, wishes, reviews, and more, in Indian English, Hinglish, and several other languages.
+### Ways to work
+
+| You want to | Say something like |
+|---|---|
+| Fix text you already have | "Make this sound natural" |
+| Write something new that sounds right the first time | "Write a thank you note to my teacher" |
+| Find out what sounds off, without changes | "Does this sound like AI?" |
+| Approve or reject each change | "Show me the changes one by one" |
+
+### Files
+
+| File | What happens |
+|---|---|
+| Word (.docx) | Rewrites the text and keeps fonts, styles, tables, and lists. Can show changes as tracked changes. |
+| PDF | Reads the text page by page and gives you back an editable Word file. Tells you if a page is a scanned image. |
+| Google Docs and Claude docs | Edits in place if Claude is connected to your Google account, otherwise gives you a clean copy to paste back. |
+| Spreadsheets (.xlsx, .csv, Google Sheets) | Rewrites only text cells, notes, and comments. Never touches numbers or formulas. |
+| Slides (.pptx, Google Slides) | Rewrites slide text and speaker notes and keeps the layout. |
+
+### Kinds of writing
+
+| Writing | Notes |
+|---|---|
+| Emails | Quick replies, saying no politely, follow-ups, thank yous, apologies, asking for something |
+| WhatsApp and SMS replies | To family, landlords, delivery people, building groups |
+| Formal letters | Leave, complaint, bank, government, and school letters in Indian formats |
+| Resumes and cover letters | Swaps buzzwords for plain words, never invents achievements |
+| Social posts | LinkedIn, Instagram, X, WhatsApp, Facebook, within each platform's limits |
+| Bios | Instagram bio, dating profile, website About page |
+| Reports | School and work reports, made clearer in your own words |
+| Meeting notes | Rough notes into readable minutes and summaries |
+| Speeches and toasts | Wedding, birthday, farewell, written to be read out loud |
+| Wishes and cards | Festival greetings, congratulations, and condolences written with care |
+| Reviews | Your own real experience with a product, place, or service, in your words |
+| Form answers | Personal statements, visa purpose letters, scholarship answers, kept true |
+| Voice notes | Speech-to-text transcripts turned into readable text |
+
+### Adjustments
+
+| Adjustment | Say something like |
+|---|---|
+| Tone | "Friendlier", "more professional", "warmer", "short and direct", "more formal" |
+| Reading level | "Simpler for my mom", "for a 10 year old", "English is their second language" |
+| Length | "Cut this to 200 words", "turn these notes into a paragraph" |
+| Easy to read | "Is this easy to read?" flags long sentences, jargon, and unclear links |
+| Inclusive wording | "Make it gender neutral" (only when you ask) |
+
+### Your own voice
+
+Give it a few things you wrote yourself and it builds a short voice profile: how long your sentences are, words you use, how you sign off. You keep the profile as a note or file and attach it next time. You can have more than one, like "work me" and "personal me".
+
+### Languages
+
+| Language | What it does |
+|---|---|
+| Indian English | Keeps lakh, crore, Indian dates, and natural Indian phrasing. No forced American style. |
+| Hinglish, Tanglish, and other mixes | Keeps your mix of languages and your script. Does not "correct" it into pure English. |
+| Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi | Fixes stiff, textbook, or machine-translated wording in that language |
+| Spanish, French, German | The same, with each language's own common slips |
+| Translation | "Translate this into Hindi" gives a version that sounds native, not machine translated |
+
+It never translates unless you ask. If you write in Tamil, it answers in Tamil.
 
 ## What it will not do
 
