@@ -41,6 +41,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | A Google Doc or Claude doc link | [references/files/google-docs.md](references/files/google-docs.md) |
 | A .xlsx or .csv file, or a Google Sheet | [references/files/spreadsheet.md](references/files/spreadsheet.md) |
 | A .pptx file or Google Slides | [references/files/slides.md](references/files/slides.md) |
+| A .txt or .md file | [references/files/text.md](references/files/text.md) |
 | An email, a whole email thread, or an .eml file | [references/writing/email.md](references/writing/email.md) |
 | A WhatsApp or SMS message | [references/writing/chat-replies.md](references/writing/chat-replies.md) |
 | A leave, complaint, bank, government, or school letter | [references/writing/formal-letters.md](references/writing/formal-letters.md) |

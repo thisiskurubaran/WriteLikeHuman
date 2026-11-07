@@ -23,6 +23,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Gujarati, Punjabi, Odia, Urdu, and Assamese language guides.
 - Portuguese, Indonesian, Arabic, and Japanese language guides, with right-to-left notes for Urdu and Arabic files.
 - Manglish, Benglish, and Kanglish examples in the mixed language guide.
+- Plain text and Markdown files.
 
 ## [0.1.0] - 2026-11-07
 
