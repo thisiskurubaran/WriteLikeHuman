@@ -8,6 +8,33 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [0.3.0] - 2026-11-07
 
+### Added
+
+- Marriage biodata and matrimony profiles, warm and factual.
+- Cold messages: LinkedIn notes, referral requests, and cold emails.
+- Complaints to companies, with order numbers kept exact and an escalation path.
+- RTI applications in the standard Indian format.
+- Flat for rent, PG, and roommate posts with fair wording.
+- Notes and messages to teachers, schools, and class groups.
+- Eulogies and obituary notices, written with care.
+- Release notes and app store "What's new" text.
+- Interview thank-you notes as an email preset.
+- A consistency check for long documents: terms, spelling, numbers, and headings.
+- A cross-cultural check that notes what might read badly to a reader in another country.
+- Two lengths at once, only when asked.
+- Nepali, Sinhala, Konkani, Italian, Turkish, Korean, Chinese, and Filipino language guides, and Taglish in the mixed language guide.
+- A before-you-send check: missing attachments, weekdays that don't match dates, unanswered questions, leftover placeholders.
+- Speech timing per section, with optional pause marks in a reading copy.
+- Apple Pages and Keynote files.
+- Web pages: visible text rewritten, tags, links, and code left exactly as they were.
+- Posters and flyers: a cleaner version of the text to retype.
+- Gmail and Outlook drafts edited in place when a mail connector is attached. Nothing is ever sent.
+- An optional eval runner that sends the evals through the Claude API with your own key.
+- Releases build and attach WriteLikeHuman.zip automatically.
+- A language review issue form for native speakers.
+- Claude Code plugin: install with two commands instead of copying the folder.
+- A simple project website in docs/, ready for GitHub Pages.
+
 ## [0.2.0] - 2026-11-07
 
 ### Added
@@ -39,30 +66,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Skill evals: prompts with expected behavior to run before each release.
 - Automatic style, structure, and script checks on every pull request.
 - Hindi and Tamil translations of the README and install guide, labeled as translations.
-- Marriage biodata and matrimony profiles, warm and factual.
-- Cold messages: LinkedIn notes, referral requests, and cold emails.
-- Complaints to companies, with order numbers kept exact and an escalation path.
-- RTI applications in the standard Indian format.
-- Flat for rent, PG, and roommate posts with fair wording.
-- Notes and messages to teachers, schools, and class groups.
-- Eulogies and obituary notices, written with care.
-- Release notes and app store "What's new" text.
-- Interview thank-you notes as an email preset.
-- A consistency check for long documents: terms, spelling, numbers, and headings.
-- A cross-cultural check that notes what might read badly to a reader in another country.
-- Two lengths at once, only when asked.
-- Nepali, Sinhala, Konkani, Italian, Turkish, Korean, Chinese, and Filipino language guides, and Taglish in the mixed language guide.
-- A before-you-send check: missing attachments, weekdays that don't match dates, unanswered questions, leftover placeholders.
-- Speech timing per section, with optional pause marks in a reading copy.
-- Apple Pages and Keynote files.
-- Web pages: visible text rewritten, tags, links, and code left exactly as they were.
-- Posters and flyers: a cleaner version of the text to retype.
-- Gmail and Outlook drafts edited in place when a mail connector is attached. Nothing is ever sent.
-- An optional eval runner that sends the evals through the Claude API with your own key.
-- Releases build and attach WriteLikeHuman.zip automatically.
-- A language review issue form for native speakers.
-- Claude Code plugin: install with two commands instead of copying the folder.
-- A simple project website in docs/, ready for GitHub Pages.
 
 ### Changed
 
