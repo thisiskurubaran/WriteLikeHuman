@@ -56,6 +56,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | A voice note transcript | [references/writing/voice-notes.md](references/writing/voice-notes.md) |
 | A reply to a customer review of their own business | [references/writing/review-replies.md](references/writing/review-replies.md) |
 | A product or listing description (Meesho, Etsy, Amazon, Flipkart, OLX, Instagram shop) | [references/writing/listings.md](references/writing/listings.md) |
+| An invitation: wedding, housewarming, naming ceremony, birthday party | [references/writing/invitations.md](references/writing/invitations.md) |
 
 ## Adjust, voice, and language (add any that match)
 
