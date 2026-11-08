@@ -19,6 +19,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Fixed
 
 - The website now lays out at the phone's real width. A chat mock-up in the hero was forcing every phone to 444 pixels wide and zooming the page out.
+- On phones, the website's "New" badge stays on one line, the footer has full-width buttons, and page content no longer shows above the floating menu bar.
 
 ## [0.3.1] - 2026-11-07
 
