@@ -1200,6 +1200,326 @@
       ]
     },
     {
+      "id": "lang-arabic",
+      "prompt": "اجعل هذه الرسالة طبيعية: نود إعلامكم بأن الاجتماع سيكون يوم الأحد الساعة 10.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/arabic.md"
+      ],
+      "must": [
+        "answers in Arabic, in Arabic script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-assamese",
+      "prompt": "Make this Assamese message sound natural: আপোনাক জনোৱা হৈছে যে সভাখন সোমবাৰে 10 বজাত হ'ব।",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/assamese.md"
+      ],
+      "must": [
+        "answers in Assamese, in Assamese script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-bengali",
+      "prompt": "Make this Bengali message sound natural: আপনাকে জানানো যাচ্ছে যে মিটিং রবিবার সকাল 10টায় হবে।",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/bengali.md"
+      ],
+      "must": [
+        "answers in Bengali, in Bengali script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-chinese",
+      "prompt": "请把这段话改得自然一点：我们将对会议时间进行调整，会议将于周五下午3点进行。",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/chinese.md"
+      ],
+      "must": [
+        "answers in Chinese, in simplified Chinese characters",
+        "keeps the time 3 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-filipino",
+      "prompt": "Gawin mong natural ito: Ipinapaalam namin sa inyo na ang pulong ay gaganapin sa Lunes, alas-3 ng hapon.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/filipino.md"
+      ],
+      "must": [
+        "answers in Filipino, in Roman script",
+        "keeps the time alas-3 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-indonesian",
+      "prompt": "Tolong buat pesan ini lebih natural: Dengan ini kami memberitahukan bahwa rapat akan dilaksanakan pada hari Senin pukul 10.00.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/indonesian.md"
+      ],
+      "must": [
+        "answers in Indonesian, in Roman script",
+        "keeps the time 10.00 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-italian",
+      "prompt": "Rendi più naturale questo messaggio: La informiamo che la riunione avrà luogo lunedì alle ore 10.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/italian.md"
+      ],
+      "must": [
+        "answers in Italian, in Roman script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-kannada",
+      "prompt": "Make this Kannada message sound natural: ಸಭೆಯು ಸೋಮವಾರ ಬೆಳಿಗ್ಗೆ 10 ಗಂಟೆಗೆ ನಡೆಯಲಿದೆ ಎಂದು ತಿಳಿಸಲಾಗಿದೆ.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/kannada.md"
+      ],
+      "must": [
+        "answers in Kannada, in Kannada script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-konkani",
+      "prompt": "Make this Konkani message (in Devanagari) sound natural: मीटिंग सोमारा सकाळीं 10 वरांचेर आसा.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/konkani.md"
+      ],
+      "must": [
+        "answers in Konkani, in Devanagari script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-malayalam",
+      "prompt": "Make this Malayalam message sound natural: യോഗം തിങ്കളാഴ്ച രാവിലെ 10 മണിക്ക് നടക്കുന്നതാണെന്ന് അറിയിക്കുന്നു.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/malayalam.md"
+      ],
+      "must": [
+        "answers in Malayalam, in Malayalam script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-marathi",
+      "prompt": "Make this Marathi message sound natural: आपणास कळविण्यात येते की बैठक सोमवारी सकाळी 10 वाजता होईल.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/marathi.md"
+      ],
+      "must": [
+        "answers in Marathi, in Devanagari script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-nepali",
+      "prompt": "Make this Nepali message sound natural: तपाईंलाई जानकारी गराइन्छ कि बैठक सोमबार बिहान 10 बजे हुनेछ।",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/nepali.md"
+      ],
+      "must": [
+        "answers in Nepali, in Devanagari script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-odia",
+      "prompt": "Make this Odia message sound natural: ଆପଣଙ୍କୁ ଜଣାଯାଉଛି ଯେ ବୈଠକ ସୋମବାର ସକାଳ 10ଟାରେ ହେବ।",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/odia.md"
+      ],
+      "must": [
+        "answers in Odia, in Odia script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-portuguese",
+      "prompt": "Deixe esta mensagem mais natural: Informamos que a reunião será realizada na segunda-feira às 10h.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/portuguese.md"
+      ],
+      "must": [
+        "answers in Portuguese, in Roman script",
+        "keeps the time 10h exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-punjabi",
+      "prompt": "Make this Punjabi message sound natural: ਤੁਹਾਨੂੰ ਸੂਚਿਤ ਕੀਤਾ ਜਾਂਦਾ ਹੈ ਕਿ ਮੀਟਿੰਗ ਸੋਮਵਾਰ ਸਵੇਰੇ 10 ਵਜੇ ਹੋਵੇਗੀ।",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/punjabi.md"
+      ],
+      "must": [
+        "answers in Punjabi, in Gurmukhi script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-sinhala",
+      "prompt": "Make this Sinhala message sound natural: රැස්වීම සඳුදා උදේ 10ට පැවැත්වෙන බව දන්වා සිටිමු.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/sinhala.md"
+      ],
+      "must": [
+        "answers in Sinhala, in Sinhala script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-telugu",
+      "prompt": "Make this Telugu message sound natural: సమావేశం సోమవారం ఉదయం 10 గంటలకు జరుగుతుందని తెలియజేయడమైనది.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/telugu.md"
+      ],
+      "must": [
+        "answers in Telugu, in Telugu script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-turkish",
+      "prompt": "Bu mesajı daha doğal yap: Toplantının pazartesi günü saat 10.00'da gerçekleştirileceğini bildiririz.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/turkish.md"
+      ],
+      "must": [
+        "answers in Turkish, in Roman script with Turkish letters",
+        "keeps the time 10.00 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "lang-urdu",
+      "prompt": "Make this Urdu message sound natural: آپ کو مطلع کیا جاتا ہے کہ میٹنگ پیر کو صبح 10 بجے ہوگی۔",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/urdu.md"
+      ],
+      "must": [
+        "answers in Urdu, in Urdu script",
+        "keeps the time 10 exactly"
+      ],
+      "must_not": [
+        "translates into English",
+        "switches to a different script"
+      ]
+    },
+    {
+      "id": "check-ai-patterns",
+      "prompt": "Does this sound like AI? Moreover, our journey has been truly transformative, and we remain committed to excellence, innovation, and growth.",
+      "should_load": [
+        "modes/check.md",
+        "ai-patterns.md"
+      ],
+      "must": [
+        "names the habits in plain words, such as the connector at the start and the group of three",
+        "quotes short bits as evidence"
+      ],
+      "must_not": [
+        "gives a score or percentage",
+        "rewrites the text without being asked"
+      ]
+    },
+    {
       "id": "not-triggered-code",
       "prompt": "Write a Python function to sort a list of numbers.",
       "should_load": [],
