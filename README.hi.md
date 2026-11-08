@@ -1,4 +1,4 @@
-<!-- Translated from README.md at v0.3.1 -->
+<!-- Translated from README.md at v0.3.2 -->
 <div align="center">
 
 # WriteLikeHuman
@@ -93,6 +93,7 @@ Claude Code इस्तेमाल करते हैं? इसे plugin �
 ```text
 Make this email sound less robotic
 Humanize this Word file
+Write my leave letter as a Word file
 Does this sound like AI?
 Write a farewell speech for my manager
 Reply to this WhatsApp from my landlord
@@ -120,7 +121,17 @@ Landlord ke is WhatsApp ka reply likh do, politely
 | बिना बदले बताना कि क्या अटपटा लग रहा है | "Does this sound like AI?" |
 | हर बदलाव एक-एक करके मंज़ूर या नामंज़ूर करना | "Show me the changes side by side" |
 
-### आपकी files, जैसी थीं वैसी
+### नई files बनाइए
+
+File माँगिए और file मिलेगी, जिसके शब्द पहले draft से ही सहज लगेंगे। WriteLikeHuman content लिखता है और Claude अपने file tools से file बनाता है।
+
+| आप माँगें | आपको मिलता है |
+|---|---|
+| "Write my leave letter as a Word file" (या "मेरी छुट्टी की चिट्ठी Word file में बना दो") | सही letter format में एक `.docx`, खोलकर edit करने के लिए तैयार |
+| "Make this society notice into a PDF I can print" | print करने लायक एक `.pdf` |
+| "Put these expenses in a spreadsheet with a notes column" | एक `.xlsx`, जिसमें आपके numbers ठीक वैसे ही हैं जैसे आपने दिए, और totals formulas में |
+
+### आपकी पहले से मौजूद files edit कीजिए
 
 | File | आपको क्या वापस मिलता है |
 |---|---|

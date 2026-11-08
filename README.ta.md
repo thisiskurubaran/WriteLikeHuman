@@ -1,4 +1,4 @@
-<!-- Translated from README.md at v0.3.1 -->
+<!-- Translated from README.md at v0.3.2 -->
 <div align="center">
 
 # WriteLikeHuman
@@ -93,6 +93,7 @@ Claude Code பயன்படுத்துகிறீர்களா? இத
 ```text
 Make this email sound less robotic
 Humanize this Word file
+Write my leave letter as a Word file
 Does this sound like AI?
 Write a farewell speech for my manager
 Reply to this WhatsApp from my landlord
@@ -120,7 +121,17 @@ Owner anuppina WhatsApp-ku oru polite reply ezhudhi kudunga
 | எதையும் மாற்றாமல், எது இயல்பாக இல்லை என்று சொல்வது | "Does this sound like AI?" |
 | ஒவ்வொரு மாற்றத்தையும் ஒவ்வொன்றாக ஏற்பது அல்லது நிராகரிப்பது | "Show me the changes side by side" |
 
-### உங்கள் files, அப்படியே
+### புதிய files உருவாக்குங்கள்
+
+File கேளுங்கள், file கிடைக்கும். முதல் draft-இலிருந்தே வார்த்தைகள் இயல்பாக இருக்கும். WriteLikeHuman உள்ளடக்கத்தை எழுதுகிறது, Claude தன் file tools மூலம் file-ஐ உருவாக்குகிறது.
+
+| நீங்கள் கேட்பது | உங்களுக்குக் கிடைப்பது |
+|---|---|
+| "Write my leave letter as a Word file" (அல்லது "என் லீவ் லெட்டரை Word file-ஆ எழுதிக் குடுங்க") | சரியான letter format-இல் ஒரு `.docx`, திறந்து edit செய்யத் தயார் |
+| "Make this society notice into a PDF I can print" | print செய்யத் தயாரான ஒரு `.pdf` |
+| "Put these expenses in a spreadsheet with a notes column" | ஒரு `.xlsx`, நீங்கள் கொடுத்த numbers அப்படியே, totals formulas-ஆக |
+
+### உங்களிடம் உள்ள files-ஐ edit செய்யுங்கள்
 
 | File | உங்களுக்குத் திரும்பக் கிடைப்பது |
 |---|---|
