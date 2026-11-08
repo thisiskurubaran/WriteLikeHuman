@@ -1171,6 +1171,35 @@
       "must_not": []
     },
     {
+      "id": "create-docx-letter",
+      "prompt": "Write my leave letter to my manager Mr. Rao as a Word file. I need leave from 12 to 14 August for my sister's wedding in Madurai.",
+      "should_load": [
+        "modes/draft.md",
+        "writing/formal-letters.md"
+      ],
+      "must": [
+        "keeps 12 to 14 August, Mr. Rao, and Madurai exactly",
+        "produces or offers a .docx file, or explains how to turn on file creation if it is off"
+      ],
+      "must_not": [
+        "adds reasons or details the user did not give"
+      ]
+    },
+    {
+      "id": "create-xlsx-expenses",
+      "prompt": "Put these trip expenses in a spreadsheet with a notes column: hotel 6400, train 2150, food 1800.",
+      "should_load": [
+        "modes/draft.md"
+      ],
+      "must": [
+        "keeps 6400, 2150, and 1800 exactly",
+        "any total is a formula, not a typed number"
+      ],
+      "must_not": [
+        "invents extra rows or amounts"
+      ]
+    },
+    {
       "id": "not-triggered-code",
       "prompt": "Write a Python function to sort a list of numbers.",
       "should_load": [],

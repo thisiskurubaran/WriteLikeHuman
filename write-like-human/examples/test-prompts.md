@@ -32,6 +32,9 @@ Prompts to try after uploading the skill. Each line says what should happen. All
 | "Clean up this letter" (with a .odt) | rewrite + opendocument |
 | "Fix all 4 of these cover letters" (with 4 .docx files) | rewrite + batch + word + resume + buzzwords |
 | "Give me a Word file showing what you changed" | rewrite + change-report |
+| "Write my leave letter as a Word file" | draft + formal-letters (Claude builds the .docx) |
+| "Put these expenses in a spreadsheet with a notes column" | draft (Claude builds the .xlsx) |
+| "Make this notice into a PDF I can print" | draft + notices (Claude builds the .pdf) |
 | "Fix the wording on our About page" (with a .html file) | rewrite + web-pages |
 | "Clean up this Pages document" (with a .pages file) | rewrite + pages-keynote |
 | "Make this flyer text better" (with a poster photo) | rewrite + posters |

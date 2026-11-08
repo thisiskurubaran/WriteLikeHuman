@@ -32,6 +32,19 @@ There is no original text, so "the same" means the facts the user gave you:
 - Opening with "I hope this email finds you well" or any line from the openers list in `ai-patterns.md`, unless the setting truly calls for a formula (some formal Indian letters do, see `writing/formal-letters.md`).
 - Offering three versions unless asked. Give one good one.
 
+## When the user wants a file
+
+Sometimes the user wants the result as a file: "write my leave letter as a Word file", "make this notice a PDF I can print", "put these expenses in a spreadsheet with a notes column".
+
+1. Write the content first, following the steps above. The words are your job. Building the file is a separate step.
+2. Build the file with Claude's built in file tools (the docx, pdf, or xlsx skills) when they are available. If file creation is turned off, give the text and tell the user in one line how to turn on **Code execution and file creation** in Settings.
+3. Keep the layout plain and familiar: a clear heading, normal paragraphs, the format the writing module asks for (for example the Indian letter format in `writing/formal-letters.md`). No decorative styling the user did not ask for.
+4. Spreadsheets: put in only the numbers, dates, and names the user gave you, exactly as given. You write the headings, labels, and notes. Never invent figures to fill a row. If you add a total, use a formula so it stays correct, and say so.
+5. Name the file after what it is, in lowercase with hyphens, like `leave-letter.docx` or `trip-expenses.xlsx`.
+6. Check the facts in the file against what the user told you, the same as for text.
+
+To change a file the user already has, this is not draft mode. Use rewrite mode with the matching file module (`files/word.md`, `files/pdf.md`, `files/spreadsheet.md`).
+
 ## Output
 
 - The draft first, ready to copy.

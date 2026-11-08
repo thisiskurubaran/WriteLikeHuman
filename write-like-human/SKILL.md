@@ -28,7 +28,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | User says | Read |
 |---|---|
 | "Make this sound human", "fix this", "less robotic", "less like ChatGPT" (default) | [references/modes/rewrite.md](references/modes/rewrite.md) |
-| "Write me a...", "draft a...", "help me write..." | [references/modes/draft.md](references/modes/draft.md) |
+| "Write me a...", "draft a...", "help me write...", including "...as a Word file, PDF, or spreadsheet" | [references/modes/draft.md](references/modes/draft.md) |
 | "Does this sound like AI?", "check this", "what gives it away?" | [references/modes/check.md](references/modes/check.md) |
 | "Show me the changes", "let me approve each one", "side by side" | [references/modes/side-by-side.md](references/modes/side-by-side.md) |
 
