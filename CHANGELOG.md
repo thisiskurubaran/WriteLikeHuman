@@ -10,6 +10,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - The website has its own icon, a speech bubble with a hand-drawn line, in the header and the browser tab.
 - A simpler, more modern website with a bento grid of interactive examples, a typing prompt bar, and a language marquee.
+- The website has a new section on creating and editing Word, PDF, and Excel files, and larger tap targets on phones.
+
+### Fixed
+
+- The website now lays out at the phone's real width. A chat mock-up in the hero was forcing every phone to 444 pixels wide and zooming the page out.
 
 ## [0.3.1] - 2026-11-07
 

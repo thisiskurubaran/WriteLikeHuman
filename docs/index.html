@@ -164,9 +164,9 @@ p { text-wrap: pretty; }
 
 /* ---------- Hero ---------- */
 .hero { padding: 40px 0 24px; }
-.hero-grid { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; align-items: center; }
 @media (min-width: 640px) { .hero { padding: 56px 0 32px; } .hero-grid { gap: 64px; } }
-@media (min-width: 1024px) { .hero { padding: 72px 0 32px; } .hero-grid { grid-template-columns: 1.05fr .95fr; gap: 56px; } }
+@media (min-width: 1024px) { .hero { padding: 72px 0 32px; } .hero-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 56px; } }
 .announce { display: inline-flex; align-items: center; gap: 10px; max-width: 100%; font-size: 13.5px; color: var(--ink-2); background: var(--panel); border: 1px solid var(--line); padding: 5px 14px 5px 5px; border-radius: 999px; text-decoration: none; margin-bottom: clamp(20px, 4vw, 28px); box-shadow: var(--shadow-sm); transition: border-color .15s; }
 .announce:hover { border-color: var(--line-strong); }
 .announce .tag { display: inline-flex; align-items: center; gap: 6px; background: var(--accent-soft); color: var(--accent); font-weight: 700; padding: 2px 10px; border-radius: 999px; }
@@ -186,23 +186,24 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .assure .icon { color: var(--ok); stroke-width: 2.6; width: 15px; height: 15px; }
 
 /* Hero art: chat mock on a dotted canvas */
-.hero-art { position: relative; padding: 20px 12px; }
+.hero-art { position: relative; padding: 20px 12px; min-width: 0; }
+.hero-grid > *, .msg, .out-file, .composer { min-width: 0; }
 .hero-art::before { content: ""; position: absolute; inset: 0; border-radius: var(--r-xl); border: 1px dashed var(--line-strong); background-color: var(--panel-2); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Ccircle cx='2' cy='2' r='1.1' fill='%23888' fill-opacity='.28'/%3E%3C/svg%3E"); }
 .chat { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-lg); overflow: hidden; }
 .chat-head { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); font-size: 13px; color: var(--muted); }
 .dots { display: flex; gap: 6px; } .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); }
 .chat-head .skill { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: var(--accent); background: var(--accent-soft); padding: 2px 10px; border-radius: 999px; font-size: 12px; }
-.chat-body { padding: 18px 16px 6px; display: grid; gap: 14px; }
+.chat-body { padding: 18px 16px 6px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
 .msg.user { justify-self: end; max-width: 86%; display: grid; gap: 6px; justify-items: end; }
 .msg.user p { margin: 0; background: var(--ink); color: var(--bg); padding: 10px 14px; border-radius: 18px 18px 6px 18px; font-size: 14.5px; }
 .file-chip { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 550; color: var(--ink-2); background: var(--panel-2); border: 1px solid var(--line); padding: 6px 10px; border-radius: 12px; }
 .file-chip .icon { color: var(--accent); width: 15px; height: 15px; }
 .msg.bot { display: flex; gap: 10px; align-items: flex-start; max-width: 94%; }
 .msg.bot .logo { width: 26px; height: 26px; margin-top: 2px; }
-.bot-body { display: grid; gap: 10px; font-size: 14.5px; color: var(--ink-2); min-width: 0; }
+.bot-body { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; font-size: 14.5px; color: var(--ink-2); min-width: 0; }
 .bot-body p { margin: 0; }
 .out-file { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--panel-2); }
-.out-file .ext { font: 700 10.5px var(--mono); color: var(--accent-ink); background: var(--accent); padding: 8px 6px; border-radius: 8px; letter-spacing: .04em; }
+.out-file .ext { font: 700 12px var(--mono); color: var(--accent-ink); background: var(--accent); padding: 8px 6px; border-radius: 8px; letter-spacing: .04em; }
 .out-file b { display: block; font-size: 13.5px; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .out-file small { color: var(--muted); font-size: 12.5px; }
 .out-file > span:nth-child(2) { min-width: 0; flex: 1; }
@@ -223,6 +224,51 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 @keyframes bob { 50% { translate: 0 -6px; } }
 @media (min-width: 480px) { .hero-art { padding: 28px; } .sticker.s1 { top: 8px; right: 4px; } .sticker.s2 { bottom: 76px; left: -6px; } }
 
+/* ---------- Files in, files out ---------- */
+.xfiles { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+@media (min-width: 900px) { .xfiles { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; } }
+.xpanel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); min-width: 0; box-shadow: var(--shadow-sm); }
+.xpanel-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 6px; }
+.xpanel-head h3 { margin: 0; font-size: 1.15rem; letter-spacing: -0.015em; }
+.xpanel > p { margin: 0 0 16px; color: var(--muted); font-size: 14.5px; }
+.xmode { font: 700 12px var(--mono); letter-spacing: .08em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+.xmode.edit { background: var(--ok-soft); color: var(--ok); }
+.xlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.xrow { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 12px 14px; align-items: start; padding: 14px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--panel-2); }
+.xbadge { width: 46px; height: 54px; border-radius: 10px; display: grid; place-items: end center; padding-bottom: 7px; font: 800 12px var(--mono); letter-spacing: .02em; color: #fff; position: relative; }
+.xbadge::before { content: ""; position: absolute; top: 0; right: 0; width: 14px; height: 14px; background: rgb(255 255 255 / .35); border-bottom-left-radius: 6px; border-top-right-radius: 10px; }
+.xbadge.docx { background: #2b579a; } .xbadge.pdf { background: #c0362c; } .xbadge.xlsx { background: #1d6f42; }
+.xbody { min-width: 0; }
+.xbody h4 { margin: 0 0 3px; font-size: 15px; letter-spacing: -0.01em; }
+.xbody p { margin: 0; color: var(--muted); font-size: 14px; }
+.xprompt { display: block; margin-top: 10px; font-size: 13.5px; color: var(--ink-2); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px; overflow-wrap: anywhere; }
+.xprompt::before { content: "You: "; font-weight: 700; color: var(--muted); }
+.xout { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font: 600 12.5px var(--mono); color: var(--ink-2); overflow-wrap: anywhere; }
+.xout .icon { width: 14px; height: 14px; color: var(--ok); stroke-width: 2.6; flex: none; }
+.xnote { margin: 16px 0 0; display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); }
+.xnote .icon { width: 16px; height: 16px; flex: none; margin-top: 3px; color: var(--accent); }
+@media (max-width: 479px) { .xrow { gap: 10px 12px; padding: 12px; } .xbadge { width: 40px; height: 48px; padding-bottom: 6px; font-size: 12px; letter-spacing: 0; } .xbadge::before { width: 11px; height: 11px; } }
+@media (min-width: 640px) { .xrow { padding: 16px; } }
+
+/* ---------- Touch sizing: 44px targets on touch screens ---------- */
+@media (pointer: coarse) {
+  .seg button { min-height: 44px; padding-inline: 14px; }
+  .copy { min-height: 44px; padding-inline: 14px; }
+  .flinks a { min-height: 44px; display: inline-flex; align-items: center; }
+  .brand { min-height: 44px; }
+}
+
+/* ---------- Small phones ---------- */
+@media (max-width: 479px) {
+  .term pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+  .cta-band .actions { flex-direction: column; align-items: stretch; }
+  .cta-band .btn { width: 100%; height: auto; min-height: 50px; padding-block: 12px; white-space: normal; text-align: center; }
+}
+@media (max-width: 374px) {
+  .brand { font-size: 15px; gap: 8px; }
+  .brand .logo { width: 26px; height: 26px; }
+}
+
 /* ---------- Works with ---------- */
 .works { padding: clamp(32px, 5vw, 40px) 0 0; }
 .works-inner { display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap; justify-content: center; }
@@ -231,7 +277,7 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .chip { font-size: 13.5px; font-weight: 550; color: var(--ink-2); border: 1px solid var(--line); background: var(--panel); padding: 6px 13px; border-radius: 999px; }
 
 /* ---------- Stats ---------- */
-.stats { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); }
+.stats { margin-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); }
 .stats > div { padding: 20px 18px; min-width: 0; }
 .stats > div:nth-child(even) { border-left: 1px solid var(--line); }
 .stats > div:nth-child(n+3) { border-top: 1px solid var(--line); }
@@ -239,7 +285,7 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .stats b em { font-style: normal; color: var(--accent); }
 .stats dd { margin: 0; font-size: 14px; color: var(--muted); }
 @media (min-width: 768px) {
-  .stats { margin-top: 56px; grid-template-columns: repeat(4, 1fr); border-radius: var(--r-xl); }
+  .stats { margin-top: 56px; grid-template-columns: repeat(4, minmax(0, 1fr)); border-radius: var(--r-xl); }
   .stats > div { padding: 24px 22px; }
   .stats > div + div { border-left: 1px solid var(--line); }
   .stats > div:nth-child(n+3) { border-top: 0; }
@@ -248,21 +294,22 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 
 /* ---------- Sections ---------- */
 section { padding: var(--section-space) 0 0; }
-.section-head { display: grid; grid-template-columns: 1fr; gap: 16px 48px; align-items: end; margin-bottom: 28px; }
-@media (min-width: 900px) { .section-head { grid-template-columns: 1.1fr .9fr; margin-bottom: 40px; } }
+section[id], #top { scroll-margin-top: 88px; }
+.section-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px 48px; align-items: end; margin-bottom: 28px; }
+@media (min-width: 900px) { .section-head { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); margin-bottom: 40px; } }
 .eyebrow { display: inline-flex; align-items: center; gap: 8px; font: 600 12.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
 .eyebrow::before { content: ""; width: 18px; height: 2px; border-radius: 2px; background: currentColor; }
 h2 { font-size: clamp(1.85rem, 1.2rem + 3vw, 3.1rem); line-height: 1.04; letter-spacing: -0.04em; margin: 0; font-weight: 750; }
 .sub { color: var(--muted); font-size: clamp(1rem, .95rem + .3vw, 1.08rem); margin: 0; max-width: 34em; }
 
 /* ---------- Bento ---------- */
-.bento { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.bento { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
 .tile { position: relative; container-type: inline-size; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); display: flex; flex-direction: column; overflow: hidden; min-width: 0; box-shadow: var(--shadow-sm); transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s; }
 @media (hover: hover) { .tile:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--line-strong); } }
 .tile h3 { font-size: 1.12rem; letter-spacing: -0.015em; margin: 0 0 6px; }
 .tile > p { margin: 0; color: var(--muted); font-size: 14.5px; }
-@media (min-width: 640px) { .bento { grid-template-columns: repeat(2, 1fr); gap: 16px; } .span-6, .span-4, .span-3 { grid-column: span 2; } .span-2 { grid-column: span 1; } }
-@media (min-width: 1024px) { .bento { grid-template-columns: repeat(6, 1fr); } .span-6 { grid-column: span 6; } .span-4 { grid-column: span 4; } .span-3 { grid-column: span 3; } .span-2 { grid-column: span 2; } .row-2 { grid-row: span 2; } }
+@media (min-width: 640px) { .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; } .span-6, .span-4, .span-3 { grid-column: span 2; } .span-2 { grid-column: span 1; } }
+@media (min-width: 1024px) { .bento { grid-template-columns: repeat(6, minmax(0, 1fr)); } .span-6 { grid-column: span 6; } .span-4 { grid-column: span 4; } .span-3 { grid-column: span 3; } .span-2 { grid-column: span 2; } .row-2 { grid-row: span 2; } }
 .badge { width: 44px; height: 44px; border-radius: 14px; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; margin-bottom: 18px; }
 .badge .icon { width: 22px; height: 22px; }
 
@@ -313,7 +360,7 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .file + .file { margin-left: -14px; }
 .file:nth-child(1) { rotate: -8deg; } .file:nth-child(2) { translate: 0 -6px; z-index: 1; } .file:nth-child(3) { rotate: 8deg; }
 @media (hover: hover) { .tile:hover .file:nth-child(1) { rotate: -14deg; translate: -6px 0; } .tile:hover .file:nth-child(3) { rotate: 14deg; translate: 6px 0; } }
-.file .ext { font: 700 10.5px var(--mono); color: var(--accent); margin-bottom: 4px; }
+.file .ext { font: 700 12px var(--mono); color: var(--accent); margin-bottom: 4px; }
 .file i { display: block; height: 4px; border-radius: 2px; background: var(--line-strong); }
 .file i:nth-of-type(2) { width: 80%; } .file i:last-child { width: 55%; }
 
@@ -328,7 +375,7 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 /* Voice */
 .voice { margin-top: 18px; border: 1px solid var(--line); background: var(--panel-2); border-radius: var(--r-md); padding: 14px; font-size: 14px; }
 .voice .seg { margin-bottom: 14px; background: var(--panel); }
-.voice dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; }
+.voice dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 16px; }
 .voice dt { color: var(--muted); } .voice dd { margin: 0; color: var(--ink-2); font-weight: 500; }
 
 /* Marquee */
@@ -340,15 +387,15 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 @keyframes scroll { to { transform: translateX(-50%); } }
 
 /* Honest */
-.nots { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 10px 28px; }
-@container (min-width: 560px) { .nots { grid-template-columns: 1fr 1fr; } }
+.nots { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px 28px; }
+@container (min-width: 560px) { .nots { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
 .nots li { font-size: 14.5px; display: flex; gap: 10px; align-items: center; color: var(--ink-2); }
 .nots .x { width: 22px; height: 22px; flex: none; border-radius: 50%; background: var(--bad-soft); color: var(--bad); display: grid; place-items: center; }
 .nots .x .icon { width: 12px; height: 12px; stroke-width: 3; }
 
 /* ---------- Install ---------- */
-.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 12px; }
-@media (min-width: 900px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+.steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+@media (min-width: 900px) { .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; } }
 .step { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); box-shadow: var(--shadow-sm); }
 .step .n { display: flex; align-items: center; justify-content: space-between; margin-bottom: clamp(18px, 3vw, 28px); }
 .step .n b { font: 750 2.6rem/1 var(--sans); letter-spacing: -0.05em; color: var(--accent); }
@@ -364,13 +411,14 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .term pre { margin: 0; padding: 16px; font: 12.5px/1.8 var(--mono); overflow-x: auto; -webkit-overflow-scrolling: touch; }
 @media (min-width: 640px) { .term-head .dots { display: flex; } .term pre { padding: 20px; font-size: 14px; } }
 .term pre .p { color: #fb923c; user-select: none; }
+.term pre .ln { display: block; padding-left: 1.4em; text-indent: -1.4em; }
 .copy { display: inline-flex; align-items: center; gap: 6px; font: 600 12.5px var(--sans); color: #f4f4f5; background: #1f1f23; border: 1px solid #3f3f46; padding: 6px 12px; border-radius: 999px; cursor: pointer; transition: background .15s; }
 .copy:hover { background: #2a2a2f; }
 .copy .icon { width: 14px; height: 14px; }
 
 /* ---------- FAQ ---------- */
-.faq-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
-@media (min-width: 900px) { .faq-grid { grid-template-columns: 1fr 1.6fr; gap: 56px; } }
+.faq-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+@media (min-width: 900px) { .faq-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 56px; } }
 .faq-grid .sub { margin-top: 14px; }
 .faq-grid .sub a { color: var(--accent); }
 .acc { display: grid; gap: 10px; }
@@ -452,6 +500,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       WriteLikeHuman
     </a>
     <div class="links">
+      <a href="#files">Files</a>
       <a href="#features">Features</a>
       <a href="#install">Install</a>
       <a href="#faq">FAQ</a>
@@ -471,6 +520,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 </nav>
 
 <div class="menu" id="menu" popover>
+  <a href="#files">Files <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#features">Features <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#install">Install <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#faq">FAQ <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -483,7 +533,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <a class="announce" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest"><span class="tag">New</span> Check before you send, plus 29 kinds of writing <span aria-hidden="true">→</span></a>
+      <a class="announce" href="#files"><span class="tag">New</span> Create and edit Word, PDF, and Excel files <span aria-hidden="true">→</span></a>
       <h1>Writing that sounds like <span class="you">you<svg viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3 8c12-6 22-6 30 0s18 6 28 0 20-6 28 0 18 6 28 0"/></svg></span>.</h1>
       <p class="lede">A free Claude skill that turns stiff, chatbot-sounding text into plain, natural writing. Your facts, numbers, and formatting stay exactly where you left them.</p>
       <div class="actions">
@@ -554,6 +604,39 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
     </dl>
   </div>
 </div>
+
+<section id="files" aria-labelledby="files-h">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Files in, files out</p>
+        <h2 id="files-h">Create new files, or fix the ones you have</h2>
+      </div>
+      <p class="sub">Ask for a Word document, a PDF, or a spreadsheet and the words read naturally from the first draft. Or send one you already have and get it back with the wording fixed and the layout untouched.</p>
+    </div>
+    <div class="xfiles">
+      <article class="xpanel reveal" aria-labelledby="create-h">
+        <div class="xpanel-head"><h3 id="create-h">Create a new file</h3><span class="xmode">Create</span></div>
+        <p>WriteLikeHuman writes the content in plain, human words. Claude builds the file with its own file tools.</p>
+        <ul class="xlist">
+          <li class="xrow"><span class="xbadge docx" aria-hidden="true">DOCX</span><div class="xbody"><h4>Word documents</h4><p>Letters, cover letters, reports, and notices, ready to open and edit.</p><span class="xprompt">Write my leave letter as a Word file</span><span class="xout"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>leave-letter.docx</span></div></li>
+          <li class="xrow"><span class="xbadge pdf" aria-hidden="true">PDF</span><div class="xbody"><h4>PDFs</h4><p>Print-ready notices, invitations, and handouts.</p><span class="xprompt">Make this society notice into a PDF I can print</span><span class="xout"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>water-cut-notice.pdf</span></div></li>
+          <li class="xrow"><span class="xbadge xlsx" aria-hidden="true">XLSX</span><div class="xbody"><h4>Spreadsheets</h4><p>Trackers and lists with clear headings and notes. Your numbers go in exactly as you gave them.</p><span class="xprompt">Put these expenses in a sheet with a notes column</span><span class="xout"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>trip-expenses.xlsx</span></div></li>
+        </ul>
+      </article>
+      <article class="xpanel reveal" aria-labelledby="edit-h">
+        <div class="xpanel-head"><h3 id="edit-h">Edit a file you have</h3><span class="xmode edit">Edit</span></div>
+        <p>Only the words change. Every edited file comes back as a new copy, so your original stays safe.</p>
+        <ul class="xlist">
+          <li class="xrow"><span class="xbadge docx" aria-hidden="true">DOCX</span><div class="xbody"><h4>Word documents</h4><p>Rewritten in place. Fonts, tables, headers, and lists stay put, with tracked changes if you want them.</p><span class="xprompt">Humanize my resume, keep the formatting</span><span class="xout"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>resume-humanized.docx</span></div></li>
+          <li class="xrow"><span class="xbadge pdf" aria-hidden="true">PDF</span><div class="xbody"><h4>PDFs</h4><p>Reads every page and gives you an editable Word copy, since a PDF can't be safely edited in place. Scanned pages are flagged.</p><span class="xprompt">Fix the wording in this PDF report</span><span class="xout"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>report-humanized.docx</span></div></li>
+          <li class="xrow"><span class="xbadge xlsx" aria-hidden="true">XLSX</span><div class="xbody"><h4>Spreadsheets</h4><p>Only text cells, notes, and comments are touched. Numbers, dates, and formulas are never changed.</p><span class="xprompt">Clean up the Remarks column, don't touch the numbers</span><span class="xout"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>budget-humanized.xlsx</span></div></li>
+        </ul>
+      </article>
+    </div>
+    <p class="xnote"><svg class="icon" aria-hidden="true"><use href="#i-doc"/></svg><span>Also works with PowerPoint slides and speaker notes, Google Docs, Pages and Keynote, web pages, and subtitle files. Needs <strong>Code execution and file creation</strong> turned on in Claude.</span></p>
+  </div>
+</section>
 
 <section id="features" aria-labelledby="features-h">
   <div class="wrap">
@@ -691,8 +774,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
         <span class="title">Using Claude Code? Install it as a plugin</span>
         <button class="copy" type="button"><svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span>Copy</span></button>
       </div>
-      <pre><span class="p">&gt; </span><span id="cmd-1">/plugin marketplace add thisiskurubaran/WriteLikeHuman</span>
-<span class="p">&gt; </span><span id="cmd-2">/plugin install write-like-human@writelikehuman</span></pre>
+      <pre><span class="ln"><span class="p">&gt; </span><span id="cmd-1">/plugin marketplace add thisiskurubaran/WriteLikeHuman</span></span><span class="ln"><span class="p">&gt; </span><span id="cmd-2">/plugin install write-like-human@writelikehuman</span></span></pre>
     </div>
   </div>
 </section>
@@ -720,7 +802,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <h2>Try it on your next email</h2>
       <p>Download once, upload once, and every message after that sounds a little more like you.</p>
       <div class="actions">
-        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Download WriteLikeHuman</a>
+        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Download the skill</a>
         <a class="btn btn-secondary" href="https://github.com/thisiskurubaran/WriteLikeHuman">View on GitHub</a>
       </div>
     </div>
