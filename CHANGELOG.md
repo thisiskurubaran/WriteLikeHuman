@@ -15,6 +15,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - The website has its own icon, a speech bubble with a hand-drawn line, in the header and the browser tab.
 - A simpler, more modern website with a bento grid of interactive examples, a typing prompt bar, and a language marquee.
 - The website has a new section on creating and editing Word, PDF, and Excel files, and larger tap targets on phones.
+- The README shows how to create new Word, PDF, and Excel files, not only edit existing ones.
 
 ### Fixed
 

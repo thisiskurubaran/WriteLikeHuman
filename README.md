@@ -86,6 +86,7 @@ Just talk normally. There are no commands to learn.
 ```text
 Make this email sound less robotic
 Humanize this Word file
+Write my leave letter as a Word file
 Does this sound like AI?
 Write a farewell speech for my manager
 Reply to this WhatsApp from my landlord
@@ -104,7 +105,17 @@ Show me each change so I can approve it
 | Check what sounds off, without changing anything | "Does this sound like AI?" |
 | Approve or reject each change, one by one | "Show me the changes side by side" |
 
-### Your files, kept intact
+### Create new files
+
+Ask for a file and you get one, with words that read naturally from the first draft. WriteLikeHuman writes the content and Claude builds the file with its own file tools.
+
+| Ask for | You get |
+|---|---|
+| "Write my leave letter as a Word file" | A `.docx` in the right letter format, ready to open and edit |
+| "Make this society notice into a PDF I can print" | A print-ready `.pdf` |
+| "Put these expenses in a spreadsheet with a notes column" | An `.xlsx` with your numbers exactly as you gave them, and totals as formulas |
+
+### Edit the files you have
 
 | File | What you get back |
 |---|---|
