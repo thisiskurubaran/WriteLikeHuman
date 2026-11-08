@@ -13,6 +13,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Eval cases for every language guide and the pattern catalog, so all 94 guides are covered (103 cases).
 - Before and after samples for creating a Word file and a spreadsheet.
 - A social preview image, so links to the website show a picture on WhatsApp, LinkedIn, and X.
+- A check on every pull request that loads the website at phone, tablet, and desktop sizes in Chromium and WebKit and fails if it doesn't fit the screen.
 
 ### Changed
 
