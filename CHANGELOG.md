@@ -11,6 +11,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Draft mode can hand back a new Word file, PDF, or spreadsheet when asked. The skill writes the words and Claude builds the file.
 - Eleven more chatbot habits in the pattern catalog, including template letter phrases, biodata and listing cliches, and engagement-bait endings.
 - Eval cases for every language guide and the pattern catalog, so all 94 guides are covered (103 cases).
+- Before and after samples for creating a Word file and a spreadsheet.
 
 ### Changed
 

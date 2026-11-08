@@ -288,3 +288,45 @@ After (how people text):
 > நாளைக்கு காலை 9 மணிக்கு வந்துடுங்க.
 
 (Gloss: "Please come tomorrow at 9 am." Kept the time and the polite form. Changed only the formal written style to everyday spoken Tamil.)
+
+## Creating a file: a leave letter as a Word document
+
+Request:
+
+> Write my leave letter as a Word file. I'm Kavya Iyer, accounts team. Leave from 12 to 14 August for my sister's wedding in Madurai. Manager is Mr. Suresh Rao. Deepak will handle the vendor payments.
+
+Result (the text inside the file):
+
+> To
+> Mr. Suresh Rao
+> Manager, Accounts
+>
+> Subject: Leave from 12 to 14 August
+>
+> Dear Mr. Rao,
+>
+> I request leave from 12 to 14 August to attend my sister's wedding in Madurai. Deepak has agreed to handle the vendor payments while I'm away.
+>
+> Thank you,
+> Kavya Iyer
+> Accounts team
+
+Saved as `leave-letter.docx`. Every name and date is exactly as given, and nothing was added about the wedding beyond what Kavya said.
+
+## Creating a file: trip expenses as a spreadsheet
+
+Request:
+
+> Put these trip expenses in a spreadsheet with a notes column: hotel 6400, train 2150, food 1800.
+
+Result:
+
+| | A | B | C |
+|---|---|---|---|
+| 1 | Item | Amount (Rs) | Notes |
+| 2 | Hotel | 6400 | |
+| 3 | Train | 2150 | |
+| 4 | Food | 1800 | |
+| 5 | Total | =SUM(B2:B4) | Adds up the rows above |
+
+Saved as `trip-expenses.xlsx`. The three amounts are exactly as given. The total is a formula, so it stays right if an amount changes. The notes column is left empty for the user, since they didn't say what to put in it.
