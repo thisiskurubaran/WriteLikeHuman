@@ -7,6 +7,14 @@
 <meta name="description" content="A free Claude skill that makes everyday writing sound like a person wrote it. Emails, WhatsApp replies, letters, resumes, posts, and the files you already use.">
 <meta property="og:title" content="WriteLikeHuman">
 <meta property="og:description" content="Make everyday writing sound like you wrote it. A free Claude skill.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://thisiskurubaran.github.io/WriteLikeHuman/">
+<meta property="og:image" content="https://thisiskurubaran.github.io/WriteLikeHuman/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="WriteLikeHuman: writing that sounds like you. A before and after of an email, with Word, PDF, and Excel badges.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://thisiskurubaran.github.io/WriteLikeHuman/og-image.png">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%23c2410c%27/%3E%3Cpath d=%27M7 9.5A2.5 2.5 0 0 1 9.5 7h13A2.5 2.5 0 0 1 25 9.5v9a2.5 2.5 0 0 1-2.5 2.5H14l-4.5 4v-4A2.5 2.5 0 0 1 7 18.5z%27 fill=%27%23fff%27/%3E%3Cpath d=%27M10.5 15.5c1.2-3 2.4-3 3 0s1.8 3 3 0 1.8-3 3 0%27 fill=%27none%27 stroke=%27%23c2410c%27 stroke-width=%271.8%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E">
 <meta name="theme-color" content="#f7f6f3">
 <script>
@@ -620,7 +628,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
         </div>
       </div>
       <span class="sticker s1" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg>Facts kept</span>
-      <span class="sticker s2" aria-hidden="true">27 languages</span>
+      <span class="sticker s2" aria-hidden="true"><span data-stat="languages">27</span> languages</span>
     </div>
   </div>
 </header>
@@ -634,9 +642,9 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       </div>
     </div>
     <dl class="stats reveal">
-      <div><dt><b>94</b></dt><dd>writing guides inside</dd></div>
-      <div><dt><b>81</b></dt><dd>test cases before each release</dd></div>
-      <div><dt><b>27<em>+</em></b></dt><dd>languages, plus mixes like Hinglish</dd></div>
+      <div><dt><b data-stat="guides">94</b></dt><dd>writing guides inside</dd></div>
+      <div><dt><b data-stat="evals">103</b></dt><dd>test cases before each release</dd></div>
+      <div><dt><b><span data-stat="languages">27</span><em>+</em></b></dt><dd>languages, plus mixes like Hinglish</dd></div>
       <div><dt><b>MIT</b></dt><dd>free and open source</dd></div>
     </dl>
   </div>
@@ -718,7 +726,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 
       <article class="tile span-2 reveal">
         <h3>Kinds of writing</h3>
-        <div class="stat">29<small>types</small></div>
+        <div class="stat"><span data-stat="writing">29</span><small>types</small></div>
         <p>From a WhatsApp reply to an RTI application.</p>
         <div class="tags"><span>Emails</span><span>Resumes</span><span>Letters</span><span>Speeches</span><span>Biodata</span><span>Reviews</span></div>
       </article>
@@ -757,7 +765,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 
       <article class="tile span-4 reveal" aria-labelledby="lang-h">
         <h3 id="lang-h">Natural in your language, and in your mix</h3>
-        <p>27 languages, plus Indian English and mixes like Hinglish. Never translates unless you ask.</p>
+        <p><span data-stat="languages">27</span> languages, plus Indian English and mixes like Hinglish. Never translates unless you ask.</p>
         <div class="marquee">
           <div class="track">
             <span>Indian English</span><span>Hinglish</span><span>Tanglish</span><span>हिंदी</span><span>தமிழ்</span><span>తెలుగు</span><span>ಕನ್ನಡ</span><span>മലയാളം</span><span>বাংলা</span><span>मराठी</span><span>ગુજરાતી</span><span>ਪੰਜਾਬੀ</span><span>ଓଡ଼ିଆ</span><span lang="ur" dir="rtl">اردو</span><span>অসমীয়া</span>

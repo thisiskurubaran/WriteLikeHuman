@@ -12,6 +12,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Eleven more chatbot habits in the pattern catalog, including template letter phrases, biodata and listing cliches, and engagement-bait endings.
 - Eval cases for every language guide and the pattern catalog, so all 94 guides are covered (103 cases).
 - Before and after samples for creating a Word file and a spreadsheet.
+- A social preview image, so links to the website show a picture on WhatsApp, LinkedIn, and X.
 
 ### Changed
 
@@ -24,6 +25,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - The website now lays out at the phone's real width. A chat mock-up in the hero was forcing every phone to 444 pixels wide and zooming the page out.
 - On phones, the website's "New" badge stays on one line, the footer has full-width buttons, and page content no longer shows above the floating menu bar.
+- The website's numbers were typed by hand and had gone stale (81 test cases instead of 103). A test now checks them against the repo.
 
 ## [0.3.1] - 2026-11-07
 
