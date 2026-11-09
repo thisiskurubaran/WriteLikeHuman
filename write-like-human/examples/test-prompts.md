@@ -39,6 +39,7 @@ Prompts to try after uploading the skill. Each line says what should happen. All
 | "Fill my company letterhead template" (with a .docx) | draft + templates |
 | "Fill this visa form" (with a fillable PDF) | forms + form-answers |
 | "Type up my handwritten notes" (with a photo) | handwriting |
+| "Send this greeting to everyone in my sheet using each name" (with a .xlsx) | personalised-messages |
 | "Fix the wording on our About page" (with a .html file) | rewrite + web-pages |
 | "Clean up this Pages document" (with a .pages file) | rewrite + pages-keynote |
 | "Make this flyer text better" (with a poster photo) | rewrite + posters |
@@ -81,6 +82,10 @@ Prompts to try after uploading the skill. Each line says what should happen. All
 | "Make this school circular friendlier" | rewrite + school-circulars |
 | "Help me write to HR about my late salary" | draft + grievance-letters |
 | "Write a claim letter for my car insurance" | draft + insurance-claims |
+| "Write a polite payment reminder for invoice INV-2041" | draft + payment-reminders |
+| "Reply to this customer about a broken lid" | draft + support-replies |
+| "Write my out-of-office reply" | draft + auto-replies |
+| "Write alt text for this photo" | alt-text |
 | "Make my visa purpose letter sound natural" | rewrite + form-answers |
 
 ### Adjust, voice, language
@@ -107,6 +112,7 @@ Prompts to try after uploading the skill. Each line says what should happen. All
 | "Teach me why this sounds like AI" | learn |
 | "Reply to my landlord without sounding rude" | draft + reply-options |
 | "Use our house style" (with a style guide) | rewrite + style-guide |
+| "Write this in Hindi script" | script-conversion |
 | "Check this thesis for consistency" | check + consistency |
 | "Will this sound okay to my client in Germany?" | cross-cultural |
 | "Give me a short and a long version" | rewrite + length |

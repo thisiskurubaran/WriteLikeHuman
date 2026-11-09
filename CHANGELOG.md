@@ -26,6 +26,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Explanations as Word comments: each change can come with a short margin note saying why.
 - Google Sheets and Google Slides edited in place when a Google connector is attached, on a copy unless you say otherwise.
 - Golden-file tests for form filling, web pages, and Word comments, and tests for the new message script.
+- Eval cases and test prompts for every v0.5.0 guide, including a decline case for bulk messages to a bought list (131 cases in all).
 
 ## [0.4.0] - 2026-11-09
 
