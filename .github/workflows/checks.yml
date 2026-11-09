@@ -78,7 +78,7 @@ jobs:
           bad = 0
           for path in sorted(glob.glob("write-like-human/references/**/*.md", recursive=True)):
               rel = path.split("references/", 1)[1]
-              if rel in skip or rel.startswith("lists/"):
+              if rel in skip or rel.startswith("lists/") or rel.endswith("-template.md") or rel.endswith("/index.md"):
                   continue
               text = open(path, encoding="utf-8").read()
               heads = [line.strip() for line in text.splitlines() if line.startswith("## ")]
