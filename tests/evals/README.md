@@ -30,3 +30,5 @@ python tests/run_evals.py --case us-to-uk      # one case
 It uses Claude Opus 5.5 by default (`--model` to change). A pass from the runner is a good sign, not proof. Still try a few cases in the Claude app before a release.
 
 To keep a score for a release, add `--save` with the version, for example `python tests/run_evals.py --save v0.4.0`. The summary lands in `tests/evals/results/` (see the README there) and can be committed alongside the release.
+
+To run them on GitHub instead of your computer, add your API key as the repository secret `ANTHROPIC_API_KEY` (Settings > Secrets and variables > Actions), then open the Actions tab, pick **Evals (run by hand)**, and click **Run workflow**. Give it a label such as `v0.5.0`. The score summary is attached to the run as a file you can download and commit. It never runs on its own, because every run costs money.
