@@ -26,6 +26,14 @@ Rewrite Hindi so it sounds like a person wrote it, in the Hindi people actually 
 
 Formal letters to a bank or office can be formal. The problem is formal words in a casual message.
 
+## Formal and official Hindi
+
+Government, court, and official letters in Hindi use formal, Sanskritized Hindi (शुद्ध हिंदी): words like "आवेदन", "निवेदन", "सूचित", "उपर्युक्त", "प्रार्थी". In those letters this is expected, not an AI habit. Keep it.
+
+- Keep official Hindi in letters to government offices, courts, banks, and in RTI applications, and in any template the user's office requires.
+- Simplify only when the user asks, or when the reader is the general public (a notice for residents, a message to parents), where plain Hindustani is easier to read.
+- Fix only real problems in official Hindi: calques from English, repeated phrases, and sentences so long the request gets lost.
+
 ## Steps
 
 1. Work out who the reader is and keep the user's register.

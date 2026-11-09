@@ -42,6 +42,11 @@ Load the file for the target language as well:
 | Korean | `korean.md` |
 | Chinese | `chinese.md` |
 | Filipino (Tagalog) | `filipino.md` |
+| Sindhi | `sindhi.md` |
+| Maithili | `maithili.md` |
+| Vietnamese | `vietnamese.md` |
+| Thai | `thai.md` |
+| Swahili | `swahili.md` |
 | English for an Indian reader | `indian-english.md` |
 | A code-mixed result (Hinglish, Tanglish, Taglish) | `mixed-language.md` |
 
