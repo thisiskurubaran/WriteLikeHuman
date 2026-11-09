@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-11-09
+
 ### Added
 
 - Size budgets for SKILL.md, the pattern catalog, and every guide, checked on every pull request, so the skill stays quick.
@@ -233,7 +235,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Security policy with private reporting.
 - Issue templates for bugs and feature requests, and a pull request checklist.
 
-[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.2...v0.4.0
 [0.3.2]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.1...v0.3.2

@@ -9,7 +9,7 @@
       "name": "write-like-human",
       "source": "./write-like-human",
       "description": "Write or rewrite anything so it sounds like a real person, not AI, keeping formatting, facts, and numbers.",
-      "version": "0.5.0",
+      "version": "0.6.0",
       "author": {
         "name": "thisiskurubaran"
       },
