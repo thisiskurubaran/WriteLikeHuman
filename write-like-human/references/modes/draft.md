@@ -34,16 +34,17 @@ There is no original text, so "the same" means the facts the user gave you:
 
 ## When the user wants a file
 
-Sometimes the user wants the result as a file: "write my leave letter as a Word file", "make this notice a PDF I can print", "put these expenses in a spreadsheet with a notes column".
+Sometimes the user wants the result as a file: "write my leave letter as a Word file", "make this notice a PDF I can print", "put these expenses in a spreadsheet with a notes column", "make 5 slides for my team meeting from these notes".
 
 1. Write the content first, following the steps above. The words are your job. Building the file is a separate step.
-2. Build the file with Claude's built in file tools (the docx, pdf, or xlsx skills) when they are available. If file creation is turned off, give the text and tell the user in one line how to turn on **Code execution and file creation** in Settings.
+2. Build the file with Claude's built in file tools (the docx, pdf, xlsx, or pptx skills) when they are available. If file creation is turned off, give the text and tell the user in one line how to turn on **Code execution and file creation** in Settings.
 3. Keep the layout plain and familiar: a clear heading, normal paragraphs, the format the writing module asks for (for example the Indian letter format in `writing/formal-letters.md`). No decorative styling the user did not ask for.
-4. Spreadsheets: put in only the numbers, dates, and names the user gave you, exactly as given. You write the headings, labels, and notes. Never invent figures to fill a row. If you add a total, use a formula so it stays correct, and say so.
-5. Name the file after what it is, in lowercase with hyphens, like `leave-letter.docx` or `trip-expenses.xlsx`.
-6. Check the facts in the file against what the user told you, the same as for text.
+4. Slides: a title slide, then one idea per slide. Keep slide text short, three to five bullets at most, each a few words. Put the fuller explanation in the speaker notes, written the way the person would say it. Never invent figures, charts, or quotes to fill a slide. See `files/slides.md`, "Creating a new deck".
+5. Spreadsheets: put in only the numbers, dates, and names the user gave you, exactly as given. You write the headings, labels, and notes. Never invent figures to fill a row. If you add a total, use a formula so it stays correct, and say so.
+6. Name the file after what it is, in lowercase with hyphens, like `leave-letter.docx`, `team-update.pptx`, or `trip-expenses.xlsx`.
+7. Check the facts in the file against what the user told you, the same as for text.
 
-To change a file the user already has, this is not draft mode. Use rewrite mode with the matching file module (`files/word.md`, `files/pdf.md`, `files/spreadsheet.md`).
+To change a file the user already has, this is not draft mode. Use rewrite mode with the matching file module (`files/word.md`, `files/pdf.md`, `files/spreadsheet.md`, `files/slides.md`). To fill a template or a form the user gives you, use `files/templates.md` or `files/forms.md`.
 
 ## Output
 

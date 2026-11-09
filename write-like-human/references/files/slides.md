@@ -45,6 +45,19 @@ Only the words in text boxes, table cells, and speaker notes change.
 - With a Google Drive or Slides connector: make a copy named `<title> (humanized)` and edit the text in the copy, following the same rules. Edit the original only if the user clearly asks.
 - Without one: ask the user to download it (**File > Download > Microsoft PowerPoint (.pptx)**) and attach it, or paste the slide text and notes. If they paste, give it back slide by slide with "Slide 1", "Slide 2" labels so they know where each line goes.
 
+## Creating a new deck
+
+When the user wants new slides ("make 5 slides for my team meeting from these notes"), this is draft mode. Write the content first, then build the `.pptx` with Claude's built in pptx skill.
+
+1. Ask how many slides only if it matters and the user didn't say. Otherwise pick a number that fits the notes, usually 5 to 8.
+2. Start with a title slide: the topic, and the speaker's name or team if the user gave it.
+3. One idea per slide. A plain title that says what the slide is about ("What we shipped in March"), not a slogan.
+4. Slide text stays short: three to five bullets, each a few words. No full paragraphs on a slide.
+5. Put the explanation in the speaker notes, written the way the person talks, with figures exactly as the user gave them.
+6. Use only the user's facts. Never invent numbers, charts, quotes, customer names, or results to make a slide look fuller. If a slide would be empty, say so or drop it.
+7. Plain layout: the default theme or the user's own template (see `files/templates.md`). No decorative effects the user didn't ask for.
+8. Name the file after what it is, like `team-update.pptx`, and say in one line how many slides it has.
+
 ## Output
 
 - Return `<original-name>-humanized.pptx`. The original is never overwritten.
