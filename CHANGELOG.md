@@ -19,6 +19,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Long documents: theses, manuals, and long reports handled section by section, with names and terms kept consistent and nothing dropped.
 - Dyslexia-friendly layout for Word files: clear font, wider spacing, left alignment, and no long italics. The words don't change.
 - Voice profiles from Telegram and Signal chat exports, as well as WhatsApp.
+- LaTeX files: prose rewritten while commands, maths, and citations stay exactly as they were.
 
 ## [0.5.0] - 2026-11-09
 
