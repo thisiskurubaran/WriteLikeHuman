@@ -348,6 +348,10 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .more-link .icon { width: 16px; height: 16px; transition: translate .2s; }
 .more-link:hover .icon { translate: 3px 0; }
 
+/* Latest saved eval score, filled in by docs/_build/sync_site.py */
+.eval-score { margin: 14px 0 0; text-align: center; font-size: 13.5px; color: var(--muted); }
+.eval-score b { color: var(--ink); }
+
 /* ---------- Works with ---------- */
 .works { padding: clamp(32px, 5vw, 40px) 0 0; }
 .works-inner { display: flex; align-items: center; gap: 12px 20px; flex-wrap: wrap; justify-content: center; }
@@ -425,6 +429,7 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .change .tick { width: 20px; height: 20px; flex: none; border-radius: 50%; background: var(--ok-soft); color: var(--ok); display: grid; place-items: center; margin-top: 1px; }
 .change .tick .icon { width: 12px; height: 12px; stroke-width: 3; }
 .legend { font-size: 13.5px; color: var(--muted); display: flex; gap: 8px 18px; flex-wrap: wrap; align-items: center; }
+.legend mark { color: var(--ink); }
 ::view-transition-old(demo-doc), ::view-transition-new(demo-doc) { animation-duration: .25s; }
 
 /* Stat tile */
@@ -519,7 +524,7 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .cta-band { position: relative; overflow: hidden; margin-top: var(--section-space); background: var(--accent); color: var(--accent-ink); border-radius: var(--r-lg); padding: 48px 20px; text-align: center; }
 @media (min-width: 640px) { .cta-band { border-radius: var(--r-xl); padding: 72px 32px; } }
 .cta-band h2 { margin: 0 auto 14px; max-width: 16ch; }
-.cta-band p { margin: 0 auto 32px; max-width: 32em; opacity: .85; font-size: 1.08rem; }
+.cta-band p { margin: 0 auto 32px; max-width: 32em; font-size: 1.08rem; }
 .cta-band .actions { justify-content: center; }
 .cta-band .btn-primary { background: var(--accent-ink); color: var(--accent); box-shadow: none; }
 .cta-band .btn-primary:hover { background: color-mix(in srgb, var(--accent-ink) 90%, var(--accent)); }
@@ -602,6 +607,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 .ex-changes ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14.5px; color: var(--ink-2); }
 .ex-changes li { display: flex; gap: 8px; align-items: flex-start; }
 .ex-changes .icon { width: 15px; height: 15px; color: var(--ok); stroke-width: 2.6; margin-top: 4px; flex: none; }
+.ex-table:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .ex-table { max-width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
 .ex-table table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .ex-table th, .ex-table td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
@@ -938,7 +944,7 @@ Want me to rewrite it?</pre>
 <p class="ex-label in">Request</p>
 <blockquote><p>Put these trip expenses in a spreadsheet with a notes column: hotel 6400, train 2150, food 1800.</p></blockquote>
 <p class="ex-label out">Result</p>
-<div class="ex-table"><table><thead><tr><th></th><th>A</th><th>B</th><th>C</th></tr></thead><tbody><tr><td>1</td><td>Item</td><td>Amount (Rs)</td><td>Notes</td></tr><tr><td>2</td><td>Hotel</td><td>6400</td><td></td></tr><tr><td>3</td><td>Train</td><td>2150</td><td></td></tr><tr><td>4</td><td>Food</td><td>1800</td><td></td></tr><tr><td>5</td><td>Total</td><td>=SUM(B2:B4)</td><td>Adds up the rows above</td></tr></tbody></table></div>
+<div class="ex-table" tabindex="0" role="region" aria-label="Table"><table><thead><tr><th></th><th>A</th><th>B</th><th>C</th></tr></thead><tbody><tr><td>1</td><td>Item</td><td>Amount (Rs)</td><td>Notes</td></tr><tr><td>2</td><td>Hotel</td><td>6400</td><td></td></tr><tr><td>3</td><td>Train</td><td>2150</td><td></td></tr><tr><td>4</td><td>Food</td><td>1800</td><td></td></tr><tr><td>5</td><td>Total</td><td>=SUM(B2:B4)</td><td>Adds up the rows above</td></tr></tbody></table></div>
 <p class="ex-note">Saved as <code>trip-expenses.xlsx</code>. The three amounts are exactly as given. The total is a formula, so it stays right if an amount changes. The notes column is left empty for the user, since they didn't say what to put in it.</p>
         </div>
       </article>
@@ -973,6 +979,7 @@ Want me to rewrite it?</pre>
       <a href="./">Home</a>
       <a href="guide.html">Guide</a>
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman/issues/new?template=feedback.md">Share feedback</a>
+      <a href="privacy.html">Privacy</a>
     </nav>
     <div class="lang-switch foot-langs" role="group" aria-label="Language"><a href="./" lang="en">English</a><a href="hi/" lang="hi">हिंदी</a><a href="ta/" lang="ta">தமிழ்</a></div>
     <p class="foot-small">An independent project. Claude is made by Anthropic. All names and numbers in these examples are made up.</p>

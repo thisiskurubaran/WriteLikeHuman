@@ -21,12 +21,20 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Voice profiles from Telegram and Signal chat exports, as well as WhatsApp.
 - LaTeX files: prose rewritten while commands, maths, and citations stay exactly as they were.
 - Eval cases and test prompts for every v0.6.0 guide (146 cases in all).
+- A privacy page on the website that explains what happens to your text and files.
+- The usage guide in Hindi and Tamil, linked from the Hindi and Tamil pages.
+- The landing page can show the latest eval pass rate, once a saved eval result is in the repo.
 
 ### Changed
 
 - The router links every v0.6.0 guide.
 - The README lists every v0.6.0 feature and links the privacy page.
 - Hindi and Tamil README brought up to date with v0.6.0.
+
+### Fixed
+
+- Better text contrast on the landing page's call-to-action card and the demo legend, in light and dark mode.
+- The examples table can now be scrolled with a keyboard.
 
 ## [0.5.0] - 2026-11-09
 

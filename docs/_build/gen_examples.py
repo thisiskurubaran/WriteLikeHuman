@@ -69,7 +69,7 @@ def build(idx, md):
                     if not all(re.fullmatch(r'-+',c) for c in cells if c): rows.append(cells)
                     i+=1
                 th=rows[0]; trs=rows[1:]
-                out.append('<div class="ex-table"><table><thead><tr>'+''.join('<th>'+inline(c)+'</th>' for c in th)+'</tr></thead><tbody>'+''.join('<tr>'+''.join('<td>'+inline(c)+'</td>' for c in r)+'</tr>' for r in trs)+'</tbody></table></div>'); continue
+                out.append('<div class="ex-table" tabindex="0" role="region" aria-label="Table"><table><thead><tr>'+''.join('<th>'+inline(c)+'</th>' for c in th)+'</tr></thead><tbody>'+''.join('<tr>'+''.join('<td>'+inline(c)+'</td>' for c in r)+'</tr>' for r in trs)+'</tbody></table></div>'); continue
             if ln.strip()=='What I changed':
                 items=[]; i+=1
                 while i<len(lines) and lines[i].startswith('- '): items.append(lines[i][2:]); i+=1
@@ -153,6 +153,7 @@ def build(idx, md):
 .ex-changes ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14.5px; color: var(--ink-2); }
 .ex-changes li { display: flex; gap: 8px; align-items: flex-start; }
 .ex-changes .icon { width: 15px; height: 15px; color: var(--ok); stroke-width: 2.6; margin-top: 4px; flex: none; }
+.ex-table:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .ex-table { max-width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
 .ex-table table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .ex-table th, .ex-table td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
@@ -213,6 +214,7 @@ def build(idx, md):
       <a href="./">Home</a>
       <a href="guide.html">Guide</a>
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman/issues/new?template=feedback.md">Share feedback</a>
+      <a href="privacy.html">Privacy</a>
     </nav>
     <div class="lang-switch foot-langs" role="group" aria-label="Language"><a href="./" lang="en">English</a><a href="hi/" lang="hi">हिंदी</a><a href="ta/" lang="ta">தமிழ்</a></div>
     <p class="foot-small">An independent project. Claude is made by Anthropic. All names and numbers in these examples are made up.</p>

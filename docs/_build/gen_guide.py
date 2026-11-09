@@ -187,110 +187,44 @@ def esc(text):
     return html.escape(text, quote=False)
 
 
-def build(idx):
-    """Return the guide page HTML, built on top of the landing page."""
-    head_top = idx[:idx.index('<script>')]
-    theme_script = idx[idx.index('<script>'):idx.index('</script>') + 9]
-    css = idx[idx.index('<style>') + 7:idx.index('</style>')]
-    sprite = idx[idx.index('<!-- Reused icons -->'):idx.index('</svg>\n\n<nav') + 6]
-    script_all = idx[idx.rindex('<script>'):idx.rindex('</script>') + 9]
+EN_UI = {
+    "title": "Guide | WriteLikeHuman",
+    "desc": "How to use WriteLikeHuman: fix an email, fill a form, make slides, build your voice profile, payment reminders, and more, in short steps.",
+    "eyebrow": "Guide", "h1": "How do I...",
+    "lede": "Short steps for the things people ask WriteLikeHuman most. Every example is something you can type, in your own words, in Claude on the web, desktop, or phone.",
+    "toc": "On this page", "jump": "Jump to a task", "say": "Say something like", "run": "Run",
+    "cta_h": "Not installed yet?", "cta_p": "It takes two minutes: download the zip, then upload it in Claude.",
+    "cta_dl": "Download the skill", "cta_how": "How to install", "note": None,
+    "home": "Home", "files": "Files", "features": "Features", "examples": "Examples", "guide": "Guide",
+    "install": "Install", "download": "Download", "top": "Top",
+    "foot_note": "Free and open source under the MIT license.",
+    "contribute": "Contribute", "feedback": "Share feedback", "privacy": "Privacy",
+    "foot_small": "An independent project. Claude is made by Anthropic. All names and numbers in this guide are made up.",
+    "skip": "Skip to content", "lang": "Language", "theme": "Switch theme", "menu": "Open menu",
+}
 
-    head = head_top.replace('<title>WriteLikeHuman</title>', '<title>Guide | WriteLikeHuman</title>', 1)
-    head = head.replace(
-        'content="A free Claude skill that makes everyday writing sound like a person wrote it. Emails, WhatsApp replies, letters, resumes, posts, and the files you already use."',
-        'content="How to use WriteLikeHuman: fix an email, fill a form, make slides, build your voice profile, payment reminders, and more, in short steps."', 1)
-    head = head.replace('<meta property="og:title" content="WriteLikeHuman">', '<meta property="og:title" content="Guide | WriteLikeHuman">', 1)
-    head = head.replace('<meta property="og:url" content="https://thisiskurubaran.github.io/WriteLikeHuman/">',
-                        '<meta property="og:url" content="https://thisiskurubaran.github.io/WriteLikeHuman/guide.html">', 1)
+# Where links point from each version of the guide.
+PATHS = {
+    "en": {"home": "./", "examples": "examples.html", "privacy": "privacy.html",
+           "en": "guide.html", "hi": "hi/guide.html", "ta": "ta/guide.html", "url": "guide.html"},
+    "hi": {"home": "./", "examples": "../examples.html", "privacy": "../privacy.html",
+           "en": "../guide.html", "hi": "guide.html", "ta": "../ta/guide.html", "url": "hi/guide.html"},
+    "ta": {"home": "./", "examples": "../examples.html", "privacy": "../privacy.html",
+           "en": "../guide.html", "hi": "../hi/guide.html", "ta": "guide.html", "url": "ta/guide.html"},
+}
 
-    nav = '''<nav class="topnav" aria-label="Main">
-  <div class="wrap bar">
-    <a class="brand" href="./" aria-label="WriteLikeHuman home">
-      <svg class="logo" aria-hidden="true" focusable="false"><use href="#logo"/></svg>
-      WriteLikeHuman
-    </a>
-    <div class="links">
-      <a href="./#files">Files</a>
-      <a href="./#features">Features</a>
-      <a href="examples.html">Examples</a>
-      <a href="guide.html" aria-current="page">Guide</a>
-      <a href="./#install">Install</a>
-      <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>
-    </div>
-    <div class="nav-end">
-      <button class="icon-btn theme-btn" id="theme-btn" type="button" aria-label="Switch theme">
-        <svg class="icon moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
-        <svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      </button>
-      <button class="icon-btn menu-btn" id="menu-btn" type="button" popovertarget="menu" aria-label="Open menu" aria-controls="menu">
-        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
-      <a class="nav-cta" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Download</a>
-    </div>
-  </div>
-</nav>
+TR_CSS = """
+/* ---------- Translated page ---------- */
+.tr-note { margin: 14px 0 0; padding: 10px 14px; border: 1px dashed var(--line-strong); border-radius: 14px; background: var(--panel); font-size: 13.5px; color: var(--muted); }
+.tr-note a { color: var(--accent); }
+"""
 
-<div class="menu" id="menu" popover>
-  <a href="./">Home ''' + ARROW + '''</a>
-  <a href="./#files">Files ''' + ARROW + '''</a>
-  <a href="./#features">Features ''' + ARROW + '''</a>
-  <a href="examples.html">Examples ''' + ARROW + '''</a>
-  <a href="./#install">Install ''' + ARROW + '''</a>
-  <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub ''' + ARROW + '''</a>
-  <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Download <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>
-  <div class="lang-switch" role="group" aria-label="Language"><a href="./" lang="en">English</a><a href="hi/" lang="hi">हिंदी</a><a href="ta/" lang="ta">தமிழ்</a></div>
-</div>
-'''
+THEME_LABEL = {
+    "hi": "dark ? 'Light theme पर जाएँ' : 'Dark theme पर जाएँ'",
+    "ta": "dark ? 'Light theme-க்கு மாறு' : 'Dark theme-க்கு மாறு'",
+}
 
-    footer = '''<footer>
-  <div class="wrap foot">
-    <div class="foot-top">
-      <a class="brand" href="#top" aria-label="WriteLikeHuman, back to top"><svg class="logo" aria-hidden="true" focusable="false"><use href="#logo"/></svg>WriteLikeHuman</a>
-      <a class="to-top" href="#top">Top <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>
-    </div>
-    <p class="foot-note">Free and open source under the MIT license.</p>
-    <nav class="flinks" aria-label="Footer">
-      <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>
-      <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CHANGELOG.md">Changelog</a>
-      <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md">Contribute</a>
-      <a href="./">Home</a>
-      <a href="examples.html">Examples</a>
-      <a href="https://github.com/thisiskurubaran/WriteLikeHuman/issues/new?template=feedback.md">Share feedback</a>
-    </nav>
-    <div class="lang-switch foot-langs" role="group" aria-label="Language"><a href="./" lang="en">English</a><a href="hi/" lang="hi">हिंदी</a><a href="ta/" lang="ta">தமிழ்</a></div>
-    <p class="foot-small">An independent project. Claude is made by Anthropic. All names and numbers in this guide are made up.</p>
-  </div>
-</footer>
-'''
-
-    # Table of contents (desktop) and jump list (phones)
-    toc_parts, jump_items, groups_html = [], [], []
-    for gid, gname in GROUPS:
-        tasks = [t for t in TASKS if t[1] == gid]
-        if not tasks:
-            continue
-        toc_parts.append('<h3>%s</h3><ul>%s</ul>' % (esc(gname), ''.join(
-            '<li><a href="#%s">%s</a></li>' % (t[0], esc(t[2])) for t in tasks)))
-        jump_items.extend('<li><a href="#%s">%s</a></li>' % (t[0], esc(t[2])) for t in tasks)
-        cards = []
-        for tid, _g, title, prompt, steps, note in tasks:
-            steps_html = ''.join('<li><span>%s</span></li>' % esc(s) for s in steps)
-            note_html = '<p class="note">%s</p>' % esc(note) if note else ''
-            label = 'Run' if tid == 'claude-code' else 'Say something like'
-            cards.append('''        <article class="task" id="%s" aria-labelledby="%s-h">
-          <h3 id="%s-h">%s</h3>
-          <p class="say"><b>%s</b>%s</p>
-          <ol>%s</ol>
-          %s
-        </article>''' % (tid, tid, tid, esc(title), label, esc(prompt), steps_html, note_html))
-        groups_html.append('''      <section class="g-group" aria-labelledby="g-%s" style="padding-top:0">
-        <h2 id="g-%s">%s</h2>
-        <div class="g-tasks">
-%s
-        </div>
-      </section>''' % (gid, gid, esc(gname), '\n'.join(cards)))
-
-    script = script_all[:script_all.index('  /* Before and after demo */')] + '''  /* Guide: close the jump list after a pick, and mark the task in view */
+GUIDE_JS = """  /* Guide: close the jump list after a pick, and mark the task in view */
   var jump = document.querySelector('.g-jump');
   if (jump) jump.addEventListener('click', function (e) { if (e.target.closest('a')) jump.open = false; });
   var links = {};
@@ -306,42 +240,191 @@ def build(idx):
     document.querySelectorAll('.task').forEach(function (t) { io.observe(t); });
   }
 })();
-</script>'''
+</script>"""
 
-    return (head + theme_script + '\n<style>' + css + EXTRA_CSS + '</style>\n</head>\n<body>\n'
-            '<a class="skip" href="#main">Skip to content</a>\n\n' + sprite + '\n\n' + nav + '''
-<main id="main">
-<header class="g-hero" id="top">
-  <div class="wrap">
-    <p class="eyebrow">Guide</p>
-    <h1>How do I...</h1>
-    <p class="lede">Short steps for the things people ask WriteLikeHuman most. Every example is something you can type, in your own words, in Claude on the web, desktop, or phone.</p>
-  </div>
-</header>
+CARD = """        <article class="task" id="{id}" aria-labelledby="{id}-h">
+          <h3 id="{id}-h">{title}</h3>
+          <p class="say"><b>{label}</b>{prompt}</p>
+          <ol>{steps}</ol>
+          {note}
+        </article>"""
 
-<div class="wrap g-layout">
-  <aside class="g-toc" aria-label="On this page">
-    <h2>On this page</h2>
-    ''' + ''.join(toc_parts) + '''
-  </aside>
-  <div>
-    <details class="g-jump">
-      <summary>Jump to a task ''' + ARROW + '''</summary>
-      <ul>''' + ''.join(jump_items) + '''</ul>
-    </details>
-''' + '\n'.join(groups_html) + '''
-    <div class="cta-band g-cta">
-      <svg class="squiggle sq1" viewBox="0 0 400 60" aria-hidden="true"><path d="M10 40c30-30 50-30 70 0s40 30 70 0 50-30 70 0 40 30 70 0 50-30 70 0"/></svg>
-      <svg class="squiggle sq2" viewBox="0 0 400 60" aria-hidden="true"><path d="M10 40c30-30 50-30 70 0s40 30 70 0 50-30 70 0 40 30 70 0 50-30 70 0"/></svg>
-      <h2>Not installed yet?</h2>
-      <p>It takes two minutes: download the zip, then upload it in Claude.</p>
-      <div class="actions">
-        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Download the skill</a>
-        <a class="btn btn-secondary" href="./#install">How to install</a>
-      </div>
-    </div>
-  </div>
-</div>
-</main>
+GROUP = """      <section class="g-group" aria-labelledby="g-{id}" style="padding-top:0">
+        <h2 id="g-{id}">{name}</h2>
+        <div class="g-tasks">
+{cards}
+        </div>
+      </section>"""
 
-''' + footer + '\n' + script + '\n</body>\n</html>\n')
+
+def build(idx, lang="en"):
+    """Return the guide page HTML for lang ('en', 'hi', or 'ta'), built on top of the landing page."""
+    if lang == "en":
+        ui, groups, text = EN_UI, dict(GROUPS), esc
+        tasks = {t[0]: t[2:] for t in TASKS}
+    else:
+        import gen_guide_i18n as i18n
+        ui, groups, text = i18n.UI[lang], i18n.GROUPS[lang], (lambda s: s)
+        tasks = i18n.TASKS[lang]
+        missing = [t[0] for t in TASKS if t[0] not in tasks]
+        if missing:
+            raise KeyError("gen_guide_i18n.py has no %s text for: %s" % (lang, ", ".join(missing)))
+    P = PATHS[lang]
+    h = P["home"]
+
+    head_top = idx[:idx.index('<script>')]
+    theme_script = idx[idx.index('<script>'):idx.index('</script>') + 9]
+    css = idx[idx.index('<style>') + 7:idx.index('</style>')]
+    sprite = idx[idx.index('<!-- Reused icons -->'):idx.index('</svg>\n\n<nav') + 6]
+    script_all = idx[idx.rindex('<script>'):idx.rindex('</script>') + 9]
+
+    head = head_top.replace('<html lang="en">', '<html lang="%s">' % lang, 1)
+    head = head.replace('<title>WriteLikeHuman</title>', '<title>%s</title>' % ui["title"], 1)
+    head = head.replace(
+        'content="A free Claude skill that makes everyday writing sound like a person wrote it. Emails, WhatsApp replies, letters, resumes, posts, and the files you already use."',
+        'content="%s"' % ui["desc"], 1)
+    head = head.replace('<meta property="og:title" content="WriteLikeHuman">',
+                        '<meta property="og:title" content="%s">' % ui["title"], 1)
+    head = head.replace('<meta property="og:url" content="https://thisiskurubaran.github.io/WriteLikeHuman/">',
+                        '<meta property="og:url" content="https://thisiskurubaran.github.io/WriteLikeHuman/%s">' % P["url"], 1)
+
+    def langs(extra_class=""):
+        cur = {l: (' aria-current="page"' if l == lang else '') for l in ("en", "hi", "ta")}
+        return ('<div class="lang-switch%s" role="group" aria-label="%s">'
+                '<a href="%s" lang="en"%s>English</a><a href="%s" lang="hi"%s>हिंदी</a>'
+                '<a href="%s" lang="ta"%s>தமிழ்</a></div>'
+                % (extra_class, ui["lang"], P["en"], cur["en"], P["hi"], cur["hi"], P["ta"], cur["ta"]))
+
+    arrow = ' ' + ARROW
+    nav = "\n".join([
+        '<nav class="topnav" aria-label="Main">',
+        '  <div class="wrap bar">',
+        '    <a class="brand" href="%s" aria-label="WriteLikeHuman home">' % h,
+        '      <svg class="logo" aria-hidden="true" focusable="false"><use href="#logo"/></svg>',
+        '      WriteLikeHuman',
+        '    </a>',
+        '    <div class="links">',
+        '      <a href="%s#files">%s</a>' % (h, ui["files"]),
+        '      <a href="%s#features">%s</a>' % (h, ui["features"]),
+        '      <a href="%s">%s</a>' % (P["examples"], ui["examples"]),
+        '      <a href="guide.html" aria-current="page">%s</a>' % ui["guide"],
+        '      <a href="%s#install">%s</a>' % (h, ui["install"]),
+        '      <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>',
+        '    </div>',
+        '    <div class="nav-end">',
+        '      <button class="icon-btn theme-btn" id="theme-btn" type="button" aria-label="%s">' % ui["theme"],
+        '        <svg class="icon moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>',
+        '        <svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+        '      </button>',
+        '      <button class="icon-btn menu-btn" id="menu-btn" type="button" popovertarget="menu" aria-label="%s" aria-controls="menu">' % ui["menu"],
+        '        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+        '      </button>',
+        '      <a class="nav-cta" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">%s</a>' % ui["download"],
+        '    </div>',
+        '  </div>',
+        '</nav>',
+        '',
+        '<div class="menu" id="menu" popover>',
+        '  <a href="%s">%s%s</a>' % (h, ui["home"], arrow),
+        '  <a href="%s#files">%s%s</a>' % (h, ui["files"], arrow),
+        '  <a href="%s#features">%s%s</a>' % (h, ui["features"], arrow),
+        '  <a href="%s">%s%s</a>' % (P["examples"], ui["examples"], arrow),
+        '  <a href="%s#install">%s%s</a>' % (h, ui["install"], arrow),
+        '  <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub%s</a>' % arrow,
+        '  <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">%s <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>' % ui["download"],
+        '  ' + langs(),
+        '</div>',
+        '',
+    ])
+
+    footer = "\n".join([
+        '<footer>',
+        '  <div class="wrap foot">',
+        '    <div class="foot-top">',
+        '      <a class="brand" href="#top" aria-label="WriteLikeHuman, back to top"><svg class="logo" aria-hidden="true" focusable="false"><use href="#logo"/></svg>WriteLikeHuman</a>',
+        '      <a class="to-top" href="#top">%s <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>' % ui["top"],
+        '    </div>',
+        '    <p class="foot-note">%s</p>' % ui["foot_note"],
+        '    <nav class="flinks" aria-label="Footer">',
+        '      <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>',
+        '      <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CHANGELOG.md">Changelog</a>',
+        '      <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md">%s</a>' % ui["contribute"],
+        '      <a href="%s">%s</a>' % (h, ui["home"]),
+        '      <a href="%s">%s</a>' % (P["examples"], ui["examples"]),
+        '      <a href="https://github.com/thisiskurubaran/WriteLikeHuman/issues/new?template=feedback.md">%s</a>' % ui["feedback"],
+        '      <a href="%s">%s</a>' % (P["privacy"], ui["privacy"]),
+        '    </nav>',
+        '    ' + langs(" foot-langs"),
+        '    <p class="foot-small">%s</p>' % ui["foot_small"],
+        '  </div>',
+        '</footer>',
+        '',
+    ])
+
+    # Table of contents (desktop) and jump list (phones)
+    toc_parts, jump_items, groups_html = [], [], []
+    for gid, _gname in GROUPS:
+        ids = [t[0] for t in TASKS if t[1] == gid]
+        if not ids:
+            continue
+        gname = text(groups[gid])
+        toc_parts.append('<h3>%s</h3><ul>%s</ul>' % (gname, ''.join(
+            '<li><a href="#%s">%s</a></li>' % (tid, text(tasks[tid][0])) for tid in ids)))
+        jump_items.extend('<li><a href="#%s">%s</a></li>' % (tid, text(tasks[tid][0])) for tid in ids)
+        cards = []
+        for tid in ids:
+            title, prompt, steps, note = tasks[tid]
+            cards.append(CARD.format(
+                id=tid, title=text(title), prompt=text(prompt),
+                label=ui["run"] if tid == 'claude-code' else ui["say"],
+                steps=''.join('<li><span>%s</span></li>' % text(st) for st in steps),
+                note='<p class="note">%s</p>' % text(note) if note else ''))
+        groups_html.append(GROUP.format(id=gid, name=gname, cards='\n'.join(cards)))
+
+    script = script_all[:script_all.index('  /* Before and after demo */')] + GUIDE_JS
+    if lang != "en":
+        script = script.replace("dark ? 'Switch to light theme' : 'Switch to dark theme'", THEME_LABEL[lang])
+
+    note = ('<div class="wrap"><p class="tr-note" role="note">%s</p></div>\n\n' % ui["note"]) if ui.get("note") else ''
+    extra = EXTRA_CSS + (TR_CSS if lang != "en" else '')
+
+    body = "\n".join([
+        '<main id="main">',
+        '<header class="g-hero" id="top">',
+        '  <div class="wrap">',
+        '    <p class="eyebrow">%s</p>' % ui["eyebrow"],
+        '    <h1>%s</h1>' % ui["h1"],
+        '    <p class="lede">%s</p>' % ui["lede"],
+        '  </div>',
+        '</header>',
+        '',
+        '<div class="wrap g-layout">',
+        '  <aside class="g-toc" aria-label="%s">' % ui["toc"],
+        '    <h2>%s</h2>' % ui["toc"],
+        '    ' + ''.join(toc_parts),
+        '  </aside>',
+        '  <div>',
+        '    <details class="g-jump">',
+        '      <summary>%s%s</summary>' % (ui["jump"], arrow),
+        '      <ul>%s</ul>' % ''.join(jump_items),
+        '    </details>',
+        '\n'.join(groups_html),
+        '    <div class="cta-band g-cta">',
+        '      <svg class="squiggle sq1" viewBox="0 0 400 60" aria-hidden="true"><path d="M10 40c30-30 50-30 70 0s40 30 70 0 50-30 70 0 40 30 70 0 50-30 70 0"/></svg>',
+        '      <svg class="squiggle sq2" viewBox="0 0 400 60" aria-hidden="true"><path d="M10 40c30-30 50-30 70 0s40 30 70 0 50-30 70 0 40 30 70 0 50-30 70 0"/></svg>',
+        '      <h2>%s</h2>' % ui["cta_h"],
+        '      <p>%s</p>' % ui["cta_p"],
+        '      <div class="actions">',
+        '        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>%s</a>' % ui["cta_dl"],
+        '        <a class="btn btn-secondary" href="%s#install">%s</a>' % (h, ui["cta_how"]),
+        '      </div>',
+        '    </div>',
+        '  </div>',
+        '</div>',
+        '</main>',
+        '',
+    ])
+
+    return (head + theme_script + '\n<style>' + css + extra + '</style>\n</head>\n<body>\n'
+            '<a class="skip" href="#main">' + ui["skip"] + '</a>\n\n' + sprite + '\n\n' + nav + '\n' + note
+            + body + '\n' + footer + '\n' + script + '\n</body>\n</html>\n')

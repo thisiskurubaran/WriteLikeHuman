@@ -348,6 +348,10 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .more-link .icon { width: 16px; height: 16px; transition: translate .2s; }
 .more-link:hover .icon { translate: 3px 0; }
 
+/* Latest saved eval score, filled in by docs/_build/sync_site.py */
+.eval-score { margin: 14px 0 0; text-align: center; font-size: 13.5px; color: var(--muted); }
+.eval-score b { color: var(--ink); }
+
 /* ---------- Translated page ---------- */
 .tr-note { margin: 14px 0 0; padding: 10px 14px; border: 1px dashed var(--line-strong); border-radius: 14px; background: var(--panel); font-size: 13.5px; color: var(--muted); }
 .tr-note a { color: var(--accent); }
@@ -430,6 +434,7 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .change .tick { width: 20px; height: 20px; flex: none; border-radius: 50%; background: var(--ok-soft); color: var(--ok); display: grid; place-items: center; margin-top: 1px; }
 .change .tick .icon { width: 12px; height: 12px; stroke-width: 3; }
 .legend { font-size: 13.5px; color: var(--muted); display: flex; gap: 8px 18px; flex-wrap: wrap; align-items: center; }
+.legend mark { color: var(--ink); }
 ::view-transition-old(demo-doc), ::view-transition-new(demo-doc) { animation-duration: .25s; }
 
 /* Stat tile */
@@ -524,7 +529,7 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .cta-band { position: relative; overflow: hidden; margin-top: var(--section-space); background: var(--accent); color: var(--accent-ink); border-radius: var(--r-lg); padding: 48px 20px; text-align: center; }
 @media (min-width: 640px) { .cta-band { border-radius: var(--r-xl); padding: 72px 32px; } }
 .cta-band h2 { margin: 0 auto 14px; max-width: 16ch; }
-.cta-band p { margin: 0 auto 32px; max-width: 32em; opacity: .85; font-size: 1.08rem; }
+.cta-band p { margin: 0 auto 32px; max-width: 32em; font-size: 1.08rem; }
 .cta-band .actions { justify-content: center; }
 .cta-band .btn-primary { background: var(--accent-ink); color: var(--accent); box-shadow: none; }
 .cta-band .btn-primary:hover { background: color-mix(in srgb, var(--accent-ink) 90%, var(--accent)); }
@@ -587,7 +592,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <a href="#files">Files</a>
       <a href="#features">வசதிகள்</a>
       <a href="../examples.html">உதாரணங்கள்</a>
-      <a href="../guide.html">வழிகாட்டி</a>
+      <a href="guide.html">வழிகாட்டி</a>
       <a href="#install">Install</a>
       <a href="#faq">கேள்விகள்</a>
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>
@@ -609,7 +614,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
   <a href="#files">Files <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#features">வசதிகள் <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="../examples.html">உதாரணங்கள் <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="../guide.html">வழிகாட்டி <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="guide.html">வழிகாட்டி <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#install">Install <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#faq">கேள்விகள் <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -688,11 +693,12 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       </div>
     </div>
     <dl class="stats reveal">
-      <div><dt><b data-stat="guides">119</b></dt><dd>எழுத்து வழிகாட்டிகள் உள்ளே</dd></div>
-      <div><dt><b data-stat="evals">131</b></dt><dd>ஒவ்வொரு release-க்கும் முன் test cases</dd></div>
+      <div><dt><b data-stat="guides">128</b></dt><dd>எழுத்து வழிகாட்டிகள் உள்ளே</dd></div>
+      <div><dt><b data-stat="evals">146</b></dt><dd>ஒவ்வொரு release-க்கும் முன் test cases</dd></div>
       <div><dt><b><span data-stat="languages">32</span><em>+</em></b></dt><dd>மொழிகள், கூடவே Tanglish மாதிரி கலவைகள்</dd></div>
       <div><dt><b>MIT</b></dt><dd>இலவசம், open source</dd></div>
     </dl>
+    <!-- eval-score:start --><!-- eval-score:end -->
   </div>
 </div>
 
@@ -706,14 +712,14 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <p class="sub">சின்ன வியாபாரங்களுக்கும் freelancers-க்கும் தினசரி வேலைகள், கூடவே நிறைய பேர் கேட்ட சில வசதிகள்.</p>
     </div>
     <ul class="new-grid">
-      <li><a class="new-card" href="../guide.html#payment-reminder"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4zM4 11h16M8 15h3"/></svg></span><span class="new-tx"><b>Payment reminders, customer பதில்கள்</b><small>மரியாதையான நினைவூட்டல்கள், customer-க்கு பதில்கள், தொகையும் தேதியும் அப்படியே.</small></span></a></li>
-      <li><a class="new-card" href="../guide.html#personalised"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 10h16M10 10v9"/></svg></span><span class="new-tx"><b>Spreadsheet-ல இருந்து messages</b><small>ஒவ்வொரு row-க்கும் ஒரு தனி message, தெரிஞ்சவங்களுக்கு drafts-ஆ. எதுவும் தானா அனுப்பப்படாது.</small></span></a></li>
-      <li><a class="new-card" href="../guide.html#script"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 18c2-8 4-12 7-12s3 6 0 8M14 18h5M16.5 8v10"/></svg></span><span class="new-tx"><b>தமிழ் அல்லது இந்தி எழுத்தில்</b><small>Roman-ல எழுதின Tanglish, Hinglish-ஐ தமிழ் அல்லது தேவநாகரி எழுத்துக்கு, நீங்க கேட்டா மட்டும்.</small></span></a></li>
-      <li><a class="new-card" href="../guide.html#word-file"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M8 13h5M8 17h8"/></svg></span><span class="new-tx"><b>Word comments-ல காரணம்</b><small>ஒவ்வொரு மாற்றத்துக்கும் margin-ல ஏன்னு ஒரு சின்ன note.</small></span></a></li>
-      <li><a class="new-card" href="../guide.html#google"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM5 9h14M5 14h14M10 4v16"/></svg></span><span class="new-tx"><b>Google Sheets, Slides</b><small>Claude உங்க Google account-ஓட இணைஞ்சிருந்தா அங்கேயே edit.</small></span></a></li>
-      <li><a class="new-card" href="../guide.html#alt-text"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4zM8 14l3-3 3 3 2-2 2 2M9 9.5h.01"/></svg></span><span class="new-tx"><b>படங்களுக்கு alt text</b><small>Posts, websites, slides-ல இருக்கற படங்களுக்கு எளிய விவரிப்பு.</small></span></a></li>
+      <li><a class="new-card" href="guide.html#payment-reminder"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4zM4 11h16M8 15h3"/></svg></span><span class="new-tx"><b>Payment reminders, customer பதில்கள்</b><small>மரியாதையான நினைவூட்டல்கள், customer-க்கு பதில்கள், தொகையும் தேதியும் அப்படியே.</small></span></a></li>
+      <li><a class="new-card" href="guide.html#personalised"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 10h16M10 10v9"/></svg></span><span class="new-tx"><b>Spreadsheet-ல இருந்து messages</b><small>ஒவ்வொரு row-க்கும் ஒரு தனி message, தெரிஞ்சவங்களுக்கு drafts-ஆ. எதுவும் தானா அனுப்பப்படாது.</small></span></a></li>
+      <li><a class="new-card" href="guide.html#script"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 18c2-8 4-12 7-12s3 6 0 8M14 18h5M16.5 8v10"/></svg></span><span class="new-tx"><b>தமிழ் அல்லது இந்தி எழுத்தில்</b><small>Roman-ல எழுதின Tanglish, Hinglish-ஐ தமிழ் அல்லது தேவநாகரி எழுத்துக்கு, நீங்க கேட்டா மட்டும்.</small></span></a></li>
+      <li><a class="new-card" href="guide.html#word-file"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M8 13h5M8 17h8"/></svg></span><span class="new-tx"><b>Word comments-ல காரணம்</b><small>ஒவ்வொரு மாற்றத்துக்கும் margin-ல ஏன்னு ஒரு சின்ன note.</small></span></a></li>
+      <li><a class="new-card" href="guide.html#google"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM5 9h14M5 14h14M10 4v16"/></svg></span><span class="new-tx"><b>Google Sheets, Slides</b><small>Claude உங்க Google account-ஓட இணைஞ்சிருந்தா அங்கேயே edit.</small></span></a></li>
+      <li><a class="new-card" href="guide.html#alt-text"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4zM8 14l3-3 3 3 2-2 2 2M9 9.5h.01"/></svg></span><span class="new-tx"><b>படங்களுக்கு alt text</b><small>Posts, websites, slides-ல இருக்கற படங்களுக்கு எளிய விவரிப்பு.</small></span></a></li>
     </ul>
-    <a class="more-link" href="../guide.html">ஒவ்வொன்னையும் எப்படி பயன்படுத்தறதுன்னு guide-ல பாருங்க <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <a class="more-link" href="guide.html">ஒவ்வொன்னையும் எப்படி பயன்படுத்தறதுன்னு guide-ல பாருங்க <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </div>
 </section>
 
@@ -794,7 +800,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 
       <article class="tile span-2 reveal">
         <h3>எழுத்து வகைகள்</h3>
-        <div class="stat"><span data-stat="writing">39</span><small>வகைகள்</small></div>
+        <div class="stat"><span data-stat="writing">42</span><small>வகைகள்</small></div>
         <p>WhatsApp பதில் முதல் RTI விண்ணப்பம் வரை.</p>
         <div class="tags"><span>Emails</span><span>Resume</span><span>கடிதங்கள்</span><span>பேச்சுகள்</span><span>Biodata</span><span>Reviews</span></div>
       </article>
@@ -936,8 +942,9 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CHANGELOG.md">Changelog</a>
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md">பங்களியுங்க</a>
       <a href="../examples.html">உதாரணங்கள்</a>
-      <a href="../guide.html">வழிகாட்டி</a>
+      <a href="guide.html">வழிகாட்டி</a>
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman/issues/new?template=feedback.md">கருத்து சொல்லுங்க</a>
+      <a href="../privacy.html">தனியுரிமை</a>
     </nav>
     <div class="lang-switch foot-langs" role="group" aria-label="மொழி"><a href="../" lang="en">English</a><a href="../hi/" lang="hi">हिंदी</a><a href="./" lang="ta" aria-current="page">தமிழ்</a></div>
     <p class="foot-small">ஒரு சுயாதீன project. Claude-ஐ உருவாக்கியது Anthropic.</p>
