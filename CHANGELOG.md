@@ -19,6 +19,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Customer support replies for small businesses, with no refunds or dates promised that the owner didn't approve.
 - Out-of-office and away messages, WhatsApp Business greetings, and email signatures.
 - Alt text for images: describes what is visible and never guesses who people are.
+- A quick starter voice profile from just three messages, which can grow later.
 
 ## [0.4.0] - 2026-11-09
 

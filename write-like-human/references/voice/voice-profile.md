@@ -63,6 +63,18 @@ The user can attach Word files, PDFs, or text files they wrote themselves: repor
 4. Two or three documents of a page or more each is plenty. Prefer recent ones, since people's writing changes.
 5. Build the profile the same way as from pasted samples, then show it to the user to check.
 
+### Quick profile from three messages
+
+When the user wants something fast ("just use these three messages"), build a starter profile from only three short things they wrote.
+
+1. Read all three and note only what shows up in at least two: rough sentence length, greeting and sign-off, emoji or not, Hinglish or not, how formal.
+2. Fill only those parts of the template. Leave the rest empty rather than guessing.
+3. Label it clearly at the top: `Starter profile (from 3 messages)`.
+4. Tell the user in one line what it can't know yet, for example: "Three messages aren't enough to know how you write longer emails or how you disagree with someone."
+5. Offer to grow it later: "Send me a few more when you have them, and I'll fill in the rest."
+
+A starter profile is still the user's own voice. The same rule applies: only their messages, never someone else's.
+
 ### Several profiles
 
 - Each profile is its own block with its own name. They can sit in one file or separate files.
