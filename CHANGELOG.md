@@ -15,6 +15,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - The eval runner can save a score summary per release (--save v0.4.0), so pass rates can be compared over time.
 - Golden-file tests that prove everything you didn't ask to change in a Word, Excel, or PowerPoint file stays byte for byte the same.
 - Sindhi, Maithili, Vietnamese, Thai, and Swahili language guides, and a section on formal and official Hindi.
+- Singapore, Nigerian, Kenyan, Philippine, and South African English, kept as the user writes them.
 
 ## [0.3.2] - 2026-11-08
 

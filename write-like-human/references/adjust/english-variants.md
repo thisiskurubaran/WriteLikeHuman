@@ -5,6 +5,7 @@ Switch text between US, UK, Australian, and Indian English: spelling, everyday w
 ## When this applies
 
 - The user asks: "make it American English", "UK spelling please", "this is for my Australian client", "change it to Indian style".
+- The user writes in Singapore, Nigerian, Kenyan, Philippine, or South African English and asks to adapt it for a reader elsewhere, or the reverse. See "More Englishes" below.
 - The audience is clearly in another country and the user would want it to fit (a cover letter for a job in London written with US spelling). In that case, offer the switch in one line rather than doing it silently.
 
 Do not switch on your own otherwise. Keep the variety the user writes in. For Indian English style beyond spelling and formats, also read `languages/indian-english.md`.
@@ -35,6 +36,26 @@ Do not switch on your own otherwise. Keep the variety the user writes in. For In
 | Time off from work | PTO, vacation | annual leave | annual leave | leave |
 
 Australian English mostly follows UK spelling, with some US words (truck, program for software). Indian English mostly follows UK spelling and has its own words and formats; see `languages/indian-english.md`.
+
+### More Englishes
+
+These all start from British spelling (colour, centre, organise) and write dates day first (7/11/2026 is 7 November). Each has its own everyday words, and each is correct English.
+
+| Variant | Everyday words and phrases | Numbers and money |
+|---|---|---|
+| Singapore | "send you home" (drive you home), "on the aircon", "can or not?" in casual chat, "revert" for reply in office email | S$1,500 |
+| Nigerian | "well done" as a greeting to someone working, "I'm coming" (I'll be right back), "flash me" (give me a missed call) | ₦150,000 or N150,000 |
+| Kenyan | "I'm around" (I'm nearby), "sorry" said in sympathy when something goes wrong, "pole" borrowed from Swahili | KSh 1,500 |
+| Philippine | US spelling is common here, unlike the others. "for a while" on the phone (please hold), "comfort room" (toilet), "open the light" in casual speech | ₱1,500 |
+| South African | "just now" (later, not immediately), "now now" (soon), "robot" (traffic light), "bakkie" (pickup truck) | R1,500 |
+
+The rules for all of these:
+
+- Keep the user's local English exactly as it is. A Kenyan writing to a Kenyan reader does not need "fixing".
+- Switch only when the user asks, or when the reader is clearly elsewhere ("this goes to our office in London"). Even then, change only the words that would confuse that reader. Keep the writer's voice.
+- Never make fun of, label as wrong, or "correct" local usage. Never add local slang the user did not use.
+- No stereotypes. Talk about what a reader is likely to understand, not about how people from a place are.
+- Casual chat forms (like "can or not?") belong in casual messages. In a formal letter, follow the user's lead.
 
 ## Steps
 
