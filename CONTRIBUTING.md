@@ -106,6 +106,7 @@ We use [Conventional Commits](https://www.conventionalcommits.org/).
 - Summary in the imperative, lowercase, no period at the end, under 72 characters
 - Add a body when the reason is not obvious. Wrap it at 72 characters.
 - One logical change per commit.
+- Keep files small. SKILL.md has a budget of 200 lines and 2,600 words, the pattern catalog 3,500 words, and every other guide 1,500 words. `tests/test_sizes.py` checks this.
 
 Example:
 
