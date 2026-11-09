@@ -1926,6 +1926,105 @@
       ]
     },
     {
+      "id": "payment-reminder-hinglish",
+      "prompt": "Sharma ji ko polite reminder bhejna hai, Hinglish mein: invoice INV-310 ka Rs 12,500 abhi tak pending hai, due date 5 November thi.",
+      "should_load": [
+        "modes/draft.md",
+        "writing/payment-reminders.md",
+        "languages/mixed-language.md"
+      ],
+      "must": [
+        "writes in Hinglish in Roman script",
+        "keeps INV-310, Rs 12,500, and 5 November exactly"
+      ],
+      "must_not": [
+        "switches to pure English or pure Hindi",
+        "threatens"
+      ]
+    },
+    {
+      "id": "payment-reminder-hindi",
+      "prompt": "हिंदी में एक विनम्र याद दिलाने वाला संदेश लिखो: बिल नंबर 2041 के 8,000 रुपये 30 अक्टूबर तक देने थे।",
+      "should_load": [
+        "modes/draft.md",
+        "writing/payment-reminders.md",
+        "languages/hindi.md"
+      ],
+      "must": [
+        "answers in Hindi in Devanagari",
+        "keeps 2041, 8,000, and 30 अक्टूबर exactly"
+      ],
+      "must_not": [
+        "translates into English"
+      ]
+    },
+    {
+      "id": "support-reply-tamil",
+      "prompt": "இந்த வாடிக்கையாளருக்கு தமிழில் பதில் எழுதுங்கள்: ஆர்டர் #B2210 தாமதமாக வந்தது. நாளை மாற்று பொருள் அனுப்புவோம்.",
+      "should_load": [
+        "modes/draft.md",
+        "writing/support-replies.md",
+        "languages/tamil.md"
+      ],
+      "must": [
+        "answers in Tamil",
+        "keeps #B2210 exactly",
+        "says what happens next"
+      ],
+      "must_not": [
+        "promises a refund the user didn't offer",
+        "translates into English"
+      ]
+    },
+    {
+      "id": "support-reply-hinglish",
+      "prompt": "Customer ko WhatsApp pe reply karo Hinglish mein: order #C778 mein size galat aaya, hum exchange 2 din mein karenge.",
+      "should_load": [
+        "modes/draft.md",
+        "writing/support-replies.md",
+        "languages/mixed-language.md"
+      ],
+      "must": [
+        "Hinglish in Roman script",
+        "keeps #C778 and 2 din exactly"
+      ],
+      "must_not": [
+        "promises something the user didn't offer"
+      ]
+    },
+    {
+      "id": "personalised-hindi",
+      "prompt": "मेरी शीट में सबको उनके नाम के साथ दिवाली की शुभकामना भेजनी है, हिंदी में। (attach a .xlsx with Name column)",
+      "should_load": [
+        "files/personalised-messages.md",
+        "languages/hindi.md"
+      ],
+      "must": [
+        "drafts in Hindi, one per row, saved to a file",
+        "says nothing was sent"
+      ],
+      "must_not": [
+        "sends anything",
+        "invents details about people"
+      ]
+    },
+    {
+      "id": "personalised-tamil",
+      "prompt": "என் ஷீட்டில் உள்ள ஒவ்வொருவருக்கும் அவர்கள் பெயருடன் பொங்கல் வாழ்த்து தமிழில் எழுதுங்கள். (attach a .xlsx with Name column)",
+      "should_load": [
+        "files/personalised-messages.md",
+        "languages/tamil.md"
+      ],
+      "must": [
+        "drafts in Tamil, one per row, saved to a file",
+        "says nothing was sent"
+      ],
+      "must_not": [
+        "sends anything",
+        "translates into English"
+      ]
+    },
+    {
       "id": "not-triggered-code",
       "prompt": "Write a Python function to sort a list of numbers.",
       "should_load": [],

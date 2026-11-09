@@ -9,6 +9,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Added
 
 - Size budgets for SKILL.md, the pattern catalog, and every guide, checked on every pull request, so the skill stays quick.
+- Hindi, Tamil, and Hinglish eval cases for payment reminders, support replies, and personalised messages.
 
 ## [0.5.0] - 2026-11-09
 
