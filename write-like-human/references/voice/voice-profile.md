@@ -53,6 +53,16 @@ Do not record anything private in the profile: phone numbers, addresses, account
 
 If the user would rather not pick samples by hand, they can attach an exported WhatsApp chat and you build the profile from their own messages only. Other people's messages, phone numbers, and links are dropped first. The steps and privacy rules are in `voice/chat-export.md`.
 
+### From documents you wrote
+
+The user can attach Word files, PDFs, or text files they wrote themselves: reports, letters, blog posts, emails saved as documents.
+
+1. Get the text out. For Word files, run `python scripts/docx_rewrite.py extract FILE.docx`. For PDFs, run `python scripts/pdf_extract.py extract FILE.pdf`. For plain text, read it directly. If a script fails, read the file with Claude's built in file handling.
+2. Use only the user's own writing. Skip quoted material, forwarded emails, pasted articles, legal boilerplate, templates, and anything clearly written by someone else (a co-author's section, a manager's comments).
+3. If it is unclear which parts are theirs, ask in one line: "Is all of this yours, or did someone else write parts of it?"
+4. Two or three documents of a page or more each is plenty. Prefer recent ones, since people's writing changes.
+5. Build the profile the same way as from pasted samples, then show it to the user to check.
+
 ### Several profiles
 
 - Each profile is its own block with its own name. They can sit in one file or separate files.

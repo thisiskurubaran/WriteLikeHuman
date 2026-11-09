@@ -17,6 +17,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Sindhi, Maithili, Vietnamese, Thai, and Swahili language guides, and a section on formal and official Hindi.
 - Singapore, Nigerian, Kenyan, Philippine, and South African English, kept as the user writes them.
 - Reply options for tricky messages: one reply plus a single tone offer, never a pile of versions.
+- Voice profiles can be built from Word, PDF, or text files the user wrote.
 
 ## [0.3.2] - 2026-11-08
 
