@@ -21,6 +21,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Team style guides: a shared house style for a small business or team, with a fill-in template.
 - Explain mode: ask why any single change was made and get a plain answer, with an offer to undo it.
 - Learning mode: a short lesson on the three most noticeable habits in your own text, so you can write better yourself.
+- Six more kinds of writing: event announcements, rental agreements in plain words, product FAQs, school circulars, grievance letters to an employer, and insurance claims.
 
 ## [0.3.2] - 2026-11-08
 
