@@ -2025,6 +2025,139 @@
       ]
     },
     {
+      "id": "read-message",
+      "prompt": "How does this sound? My manager wrote: 'Need the deck by EOD. Not happy with the last one.' Is she angry?",
+      "should_load": [
+        "modes/read.md"
+      ],
+      "must": [
+        "separates what the words say from guesses",
+        "offers to help reply"
+      ],
+      "must_not": [
+        "claims to know her feelings for certain",
+        "gives a score"
+      ]
+    },
+    {
+      "id": "negotiation-salary",
+      "prompt": "Help me ask for more: the offer is Rs 14 lakh, I want Rs 16 lakh because I lead two projects now.",
+      "should_load": [
+        "modes/draft.md",
+        "writing/negotiation.md"
+      ],
+      "must": [
+        "keeps Rs 14 lakh and Rs 16 lakh exactly",
+        "uses only the reason given"
+      ],
+      "must_not": [
+        "invents a competing offer or market data"
+      ]
+    },
+    {
+      "id": "recommendation",
+      "prompt": "Write a reference for my former intern Asha. She built our inventory sheet and trained two new staff in 2025.",
+      "should_load": [
+        "modes/draft.md",
+        "writing/recommendations.md"
+      ],
+      "must": [
+        "uses only the achievements given",
+        "keeps the name and year exactly"
+      ],
+      "must_not": [
+        "invents or exaggerates achievements"
+      ]
+    },
+    {
+      "id": "video-script",
+      "prompt": "Write a 60 second Reels script about my home bakery's new ragi cookies, Rs 180 a box.",
+      "should_load": [
+        "modes/draft.md",
+        "writing/video-scripts.md"
+      ],
+      "must": [
+        "written to be spoken, about 150 words or fewer",
+        "keeps Rs 180 exactly"
+      ],
+      "must_not": [
+        "invents health claims or statistics",
+        "clickbait hook"
+      ]
+    },
+    {
+      "id": "easy-read",
+      "prompt": "Make this Easy Read for my uncle who has a learning disability: The clinic will be closed from 24 to 26 December. Appointments will resume on 27 December.",
+      "should_load": [
+        "modes/rewrite.md",
+        "adjust/easy-read.md"
+      ],
+      "must": [
+        "one idea per line",
+        "keeps all the dates"
+      ],
+      "must_not": [
+        "drops a fact"
+      ]
+    },
+    {
+      "id": "dyslexia-friendly",
+      "prompt": "Make this Word report dyslexia friendly. (attach a .docx)",
+      "should_load": [
+        "adjust/dyslexia-friendly.md"
+      ],
+      "must": [
+        "changes layout only",
+        "returns a file ending in -readable.docx"
+      ],
+      "must_not": [
+        "changes the words"
+      ]
+    },
+    {
+      "id": "saving-in-claude",
+      "prompt": "I don't want to paste my voice profile every time. Can you remember it?",
+      "should_load": [
+        "voice/saving-in-claude.md"
+      ],
+      "must": [
+        "explains keeping it in a Claude Project"
+      ],
+      "must_not": [
+        "claims the skill stores it"
+      ]
+    },
+    {
+      "id": "long-document",
+      "prompt": "Fix the wording in my 120 page thesis but keep my terms consistent. (attach a .docx)",
+      "should_load": [
+        "modes/rewrite.md",
+        "files/long-documents.md"
+      ],
+      "must": [
+        "outlines the sections first",
+        "keeps terms consistent across sections"
+      ],
+      "must_not": [
+        "summarises or drops content"
+      ]
+    },
+    {
+      "id": "latex",
+      "prompt": "Make my paper's introduction sound less stiff. (attach a .tex file)",
+      "should_load": [
+        "modes/rewrite.md",
+        "files/latex.md"
+      ],
+      "must": [
+        "leaves commands, maths, and citations untouched",
+        "returns a file ending in -humanized.tex"
+      ],
+      "must_not": [
+        "changes a \\cite or equation"
+      ]
+    },
+    {
       "id": "not-triggered-code",
       "prompt": "Write a Python function to sort a list of numbers.",
       "should_load": [],
