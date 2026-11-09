@@ -35,6 +35,10 @@ Prompts to try after uploading the skill. Each line says what should happen. All
 | "Write my leave letter as a Word file" | draft + formal-letters (Claude builds the .docx) |
 | "Put these expenses in a spreadsheet with a notes column" | draft (Claude builds the .xlsx) |
 | "Make this notice into a PDF I can print" | draft + notices (Claude builds the .pdf) |
+| "Make 5 slides for my team meeting from these notes" | draft + slides (Claude builds the .pptx) |
+| "Fill my company letterhead template" (with a .docx) | draft + templates |
+| "Fill this visa form" (with a fillable PDF) | forms + form-answers |
+| "Type up my handwritten notes" (with a photo) | handwriting |
 | "Fix the wording on our About page" (with a .html file) | rewrite + web-pages |
 | "Clean up this Pages document" (with a .pages file) | rewrite + pages-keynote |
 | "Make this flyer text better" (with a poster photo) | rewrite + posters |
@@ -71,6 +75,12 @@ Prompts to try after uploading the skill. Each line says what should happen. All
 | "Help me write a eulogy for my aunt" | draft + eulogies |
 | "Write the Play Store What's new for version 2.4" | draft + release-notes |
 | "Thank-you email after today's interview" | draft + email |
+| "Write an engagement announcement for Riya and Arjun" | draft + event-announcements |
+| "Explain clause 7 of my rental agreement" | rental-agreements |
+| "Write FAQs for my candle shop" | draft + product-faqs |
+| "Make this school circular friendlier" | rewrite + school-circulars |
+| "Help me write to HR about my late salary" | draft + grievance-letters |
+| "Write a claim letter for my car insurance" | draft + insurance-claims |
 | "Make my visa purpose letter sound natural" | rewrite + form-answers |
 
 ### Adjust, voice, language
@@ -93,6 +103,10 @@ Prompts to try after uploading the skill. Each line says what should happen. All
 | "Build my voice profile from my WhatsApp chats" (with an export) | voice-profile + chat-export |
 | "What reading age is this?" | check + accessibility |
 | "Check this before I send it" | before-send |
+| "Why did you change this line?" | explain |
+| "Teach me why this sounds like AI" | learn |
+| "Reply to my landlord without sounding rude" | draft + reply-options |
+| "Use our house style" (with a style guide) | rewrite + style-guide |
 | "Check this thesis for consistency" | check + consistency |
 | "Will this sound okay to my client in Germany?" | cross-cultural |
 | "Give me a short and a long version" | rewrite + length |

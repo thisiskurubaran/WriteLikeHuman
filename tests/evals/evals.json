@@ -1520,6 +1520,309 @@
       ]
     },
     {
+      "id": "create-pptx",
+      "prompt": "Make 5 slides for my team meeting from these notes: March sales Rs 4,20,000, two new clients (Brightlane, Northbay), hiring one designer in April.",
+      "should_load": [
+        "modes/draft.md",
+        "files/slides.md"
+      ],
+      "must": [
+        "keeps Rs 4,20,000, Brightlane, Northbay, and April exactly",
+        "short slide text with fuller speaker notes"
+      ],
+      "must_not": [
+        "invents figures, charts, or clients"
+      ]
+    },
+    {
+      "id": "fill-template",
+      "prompt": "Fill my company letterhead template with this offer letter text. (attach a .docx template)",
+      "should_load": [
+        "modes/draft.md",
+        "files/templates.md"
+      ],
+      "must": [
+        "keeps the template's styles",
+        "leaves [brackets] for facts not given"
+      ],
+      "must_not": [
+        "invents content for empty sections"
+      ]
+    },
+    {
+      "id": "fill-pdf-form",
+      "prompt": "Fill this visa application form with my details. (attach a fillable PDF)",
+      "should_load": [
+        "files/forms.md",
+        "writing/form-answers.md"
+      ],
+      "must": [
+        "lists the fields it could not fill"
+      ],
+      "must_not": [
+        "guesses an ID number, date of birth, or address",
+        "ticks the declaration without being asked"
+      ]
+    },
+    {
+      "id": "scanned-pdf",
+      "prompt": "Fix the wording in this scanned letter. (attach a PDF with scanned pages)",
+      "should_load": [
+        "modes/rewrite.md",
+        "files/pdf.md"
+      ],
+      "must": [
+        "asks the user to confirm names and numbers read from the scan"
+      ],
+      "must_not": [
+        "claims to have edited the PDF in place"
+      ]
+    },
+    {
+      "id": "handwriting",
+      "prompt": "Type up my handwritten meeting notes. (attach a photo)",
+      "should_load": [
+        "files/handwriting.md"
+      ],
+      "must": [
+        "marks unclear words instead of guessing"
+      ],
+      "must_not": [
+        "adds points that are not in the notes"
+      ]
+    },
+    {
+      "id": "explain-change",
+      "prompt": "Why did you change 'I am writing to inform you' to 'Just a note'?",
+      "should_load": [
+        "modes/explain.md"
+      ],
+      "must": [
+        "explains in plain words in a few sentences",
+        "offers to undo it"
+      ],
+      "must_not": [
+        "gives a pattern number or score"
+      ]
+    },
+    {
+      "id": "learn-mode",
+      "prompt": "Teach me why this sounds like AI so I can write better myself: In today's fast-paced world, communication is crucial. Moreover, our team is dedicated, passionate, and committed.",
+      "should_load": [
+        "modes/learn.md"
+      ],
+      "must": [
+        "picks the most noticeable habits and shows a fix for each",
+        "gives a tip to remember"
+      ],
+      "must_not": [
+        "gives a score or percentage"
+      ]
+    },
+    {
+      "id": "reply-options",
+      "prompt": "My landlord wants to keep Rs 20,000 from my deposit for normal wear. Help me reply without sounding rude.",
+      "should_load": [
+        "modes/draft.md",
+        "adjust/reply-options.md"
+      ],
+      "must": [
+        "gives one reply",
+        "keeps Rs 20,000 exactly"
+      ],
+      "must_not": [
+        "gives three or more versions without being asked"
+      ]
+    },
+    {
+      "id": "style-guide",
+      "prompt": "Use our house style for this product update: we always write 'FlexiPlan Pro', dates as 5 March 2026, and sign off 'Team Northbay'. (paste the update)",
+      "should_load": [
+        "modes/rewrite.md",
+        "voice/style-guide.md"
+      ],
+      "must": [
+        "follows the house style rules given"
+      ],
+      "must_not": [
+        "changes the product name"
+      ]
+    },
+    {
+      "id": "style-guide-blank",
+      "prompt": "Help me make a style guide for my bakery's Instagram and WhatsApp messages.",
+      "should_load": [
+        "voice/style-guide.md",
+        "voice/style-guide-template.md"
+      ],
+      "must": [
+        "uses the fill-in template"
+      ],
+      "must_not": [
+        "invents facts about the bakery"
+      ]
+    },
+    {
+      "id": "event-announcement",
+      "prompt": "Write an engagement announcement for Riya and Arjun, 14 February 2027, at Lotus Hall, Chennai.",
+      "should_load": [
+        "modes/draft.md",
+        "writing/event-announcements.md"
+      ],
+      "must": [
+        "keeps the names, date, and venue exactly"
+      ],
+      "must_not": [
+        "invents family names or details"
+      ]
+    },
+    {
+      "id": "rental-agreement",
+      "prompt": "Explain clause 7 of my rental agreement in plain words: 'The Licensee shall not sublet...'",
+      "should_load": [
+        "writing/rental-agreements.md"
+      ],
+      "must": [
+        "keeps the original clause alongside the plain version",
+        "says it is not legal advice"
+      ],
+      "must_not": [
+        "changes the meaning of the clause"
+      ]
+    },
+    {
+      "id": "product-faq",
+      "prompt": "Write 5 FAQs for my candle shop. Candles burn 40 hours, soy wax, ship in 3 days across India.",
+      "should_load": [
+        "modes/draft.md",
+        "writing/product-faqs.md"
+      ],
+      "must": [
+        "keeps 40 hours, soy wax, and 3 days exactly"
+      ],
+      "must_not": [
+        "invents claims the seller did not make"
+      ]
+    },
+    {
+      "id": "school-circular",
+      "prompt": "Make this school circular friendlier for parents: PTM on 12 December, 9 am to 12 pm, fees due by 20 December.",
+      "should_load": [
+        "modes/rewrite.md",
+        "writing/school-circulars.md"
+      ],
+      "must": [
+        "keeps the dates and times exactly"
+      ],
+      "must_not": [
+        "changes the fee deadline"
+      ]
+    },
+    {
+      "id": "grievance-letter",
+      "prompt": "Help me write to HR that my salary for October was paid 18 days late.",
+      "should_load": [
+        "modes/draft.md",
+        "writing/grievance-letters.md"
+      ],
+      "must": [
+        "calm and factual",
+        "keeps October and 18 days exactly"
+      ],
+      "must_not": [
+        "exaggerates or adds accusations"
+      ]
+    },
+    {
+      "id": "insurance-claim",
+      "prompt": "Write a claim letter for my car insurance: policy CX-55210, accident on 3 November, repair estimate Rs 38,500.",
+      "should_load": [
+        "modes/draft.md",
+        "writing/insurance-claims.md"
+      ],
+      "must": [
+        "keeps the policy number, date, and amount exactly"
+      ],
+      "must_not": [
+        "inflates the claim"
+      ]
+    },
+    {
+      "id": "lang-sindhi",
+      "prompt": "هن پيغام کي قدرتي بڻايو: اسان سڀاڻي 10 وڳي ملنداسين.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/sindhi.md"
+      ],
+      "must": [
+        "answers in Sindhi in the same script",
+        "keeps 10 exactly"
+      ],
+      "must_not": [
+        "translates into English"
+      ]
+    },
+    {
+      "id": "lang-maithili",
+      "prompt": "एहि संदेश केँ सहज बनाउ: काल्हि 10 बजे भेंट होएत।",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/maithili.md"
+      ],
+      "must": [
+        "answers in Maithili, not Hindi",
+        "keeps 10 exactly"
+      ],
+      "must_not": [
+        "translates into English or Hindi"
+      ]
+    },
+    {
+      "id": "lang-vietnamese",
+      "prompt": "Sửa tin nhắn này cho tự nhiên hơn: Chúng tôi xin trân trọng thông báo cuộc họp lúc 10 giờ.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/vietnamese.md"
+      ],
+      "must": [
+        "answers in Vietnamese with diacritics",
+        "keeps 10 giờ"
+      ],
+      "must_not": [
+        "translates into English"
+      ]
+    },
+    {
+      "id": "lang-thai",
+      "prompt": "ช่วยแก้ข้อความนี้ให้เป็นธรรมชาติ: เราจะประชุมเวลา 10 โมงครับ",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/thai.md"
+      ],
+      "must": [
+        "answers in Thai",
+        "keeps the polite particle the user used"
+      ],
+      "must_not": [
+        "translates into English"
+      ]
+    },
+    {
+      "id": "lang-swahili",
+      "prompt": "Rekebisha ujumbe huu uwe wa kawaida: Tutakutana kesho saa 4 asubuhi.",
+      "should_load": [
+        "modes/rewrite.md",
+        "languages/swahili.md"
+      ],
+      "must": [
+        "answers in Swahili",
+        "keeps saa 4 asubuhi"
+      ],
+      "must_not": [
+        "translates into English"
+      ]
+    },
+    {
       "id": "not-triggered-code",
       "prompt": "Write a Python function to sort a list of numbers.",
       "should_load": [],

@@ -29,6 +29,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Scanned PDF pages are read from their images, and names and numbers read that way are confirmed with the user.
 - Photos of handwritten notes, whiteboards, and letters turned into typed text, with unclear words marked instead of guessed.
 - A router check that every guide can be reached and every link and example points at a real guide.
+- Eval cases and test prompts for every new v0.4.0 guide (124 cases in all).
 
 ## [0.3.2] - 2026-11-08
 
