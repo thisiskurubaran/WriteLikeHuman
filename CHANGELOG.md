@@ -6,6 +6,24 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Added
+
+- Quick options: when a request is unclear, like "help with this" with some text, Claude offers two to four short choices. In Claude Code they're tap-to-pick buttons. Clear requests skip it.
+- README writing for developers: what the project does, how to install and use it, in plain words, with every command kept exactly.
+- Commit messages and pull request descriptions written from the diff, following the repo's own style.
+- Architecture docs, decision records (ADRs), and folder-structure explanations that describe only what's really in the code.
+- API docs, error messages people can act on, and app text like buttons and empty states, with keys and placeholders kept exactly.
+- In Claude Code, inside a git repository, README and docs files are edited in place, with a line on how to see or undo the change with git. Elsewhere a new copy is made, as before.
+- A developer section in the buzzword list: emoji headings, badge walls, "seamlessly integrates", "simply run", and similar.
+- Work chat messages for Slack, Teams, and Google Chat.
+- Mail merge templates can include real curly braces by doubling them, so {{SAVE10}} comes out as {SAVE10}.
+- Eval cases and test prompts for every v0.7.0 guide, plus checks that coding requests still don't start the skill (161 cases in all).
+
+### Changed
+
+- Developers are now part of the audience, for the words around code only. The skill never writes or changes code.
+- README in English, Hindi, and Tamil lists the v0.7.0 features.
+
 ## [0.6.1] - 2026-11-09
 
 ### Fixed

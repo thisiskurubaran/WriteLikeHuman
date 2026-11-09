@@ -1,4 +1,4 @@
-<!-- Translated from README.md at v0.6.0 -->
+<!-- Translated from README.md at v0.7.0 -->
 <div align="center">
 
 # WriteLikeHuman
@@ -123,6 +123,7 @@ Owner anuppina WhatsApp-ku oru polite reply ezhudhi kudunga
 | ஒரு மாற்றம் ஏன் செய்யப்பட்டது என்று கேட்பது | "Why did you change this line?" |
 | இந்தப் பழக்கங்களை நீங்களே கண்டுபிடிக்கக் கற்றுக்கொள்வது | "Teach me why this sounds like AI" |
 | யாரோ அனுப்பிய message-ஐப் புரிந்துகொள்வது | "How does this message from my boss sound?" |
+| என்ன கேட்பது என்று தெரியவில்லையா? | Text-ஐ paste செய்து "help with this" என்று சொல்லுங்கள், சில சின்ன தேர்வுகள் கிடைக்கும் |
 
 ### புதிய files உருவாக்குங்கள்
 
@@ -164,7 +165,7 @@ File கேளுங்கள், file கிடைக்கும். முத
 ஒவ்வொரு file-உம் `yourfile-humanized` என்ற பெயரில் புதிய copy-ஆக வரும், அதனால் original பத்திரமாக இருக்கும். "a file showing what changed" என்று கேட்டால், ஒவ்வொரு மாற்றமும் குறிக்கப்பட்ட ஒரு Word file-உம் கிடைக்கும்.
 
 <details>
-<summary><b>என்னென்ன வகை எழுத்துகள் (42)</b></summary>
+<summary><b>என்னென்ன வகை எழுத்துகள் (43)</b></summary>
 
 <br>
 
@@ -212,6 +213,7 @@ File கேளுங்கள், file கிடைக்கும். முத
 | பேரம் பேசுதல் | சம்பளம், விலை, வாடகை பேச்சு, உங்கள் உண்மையான எண்களும் காரணங்களும் மட்டும் |
 | Recommendation letters | பரிந்துரைப்பவர் உண்மையில் பார்த்ததை வைத்து எழுதிய references |
 | Video scripts | YouTube, Reels, Shorts-க்கான scripts, பேசுவதற்காக எழுதியவை |
+| Work chat | Slack, Teams, Google Chat messages: status update, உதவி கேட்பது, மரியாதையாக மறுப்பது |
 
 </details>
 
@@ -252,6 +254,25 @@ File கேளுங்கள், file கிடைக்கும். முத
 WhatsApp, Telegram அல்லது Signal chat export-இலிருந்தும் இதை உருவாக்கலாம், உங்கள் சொந்த messages மட்டுமே எடுக்கப்படும். ஒவ்வொரு முறையும் attach செய்யாமல் இருக்க, இதை ஒரு Claude Project-இல் வைத்துக்கொள்ளுங்கள்.
 
 பழைய samples கையில் இல்லையா? மூன்று சிறிய messages போதும், ஒரு starter profile உருவாகும், மேலும் samples கொடுக்கக் கொடுக்க மேம்படும். நீங்கள் எழுதிய Word, PDF, text files-இலிருந்தும் கற்றுக்கொள்ளும். ஒரு team அல்லது சிறு வணிகத்துக்கு, பொதுவான house style வைத்துக்கொள்ளுங்கள்: product பெயர்கள், பயன்படுத்த வேண்டிய, தவிர்க்க வேண்டிய சொற்கள், message-ஐ எப்படி முடிப்பது. அதை இணைத்தால் ஒவ்வொரு message-உம் அதன்படியே இருக்கும்.
+
+</details>
+
+<details>
+<summary><b>Developers-க்கு</b></summary>
+
+<br>
+
+WriteLikeHuman உங்கள் code-ஐச் சுற்றியுள்ள வார்த்தைகளை எழுதும். Code-ஐ அது ஒருபோதும் மாற்றாது, coding கேள்விகளையும் எடுத்துக்கொள்ளாது.
+
+| எழுத்து | இப்படிச் சொல்லுங்கள் |
+|---|---|
+| README files | "Make my README sound less like AI" |
+| Commit messages, pull requests | "Write a commit message for this diff" |
+| Architecture docs, decision records, folder structure | "Explain the architecture of this project for new joiners" |
+| API docs, error messages, button labels, translation files | "Make these error messages friendlier" |
+| Code comments, docstrings | "Clean up the comments in this file, don't touch the code" |
+
+Commands, code blocks, config keys, placeholders எல்லாம் அப்படியே இருக்கும். Comments ஒரு script மூலம் மாறும். Code-இல் ஒரு எழுத்து மாறினாலும் அது எதையும் எழுதாது. Claude Code-இல், git repository-க்குள், README மற்றும் docs files-ஐ அங்கேயே edit செய்து, git மூலம் மாற்றங்களை எப்படிப் பார்ப்பது அல்லது திரும்பப் பெறுவது என்று சொல்லும். மற்ற இடங்களில், மற்ற files போலவே, புதிய copy உருவாகும்.
 
 </details>
 

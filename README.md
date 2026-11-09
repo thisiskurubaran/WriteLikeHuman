@@ -92,6 +92,7 @@ Write a farewell speech for my manager
 Reply to this WhatsApp from my landlord
 Make this simpler for my dad
 Show me each change so I can approve it
+Make my README sound less like AI
 ```
 
 ## Features
@@ -107,6 +108,7 @@ Show me each change so I can approve it
 | Ask why something was changed | "Why did you change this line?" |
 | Learn to spot the habits yourself | "Teach me why this sounds like AI" |
 | Understand a message someone sent you | "How does this message from my boss sound?" |
+| Not sure what to ask? | Paste the text and say "help with this" to get a few quick choices |
 
 ### Create new files
 
@@ -148,7 +150,7 @@ Ask for a file and you get one, with words that read naturally from the first dr
 Every file comes back as a new copy named `yourfile-humanized`, so the original stays safe. Ask for "a file showing what changed" and you also get a Word file with every change marked.
 
 <details>
-<summary><b>Kinds of writing it knows (42)</b></summary>
+<summary><b>Kinds of writing it knows (43)</b></summary>
 
 <br>
 
@@ -196,6 +198,7 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 | Negotiation | Salary, price, and rent talks, using only your real numbers and reasons |
 | Recommendation letters | References written from what the recommender actually saw |
 | Video scripts | YouTube, Reels, and Shorts scripts written to be spoken |
+| Work chat | Slack, Teams, and Google Chat messages: status updates, asking for help, polite pushback |
 
 </details>
 
@@ -234,6 +237,25 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 Share a few things you wrote yourself and WriteLikeHuman builds a short voice profile: how long your sentences run, the words you like, how you sign off. Keep it as a note or file and attach it next time. You can have more than one, like "work me" and "personal me". You can also build one from your own WhatsApp chat export: only your messages are used, and phone numbers, emails, and links are hidden first.
 
 You can build it from WhatsApp, Telegram, or Signal chat exports too, using only your own messages. To stop attaching it every time, keep it in a Claude Project. No samples handy? Three short messages are enough for a starter profile that grows as you add more. It can also learn from Word, PDF, or text files you wrote. For a team or a small business, keep a shared house style instead: product names, words to use and avoid, how you sign off. Attach it and every message follows it.
+
+</details>
+
+<details>
+<summary><b>For developers</b></summary>
+
+<br>
+
+WriteLikeHuman writes the words around your code. It never changes the code itself, and it won't take over coding requests.
+
+| Writing | Try saying |
+|---|---|
+| README files | "Make my README sound less like AI" |
+| Commit messages and pull requests | "Write a commit message for this diff" |
+| Architecture docs, decision records, folder structure | "Explain the architecture of this project for new joiners" |
+| API docs, error messages, button labels, translation files | "Make these error messages friendlier" |
+| Code comments and docstrings | "Clean up the comments in this file, don't touch the code" |
+
+Commands, code blocks, config keys, and placeholders stay exactly as they were. Comment edits go through a script that refuses to write anything if a single character of code would change. In Claude Code, inside a git repository, it edits README and docs files in place and tells you how to see or undo the change with git. Elsewhere it makes a new copy, as with every other file.
 
 </details>
 

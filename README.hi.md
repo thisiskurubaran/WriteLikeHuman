@@ -1,4 +1,4 @@
-<!-- Translated from README.md at v0.6.0 -->
+<!-- Translated from README.md at v0.7.0 -->
 <div align="center">
 
 # WriteLikeHuman
@@ -123,6 +123,7 @@ Landlord ke is WhatsApp ka reply likh do, politely
 | पूछना कि कोई बदलाव क्यों किया | "Why did you change this line?" |
 | ख़ुद ये आदतें पहचानना सीखना | "Teach me why this sounds like AI" |
 | किसी और का भेजा message समझना | "How does this message from my boss sound?" |
+| पक्का नहीं कि क्या माँगें? | Text paste करके "help with this" कहिए, कुछ छोटे विकल्प मिलेंगे |
 
 ### नई files बनाइए
 
@@ -164,7 +165,7 @@ File माँगिए और file मिलेगी, जिसके शब�
 हर file एक नई copy बनकर आती है, नाम होता है `yourfile-humanized`, ताकि असली file सुरक्षित रहे। "a file showing what changed" माँगेंगे तो एक Word file भी मिलेगी जिसमें हर बदलाव mark होगा।
 
 <details>
-<summary><b>किस-किस तरह की लिखाई (42)</b></summary>
+<summary><b>किस-किस तरह की लिखाई (43)</b></summary>
 
 <br>
 
@@ -212,6 +213,7 @@ File माँगिए और file मिलेगी, जिसके शब�
 | मोल-भाव और बातचीत | Salary, दाम और किराए की बात, सिर्फ़ आपके असली नंबर और वजहों के साथ |
 | Recommendation letters | सिफ़ारिश करने वाले ने जो सच में देखा, उसी पर लिखे references |
 | Video scripts | YouTube, Reels और Shorts के scripts, बोलकर पढ़ने के लिए लिखे हुए |
+| Work chat | Slack, Teams और Google Chat के messages: status update, मदद माँगना, विनम्रता से मना करना |
 
 </details>
 
@@ -252,6 +254,25 @@ File माँगिए और file मिलेगी, जिसके शब�
 आप इसे WhatsApp, Telegram या Signal के chat export से भी बना सकते हैं, जिसमें सिर्फ़ आपके अपने messages लिए जाते हैं। हर बार attach न करना पड़े, इसके लिए इसे किसी Claude Project में रख लीजिए।
 
 पुराने samples पास नहीं हैं? तीन छोटे messages से भी एक starter profile बन जाता है, जो आगे और samples देने पर बेहतर होता जाता है। यह आपकी लिखी Word, PDF या text files से भी सीख सकता है। Team या छोटे business के लिए एक shared house style रखिए: product के नाम, कौन से शब्द लिखने हैं और कौन से नहीं, message कैसे ख़त्म करना है। उसे साथ लगाइए और हर message उसी हिसाब से लिखा जाएगा।
+
+</details>
+
+<details>
+<summary><b>Developers के लिए</b></summary>
+
+<br>
+
+WriteLikeHuman आपके code के आसपास के शब्द लिखता है। Code को यह कभी नहीं बदलता, और coding वाले सवाल अपने हाथ में नहीं लेता।
+
+| लिखाई | ऐसे कहिए |
+|---|---|
+| README files | "Make my README sound less like AI" |
+| Commit messages और pull requests | "Write a commit message for this diff" |
+| Architecture docs, decision records, folder structure | "Explain the architecture of this project for new joiners" |
+| API docs, error messages, button labels, translation files | "Make these error messages friendlier" |
+| Code comments और docstrings | "Clean up the comments in this file, don't touch the code" |
+
+Commands, code blocks, config keys और placeholders बिल्कुल वैसे ही रहते हैं। Comments एक script से बदलते हैं, जो code का एक भी अक्षर बदलने वाला हो तो कुछ नहीं लिखती। Claude Code में, git repository के अंदर, यह README और docs files को वहीं edit करता है और बताता है कि git से बदलाव कैसे देखें या वापस लें। बाकी जगह, बाकी files की तरह, नई copy बनती है।
 
 </details>
 
