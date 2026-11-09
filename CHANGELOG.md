@@ -6,6 +6,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-11-09
+
 ### Added
 
 - Quick options: when a request is unclear, like "help with this" with some text, Claude offers two to four short choices. In Claude Code they're tap-to-pick buttons. Clear requests skip it.
@@ -272,7 +274,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Security policy with private reporting.
 - Issue templates for bugs and feature requests, and a pull request checklist.
 
-[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.1...HEAD
+[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.7.0...HEAD
+[0.7.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.1...v0.7.0
 [0.6.1]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.4.0...v0.5.0
