@@ -60,6 +60,7 @@ A request can match a file row and a writing row at the same time, such as a res
 | A Word or PowerPoint template to fill: "use my letterhead", "fill this resume layout" | [references/files/templates.md](references/files/templates.md) |
 | A form to fill: a fillable PDF, or a Word form with blanks (visa, school, bank KYC) | [references/files/forms.md](references/files/forms.md) + [references/writing/form-answers.md](references/writing/form-answers.md) |
 | A photo of handwritten notes, a whiteboard, a diary page, or a handwritten letter | [references/files/handwriting.md](references/files/handwriting.md) |
+| A spreadsheet of people plus one message to personalise for each ("send this greeting to everyone in my sheet using each name") | [references/files/personalised-messages.md](references/files/personalised-messages.md) |
 
 ### Kinds of writing
 
