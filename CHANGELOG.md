@@ -13,6 +13,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - "How does this sound?" mode: a calm reading of a message someone else sent, with no invented intent, then help replying.
 - Negotiation messages for salary, prices, and rent, using only your real numbers and reasons.
 - Recommendation and reference letters written from what the recommender actually saw.
+- Scripts and descriptions for YouTube videos, Reels, and Shorts, written to be spoken.
 
 ## [0.5.0] - 2026-11-09
 
