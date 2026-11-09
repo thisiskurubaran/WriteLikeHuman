@@ -10,6 +10,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - The Claude Code plugin now installs only the skill folder (about 670 KB), not the website, tests, and translations.
 - SKILL.md is about a fifth shorter. The kinds-of-writing tables moved to a lookup file that is read only when needed, so every request costs fewer tokens.
+- The README lists every v0.4.0 feature and links the new examples page.
 
 ### Added
 

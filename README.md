@@ -57,7 +57,7 @@ Every result ends with a short note in plain words:
 > - Cut "It's important to note that", which added nothing.
 > - Kept the date exactly as it was.
 
-More samples: [before-after.md](write-like-human/examples/before-after.md)
+More samples: browse them on the [examples page](https://thisiskurubaran.github.io/WriteLikeHuman/examples.html), or read [before-after.md](write-like-human/examples/before-after.md).
 
 ## Install in two minutes
 
@@ -96,7 +96,7 @@ Show me each change so I can approve it
 
 ## Features
 
-### Four ways to work
+### Ways to work
 
 | Mode | Try saying |
 |---|---|
@@ -104,6 +104,8 @@ Show me each change so I can approve it
 | Draft something new that sounds right first time | "Write a thank you note to my teacher" |
 | Check what sounds off, without changing anything | "Does this sound like AI?" |
 | Approve or reject each change, one by one | "Show me the changes side by side" |
+| Ask why something was changed | "Why did you change this line?" |
+| Learn to spot the habits yourself | "Teach me why this sounds like AI" |
 
 ### Create new files
 
@@ -113,6 +115,9 @@ Ask for a file and you get one, with words that read naturally from the first dr
 |---|---|
 | "Write my leave letter as a Word file" | A `.docx` in the right letter format, ready to open and edit |
 | "Make this society notice into a PDF I can print" | A print-ready `.pdf` |
+| "Make 5 slides for my team meeting from these notes" | A `.pptx` with short slide text and fuller speaker notes |
+| "Fill my company letterhead template with this letter" | Your template, with its look kept and the text filled in |
+| "Fill this visa form with my details" | A filled copy of the PDF or Word form, with anything it doesn't know left blank and listed |
 | "Put these expenses in a spreadsheet with a notes column" | An `.xlsx` with your numbers exactly as you gave them, and totals as formulas |
 
 ### Edit the files you have
@@ -120,7 +125,7 @@ Ask for a file and you get one, with words that read naturally from the first dr
 | File | What you get back |
 |---|---|
 | Word (.docx) | Same fonts, styles, tables, and lists. Tracked changes if you want them. |
-| PDF | An editable Word copy, with a heads-up if any page is a scanned image. |
+| PDF | An editable Word copy. Scanned pages are read from their images, and you're asked to confirm names and numbers. |
 | Google Docs and Claude docs | Edited in place when Claude is connected to your Google account, or a clean copy to paste back. |
 | Spreadsheets (.xlsx, .csv, Google Sheets) | Only text cells, notes, and comments change. Numbers and formulas are never touched. |
 | Slides (.pptx, Google Slides) | Slide text and speaker notes, with the layout left alone. |
@@ -132,12 +137,13 @@ Ask for a file and you get one, with words that read naturally from the first dr
 | Apple Pages and Keynote | Converted and edited, or simple steps to export them first. |
 | Web pages (.html) | Visible text reworded. Tags, links, and code stay exactly as they were. |
 | Posters and flyers | A cleaner version of the text to retype. Claude can't edit the image itself. |
+| Handwritten notes and whiteboards | Typed text or a Word file, with unclear words marked instead of guessed. |
 | Gmail and Outlook drafts | Edited in place when Claude is connected to your mail. Nothing is ever sent. |
 
 Every file comes back as a new copy named `yourfile-humanized`, so the original stays safe. Ask for "a file showing what changed" and you also get a Word file with every change marked.
 
 <details>
-<summary><b>Kinds of writing it knows (29)</b></summary>
+<summary><b>Kinds of writing it knows (35)</b></summary>
 
 <br>
 
@@ -172,6 +178,12 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 | Messages to schools | Notes to teachers, class groups, and the PTA |
 | Eulogies and obituaries | Simple, sincere words, using only your real memories |
 | Release notes | Changelogs and app store "What's new" text |
+| Announcements | Engagements, weddings, births, and events |
+| Rental agreements | Clauses explained or drafted in plain words, with the original kept alongside. Not legal advice. |
+| Product FAQs | FAQ pages for small businesses, using only your facts |
+| School circulars | Notices from schools to parents, with dates and fees exact |
+| Grievance letters | Calm, factual complaints to an employer or HR |
+| Insurance claims | Claim letters and follow-ups, never inflated |
 
 </details>
 
@@ -188,7 +200,7 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 | Easy to read | "Is this easy to read?" flags long sentences, jargon, and unclear links |
 | Inclusive wording | "Make it gender neutral" (only when you ask) |
 | Words to leave alone | "Never change 'FlexiPlan Pro'" keeps brand names, jargon, and nicknames exactly as written |
-| Kind of English | "Make it UK English" switches between US, UK, Australian, and Indian spelling and dates |
+| Kind of English | "Make it UK English" switches between US, UK, Australian, and Indian English, and keeps Singapore, Nigerian, Kenyan, Philippine, and South African English as you write them |
 | Ready to paste | Line breaks and formatting that work in each app |
 | Reading age | "What reading age is this?" gives a rough guide, only when you ask |
 | Before you send | "Check this before I send it" spots missing attachments, a weekday that doesn't match the date, unanswered questions, and leftover placeholders |
@@ -196,6 +208,7 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 | Other countries | "Will this sound okay to my client in Germany?" notes what might read badly abroad |
 | Two lengths | "Give me a short and a long version" |
 | Speech timing | "How long will this speech take?" shows the time for each part |
+| Tricky replies | "Reply to my landlord without sounding rude" gives one reply and offers a firmer or softer tone |
 
 </details>
 
@@ -205,6 +218,8 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 <br>
 
 Share a few things you wrote yourself and WriteLikeHuman builds a short voice profile: how long your sentences run, the words you like, how you sign off. Keep it as a note or file and attach it next time. You can have more than one, like "work me" and "personal me". You can also build one from your own WhatsApp chat export: only your messages are used, and phone numbers, emails, and links are hidden first.
+
+It can also learn from Word, PDF, or text files you wrote. For a team or a small business, keep a shared house style instead: product names, words to use and avoid, how you sign off. Attach it and every message follows it.
 
 </details>
 
@@ -217,8 +232,8 @@ Share a few things you wrote yourself and WriteLikeHuman builds a short voice pr
 |---|---|
 | Indian English | Keeps lakh, crore, Indian date formats, and natural Indian phrasing. No forced American style. |
 | Hinglish, Tanglish, Manglish, Benglish, Kanglish, Taglish, and other mixes | Keeps your mix and your script. It won't "correct" you into pure English. |
-| Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi, Odia, Urdu, Assamese, Nepali, Sinhala, Konkani | Fixes stiff, textbook, or machine-translated wording |
-| Spanish, French, German, Portuguese, Italian, Turkish, Indonesian, Arabic, Japanese, Korean, Chinese, Filipino | The same, with each language's own common slips |
+| Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi, Odia, Urdu, Assamese, Nepali, Sinhala, Konkani, Sindhi, Maithili | Fixes stiff, textbook, or machine-translated wording |
+| Spanish, French, German, Portuguese, Italian, Turkish, Indonesian, Arabic, Japanese, Korean, Chinese, Filipino, Vietnamese, Thai, Swahili | The same, with each language's own common slips |
 | Translation | "Translate this into Hindi" gives you a version that sounds native |
 
 It never translates unless you ask. Write in Tamil and it answers in Tamil.
