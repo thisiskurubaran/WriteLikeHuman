@@ -9,6 +9,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 
 - Python cache folders and Node packages are ignored, so test runs no longer leave untracked files.
+- GitHub Actions in the workflows are pinned to exact versions, and Dependabot keeps those pins up to date.
 
 ## [0.4.0] - 2026-11-09
 
