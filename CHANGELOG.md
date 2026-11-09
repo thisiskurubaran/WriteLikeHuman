@@ -23,6 +23,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Alt text for images: describes what is visible and never guesses who people are.
 - A quick starter voice profile from just three messages, which can grow later.
 - Personalised messages from a spreadsheet: one draft per person using their name, saved to a file. Nothing is sent, and it's only for people you already know.
+- Explanations as Word comments: each change can come with a short margin note saying why.
 
 ## [0.4.0] - 2026-11-09
 

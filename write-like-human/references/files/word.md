@@ -46,6 +46,16 @@ Only the words inside paragraphs change. You never rebuild the document from scr
 
 Offer tracked changes in one line when the document is going to someone else for review, such as a manager or a teacher: "Want me to show the edits as tracked changes so you can accept or reject each one in Word?"
 
+### Explanations in the margin
+
+When the user wants to know why each change was made ("explain each change in the margin", "add a note for every edit"), or the file goes to someone who will ask "why did you change this?", add `--comments`. Give each change a short reason in the changes file:
+
+```json
+{"p3": {"text": "The team worked hard.", "why": "Cut the filler opening."}}
+```
+
+Each changed paragraph then gets a margin comment by "WriteLikeHuman" with that reason, in plain words and without pattern numbers. Without a reason it says "Reworded for clarity." This works on its own or together with `--track-changes`. Offer it in one line for documents going to a reviewer, the same way as tracked changes.
+
 ### Comments in the file
 
 If the document has reviewer comments, leave them. Do not rewrite comment text unless the user asks.

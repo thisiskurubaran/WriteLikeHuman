@@ -28,6 +28,12 @@ With --track-changes the edits are written as Word revisions (shown as
 tracked changes by author "WriteLikeHuman"), so the user can accept or
 reject each one in Word.
 
+With --comments each changed paragraph also gets a margin comment by
+"WriteLikeHuman" saying why it changed. To give the reason, map an id to
+{"text": "new text", "why": "Cut the stock opening line."} instead of a
+plain string. Without a reason the comment says "Reworded for clarity."
+--comments works with or without --track-changes.
+
 Only uses python-docx and the standard library.
 """
 
@@ -42,6 +48,7 @@ import sys
 
 try:
     from docx import Document
+    from docx.oxml import OxmlElement
     from docx.oxml.ns import qn
 except ImportError:  # pragma: no cover
     sys.exit("python-docx is not installed. Use the plain fallback in files/word.md.")
@@ -283,13 +290,105 @@ def numbers_in(text):
 
 
 def load_changes(path):
+    """Return {id: (new_text, why)}. why is None when no reason was given."""
     with open(path, encoding="utf-8") as fh:
         data = json.load(fh)
     if isinstance(data, dict) and "segments" in data:
-        return {s["id"]: s["text"] for s in data["segments"]}
+        data = data["segments"]
     if isinstance(data, list):
-        return {s["id"]: s["text"] for s in data}
-    return data
+        return {s["id"]: (s["text"], s.get("why")) for s in data}
+    out = {}
+    for pid, value in data.items():
+        if isinstance(value, dict):
+            out[pid] = (value.get("text", ""), value.get("why"))
+        else:
+            out[pid] = (value, None)
+    return out
+
+
+# ---------------------------------------------------------------- comments
+DEFAULT_WHY = "Reworded for clarity."
+COMMENTS_CT = "application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml"
+COMMENTS_RT = "http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments"
+
+
+class CommentWriter:
+    """Adds margin comments, using python-docx's comments API when it has one
+    (1.2 and later) and building word/comments.xml by hand otherwise."""
+
+    def __init__(self, doc, when):
+        self.doc = doc
+        self.when = when
+        self.api = hasattr(doc, "comments") and hasattr(doc.comments, "add_comment")
+        self._root = None
+        self._next = 0
+
+    def _manual_root(self):
+        if self._root is not None:
+            return self._root
+        from docx.opc.packuri import PackURI
+        from docx.opc.part import XmlPart
+        from docx.oxml import parse_xml
+        part = self.doc.part
+        for rel in part.rels.values():
+            if rel.reltype == COMMENTS_RT:
+                self._root = rel.target_part.element
+                break
+        else:
+            xml = ('<w:comments xmlns:w="http://schemas.openxmlformats.org/'
+                   'wordprocessingml/2006/main"/>')
+            comments = XmlPart(PackURI("/word/comments.xml"), COMMENTS_CT,
+                               parse_xml(xml), part.package)
+            part.relate_to(comments, COMMENTS_RT)
+            self._root = comments.element
+        used = [int(c.get(qn("w:id"))) for c in self._root.findall(qn("w:comment"))]
+        self._next = max(used + [-1]) + 1
+        return self._root
+
+    def _new_comment(self, text):
+        if self.api:
+            return self.doc.comments.add_comment(text=text, author=AUTHOR, initials="WLH").comment_id
+        root = self._manual_root()
+        cid = self._next
+        self._next += 1
+        c = OxmlElement("w:comment")
+        c.set(qn("w:id"), str(cid))
+        c.set(qn("w:author"), AUTHOR)
+        c.set(qn("w:initials"), "WLH")
+        c.set(qn("w:date"), self.when)
+        para = OxmlElement("w:p")
+        run = OxmlElement("w:r")
+        t = OxmlElement("w:t")
+        t.text = text
+        t.set(qn("xml:space"), "preserve")
+        run.append(t)
+        para.append(run)
+        c.append(para)
+        root.append(c)
+        return cid
+
+    def add(self, p_el, text):
+        cid = str(self._new_comment(text or DEFAULT_WHY))
+        start = OxmlElement("w:commentRangeStart")
+        start.set(qn("w:id"), cid)
+        end = OxmlElement("w:commentRangeEnd")
+        end.set(qn("w:id"), cid)
+        ref_run = OxmlElement("w:r")
+        rpr = OxmlElement("w:rPr")
+        style = OxmlElement("w:rStyle")
+        style.set(qn("w:val"), "CommentReference")
+        rpr.append(style)
+        ref = OxmlElement("w:commentReference")
+        ref.set(qn("w:id"), cid)
+        ref_run.append(rpr)
+        ref_run.append(ref)
+        ppr = p_el.find(qn("w:pPr"))
+        if ppr is not None:
+            ppr.addnext(start)
+        else:
+            p_el.insert(0, start)
+        p_el.append(end)
+        p_el.append(ref_run)
 
 
 def cmd_extract(args):
@@ -319,13 +418,14 @@ def cmd_apply(args):
                 for v in [el.get(qn("w:id"))] if v and v.isdigit()]
     ids = RevisionIds(max(existing + [9000]))
     when = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    commenter = CommentWriter(doc, when) if args.comments else None
     changed, skipped, warnings = 0, 0, []
     seen = set()
     for pid, _, p in collect_paragraphs(doc):
         if pid not in changes:
             continue
         seen.add(pid)
-        old, new = para_text(p), changes[pid]
+        old, (new, why) = para_text(p), changes[pid]
         if new == old:
             skipped += 1
             continue
@@ -334,6 +434,8 @@ def cmd_apply(args):
         done = apply_tracked(p, new, ids, when) if args.track_changes else apply_plain(p, new)
         if done:
             changed += 1
+            if commenter is not None:
+                commenter.add(p, why)
     missing = sorted(set(changes) - seen)
     doc.save(out_path)
     print("Saved %s (%d paragraphs changed, %d unchanged)" % (out_path, changed, skipped))
@@ -358,6 +460,8 @@ def main():
     ap.add_argument("-o", "--output", help="output path (default: <name>-humanized.docx)")
     ap.add_argument("--track-changes", action="store_true",
                     help="write edits as Word tracked changes")
+    ap.add_argument("--comments", action="store_true",
+                    help="add a margin comment to each changed paragraph saying why")
     ap.set_defaults(func=cmd_apply)
 
     args = parser.parse_args()
