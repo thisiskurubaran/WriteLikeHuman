@@ -94,6 +94,23 @@ class DocxRewriteTest(TempDirCase):
         with open(out, encoding="utf-8") as fh:
             return {s["text"]: s["id"] for s in json.load(fh)["segments"]}
 
+    def test_comments_explain_each_change(self):
+        src = self.make_doc()
+        ids = self.segments(src)
+        changes = write_json(self.path("c.json"), {
+            ids["The north team utilized the new process."]: {
+                "text": "The north team used the new process.", "why": "Swapped utilized for used."},
+            ids["Team update"]: "Team news",
+        })
+        out = self.path("commented.docx")
+        run("docx_rewrite.py", "apply", src, changes, "-o", out, "--comments")
+        with zipfile.ZipFile(out) as z:
+            xml = z.read("word/comments.xml").decode("utf-8")
+            body = z.read("word/document.xml").decode("utf-8")
+        self.assertIn("Swapped utilized for used.", xml)
+        self.assertIn("Reworded for clarity.", xml)
+        self.assertEqual(body.count("commentReference"), 2)
+
     def test_formatting_kept(self):
         from docx import Document
         src = self.make_doc()
@@ -781,6 +798,70 @@ class PdfImagesTest(TempDirCase):
         proc = run("pdf_extract.py", "images", src, "--pages", "9", expect=None)
         self.assertNotEqual(proc.returncode, 0)
         self.assertIn("out of range", proc.stdout + proc.stderr)
+
+
+class MailMergeTest(TempDirCase):
+    def setUp(self):
+        super().setUp()
+        self.sheet = self.path("guests.csv")
+        with open(self.sheet, "w", newline="", encoding="utf-8") as fh:
+            w = csv.writer(fh)
+            w.writerow(["Name", "City"])
+            w.writerow(["Lakshmi", "Madurai"])
+            w.writerow(["Karthik", ""])
+        self.template = self.path("msg.txt")
+        with open(self.template, "w", encoding="utf-8") as fh:
+            fh.write("Happy Pongal, {name}! Love to everyone in {City}.")
+
+    def test_columns(self):
+        out = run("mail_merge.py", "columns", self.sheet).stdout
+        self.assertIn("Name, City", out)
+        self.assertIn("Rows: 2", out)
+
+    def test_txt_output_and_missing_values_reported(self):
+        out = run("mail_merge.py", "merge", self.sheet, self.template).stdout
+        self.assertIn("Nothing was sent", out)
+        self.assertIn("row 3 (Karthik): no value for {City}", out)
+        with open(self.path("guests-messages.txt"), encoding="utf-8") as fh:
+            text = fh.read()
+        self.assertIn("Happy Pongal, Lakshmi! Love to everyone in Madurai.", text)
+        self.assertIn("Happy Pongal, Karthik! Love to everyone in {City}.", text)
+
+    def test_csv_output_keeps_columns(self):
+        out = self.path("result.csv")
+        run("mail_merge.py", "merge", self.sheet, self.template, "--out", out)
+        with open(out, newline="", encoding="utf-8") as fh:
+            rows = list(csv.reader(fh))
+        self.assertEqual(rows[0], ["Name", "City", "Message"])
+        self.assertEqual(rows[1][:2], ["Lakshmi", "Madurai"])
+        self.assertTrue(rows[1][2].startswith("Happy Pongal, Lakshmi!"))
+
+    @unittest.skipUnless(HAVE_XLSX and HAVE_DOCX, "openpyxl or python-docx is not installed")
+    def test_xlsx_in_docx_out(self):
+        import openpyxl
+        import docx
+        book = self.path("guests.xlsx")
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.append(["Name", "City"])
+        ws.append(["Lakshmi", "Madurai"])
+        wb.save(book)
+        out = self.path("result.docx")
+        run("mail_merge.py", "merge", book, self.template, "--out", out)
+        paras = [p.text for p in docx.Document(out).paragraphs]
+        self.assertIn("Lakshmi", paras)
+        self.assertIn("Happy Pongal, Lakshmi! Love to everyone in Madurai.", paras)
+
+    def test_unknown_placeholder_and_overwrite_refused(self):
+        bad = self.path("bad.txt")
+        with open(bad, "w", encoding="utf-8") as fh:
+            fh.write("Hi {Nickname}")
+        proc = run("mail_merge.py", "merge", self.sheet, bad, expect=None)
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("{nickname}", proc.stdout + proc.stderr)
+        proc = run("mail_merge.py", "merge", self.sheet, self.template, "--out", self.sheet, expect=None)
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("overwrite", proc.stdout + proc.stderr)
 
 
 if __name__ == "__main__":

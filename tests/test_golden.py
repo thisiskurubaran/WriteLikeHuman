@@ -64,7 +64,9 @@ def differing_parts(a_path, b_path):
 
 
 @unittest.skipUnless(HAVE_DOCX, "python-docx not installed")
-class WordGoldenTest(unittest.TestCase):
+class _WordBase(unittest.TestCase):
+    """Builds the sample report. Holds no tests itself."""
+
     def setUp(self):
         self.tmp = tempfile.mkdtemp()
         self.src = os.path.join(self.tmp, "report.docx")
@@ -96,6 +98,8 @@ class WordGoldenTest(unittest.TestCase):
         run("docx_rewrite.py", "apply", self.src, changes, "-o", out, *extra)
         return target, out
 
+
+class WordGoldenTest(_WordBase):
     def test_only_the_document_part_changes(self):
         _, out = self._apply("It is important to note that the team worked tirelessly.",
                              "The team worked hard.")
@@ -200,6 +204,139 @@ class SlidesGoldenTest(unittest.TestCase):
         out = os.path.join(self.tmp, "out.pptx")
         run("pptx_rewrite.py", "apply", self.src, changes, "-o", out)
         self.assertEqual(differing_parts(self.src, out), {"ppt/slides/slide1.xml"})
+
+
+@unittest.skipUnless(HAVE_DOCX, "python-docx not installed")
+class WordCommentsGoldenTest(_WordBase):
+    """--comments may add the comments part, its relationship, and its content
+    type, and edit document.xml. Every other part stays identical."""
+
+    ALLOWED = {"word/document.xml", "word/comments.xml", "word/_rels/document.xml.rels", "[Content_Types].xml"}
+
+    def _changed_parts(self, out):
+        a, b = zipfile.ZipFile(self.src), zipfile.ZipFile(out)
+        added = set(b.namelist()) - set(a.namelist())
+        removed = set(a.namelist()) - set(b.namelist())
+        self.assertEqual(removed, set(), "no part may disappear")
+        changed = {n for n in a.namelist() if n not in METADATA and a.read(n) != b.read(n)}
+        return changed | added
+
+    def test_comments_touch_only_their_parts(self):
+        _, out = self._apply("It is important to note that the team worked tirelessly.",
+                             "The team worked hard.", "--comments")
+        self.assertLessEqual(self._changed_parts(out), self.ALLOWED)
+        self.assertIn("word/comments.xml", zipfile.ZipFile(out).namelist())
+
+    def test_comments_with_tracked_changes(self):
+        _, out = self._apply("Last page note.", "Final note.", "--comments", "--track-changes")
+        self.assertLessEqual(self._changed_parts(out), self.ALLOWED)
+
+    def test_comment_text_and_other_paragraphs(self):
+        from lxml import etree
+        segs = json.loads(run("docx_rewrite.py", "extract", self.src))["segments"]
+        target = next(s["id"] for s in segs if s["text"] == "Last page note.")
+        changes = os.path.join(self.tmp, "c.json")
+        with open(changes, "w", encoding="utf-8") as f:
+            json.dump({target: {"text": "Final note.", "why": "Shorter."}}, f)
+        out = os.path.join(self.tmp, "c.docx")
+        run("docx_rewrite.py", "apply", self.src, changes, "-o", out, "--comments")
+        doc = docx.Document(out)
+        if hasattr(doc, "comments"):
+            self.assertEqual([c.text for c in doc.comments], ["Shorter."])
+        before = [etree.tostring(p._p) for p in docx.Document(self.src).paragraphs]
+        after = [etree.tostring(p._p) for p in doc.paragraphs]
+        self.assertEqual(sum(1 for x, y in zip(before, after) if x != y), 1)
+
+
+try:
+    import pypdf  # noqa: F401
+    from reportlab.pdfgen import canvas as _canvas  # noqa: F401
+    HAVE_FORMS = True
+except ImportError:
+    HAVE_FORMS = False
+
+
+@unittest.skipUnless(HAVE_FORMS, "pypdf or reportlab not installed")
+class FormGoldenTest(unittest.TestCase):
+    def setUp(self):
+        from reportlab.pdfgen import canvas
+        self.tmp = tempfile.mkdtemp()
+        self.src = os.path.join(self.tmp, "form.pdf")
+        c = canvas.Canvas(self.src)
+        c.drawString(72, 760, "Page one: applicant")
+        c.acroForm.textfield(name="full_name", x=160, y=750, width=200, height=20)
+        c.acroForm.textfield(name="city", x=160, y=720, width=200, height=20)
+        c.acroForm.checkbox(name="agree", x=160, y=690, size=16)
+        c.showPage()
+        c.drawString(72, 760, "Page two: notes stay the same")
+        c.acroForm.textfield(name="notes", x=160, y=750, width=200, height=20, value="Existing note")
+        c.save()
+
+    def test_only_filled_fields_change(self):
+        from pypdf import PdfReader
+        values = os.path.join(self.tmp, "v.json")
+        with open(values, "w", encoding="utf-8") as f:
+            json.dump({"full_name": "Asha Verma"}, f)
+        out = os.path.join(self.tmp, "out.pdf")
+        run("form_fill.py", "fill", self.src, values, "-o", out)
+        a, b = PdfReader(self.src), PdfReader(out)
+        self.assertEqual(len(a.pages), len(b.pages))
+        for i, (pa, pb) in enumerate(zip(a.pages, b.pages)):
+            self.assertEqual(pa.extract_text(), pb.extract_text(), "page %d text" % (i + 1))
+        fa, fb = a.get_fields(), b.get_fields()
+        self.assertEqual(set(fa), set(fb))
+        for name in fa:
+            if name == "full_name":
+                self.assertEqual(fb[name].get("/V"), "Asha Verma")
+            else:
+                self.assertEqual(fa[name].get("/V"), fb[name].get("/V"), name)
+
+
+HTML_PAGE = """<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Rani's Bakery</title>
+<meta name="description" content="We harness tradition to bake bread daily.">
+<style>p { color: #333; }</style>
+<script>var x = "keep me";</script></head>
+<body>
+<h1 class='big'>Welcome to Rani's Bakery</h1>
+<p>We are thrilled to offer fresh bread &amp; cakes from Rs 450.</p>
+<img src="bread.jpg" alt="A delightful image of bread" width=300>
+<pre>  code   stays  </pre>
+<p title="Hours">Open 7 am to 9 pm.</p>
+</body></html>
+"""
+
+
+class HtmlGoldenTest(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.mkdtemp()
+        self.src = os.path.join(self.tmp, "page.html")
+        with open(self.src, "w", encoding="utf-8", newline="") as f:
+            f.write(HTML_PAGE)
+
+    def _apply(self, mapping, *extract_flags):
+        nodes = json.loads(run("html_rewrite.py", "extract", self.src, *extract_flags))["nodes"]
+        ids = {n["text"]: n["id"] for n in nodes}
+        changes = os.path.join(self.tmp, "c.json")
+        with open(changes, "w", encoding="utf-8") as f:
+            json.dump({ids[k]: v for k, v in mapping.items()}, f)
+        out = os.path.join(self.tmp, "out.html")
+        run("html_rewrite.py", "apply", self.src, changes, "-o", out)
+        with open(out, encoding="utf-8", newline="") as f:
+            return f.read()
+
+    def test_text_only_bytes_outside_change_identical(self):
+        result = self._apply({"Welcome to Rani's Bakery": "Fresh bread at Rani's"})
+        self.assertEqual(result, HTML_PAGE.replace("Welcome to Rani's Bakery", "Fresh bread at Rani's"))
+
+    def test_attributes_bytes_outside_change_identical(self):
+        result = self._apply({"A delightful image of bread": "Loaves of bread on a counter",
+                              "We harness tradition to bake bread daily.": "We bake bread every day."},
+                             "--attributes")
+        expected = (HTML_PAGE.replace("A delightful image of bread", "Loaves of bread on a counter")
+                    .replace("We harness tradition to bake bread daily.", "We bake bread every day."))
+        self.assertEqual(result, expected)
 
 
 if __name__ == "__main__":
