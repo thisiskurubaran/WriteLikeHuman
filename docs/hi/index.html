@@ -282,6 +282,23 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 :lang(hi) h1 .you svg, :lang(ta) h1 .you svg { bottom: -.02em; }
 :lang(hi) h2, :lang(ta) h2 { line-height: 1.25; }
 
+/* ---------- What's new ---------- */
+.whats-new { padding-top: clamp(48px, 7vw, 72px); }
+.new-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px 48px; align-items: end; margin-bottom: 22px; }
+@media (min-width: 900px) { .new-head { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); } }
+.new-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+@media (min-width: 640px) { .new-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } }
+@media (min-width: 1024px) { .new-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.new-card { display: flex; gap: 14px; align-items: flex-start; height: 100%; min-height: 44px; padding: 16px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--panel); color: var(--ink); text-decoration: none; transition: border-color .15s, transform .15s; }
+.new-card:hover { border-color: var(--line-strong); }
+@media (hover: hover) { .new-card:hover { transform: translateY(-2px); } }
+.new-ic { flex: none; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+.new-ic svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.new-tx { min-width: 0; display: grid; gap: 3px; }
+.new-tx b { font-size: 15px; letter-spacing: -0.01em; }
+.new-tx small { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
+.whats-new .more-link { margin-top: 16px; }
+
 /* ---------- Mobile polish ---------- */
 .announce { white-space: nowrap; }
 .announce .tag { flex: none; }
@@ -570,6 +587,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <a href="#files">Files</a>
       <a href="#features">खूबियाँ</a>
       <a href="../examples.html">उदाहरण</a>
+      <a href="../guide.html">गाइड</a>
       <a href="#install">Install</a>
       <a href="#faq">सवाल-जवाब</a>
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>
@@ -591,6 +609,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
   <a href="#files">Files <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#features">खूबियाँ <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="../examples.html">उदाहरण <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="../guide.html">गाइड <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#install">Install <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#faq">सवाल-जवाब <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -605,7 +624,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <a class="announce" href="#files"><span class="tag">नया</span><span class="ann-text"><span class="ann-long">Word, PDF और Excel files बनाइए और edit कीजिए</span><span class="ann-short">Word, PDF, Excel files</span></span><span class="ann-arrow" aria-hidden="true">→</span></a>
+      <a class="announce" href="#whats-new"><span class="tag">नया</span><span class="ann-text"><span class="ann-long">v0.5.0 में: payment reminders, spreadsheet से messages, और भी बहुत कुछ</span><span class="ann-short">v0.5.0 में क्या है</span></span><span class="ann-arrow" aria-hidden="true">→</span></a>
       <h1><span class="you">आपकी<svg viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3 8c12-6 22-6 30 0s18 6 28 0 20-6 28 0 18 6 28 0"/></svg></span> आवाज़ में लिखाई।</h1>
       <p class="lede">एक free Claude skill जो अकड़ी हुई, chatbot जैसी लिखाई को सीधी, सहज भाषा में बदल देती है। आपकी बातें, नंबर और formatting जैसे थे, वैसे ही रहते हैं।</p>
       <div class="actions">
@@ -669,13 +688,34 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       </div>
     </div>
     <dl class="stats reveal">
-      <div><dt><b data-stat="guides">113</b></dt><dd>लिखाई के guides अंदर</dd></div>
-      <div><dt><b data-stat="evals">124</b></dt><dd>हर release से पहले test cases</dd></div>
+      <div><dt><b data-stat="guides">119</b></dt><dd>लिखाई के guides अंदर</dd></div>
+      <div><dt><b data-stat="evals">131</b></dt><dd>हर release से पहले test cases</dd></div>
       <div><dt><b><span data-stat="languages">32</span><em>+</em></b></dt><dd>भाषाएँ, साथ में Hinglish जैसे mix</dd></div>
       <div><dt><b>MIT</b></dt><dd>free और open source</dd></div>
     </dl>
   </div>
 </div>
+
+<section id="whats-new" class="whats-new" aria-labelledby="new-h">
+  <div class="wrap">
+    <div class="new-head">
+      <div>
+        <p class="eyebrow">v0.5.0 में नया</p>
+        <h2 id="new-h">क्या नया है</h2>
+      </div>
+      <p class="sub">छोटे कारोबार और freelancers के रोज़ के काम, और कुछ ऐसी चीज़ें जो लोग काफ़ी समय से माँग रहे थे।</p>
+    </div>
+    <ul class="new-grid">
+      <li><a class="new-card" href="../guide.html#payment-reminder"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4zM4 11h16M8 15h3"/></svg></span><span class="new-tx"><b>Payment reminders और customer replies</b><small>विनम्र याद दिलाना और customers को जवाब, रकम और तारीख बिल्कुल वैसी।</small></span></a></li>
+      <li><a class="new-card" href="../guide.html#personalised"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 10h16M10 10v9"/></svg></span><span class="new-tx"><b>Spreadsheet से messages</b><small>हर row के लिए एक अपना message, जान-पहचान वालों के लिए drafts में। कुछ भी अपने-आप नहीं जाता।</small></span></a></li>
+      <li><a class="new-card" href="../guide.html#script"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 18c2-8 4-12 7-12s3 6 0 8M14 18h5M16.5 8v10"/></svg></span><span class="new-tx"><b>हिंदी या तमिल लिपि में लिखिए</b><small>Roman में लिखी Hinglish या Tanglish को देवनागरी या तमिल लिपि में, सिर्फ़ आपके कहने पर।</small></span></a></li>
+      <li><a class="new-card" href="../guide.html#word-file"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M8 13h5M8 17h8"/></svg></span><span class="new-tx"><b>Word comments में वजह</b><small>हर बदलाव के साथ margin में छोटी-सी note कि क्यों बदला।</small></span></a></li>
+      <li><a class="new-card" href="../guide.html#google"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5zM5 9h14M5 14h14M10 4v16"/></svg></span><span class="new-tx"><b>Google Sheets और Slides</b><small>Claude आपके Google account से जुड़ा हो तो वहीं पर edit।</small></span></a></li>
+      <li><a class="new-card" href="../guide.html#alt-text"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4zM8 14l3-3 3 3 2-2 2 2M9 9.5h.01"/></svg></span><span class="new-tx"><b>Images के लिए alt text</b><small>Posts, websites और slides की तस्वीरों का सीधा-सादा ब्योरा।</small></span></a></li>
+    </ul>
+    <a class="more-link" href="../guide.html">हर एक कैसे इस्तेमाल करें, guide में देखिए <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  </div>
+</section>
 
 <section id="files" aria-labelledby="files-h">
   <div class="wrap">
@@ -754,7 +794,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 
       <article class="tile span-2 reveal">
         <h3>लिखाई के प्रकार</h3>
-        <div class="stat"><span data-stat="writing">35</span><small>प्रकार</small></div>
+        <div class="stat"><span data-stat="writing">39</span><small>प्रकार</small></div>
         <p>WhatsApp reply से लेकर RTI application तक।</p>
         <div class="tags"><span>Emails</span><span>Resume</span><span>चिट्ठियाँ</span><span>भाषण</span><span>Biodata</span><span>Reviews</span></div>
       </article>
@@ -896,6 +936,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CHANGELOG.md">Changelog</a>
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md">योगदान दें</a>
       <a href="../examples.html">उदाहरण</a>
+      <a href="../guide.html">गाइड</a>
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman/issues/new?template=feedback.md">राय दीजिए</a>
     </nav>
     <div class="lang-switch foot-langs" role="group" aria-label="भाषा"><a href="../" lang="en">English</a><a href="./" lang="hi" aria-current="page">हिंदी</a><a href="../ta/" lang="ta">தமிழ்</a></div>

@@ -29,6 +29,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Golden-file tests for form filling, web pages, and Word comments, and tests for the new message script.
 - Eval cases and test prompts for every v0.5.0 guide, including a decline case for bulk messages to a bought list (131 cases in all).
 - The scripts that build the Hindi, Tamil, examples, and guide pages are in the repo, and a check fails if those pages fall out of date with the English page.
+- A How do I guide on the website with short steps for every common task, and a What's new section on the home page.
 
 ## [0.4.0] - 2026-11-09
 
