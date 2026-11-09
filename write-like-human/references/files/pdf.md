@@ -25,8 +25,13 @@ What cannot be kept: the exact page layout, fonts, colours, logos, and images of
    ```
    Each page comes back with its text, a word count, and `"scanned": true` if the page looks like a photo or scan with no real text.
 2. **Handle scanned pages.** If `scanned_pages` is not empty:
-   - Read those pages yourself by looking at them as images, if you can see the PDF pages, and type out the text carefully.
-   - Tell the user which pages were scanned and that you read them from the image, so they should check names and numbers on those pages.
+   - Get the picture of each scanned page:
+     ```
+     python scripts/pdf_extract.py images <file>.pdf --pages 2,3 --out page-images
+     ```
+     It saves the image inside each page and prints the paths. Open those images and read them yourself, then type out the text carefully. If you can already see the PDF pages directly, you can read them without the script.
+   - If the script says a page has no picture inside it, ask the user for a photo or screenshot of that page.
+   - Tell the user which pages were scanned and that you read them from the image. Before the final file, list the names, numbers, and dates you read from those pages and ask the user to confirm them.
    - If the image is too blurry to read with confidence, say which page and ask for a clearer copy or the text itself. Never guess at a name, number, or date.
 3. **Fix the layout breaks.** PDF text often comes out with lines broken mid-sentence, words split by hyphens, page numbers and running headers mixed in. The script joins broken lines, rejoins hyphenated words, and keeps greetings, sign-offs, list items, and real paragraph breaks on their own. Remove repeated headers, footers, and page numbers, then check the paragraph breaks against the original and fix any it missed.
 4. **Mark structure** in the page text so the Word file comes out right: `# ` for a main heading, `## ` for a subheading, `- ` for a bullet, a blank line between paragraphs.

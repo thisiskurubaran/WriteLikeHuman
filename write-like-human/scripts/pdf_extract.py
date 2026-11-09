@@ -26,6 +26,14 @@ rewrite is always a new, editable Word file.
 
      Saved as letter-humanized.docx. The PDF itself is not changed.
 
+  3. images: save the pictures inside chosen pages, so a scanned page
+     can be read from its image. Prints one saved path per line.
+
+       python pdf_extract.py images letter.pdf --pages 2,3 --out page-images
+
+     If a page has no picture inside it, the script says so. Ask the
+     user for a photo or screenshot of that page instead.
+
 Only uses pypdf, python-docx, and the standard library.
 """
 
@@ -295,6 +303,56 @@ def cmd_to_docx(args):
     print("Saved %s (%d pages of text)" % (out_path, len(pages)))
 
 
+def parse_pages(spec, total):
+    pages = []
+    for part in spec.split(","):
+        part = part.strip()
+        if not part:
+            continue
+        if "-" in part:
+            a, b = part.split("-", 1)
+            pages.extend(range(int(a), int(b) + 1))
+        else:
+            pages.append(int(part))
+    bad = [n for n in pages if n < 1 or n > total]
+    if bad:
+        sys.exit("Page %s is out of range. This PDF has %d pages." % (bad[0], total))
+    return pages
+
+
+def cmd_images(args):
+    try:
+        from pypdf import PdfReader
+    except ImportError:
+        sys.exit("pypdf is not installed. Look at the PDF pages directly, or ask for a photo of the page.")
+    reader = PdfReader(args.file)
+    total = len(reader.pages)
+    pages = parse_pages(args.pages, total) if args.pages else list(range(1, total + 1))
+    os.makedirs(args.out, exist_ok=True)
+    base = os.path.splitext(os.path.basename(args.file))[0]
+    saved = 0
+    for n in pages:
+        try:
+            images = list(reader.pages[n - 1].images)
+        except Exception as exc:  # pypdf can fail on unusual image filters
+            print("PAGE %d: could not read its images (%s). Ask for a photo or screenshot of this page." % (n, exc))
+            continue
+        if not images:
+            print("PAGE %d: no picture inside this page. Ask for a photo or screenshot of it." % n)
+            continue
+        for i, img in enumerate(images, start=1):
+            ext = os.path.splitext(img.name)[1].lower() or ".png"
+            if ext not in (".png", ".jpg", ".jpeg", ".jp2", ".tif", ".tiff", ".gif", ".bmp"):
+                ext = ".png"
+            path = os.path.join(args.out, "%s-page%d-%d%s" % (base, n, i, ext))
+            with open(path, "wb") as fh:
+                fh.write(img.data)
+            print(path)
+            saved += 1
+    if not saved:
+        sys.exit(1)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Get text out of a PDF, and put rewritten text into Word.")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -312,6 +370,12 @@ def main():
     td.add_argument("-o", "--output", help="output path (default: <name>-humanized.docx)")
     td.add_argument("--no-page-breaks", action="store_true", help="run pages together")
     td.set_defaults(func=cmd_to_docx)
+
+    im = sub.add_parser("images", help="save the pictures inside chosen pages, to read scanned pages")
+    im.add_argument("file")
+    im.add_argument("--pages", help="page numbers like 2,3 or 2-4 (default: all pages)")
+    im.add_argument("--out", default="page-images", help="folder to save images in (default: page-images)")
+    im.set_defaults(func=cmd_images)
 
     args = parser.parse_args()
     args.func(args)
