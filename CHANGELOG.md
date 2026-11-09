@@ -6,9 +6,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
-### Removed
-
-- Dependabot. The pinned GitHub Actions versions are now updated by hand.
+## [0.6.1] - 2026-11-09
 
 ### Fixed
 
@@ -20,6 +18,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - The LaTeX script exits with code 2 when it skips an unsafe change, so the skip can't go unnoticed.
 - Chat sender counts no longer include media and deleted messages.
 - Script messages say "1 section" and "1 cell" instead of "1 sections" and "1 cells".
+
+### Removed
+
+- Dependabot. The pinned GitHub Actions versions are now updated by hand.
 
 ## [0.6.0] - 2026-11-09
 
@@ -250,7 +252,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Security policy with private reporting.
 - Issue templates for bugs and feature requests, and a pull request checklist.
 
-[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.1...HEAD
+[0.6.1]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.2...v0.4.0
