@@ -24,6 +24,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Six more kinds of writing: event announcements, rental agreements in plain words, product FAQs, school circulars, grievance letters to an employer, and insurance claims.
 - Create PowerPoint decks from notes: short slide text, fuller speaker notes, and no invented figures.
 - Fill a Word or PowerPoint template, such as a letterhead or a resume layout, keeping its look.
+- Fill in forms: fillable PDFs and Word forms, with personal details never guessed and missing answers listed.
 
 ## [0.3.2] - 2026-11-08
 
