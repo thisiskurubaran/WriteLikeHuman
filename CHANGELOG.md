@@ -23,6 +23,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - Developers are now part of the audience, for the words around code only. The skill never writes or changes code.
 - README in English, Hindi, and Tamil lists the v0.7.0 features.
+- The website has a For developers section, v0.7.0 in What's new, and new guide tasks in English, Hindi, and Tamil for developers, work chat, and quick options.
 
 ## [0.6.1] - 2026-11-09
 

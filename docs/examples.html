@@ -282,6 +282,16 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 :lang(hi) h1 .you svg, :lang(ta) h1 .you svg { bottom: -.02em; }
 :lang(hi) h2, :lang(ta) h2 { line-height: 1.25; }
 
+/* ---------- For developers ---------- */
+.dev-prompts { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.dev-prompts .xprompt { margin-top: 0; }
+#developers .checks { margin-top: 0; }
+#developers .checks li span:last-child { min-width: 0; }
+#developers code { font: 600 .92em var(--mono); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; }
+#developers .more-link { margin-top: 16px; }
+/* The nav has room for this link only on wider screens. The phone menu always has it. */
+@media (max-width: 1099px) { .links .nav-wide { display: none; } }
+
 /* ---------- What's new ---------- */
 .whats-new { padding-top: clamp(48px, 7vw, 72px); }
 .new-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px 48px; align-items: end; margin-bottom: 22px; }

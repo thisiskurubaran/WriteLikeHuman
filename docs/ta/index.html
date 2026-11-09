@@ -282,6 +282,16 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 :lang(hi) h1 .you svg, :lang(ta) h1 .you svg { bottom: -.02em; }
 :lang(hi) h2, :lang(ta) h2 { line-height: 1.25; }
 
+/* ---------- For developers ---------- */
+.dev-prompts { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.dev-prompts .xprompt { margin-top: 0; }
+#developers .checks { margin-top: 0; }
+#developers .checks li span:last-child { min-width: 0; }
+#developers code { font: 600 .92em var(--mono); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; }
+#developers .more-link { margin-top: 16px; }
+/* The nav has room for this link only on wider screens. The phone menu always has it. */
+@media (max-width: 1099px) { .links .nav-wide { display: none; } }
+
 /* ---------- What's new ---------- */
 .whats-new { padding-top: clamp(48px, 7vw, 72px); }
 .new-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px 48px; align-items: end; margin-bottom: 22px; }
@@ -590,6 +600,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
     </a>
     <div class="links">
       <a href="#files">Files</a>
+      <a class="nav-wide" href="#developers">Developers</a>
       <a href="#features">வசதிகள்</a>
       <a href="../examples.html">உதாரணங்கள்</a>
       <a href="guide.html">வழிகாட்டி</a>
@@ -612,6 +623,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 
 <div class="menu" id="menu" popover>
   <a href="#files">Files <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="#developers">Developers <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#features">வசதிகள் <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="../examples.html">உதாரணங்கள் <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="guide.html">வழிகாட்டி <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -629,7 +641,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <a class="announce" href="#whats-new"><span class="tag">புதுசு</span><span class="ann-text"><span class="ann-long">v0.6.0-ல: message தொனி, negotiation, Easy Read, இன்னும் நிறைய</span><span class="ann-short">v0.6.0-ல என்ன இருக்கு</span></span><span class="ann-arrow" aria-hidden="true">→</span></a>
+      <a class="announce" href="#whats-new"><span class="tag">புதுசு</span><span class="ann-text"><span class="ann-long">v0.7.0-ல: developers-க்கு உதவி, work chat, சட்டுனு options</span><span class="ann-short">v0.7.0-ல என்ன இருக்கு</span></span><span class="ann-arrow" aria-hidden="true">→</span></a>
       <h1><span class="you">உங்கள்<svg viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3 8c12-6 22-6 30 0s18 6 28 0 20-6 28 0 18 6 28 0"/></svg></span> குரலில் எழுத்து.</h1>
       <p class="lede">விறைப்பான, chatbot மாதிரி இருக்கும் எழுத்தை எளிமையான, இயல்பான மொழியாக மாற்றும் இலவச Claude skill. உங்கள் விவரங்கள், எண்கள், formatting எல்லாம் அப்படியே இருக்கும்.</p>
       <div class="actions">
@@ -693,8 +705,8 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       </div>
     </div>
     <dl class="stats reveal">
-      <div><dt><b data-stat="guides">128</b></dt><dd>எழுத்து வழிகாட்டிகள் உள்ளே</dd></div>
-      <div><dt><b data-stat="evals">146</b></dt><dd>ஒவ்வொரு release-க்கும் முன் test cases</dd></div>
+      <div><dt><b data-stat="guides">136</b></dt><dd>எழுத்து வழிகாட்டிகள் உள்ளே</dd></div>
+      <div><dt><b data-stat="evals">161</b></dt><dd>ஒவ்வொரு release-க்கும் முன் test cases</dd></div>
       <div><dt><b><span data-stat="languages">32</span><em>+</em></b></dt><dd>மொழிகள், கூடவே Tanglish மாதிரி கலவைகள்</dd></div>
       <div><dt><b>MIT</b></dt><dd>இலவசம், open source</dd></div>
     </dl>
@@ -706,18 +718,18 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
   <div class="wrap">
     <div class="new-head">
       <div>
-        <p class="eyebrow">v0.6.0-ல புதுசு</p>
+        <p class="eyebrow">v0.7.0-ல புதுசு</p>
         <h2 id="new-h">என்ன புதுசு</h2>
       </div>
-      <p class="sub">Messages-ஐ புரிஞ்சுக்க, அதிகமா கேட்க, நீளமான அல்லது படிக்க கஷ்டமான documents-க்கு உதவி.</p>
+      <p class="sub">Code-ஐ சுத்தி இருக்கும் வார்த்தைகளுக்கு உதவி, கேள்வி தெளிவா இல்லாதப்போ சின்ன options, work chat messages.</p>
     </div>
     <ul class="new-grid">
-      <li><a class="new-card" href="guide.html#read"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></span><span class="new-tx"><b>இது எப்படி இருக்கு?</b><small>உங்களுக்கு வந்த message-ன் தொனியை அமைதியா விளக்கும், மறைஞ்ச அர்த்தத்தை ஊகிக்காது.</small></span></a></li>
-      <li><a class="new-card" href="guide.html#negotiation"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4zM4 11h16M8 15h3"/></svg></span><span class="new-tx"><b>Salary, விலை, வாடகை பேச்சு</b><small>உங்க உண்மையான எண்களும் காரணங்களும் மட்டும் வச்சு மரியாதையான கோரிக்கை.</small></span></a></li>
-      <li><a class="new-card" href="guide.html#long-document"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M8 13h5M8 17h8"/></svg></span><span class="new-tx"><b>நீளமான documents, LaTeX</b><small>Thesis, manuals-ஐ section section-ஆ, terms ஒரே மாதிரி.</small></span></a></li>
-      <li><a class="new-card" href="guide.html#easy-read"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7"/></svg></span><span class="new-tx"><b>Easy Read, dyslexia friendly</b><small>எளிய வார்த்தைகள், இல்லன்னா ஒவ்வொரு வார்த்தையும் அப்படியே வச்சு தெளிவான layout.</small></span></a></li>
-      <li><a class="new-card" href="guide.html#voice"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM6 11a6 6 0 0 0 12 0M12 17v4"/></svg></span><span class="new-tx"><b>Telegram, Signal-ல இருந்து உங்க voice</b><small>WhatsApp கூடவே Telegram, Signal chats-ல இருந்தும் voice profile.</small></span></a></li>
-      <li><a class="new-card" href="../privacy.html"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"/></svg></span><span class="new-tx"><b>எளிய privacy page</b><small>உங்க text, files-க்கு என்ன ஆகுதுன்னு எளிய வார்த்தைகள்ல.</small></span></a></li>
+      <li><a class="new-card" href="guide.html#quick-options"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h1M4 12h1M4 18h1"/></svg></span><span class="new-tx"><b>சட்டுனு options</b><small>"help with this"னு மட்டும் சொல்லுங்க, 2 முதல் 4 சின்ன options-ல ஒன்னை தேர்ந்தெடுங்க. தெளிவான கேள்விக்கு நேரா வேலை.</small></span></a></li>
+      <li><a class="new-card" href="guide.html#readme"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 21V5M8 7h7M8 11h5"/></svg></span><span class="new-tx"><b>README, docs</b><small>எளிய ஆரம்பம், உண்மையான install steps, ஒவ்வொரு command-உம் அப்படியே.</small></span></a></li>
+      <li><a class="new-card" href="guide.html#commit-message"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 12h6M15 12h6M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg></span><span class="new-tx"><b>Commit messages, PRs</b><small>சின்ன summary line, காரணம், உங்க diff-ல இருக்கறதை மட்டும் வச்சு.</small></span></a></li>
+      <li><a class="new-card" href="guide.html#architecture"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h6v4H4zM14 10h6v4h-6zM14 16h6v4h-6zM7 8v10h7M7 12h7"/></svg></span><span class="new-tx"><b>Architecture, folder structure</b><small>உங்க project எப்படி இணைஞ்சிருக்குன்னு, உண்மையான folder பெயர்களோட. Decision records-உம்.</small></span></a></li>
+      <li><a class="new-card" href="guide.html#code-comments"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13 6l-2 12"/></svg></span><span class="new-tx"><b>Code comments, code அப்படியே</b><small>தெளிவான comments, docstrings. Code கொஞ்சம் மாறினாலும் script save பண்ணாது.</small></span></a></li>
+      <li><a class="new-card" href="guide.html#work-chat"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h12v8H9l-5 4zM20 9v10l-3-2h-6"/></svg></span><span class="new-tx"><b>Work chat messages</b><small>Slack, Teams, Google Chat messages, முக்கிய விஷயம் முதல் வரியிலேயே.</small></span></a></li>
     </ul>
     <a class="more-link" href="guide.html">ஒவ்வொன்னையும் எப்படி பயன்படுத்தறதுன்னு guide-ல பாருங்க <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </div>
@@ -753,6 +765,43 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       </article>
     </div>
     <p class="xnote"><svg class="icon" aria-hidden="true"><use href="#i-doc"/></svg><span>PowerPoint slides, speaker notes, Google Docs, Pages, Keynote, web pages, subtitle files-லயும் வேலை செய்யும். Claude-ல <strong>Code execution and file creation</strong> on-ஆ இருக்கணும்.</span></p>
+  </div>
+</section>
+
+<section id="developers" aria-labelledby="dev-h">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Developers-க்கு</p>
+        <h2 id="dev-h">உங்க code-ஐ சுத்தி இருக்கும் வார்த்தைகளை எழுதும். Code-ஐ தொடவே தொடாது.</h2>
+      </div>
+      <p class="sub">README, commit messages, pull requests, architecture docs, API docs, error messages, code comments. Claude Code-ல பயன்படுத்துங்க, இல்லன்னா text-ஐ Claude-ஓட எந்த chat-லயும் paste பண்ணுங்க.</p>
+    </div>
+    <div class="xfiles">
+      <article class="xpanel reveal" aria-labelledby="dev-ask-h">
+        <div class="xpanel-head"><h3 id="dev-ask-h">உங்க வார்த்தைகள்ல கேளுங்க</h3></div>
+        <p>Text-ஐ paste பண்ணுங்க, இல்லன்னா project-ஐ திறந்து Claude Code-ல கேளுங்க.</p>
+        <ul class="dev-prompts">
+          <li><span class="xprompt">இந்த project-க்கு README எழுதித் தாங்க</span></li>
+          <li><span class="xprompt">என் staged changes-க்கு commit message எழுதுங்க</span></li>
+          <li><span class="xprompt">புது teammate-க்கு எங்க folder structure-ஐ விளக்குங்க</span></li>
+          <li><span class="xprompt">இந்த error messages-ஐ கொஞ்சம் friendly-ஆ மாத்துங்க</span></li>
+          <li><span class="xprompt">billing.py-ல comments-ஐ சரி பண்ணுங்க, code-ஐ தொடாதீங்க</span></li>
+        </ul>
+      </article>
+      <article class="xpanel reveal" aria-labelledby="dev-safe-h">
+        <div class="xpanel-head"><h3 id="dev-safe-h">எது பத்திரமா இருக்கும்</h3></div>
+        <p>மக்கள் படிக்கும் வார்த்தைகள் மட்டும் மாறும்.</p>
+        <ul class="checks">
+          <li class="ok"><span class="dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><span>Commands, code blocks, file paths, version numbers எழுதின மாதிரியே இருக்கும்</span></li>
+          <li class="ok"><span class="dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><span>Translation keys, {name} மாதிரி placeholders தொடப்படவே மாட்டாது</span></li>
+          <li class="ok"><span class="dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><span>Code comments-ஐ ஒரு script மாத்தும், code கொஞ்சம் மாறினாலும் அது save பண்ணாது</span></li>
+          <li class="ok"><span class="dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><span>Git repo-ல file அங்கேயே edit ஆகும், <code>git diff</code> அல்லது <code>git checkout</code> வச்சு மாற்றத்தை எப்படி பார்க்கலாம், undo பண்ணலாம்னு சொல்லும்</span></li>
+          <li class="ok"><span class="dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span><span>நீங்க சொல்லாம எதுவும் commit, push ஆகாது</span></li>
+        </ul>
+      </article>
+    </div>
+    <a class="more-link" href="guide.html#readme">Developers guides-ஐ பாருங்க <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </div>
 </section>
 
@@ -800,7 +849,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 
       <article class="tile span-2 reveal">
         <h3>எழுத்து வகைகள்</h3>
-        <div class="stat"><span data-stat="writing">42</span><small>வகைகள்</small></div>
+        <div class="stat"><span data-stat="writing">43</span><small>வகைகள்</small></div>
         <p>WhatsApp பதில் முதல் RTI விண்ணப்பம் வரை.</p>
         <div class="tags"><span>Emails</span><span>Resume</span><span>கடிதங்கள்</span><span>பேச்சுகள்</span><span>Biodata</span><span>Reviews</span></div>
       </article>

@@ -282,6 +282,16 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 :lang(hi) h1 .you svg, :lang(ta) h1 .you svg { bottom: -.02em; }
 :lang(hi) h2, :lang(ta) h2 { line-height: 1.25; }
 
+/* ---------- For developers ---------- */
+.dev-prompts { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.dev-prompts .xprompt { margin-top: 0; }
+#developers .checks { margin-top: 0; }
+#developers .checks li span:last-child { min-width: 0; }
+#developers code { font: 600 .92em var(--mono); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; }
+#developers .more-link { margin-top: 16px; }
+/* The nav has room for this link only on wider screens. The phone menu always has it. */
+@media (max-width: 1099px) { .links .nav-wide { display: none; } }
+
 /* ---------- What's new ---------- */
 .whats-new { padding-top: clamp(48px, 7vw, 72px); }
 .new-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px 48px; align-items: end; margin-bottom: 22px; }
@@ -671,12 +681,12 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 <div class="wrap g-layout">
   <aside class="g-toc" aria-label="இந்த page-ல">
     <h2>இந்த page-ல</h2>
-    <h3>அன்றாட எழுத்து</h3><ul><li><a href="#humanize-email">Email-ஐ robotic இல்லாம மாத்துங்க</a></li><li><a href="#before-send">அனுப்பும் முன் message-ஐ check பண்ணுங்க</a></li><li><a href="#tricky-reply">கஷ்டமான message-க்கு பதில் சொல்லுங்க</a></li><li><a href="#read">ஒரு message எப்படி இருக்குன்னு புரிஞ்சுக்கோங்க</a></li><li><a href="#negotiation">அதிக salary, விலை, வாடகை பத்தி பேசுங்க</a></li></ul><h3>Files</h3><ul><li><a href="#word-file">Word file-ஐ சரிசெய்யுங்க, காரணம் comments-ல</a></li><li><a href="#form">Form நிரப்புங்க</a></li><li><a href="#template">Template நிரப்புங்க</a></li><li><a href="#slides">Notes-ல இருந்து slides செய்யுங்க</a></li><li><a href="#spreadsheet">Spreadsheet செய்யுங்க</a></li><li><a href="#google">Google Sheet இல்லன்னா Slides deck-ஐ edit பண்ணுங்க</a></li><li><a href="#long-document">நீளமான thesis, manual, report-ஐ சரி பண்ணுங்க</a></li></ul><h3>உங்க குரல்</h3><ul><li><a href="#voice">உங்க voice profile-ஐ உருவாக்குங்க</a></li><li><a href="#style-guide">Team style guide அமையுங்க</a></li></ul><h3>சின்ன வியாபாரம்</h3><ul><li><a href="#payment-reminder">Payment reminder அனுப்புங்க</a></li><li><a href="#support-reply">Customer-க்கு பதில் சொல்லுங்க</a></li><li><a href="#out-of-office">Out-of-office reply வைங்க</a></li><li><a href="#personalised">பலருக்கு தனிப்பட்ட messages அனுப்புங்க</a></li></ul><h3>மொழிகளும் அணுகலும்</h3><ul><li><a href="#script">இந்தி இல்லன்னா தமிழ் எழுத்தில் எழுதுங்க</a></li><li><a href="#alt-text">Images-க்கு alt text எழுதுங்க</a></li><li><a href="#easy-read">Easy Read இல்லன்னா dyslexia friendly-ஆ மாத்துங்க</a></li></ul><h3>Claude Code</h3><ul><li><a href="#claude-code">Claude Code-ல பயன்படுத்துங்க</a></li></ul>
+    <h3>அன்றாட எழுத்து</h3><ul><li><a href="#humanize-email">Email-ஐ robotic இல்லாம மாத்துங்க</a></li><li><a href="#before-send">அனுப்பும் முன் message-ஐ check பண்ணுங்க</a></li><li><a href="#tricky-reply">கஷ்டமான message-க்கு பதில் சொல்லுங்க</a></li><li><a href="#work-chat">Slack, Teams, Google Chat message எழுதுங்க</a></li><li><a href="#read">ஒரு message எப்படி இருக்குன்னு புரிஞ்சுக்கோங்க</a></li><li><a href="#negotiation">அதிக salary, விலை, வாடகை பத்தி பேசுங்க</a></li><li><a href="#quick-options">என்ன கேட்கணும்னு தெரியலையா? சட்டுனு options-ல தேர்ந்தெடுங்க</a></li></ul><h3>Files</h3><ul><li><a href="#word-file">Word file-ஐ சரிசெய்யுங்க, காரணம் comments-ல</a></li><li><a href="#form">Form நிரப்புங்க</a></li><li><a href="#template">Template நிரப்புங்க</a></li><li><a href="#slides">Notes-ல இருந்து slides செய்யுங்க</a></li><li><a href="#spreadsheet">Spreadsheet செய்யுங்க</a></li><li><a href="#google">Google Sheet இல்லன்னா Slides deck-ஐ edit பண்ணுங்க</a></li><li><a href="#long-document">நீளமான thesis, manual, report-ஐ சரி பண்ணுங்க</a></li></ul><h3>உங்க குரல்</h3><ul><li><a href="#voice">உங்க voice profile-ஐ உருவாக்குங்க</a></li><li><a href="#style-guide">Team style guide அமையுங்க</a></li></ul><h3>சின்ன வியாபாரம்</h3><ul><li><a href="#payment-reminder">Payment reminder அனுப்புங்க</a></li><li><a href="#support-reply">Customer-க்கு பதில் சொல்லுங்க</a></li><li><a href="#out-of-office">Out-of-office reply வைங்க</a></li><li><a href="#personalised">பலருக்கு தனிப்பட்ட messages அனுப்புங்க</a></li></ul><h3>மொழிகளும் அணுகலும்</h3><ul><li><a href="#script">இந்தி இல்லன்னா தமிழ் எழுத்தில் எழுதுங்க</a></li><li><a href="#alt-text">Images-க்கு alt text எழுதுங்க</a></li><li><a href="#easy-read">Easy Read இல்லன்னா dyslexia friendly-ஆ மாத்துங்க</a></li></ul><h3>Developers-க்கு</h3><ul><li><a href="#readme">README எழுதுங்க இல்லன்னா சரி பண்ணுங்க</a></li><li><a href="#commit-message">Commit message இல்லன்னா PR description எழுதுங்க</a></li><li><a href="#architecture">Architecture இல்லன்னா folder structure-ஐ விளக்குங்க</a></li><li><a href="#code-comments">Code-ஐ தொடாம code comments-ஐ சரி பண்ணுங்க</a></li><li><a href="#error-messages">தெளிவான error messages, app text எழுதுங்க</a></li></ul><h3>Claude Code</h3><ul><li><a href="#claude-code">Claude Code-ல பயன்படுத்துங்க</a></li></ul>
   </aside>
   <div>
     <details class="g-jump">
       <summary>ஒரு வேலைக்கு போங்க <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></summary>
-      <ul><li><a href="#humanize-email">Email-ஐ robotic இல்லாம மாத்துங்க</a></li><li><a href="#before-send">அனுப்பும் முன் message-ஐ check பண்ணுங்க</a></li><li><a href="#tricky-reply">கஷ்டமான message-க்கு பதில் சொல்லுங்க</a></li><li><a href="#read">ஒரு message எப்படி இருக்குன்னு புரிஞ்சுக்கோங்க</a></li><li><a href="#negotiation">அதிக salary, விலை, வாடகை பத்தி பேசுங்க</a></li><li><a href="#word-file">Word file-ஐ சரிசெய்யுங்க, காரணம் comments-ல</a></li><li><a href="#form">Form நிரப்புங்க</a></li><li><a href="#template">Template நிரப்புங்க</a></li><li><a href="#slides">Notes-ல இருந்து slides செய்யுங்க</a></li><li><a href="#spreadsheet">Spreadsheet செய்யுங்க</a></li><li><a href="#google">Google Sheet இல்லன்னா Slides deck-ஐ edit பண்ணுங்க</a></li><li><a href="#long-document">நீளமான thesis, manual, report-ஐ சரி பண்ணுங்க</a></li><li><a href="#voice">உங்க voice profile-ஐ உருவாக்குங்க</a></li><li><a href="#style-guide">Team style guide அமையுங்க</a></li><li><a href="#payment-reminder">Payment reminder அனுப்புங்க</a></li><li><a href="#support-reply">Customer-க்கு பதில் சொல்லுங்க</a></li><li><a href="#out-of-office">Out-of-office reply வைங்க</a></li><li><a href="#personalised">பலருக்கு தனிப்பட்ட messages அனுப்புங்க</a></li><li><a href="#script">இந்தி இல்லன்னா தமிழ் எழுத்தில் எழுதுங்க</a></li><li><a href="#alt-text">Images-க்கு alt text எழுதுங்க</a></li><li><a href="#easy-read">Easy Read இல்லன்னா dyslexia friendly-ஆ மாத்துங்க</a></li><li><a href="#claude-code">Claude Code-ல பயன்படுத்துங்க</a></li></ul>
+      <ul><li><a href="#humanize-email">Email-ஐ robotic இல்லாம மாத்துங்க</a></li><li><a href="#before-send">அனுப்பும் முன் message-ஐ check பண்ணுங்க</a></li><li><a href="#tricky-reply">கஷ்டமான message-க்கு பதில் சொல்லுங்க</a></li><li><a href="#work-chat">Slack, Teams, Google Chat message எழுதுங்க</a></li><li><a href="#read">ஒரு message எப்படி இருக்குன்னு புரிஞ்சுக்கோங்க</a></li><li><a href="#negotiation">அதிக salary, விலை, வாடகை பத்தி பேசுங்க</a></li><li><a href="#quick-options">என்ன கேட்கணும்னு தெரியலையா? சட்டுனு options-ல தேர்ந்தெடுங்க</a></li><li><a href="#word-file">Word file-ஐ சரிசெய்யுங்க, காரணம் comments-ல</a></li><li><a href="#form">Form நிரப்புங்க</a></li><li><a href="#template">Template நிரப்புங்க</a></li><li><a href="#slides">Notes-ல இருந்து slides செய்யுங்க</a></li><li><a href="#spreadsheet">Spreadsheet செய்யுங்க</a></li><li><a href="#google">Google Sheet இல்லன்னா Slides deck-ஐ edit பண்ணுங்க</a></li><li><a href="#long-document">நீளமான thesis, manual, report-ஐ சரி பண்ணுங்க</a></li><li><a href="#voice">உங்க voice profile-ஐ உருவாக்குங்க</a></li><li><a href="#style-guide">Team style guide அமையுங்க</a></li><li><a href="#payment-reminder">Payment reminder அனுப்புங்க</a></li><li><a href="#support-reply">Customer-க்கு பதில் சொல்லுங்க</a></li><li><a href="#out-of-office">Out-of-office reply வைங்க</a></li><li><a href="#personalised">பலருக்கு தனிப்பட்ட messages அனுப்புங்க</a></li><li><a href="#script">இந்தி இல்லன்னா தமிழ் எழுத்தில் எழுதுங்க</a></li><li><a href="#alt-text">Images-க்கு alt text எழுதுங்க</a></li><li><a href="#easy-read">Easy Read இல்லன்னா dyslexia friendly-ஆ மாத்துங்க</a></li><li><a href="#readme">README எழுதுங்க இல்லன்னா சரி பண்ணுங்க</a></li><li><a href="#commit-message">Commit message இல்லன்னா PR description எழுதுங்க</a></li><li><a href="#architecture">Architecture இல்லன்னா folder structure-ஐ விளக்குங்க</a></li><li><a href="#code-comments">Code-ஐ தொடாம code comments-ஐ சரி பண்ணுங்க</a></li><li><a href="#error-messages">தெளிவான error messages, app text எழுதுங்க</a></li><li><a href="#claude-code">Claude Code-ல பயன்படுத்துங்க</a></li></ul>
     </details>
       <section class="g-group" aria-labelledby="g-everyday" style="padding-top:0">
         <h2 id="g-everyday">அன்றாட எழுத்து</h2>
@@ -699,6 +709,12 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
           <ol><li><span>வந்த message-ஐ paste பண்ணி, நீங்க என்ன சொல்லணும்னு சொல்லுங்க.</span></li><li><span>அமைதியான, தெளிவான ஒரு பதில் கிடைக்கும்.</span></li><li><span>கொஞ்சம் கண்டிப்பா இல்லன்னா மென்மையா வேணும்னா சொல்லுங்க. ஒப்பிட சரியா ரெண்டு version-ம் கேட்கலாம்.</span></li></ol>
           
         </article>
+        <article class="task" id="work-chat" aria-labelledby="work-chat-h">
+          <h3 id="work-chat-h">Slack, Teams, Google Chat message எழுதுங்க</h3>
+          <p class="say"><b>இப்படி ஏதாவது சொல்லுங்க</b>Release Thursday-க்கு மாறுதுன்னு team-க்கு Slack message எழுதுங்க</p>
+          <ol><li><span>என்ன சொல்லணும் இல்லன்னா கேட்கணும், யாருக்குன்னு சொல்லுங்க: ஒரு channel, உங்க lead, இல்லன்னா ஒரு thread.</span></li><li><span>இல்லன்னா உங்க draft-ஐ paste பண்ணுங்க, நீங்க பதில் சொல்லும் thread-ஐயும்.</span></li><li><span>முக்கிய விஷயம் முதல் வரியிலேயே இருக்கற சின்ன message கிடைக்கும், paste பண்ண தயார்.</span></li><li><span>"Hope you're doing well", "Kind regards" மாதிரி email பழக்கங்கள் இருக்காது. வேணும்னா கொஞ்சம் casual-ஆ இல்லன்னா polite-ஆ கேளுங்க.</span></li></ol>
+          <p class="note">பெயர்கள், @mentions, ticket numbers, தேதிகள் நீங்க கொடுத்த மாதிரியே இருக்கும். நீங்க கொடுக்காத வாக்குறுதி எதையும் சேர்க்காது.</p>
+        </article>
         <article class="task" id="read" aria-labelledby="read-h">
           <h3 id="read-h">ஒரு message எப்படி இருக்குன்னு புரிஞ்சுக்கோங்க</h3>
           <p class="say"><b>இப்படி ஏதாவது சொல்லுங்க</b>Boss அனுப்பின இந்த message எப்படி இருக்கு?</p>
@@ -710,6 +726,12 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
           <p class="say"><b>இப்படி ஏதாவது சொல்லுங்க</b>அதிக salary கேட்க உதவுங்க, offer 9 lakh, நான் 11 எதிர்பார்த்தேன்</p>
           <ol><li><span>Offer, உங்களுக்கு எவ்வளவு வேணும், உங்க உண்மையான காரணங்கள், இதை சொல்லுங்க.</span></li><li><span>அனுப்பவோ பேசவோ ஒரு சின்ன, மரியாதையான message கிடைக்கும்.</span></li><li><span>வேணும்னா கொஞ்சம் உறுதியா இல்லன்னா மென்மையா மாத்த சொல்லுங்க.</span></li></ol>
           <p class="note">நீங்க கொடுத்த எண்களையும் காரணங்களையும் மட்டும் பயன்படுத்தும். வேற offer-ஓ சாதனையோ சேர்க்காது.</p>
+        </article>
+        <article class="task" id="quick-options" aria-labelledby="quick-options-h">
+          <h3 id="quick-options-h">என்ன கேட்கணும்னு தெரியலையா? சட்டுனு options-ல தேர்ந்தெடுங்க</h3>
+          <p class="say"><b>இப்படி ஏதாவது சொல்லுங்க</b>இதுக்கு கொஞ்சம் உதவுங்க</p>
+          <ol><li><span>Text-ஐ paste பண்ணுங்க இல்லன்னா file-ஐ attach பண்ணுங்க, கூடவே மேல இருக்கற மாதிரி ஒரு சின்ன message, இல்லன்னா எதுவுமே வேணாம்.</span></li><li><span>2 முதல் 4 சின்ன, எண் போட்ட options கிடைக்கும், உதாரணமா "பதில் எழுது" இல்லன்னா "அனுப்பும் முன் check பண்ணு". Claude Code-ல ஒன்னை tap பண்ணலாம்.</span></li><li><span>ஒரு எண்ணை reply பண்ணுங்க, இல்லன்னா என்ன வேணும்னு உங்க வார்த்தைகள்ல சொல்லுங்க.</span></li><li><span>நீங்க தேர்ந்தெடுக்கற வரை எதுவும் மாறாது.</span></li></ol>
+          <p class="note">"இதை கொஞ்சம் friendly-ஆ மாத்துங்க" மாதிரி தெளிவான கேள்விக்கு options வராது, நேரா வேலை நடக்கும்.</p>
         </article>
         </div>
       </section>
@@ -826,6 +848,41 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
           <p class="say"><b>இப்படி ஏதாவது சொல்லுங்க</b>இந்த Word file-ஐ dyslexia friendly-ஆ மாத்துங்க</p>
           <ol><li><span>File-ஐ attach பண்ணுங்க இல்லன்னா text-ஐ paste பண்ணுங்க.</span></li><li><span>சின்ன, எளிய வரிகளும் படங்களுக்கான யோசனைகளும் வேணும்னா Easy Read கேளுங்க. தெளிவான layout வேணும்னா dyslexia friendly.</span></li><li><span>Dyslexia friendly-ல ஒவ்வொரு வார்த்தையும் அப்படியே இருக்கும், font, spacing, alignment மட்டும் மாறும். -readable-ல முடியற புது copy கிடைக்கும்.</span></li><li><span>Easy Read எளிய வார்த்தைகள்ல மறுபடி எழுதும், அதனால முக்கியமான எதுவும் விட்டுப்போகலையான்னு பாருங்க.</span></li></ol>
           
+        </article>
+        </div>
+      </section>
+      <section class="g-group" aria-labelledby="g-developers" style="padding-top:0">
+        <h2 id="g-developers">Developers-க்கு</h2>
+        <div class="g-tasks">
+        <article class="task" id="readme" aria-labelledby="readme-h">
+          <h3 id="readme-h">README எழுதுங்க இல்லன்னா சரி பண்ணுங்க</h3>
+          <p class="say"><b>இப்படி ஏதாவது சொல்லுங்க</b>இந்த project-க்கு README எழுதித் தாங்க</p>
+          <ol><li><span>Claude Code-ல project-ஐ திறந்து கேளுங்க. மத்த இடங்கள்ல உங்க README-ஐ paste பண்ணி, project என்ன செய்யுதுன்னு சொல்லுங்க.</span></li><li><span>இது என்ன, யாருக்குன்னு சொல்லும் சின்ன ஆரம்பம் கிடைக்கும், அப்புறம் install, quick start, usage.</span></li><li><span>Install steps உங்க repo-ல இருக்கும் உண்மையான commands-ஐ பயன்படுத்தும். ஏதாவது step இல்லன்னா, ஊகிக்காம தெளிவான TODO வைக்கும்.</span></li><li><span>ஒவ்வொரு heading-லயும் emoji, badges சுவர், sales வார்த்தைகள் எல்லாம் நீக்கப்படும்.</span></li></ol>
+          <p class="note">Commands, code blocks, paths, version numbers எழுதின மாதிரியே இருக்கும். Project-ல இல்லாத feature எதையும் சேர்க்காது.</p>
+        </article>
+        <article class="task" id="commit-message" aria-labelledby="commit-message-h">
+          <h3 id="commit-message-h">Commit message இல்லன்னா PR description எழுதுங்க</h3>
+          <p class="say"><b>இப்படி ஏதாவது சொல்லுங்க</b>என் staged changes-க்கு commit message எழுதுங்க</p>
+          <ol><li><span>Claude Code-ல சும்மா கேளுங்க, அது உங்க staged changes-ஐ படிச்சுக்கும். மத்த இடங்கள்ல diff-ஐ இல்லன்னா என்ன மாறுச்சுன்னு ஒரு list-ஐ paste பண்ணுங்க.</span></li><li><span>சுமார் 72 characters-க்குள்ள ஒரு summary line கிடைக்கும், தேவைன்னா ஏன்னு ஒன்னு ரெண்டு வரி.</span></li><li><span>PR-க்கு என்ன மாறுச்சு, ஏன், எப்படி check பண்றதுன்னு கிடைக்கும், repo-ல PR template இருந்தா அதன்படி.</span></li><li><span>fix(login): இல்லன்னா ticket prefix மாதிரி உங்க repo style-ஐ பின்பற்றும், நீங்க சொல்லாம commit பண்ணாது.</span></li></ol>
+          <p class="note">Diff-ல இருக்கறதை மட்டும்தான் சொல்லும். Tests சேர்த்தாங்க இல்லன்னா pass ஆச்சுன்னு, அது உண்மையா இருந்தா மட்டும் சொல்லும்.</p>
+        </article>
+        <article class="task" id="architecture" aria-labelledby="architecture-h">
+          <h3 id="architecture-h">Architecture இல்லன்னா folder structure-ஐ விளக்குங்க</h3>
+          <p class="say"><b>இப்படி ஏதாவது சொல்லுங்க</b>புது teammate-க்கு எங்க folder structure-ஐ விளக்குங்க</p>
+          <ol><li><span>Claude Code-ல project-ஐ திறந்து கேளுங்க. மத்த இடங்கள்ல folder tree (tree -L 2) இல்லன்னா அதோட screenshot-ஐ paste பண்ணுங்க.</span></li><li><span>Folder structure-க்கு tree கிடைக்கும், கூடவே ஒவ்வொரு folder-க்கும் ஒரு வரி: அதுல என்ன இருக்கு, எப்போ edit பண்ணணும்.</span></li><li><span>Architecture doc-ல முக்கிய பகுதிகள், ஒவ்வொன்னும் எதோட பேசுது, ஒரு உண்மையான request ஆரம்பத்துல இருந்து கடைசி வரை.</span></li><li><span>Decision record (ADR)-க்கு உங்க முடிவையும் காரணங்களையும் சொல்லுங்க. சுருக்கமான Context, Decision, Consequences sections கிடைக்கும்.</span></li></ol>
+          <p class="note">Folders, services-ஓட உண்மையான பெயர்களை பயன்படுத்தும், உங்க code-ல இல்லாத பகுதிகளை சேர்க்காது. Code files-ஐ ஒருபோதும் move பண்ணாது, புதுசா உருவாக்காது.</p>
+        </article>
+        <article class="task" id="code-comments" aria-labelledby="code-comments-h">
+          <h3 id="code-comments-h">Code-ஐ தொடாம code comments-ஐ சரி பண்ணுங்க</h3>
+          <p class="say"><b>இப்படி ஏதாவது சொல்லுங்க</b>billing.py-ல comments-ஐ சரி பண்ணுங்க, code-ஐ தொடாதீங்க</p>
+          <ol><li><span>File-ஐ attach இல்லன்னா paste பண்ணுங்க, இல்லன்னா Claude Code-ல project-ஐ திறந்து கேளுங்க.</span></li><li><span>Comments, docstrings மட்டும் மறுபடி எழுதப்படும், பெரும்பாலும் code ஏன் அப்படி செய்யுதுன்னு விளக்க.</span></li><li><span>ஒரு script ஒவ்வொரு comment-ஐயும் அதோட இடத்துலயே திரும்ப வைக்கும், code கொஞ்சம் மாறினாலும் save பண்ண மறுக்கும்.</span></li><li><span>-humanized-ல முடியற புது copy கிடைக்கும் (git repo-ல file அங்கேயே edit ஆகும்), கூடவே நீக்கலாம்னு தோணும் comments-ஓட list.</span></li></ol>
+          <p class="note">License headers, noqa மாதிரி tool directives, comment பண்ணின code, TODOs, @param பெயர்கள் அப்படியே இருக்கும்.</p>
+        </article>
+        <article class="task" id="error-messages" aria-labelledby="error-messages-h">
+          <h3 id="error-messages-h">தெளிவான error messages, app text எழுதுங்க</h3>
+          <p class="say"><b>இப்படி ஏதாவது சொல்லுங்க</b>இந்த error messages-ஐ கொஞ்சம் friendly-ஆ மாத்துங்க</p>
+          <ol><li><span>Messages, button labels, இல்லன்னா translation file-ஐ (en.json மாதிரி) paste பண்ணுங்க, code என்ன செய்யுதுன்னு தெளிவா இல்லன்னா சொல்லுங்க.</span></li><li><span>ஒவ்வொரு error message-உம் என்ன ஆச்சு, இப்போ என்ன பண்ணலாம்னு சொல்லும்.</span></li><li><span>Buttons அவை என்ன செய்யும்னு சொல்லும், காலியான screens அடுத்து என்ன பண்ணணும்னு சொல்லும்.</span></li><li><span>Translation file-ல English values மட்டும் மாறும். Keys, {name} மாதிரி placeholders அப்படியே இருக்கும்.</span></li></ol>
+          <p class="note">API docs-உம் பண்ணலாம்: endpoint-ஐ paste பண்ணுங்க, எளிய description, parameter table, உங்க உண்மையான field names-ஓட ஒரு example கிடைக்கும்.</p>
         </article>
         </div>
       </section>

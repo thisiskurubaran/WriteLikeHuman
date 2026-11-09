@@ -282,6 +282,16 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 :lang(hi) h1 .you svg, :lang(ta) h1 .you svg { bottom: -.02em; }
 :lang(hi) h2, :lang(ta) h2 { line-height: 1.25; }
 
+/* ---------- For developers ---------- */
+.dev-prompts { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.dev-prompts .xprompt { margin-top: 0; }
+#developers .checks { margin-top: 0; }
+#developers .checks li span:last-child { min-width: 0; }
+#developers code { font: 600 .92em var(--mono); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; }
+#developers .more-link { margin-top: 16px; }
+/* The nav has room for this link only on wider screens. The phone menu always has it. */
+@media (max-width: 1099px) { .links .nav-wide { display: none; } }
+
 /* ---------- What's new ---------- */
 .whats-new { padding-top: clamp(48px, 7vw, 72px); }
 .new-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px 48px; align-items: end; margin-bottom: 22px; }
@@ -665,12 +675,12 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 <div class="wrap g-layout">
   <aside class="g-toc" aria-label="On this page">
     <h2>On this page</h2>
-    <h3>Everyday writing</h3><ul><li><a href="#humanize-email">Make an email sound less robotic</a></li><li><a href="#before-send">Check a message before sending it</a></li><li><a href="#tricky-reply">Reply to a tricky message</a></li><li><a href="#read">Understand how a message sounds</a></li><li><a href="#negotiation">Ask for a better salary, price, or rent</a></li></ul><h3>Files</h3><ul><li><a href="#word-file">Fix a Word file, with the reasons in comments</a></li><li><a href="#form">Fill in a form</a></li><li><a href="#template">Fill a template</a></li><li><a href="#slides">Make slides from notes</a></li><li><a href="#spreadsheet">Make a spreadsheet</a></li><li><a href="#google">Edit a Google Sheet or Slides deck</a></li><li><a href="#long-document">Fix a long thesis, manual, or report</a></li></ul><h3>Your voice</h3><ul><li><a href="#voice">Build my voice profile</a></li><li><a href="#style-guide">Set up a team style guide</a></li></ul><h3>Small business</h3><ul><li><a href="#payment-reminder">Send a payment reminder</a></li><li><a href="#support-reply">Reply to a customer</a></li><li><a href="#out-of-office">Set an out-of-office reply</a></li><li><a href="#personalised">Send personal messages to a list of people</a></li></ul><h3>Languages and access</h3><ul><li><a href="#script">Write in Hindi or Tamil script</a></li><li><a href="#alt-text">Write alt text for images</a></li><li><a href="#easy-read">Make something Easy Read or dyslexia friendly</a></li></ul><h3>Claude Code</h3><ul><li><a href="#claude-code">Use it in Claude Code</a></li></ul>
+    <h3>Everyday writing</h3><ul><li><a href="#humanize-email">Make an email sound less robotic</a></li><li><a href="#before-send">Check a message before sending it</a></li><li><a href="#tricky-reply">Reply to a tricky message</a></li><li><a href="#work-chat">Write a Slack, Teams, or Google Chat message</a></li><li><a href="#read">Understand how a message sounds</a></li><li><a href="#negotiation">Ask for a better salary, price, or rent</a></li><li><a href="#quick-options">Get quick choices when you're not sure what to ask</a></li></ul><h3>Files</h3><ul><li><a href="#word-file">Fix a Word file, with the reasons in comments</a></li><li><a href="#form">Fill in a form</a></li><li><a href="#template">Fill a template</a></li><li><a href="#slides">Make slides from notes</a></li><li><a href="#spreadsheet">Make a spreadsheet</a></li><li><a href="#google">Edit a Google Sheet or Slides deck</a></li><li><a href="#long-document">Fix a long thesis, manual, or report</a></li></ul><h3>Your voice</h3><ul><li><a href="#voice">Build my voice profile</a></li><li><a href="#style-guide">Set up a team style guide</a></li></ul><h3>Small business</h3><ul><li><a href="#payment-reminder">Send a payment reminder</a></li><li><a href="#support-reply">Reply to a customer</a></li><li><a href="#out-of-office">Set an out-of-office reply</a></li><li><a href="#personalised">Send personal messages to a list of people</a></li></ul><h3>Languages and access</h3><ul><li><a href="#script">Write in Hindi or Tamil script</a></li><li><a href="#alt-text">Write alt text for images</a></li><li><a href="#easy-read">Make something Easy Read or dyslexia friendly</a></li></ul><h3>For developers</h3><ul><li><a href="#readme">Write or fix a README</a></li><li><a href="#commit-message">Write a commit message or PR description</a></li><li><a href="#architecture">Explain the architecture or folder structure</a></li><li><a href="#code-comments">Clean up code comments without touching the code</a></li><li><a href="#error-messages">Write clearer error messages and app text</a></li></ul><h3>Claude Code</h3><ul><li><a href="#claude-code">Use it in Claude Code</a></li></ul>
   </aside>
   <div>
     <details class="g-jump">
       <summary>Jump to a task <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></summary>
-      <ul><li><a href="#humanize-email">Make an email sound less robotic</a></li><li><a href="#before-send">Check a message before sending it</a></li><li><a href="#tricky-reply">Reply to a tricky message</a></li><li><a href="#read">Understand how a message sounds</a></li><li><a href="#negotiation">Ask for a better salary, price, or rent</a></li><li><a href="#word-file">Fix a Word file, with the reasons in comments</a></li><li><a href="#form">Fill in a form</a></li><li><a href="#template">Fill a template</a></li><li><a href="#slides">Make slides from notes</a></li><li><a href="#spreadsheet">Make a spreadsheet</a></li><li><a href="#google">Edit a Google Sheet or Slides deck</a></li><li><a href="#long-document">Fix a long thesis, manual, or report</a></li><li><a href="#voice">Build my voice profile</a></li><li><a href="#style-guide">Set up a team style guide</a></li><li><a href="#payment-reminder">Send a payment reminder</a></li><li><a href="#support-reply">Reply to a customer</a></li><li><a href="#out-of-office">Set an out-of-office reply</a></li><li><a href="#personalised">Send personal messages to a list of people</a></li><li><a href="#script">Write in Hindi or Tamil script</a></li><li><a href="#alt-text">Write alt text for images</a></li><li><a href="#easy-read">Make something Easy Read or dyslexia friendly</a></li><li><a href="#claude-code">Use it in Claude Code</a></li></ul>
+      <ul><li><a href="#humanize-email">Make an email sound less robotic</a></li><li><a href="#before-send">Check a message before sending it</a></li><li><a href="#tricky-reply">Reply to a tricky message</a></li><li><a href="#work-chat">Write a Slack, Teams, or Google Chat message</a></li><li><a href="#read">Understand how a message sounds</a></li><li><a href="#negotiation">Ask for a better salary, price, or rent</a></li><li><a href="#quick-options">Get quick choices when you're not sure what to ask</a></li><li><a href="#word-file">Fix a Word file, with the reasons in comments</a></li><li><a href="#form">Fill in a form</a></li><li><a href="#template">Fill a template</a></li><li><a href="#slides">Make slides from notes</a></li><li><a href="#spreadsheet">Make a spreadsheet</a></li><li><a href="#google">Edit a Google Sheet or Slides deck</a></li><li><a href="#long-document">Fix a long thesis, manual, or report</a></li><li><a href="#voice">Build my voice profile</a></li><li><a href="#style-guide">Set up a team style guide</a></li><li><a href="#payment-reminder">Send a payment reminder</a></li><li><a href="#support-reply">Reply to a customer</a></li><li><a href="#out-of-office">Set an out-of-office reply</a></li><li><a href="#personalised">Send personal messages to a list of people</a></li><li><a href="#script">Write in Hindi or Tamil script</a></li><li><a href="#alt-text">Write alt text for images</a></li><li><a href="#easy-read">Make something Easy Read or dyslexia friendly</a></li><li><a href="#readme">Write or fix a README</a></li><li><a href="#commit-message">Write a commit message or PR description</a></li><li><a href="#architecture">Explain the architecture or folder structure</a></li><li><a href="#code-comments">Clean up code comments without touching the code</a></li><li><a href="#error-messages">Write clearer error messages and app text</a></li><li><a href="#claude-code">Use it in Claude Code</a></li></ul>
     </details>
       <section class="g-group" aria-labelledby="g-everyday" style="padding-top:0">
         <h2 id="g-everyday">Everyday writing</h2>
@@ -693,6 +703,12 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
           <ol><li><span>Paste the message you got and say what you want to say back.</span></li><li><span>You get one reply, calm and clear.</span></li><li><span>If you want it firmer or softer, say so. You can also ask for exactly two versions to compare.</span></li></ol>
           
         </article>
+        <article class="task" id="work-chat" aria-labelledby="work-chat-h">
+          <h3 id="work-chat-h">Write a Slack, Teams, or Google Chat message</h3>
+          <p class="say"><b>Say something like</b>Write a Slack message telling my team the release moves to Thursday</p>
+          <ol><li><span>Say what you want to tell or ask, and who it's for: a channel, your lead, or a thread.</span></li><li><span>Or paste your draft, plus the thread you're replying to.</span></li><li><span>You get a short message with the point in the first line, ready to paste.</span></li><li><span>Email habits like "Hope you're doing well" and "Kind regards" are left out. Ask for it more casual or more polite if you like.</span></li></ol>
+          <p class="note">Names, @mentions, ticket numbers, and dates stay as you gave them. It won't add promises you didn't make.</p>
+        </article>
         <article class="task" id="read" aria-labelledby="read-h">
           <h3 id="read-h">Understand how a message sounds</h3>
           <p class="say"><b>Say something like</b>How does this message from my boss sound?</p>
@@ -704,6 +720,12 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
           <p class="say"><b>Say something like</b>Help me ask for a higher salary, the offer is 9 lakh and I was hoping for 11</p>
           <ol><li><span>Give the offer, the number you want, and your real reasons.</span></li><li><span>You get a short, polite message you can send or say.</span></li><li><span>Ask for it firmer or softer if you like.</span></li></ol>
           <p class="note">It uses only the numbers and reasons you give. It won't invent other offers or achievements.</p>
+        </article>
+        <article class="task" id="quick-options" aria-labelledby="quick-options-h">
+          <h3 id="quick-options-h">Get quick choices when you're not sure what to ask</h3>
+          <p class="say"><b>Say something like</b>help with this</p>
+          <ol><li><span>Paste the text or attach the file, with a short message like the example, or none at all.</span></li><li><span>You get 2 to 4 short numbered choices, like "Write a reply" or "Check it before you send". In Claude Code you can tap one.</span></li><li><span>Reply with a number, or say what you want in your own words.</span></li><li><span>Nothing changes until you pick.</span></li></ol>
+          <p class="note">Clear requests, like "make this friendlier", skip the options and go straight to the work.</p>
         </article>
         </div>
       </section>
@@ -820,6 +842,41 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
           <p class="say"><b>Say something like</b>Make this Word file dyslexia friendly</p>
           <ol><li><span>Attach the file or paste the text.</span></li><li><span>Ask for Easy Read for short, simple lines with picture suggestions, or dyslexia friendly for a clearer layout.</span></li><li><span>Dyslexia friendly keeps every word and changes only the font, spacing, and alignment. You get a new copy ending in -readable.</span></li><li><span>Easy Read rewrites in simpler words, so check that nothing important was left out.</span></li></ol>
           
+        </article>
+        </div>
+      </section>
+      <section class="g-group" aria-labelledby="g-developers" style="padding-top:0">
+        <h2 id="g-developers">For developers</h2>
+        <div class="g-tasks">
+        <article class="task" id="readme" aria-labelledby="readme-h">
+          <h3 id="readme-h">Write or fix a README</h3>
+          <p class="say"><b>Say something like</b>Write a README for this project</p>
+          <ol><li><span>In Claude Code, ask with the project open. Elsewhere, paste your README and say what the project does.</span></li><li><span>You get a short opening that says what it is and who it's for, then install, quick start, and usage.</span></li><li><span>Install steps use the real commands from your repo. If one is missing, you get a clear TODO instead of a guess.</span></li><li><span>Emoji on every heading, walls of badges, and sales words are cut.</span></li></ol>
+          <p class="note">Commands, code blocks, paths, and version numbers stay exactly as written. It never adds a feature the project doesn't have.</p>
+        </article>
+        <article class="task" id="commit-message" aria-labelledby="commit-message-h">
+          <h3 id="commit-message-h">Write a commit message or PR description</h3>
+          <p class="say"><b>Say something like</b>Write a commit message for my staged changes</p>
+          <ol><li><span>In Claude Code, just ask: it reads your staged changes. Elsewhere, paste the diff or a list of what changed.</span></li><li><span>You get a summary line under about 72 characters, plus a line or two on why if it helps.</span></li><li><span>For a PR, you get what changed, why, and how to check it, following your repo's PR template if there is one.</span></li><li><span>It follows your repo's style, like fix(login): or a ticket prefix, and doesn't commit unless you ask.</span></li></ol>
+          <p class="note">It describes only what's in the diff. It won't say tests were added or passed unless they were.</p>
+        </article>
+        <article class="task" id="architecture" aria-labelledby="architecture-h">
+          <h3 id="architecture-h">Explain the architecture or folder structure</h3>
+          <p class="say"><b>Say something like</b>Explain our folder structure for a new teammate</p>
+          <ol><li><span>In Claude Code, ask with the project open. Elsewhere, paste the folder tree (tree -L 2) or a screenshot of it.</span></li><li><span>For a folder structure, you get the tree plus one line per folder: what lives there and when you'd edit it.</span></li><li><span>For an architecture doc, you get the main parts, what each one talks to, and one real request followed from start to finish.</span></li><li><span>For a decision record (ADR), give the choice and your reasons. You get short Context, Decision, and Consequences sections.</span></li></ol>
+          <p class="note">It uses the real names of folders and services and never invents parts your code doesn't have. It never moves or creates code files.</p>
+        </article>
+        <article class="task" id="code-comments" aria-labelledby="code-comments-h">
+          <h3 id="code-comments-h">Clean up code comments without touching the code</h3>
+          <p class="say"><b>Say something like</b>Clean up the comments in billing.py, leave the code alone</p>
+          <ol><li><span>Attach or paste the file, or ask in Claude Code with the project open.</span></li><li><span>Only comments and docstrings are rewritten, mostly to explain why the code does something.</span></li><li><span>A script puts each comment back in its place and refuses to save if any code would change.</span></li><li><span>You get a new copy ending in -humanized (in a git repo, the file is edited in place), plus a list of comments worth deleting.</span></li></ol>
+          <p class="note">Licence headers, tool directives like noqa, commented-out code, TODOs, and @param names are left as they are.</p>
+        </article>
+        <article class="task" id="error-messages" aria-labelledby="error-messages-h">
+          <h3 id="error-messages-h">Write clearer error messages and app text</h3>
+          <p class="say"><b>Say something like</b>Make these error messages friendlier</p>
+          <ol><li><span>Paste the messages, button labels, or translation file (like en.json), and say what the code does if it isn't clear.</span></li><li><span>Each error message says what happened and what the person can do now.</span></li><li><span>Buttons say what they do, and empty screens say what to do next.</span></li><li><span>In a translation file, only the English values change. Keys and placeholders like {name} stay exactly.</span></li></ol>
+          <p class="note">API docs work too: paste the endpoint and you get a plain description, a parameter table, and an example with your real field names.</p>
         </article>
         </div>
       </section>
