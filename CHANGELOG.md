@@ -18,6 +18,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Payment reminders and invoice notes, with amounts, invoice numbers, and due dates kept exactly as given.
 - Customer support replies for small businesses, with no refunds or dates promised that the owner didn't approve.
 - Out-of-office and away messages, WhatsApp Business greetings, and email signatures.
+- Alt text for images: describes what is visible and never guesses who people are.
 
 ## [0.4.0] - 2026-11-09
 
