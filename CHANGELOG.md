@@ -31,6 +31,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - A router check that every guide can be reached and every link and example points at a real guide.
 - Eval cases and test prompts for every new v0.4.0 guide (124 cases in all).
 - An examples page on the website: every before and after sample, searchable and filterable by kind of writing.
+- Hindi and Tamil versions of the website, labeled as translations of the English page.
 
 ## [0.3.2] - 2026-11-08
 
