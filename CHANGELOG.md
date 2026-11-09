@@ -26,6 +26,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Fill a Word or PowerPoint template, such as a letterhead or a resume layout, keeping its look.
 - Fill in forms: fillable PDFs and Word forms, with personal details never guessed and missing answers listed.
 - Scanned PDF pages are read from their images, and names and numbers read that way are confirmed with the user.
+- Photos of handwritten notes, whiteboards, and letters turned into typed text, with unclear words marked instead of guessed.
 
 ## [0.3.2] - 2026-11-08
 
