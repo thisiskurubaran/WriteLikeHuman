@@ -1,19 +1,25 @@
 {
   "name": "writelikehuman",
   "description": "WriteLikeHuman: make everyday writing sound like a person wrote it.",
-  "owner": { "name": "thisiskurubaran" },
+  "owner": {
+    "name": "thisiskurubaran"
+  },
   "plugins": [
     {
       "name": "write-like-human",
       "source": "./write-like-human",
       "description": "Write or rewrite anything so it sounds like a real person, not AI, keeping formatting, facts, and numbers.",
-      "version": "0.3.2",
-      "author": { "name": "thisiskurubaran" },
+      "version": "0.4.0",
+      "author": {
+        "name": "thisiskurubaran"
+      },
       "homepage": "https://github.com/thisiskurubaran/WriteLikeHuman",
       "repository": "https://github.com/thisiskurubaran/WriteLikeHuman",
       "license": "MIT",
       "strict": false,
-      "skills": ["./"]
+      "skills": [
+        "./"
+      ]
     }
   ]
 }

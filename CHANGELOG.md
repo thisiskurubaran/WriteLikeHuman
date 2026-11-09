@@ -6,11 +6,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
-### Changed
-
-- The Claude Code plugin now installs only the skill folder (about 670 KB), not the website, tests, and translations.
-- SKILL.md is about a fifth shorter. The kinds-of-writing tables moved to a lookup file that is read only when needed, so every request costs fewer tokens.
-- The README lists every v0.4.0 feature and links the new examples page.
+## [0.4.0] - 2026-11-09
 
 ### Added
 
@@ -34,6 +30,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - An examples page on the website: every before and after sample, searchable and filterable by kind of writing.
 - Hindi and Tamil versions of the website, labeled as translations of the English page.
 - A feedback form for saying what worked and what didn't, without sharing personal text.
+
+### Changed
+
+- The skill description names the new abilities (forms, templates, scanned PDFs, handwriting, and creating files) so those requests trigger it.
+- The Claude Code plugin now installs only the skill folder (about 670 KB), not the website, tests, and translations.
+- SKILL.md is about a fifth shorter. The kinds-of-writing tables moved to a lookup file that is read only when needed, so every request costs fewer tokens.
+- The README lists every v0.4.0 feature and links the new examples page.
 
 ## [0.3.2] - 2026-11-08
 
@@ -169,7 +172,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Security policy with private reporting.
 - Issue templates for bugs and feature requests, and a pull request checklist.
 
-[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.2...HEAD
+[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.2...v0.4.0
 [0.3.2]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.2.0...v0.3.0
