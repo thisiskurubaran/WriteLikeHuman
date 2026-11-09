@@ -25,6 +25,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - The usage guide in Hindi and Tamil, linked from the Hindi and Tamil pages.
 - The landing page can show the latest eval pass rate, once a saved eval result is in the repo.
 - An accessibility scan of every website page in light and dark mode, run on every pull request.
+- A weekly check that links in the README, guides, and website still work.
 
 ### Changed
 

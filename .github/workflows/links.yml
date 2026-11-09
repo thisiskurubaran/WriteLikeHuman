@@ -1,0 +1,56 @@
+# Checks that external links in the README, guides, and website still work.
+# Runs every Monday, and by hand from the Actions tab ("Run workflow").
+# Broken links are listed in the run summary.
+name: Link check
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    name: Check external links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - name: Check links
+        id: lychee
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: >-
+            --no-progress
+            --max-retries 3
+            --timeout 30
+            --accept 200,206,429
+            --exclude-loopback
+            --exclude "^https?://localhost"
+            --exclude "github\.com/thisiskurubaran/WriteLikeHuman/releases/latest"
+            --exclude "github\.com/thisiskurubaran/WriteLikeHuman/issues/new"
+            --exclude-path docs/_build
+            README.md README.hi.md README.ta.md
+            INSTALL.md INSTALL.hi.md INSTALL.ta.md
+            CONTRIBUTING.md SECURITY.md
+            "docs/*.html" "docs/*/*.html"
+          output: lychee-report.md
+          format: markdown
+          fail: false
+
+      - name: Add the report to the run summary
+        if: always()
+        run: |
+          {
+            echo "## Link check"
+            echo
+            cat lychee-report.md 2>/dev/null || echo "No report was written."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Fail if any link is broken
+        if: steps.lychee.outputs.exit_code != 0
+        run: |
+          echo "::error::Some links are broken. See the run summary for the list."
+          exit 1
