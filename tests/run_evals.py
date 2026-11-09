@@ -24,11 +24,18 @@ Usage, from the repo root:
   python tests/run_evals.py                   # every case
   python tests/run_evals.py --case check-paragraph --case us-to-uk
   python tests/run_evals.py --model claude-sonnet-5-5 --json results.json
+  python tests/run_evals.py --save v0.4.0     # keep a score summary for this release
+
+Saved summaries go to tests/evals/results/<label>.json, with the date,
+model, and pass, fail, and skip counts per case, so scores can be
+compared from release to release. They hold no answers, only results.
 """
 
 import argparse
+import datetime
 import json
 import os
+import re
 import sys
 
 try:
@@ -168,6 +175,7 @@ def main():
     parser.add_argument("--model", default="claude-opus-5-5", help="Model for the skill (default: claude-opus-5-5)")
     parser.add_argument("--judge-model", default="claude-opus-5-5", help="Model for grading (default: claude-opus-5-5)")
     parser.add_argument("--json", metavar="FILE", help="Also write full results to this JSON file")
+    parser.add_argument("--save", metavar="LABEL", help="Save a score summary as tests/evals/results/LABEL.json, for example v0.4.0")
     args = parser.parse_args()
 
     with open(EVALS, encoding="utf-8") as f:
@@ -220,6 +228,27 @@ def main():
         results.append({"id": case["id"], "passed": ok, "loaded": loaded, "answer": answer, "grade": grade})
 
     print("\n%d passed, %d failed, %d skipped" % (passed, failed, skipped))
+    if args.save:
+        if not re.fullmatch(r"[A-Za-z0-9._-]+", args.save):
+            sys.exit("--save label may only use letters, numbers, dots, dashes, and underscores")
+        out_dir = os.path.join(ROOT, "tests", "evals", "results")
+        os.makedirs(out_dir, exist_ok=True)
+        summary = {
+            "label": args.save,
+            "date": datetime.date.today().isoformat(),
+            "model": args.model,
+            "judge_model": args.judge_model,
+            "passed": passed,
+            "failed": failed,
+            "skipped": skipped,
+            "pass_rate": round(passed / (passed + failed), 3) if passed + failed else None,
+            "cases": {r["id"]: r["passed"] for r in results},
+        }
+        path = os.path.join(out_dir, args.save + ".json")
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(summary, f, indent=2, ensure_ascii=False)
+            f.write("\n")
+        print("Score summary saved to %s" % os.path.relpath(path, ROOT))
     if args.json:
         with open(args.json, "w", encoding="utf-8") as f:
             json.dump(results, f, indent=2, ensure_ascii=False)

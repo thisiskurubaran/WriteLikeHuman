@@ -28,3 +28,5 @@ python tests/run_evals.py --case us-to-uk      # one case
 ```
 
 It uses Claude Opus 5.5 by default (`--model` to change). A pass from the runner is a good sign, not proof. Still try a few cases in the Claude app before a release.
+
+To keep a score for a release, add `--save` with the version, for example `python tests/run_evals.py --save v0.4.0`. The summary lands in `tests/evals/results/` (see the README there) and can be committed alongside the release.

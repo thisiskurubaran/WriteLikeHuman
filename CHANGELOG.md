@@ -10,6 +10,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - The Claude Code plugin now installs only the skill folder (about 670 KB), not the website, tests, and translations.
 
+### Added
+
+- The eval runner can save a score summary per release (--save v0.4.0), so pass rates can be compared over time.
+
 ## [0.3.2] - 2026-11-08
 
 ### Added
