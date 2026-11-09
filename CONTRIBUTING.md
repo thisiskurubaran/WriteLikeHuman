@@ -50,7 +50,8 @@ write-like-human/
 └── examples/         before and after samples and test prompts
 
 tests/                script tests and skill evals (not part of the zip)
-docs/                 the project website (GitHub Pages)
+docs/                 the project website (GitHub Pages); docs/_build/ rebuilds the
+                      Hindi, Tamil, examples, and guide pages from the English page
 .claude-plugin/       the marketplace file so Claude Code users can install with /plugin
 ```
 

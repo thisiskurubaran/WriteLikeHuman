@@ -90,6 +90,9 @@ jobs:
                   bad = 1
           sys.exit(bad)
 
+      - name: Translated pages and examples are up to date
+        run: python3 docs/_build/sync_site.py --check
+
       - name: Changelog and plugin version agree
         shell: python
         run: |
