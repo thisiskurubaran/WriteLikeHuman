@@ -23,6 +23,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Learning mode: a short lesson on the three most noticeable habits in your own text, so you can write better yourself.
 - Six more kinds of writing: event announcements, rental agreements in plain words, product FAQs, school circulars, grievance letters to an employer, and insurance claims.
 - Create PowerPoint decks from notes: short slide text, fuller speaker notes, and no invented figures.
+- Fill a Word or PowerPoint template, such as a letterhead or a resume layout, keeping its look.
 
 ## [0.3.2] - 2026-11-08
 
