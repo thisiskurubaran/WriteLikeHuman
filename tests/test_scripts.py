@@ -864,5 +864,182 @@ class MailMergeTest(TempDirCase):
         self.assertIn("overwrite", proc.stdout + proc.stderr)
 
 
+@unittest.skipUnless(HAVE_DOCX, "python-docx is not installed")
+class DocSectionsTest(TempDirCase):
+    def make_docx(self):
+        d = docx.Document()
+        d.add_heading("Field notes", 0)
+        d.add_paragraph("Notes from the Lakeside Survey about colour use.")
+        d.add_heading("Chapter 1 Background", 1)
+        d.add_paragraph("The Lakeside Survey began in 2019. We study color in signs.")
+        d.add_paragraph("The Lakeside Survey team used e-mail and email both.")
+        d.add_heading("Chapter 2 Method", 1)
+        d.add_paragraph("We visited 40 shops.")
+        path = self.path("notes.docx")
+        d.save(path)
+        return path
+
+    def test_outline_docx_uses_headings_and_paragraph_ids(self):
+        out = json.loads(run("doc_sections.py", "outline", self.make_docx(), "--json").stdout)
+        heads = [s["heading"] for s in out["sections"]]
+        self.assertEqual(heads, ["Field notes", "Chapter 1 Background", "Chapter 2 Method"])
+        self.assertEqual(out["unit"], "paragraph ids")
+        seg_ids = [s["id"] for s in json.loads(run("docx_rewrite.py", "extract", self.make_docx()).stdout)["segments"]]
+        ids = [pid for s in out["sections"] for pid in s["paragraph_ids"]]
+        self.assertEqual(ids, seg_ids, "section paragraph ids match docx_rewrite ids")
+
+    def test_outline_markdown_and_plain_text(self):
+        md = self.path("a.md")
+        with open(md, "w", encoding="utf-8") as fh:
+            fh.write("# One\nsome words here\n\n```\n# not a heading\n```\n## Two\nmore words\n")
+        out = json.loads(run("doc_sections.py", "outline", md, "--json").stdout)
+        self.assertEqual([s["heading"] for s in out["sections"]], ["One", "Two"])
+        txt = self.path("b.txt")
+        with open(txt, "w", encoding="utf-8") as fh:
+            fh.write(("word " * 500 + "\n\n") * 4)
+        out = json.loads(run("doc_sections.py", "outline", txt, "--words", "900", "--json").stdout)
+        self.assertEqual(len(out["sections"]), 2)
+        self.assertEqual(out["sections"][0]["range"], "lines 1 to 3")
+
+    def test_terms_finds_names_and_spelling_variants(self):
+        out = json.loads(run("doc_sections.py", "terms", self.make_docx(), "--min", "2", "--json").stdout)
+        terms = {t["term"]: t["count"] for t in out["terms"]}
+        self.assertEqual(terms.get("Lakeside Survey"), 3)
+        pairs = [set(v["spellings"]) for v in out["variants"]]
+        self.assertIn({"colour", "color"}, pairs)
+        self.assertIn({"e-mail", "email"}, pairs)
+
+
+@unittest.skipUnless(HAVE_DOCX, "python-docx is not installed")
+class DocxLayoutTest(TempDirCase):
+    def make(self):
+        from docx.enum.text import WD_ALIGN_PARAGRAPH
+        from docx.shared import Pt
+        d = docx.Document()
+        d.add_heading("Notice", 1)
+        p = d.add_paragraph("A justified paragraph. ")
+        p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+        r = p.add_run("This italic part has many more than ten words so the italics should go away now.")
+        r.italic = True
+        r2 = p.add_run(" Short Title")
+        r2.italic = True
+        small = d.add_paragraph("Small print")
+        small.runs[0].font.size = Pt(9)
+        path = self.path("lay.docx")
+        d.save(path)
+        return path
+
+    def test_layout_changes_formatting_not_words(self):
+        from docx.enum.text import WD_ALIGN_PARAGRAPH
+        src = self.make()
+        run("docx_layout.py", src, "--dyslexia")
+        out = docx.Document(self.path("lay-readable.docx"))
+        self.assertEqual([p.text for p in docx.Document(src).paragraphs], [p.text for p in out.paragraphs])
+        body = out.paragraphs[1]
+        self.assertEqual(body.alignment, WD_ALIGN_PARAGRAPH.LEFT)
+        self.assertEqual(body.paragraph_format.line_spacing, 1.5)
+        self.assertEqual([r.font.name for r in body.runs], ["Arial"] * 3)
+        self.assertFalse(body.runs[1].italic, "long italics removed")
+        self.assertTrue(body.runs[2].italic, "short italics kept")
+        self.assertEqual(out.paragraphs[2].runs[0].font.size.pt, 12)
+        self.assertEqual(out.paragraphs[0].style.name, "Heading 1")
+
+    def test_refuses_to_overwrite(self):
+        src = self.make()
+        proc = run("docx_layout.py", src, "--dyslexia", "-o", src, expect=1)
+        self.assertIn("overwrite", proc.stdout + proc.stderr)
+
+
+class ChatExportFormatsTest(TempDirCase):
+    def test_telegram_json(self):
+        path = self.path("result.json")
+        write_json(path, {"name": "Family", "messages": [
+            {"id": 1, "type": "service", "actor": "Asha", "text": ""},
+            {"id": 2, "type": "message", "from": "Asha", "text": "Reaching by 7, call +91 98765 43210"},
+            {"id": 3, "type": "message", "from": "Ravi", "text": "ok"},
+            {"id": 4, "type": "message", "from": "Asha", "text": ["See ", {"type": "link", "text": "https://example.com"}, " first"]},
+        ]})
+        proc = run("chat_export_filter.py", path, "--sender", "asha")
+        self.assertIn("Telegram", proc.stderr)
+        self.assertEqual(proc.stdout.strip().split("\n\n"), ["Reaching by 7, call [phone]", "See [link] first"])
+
+    def test_signal_text(self):
+        path = self.path("signal.txt")
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write("[2026-03-12 09:15] Asha: Leaving now\n[2026-03-12 09:16] Ravi: ok\n"
+                     "[2026-03-12 09:17] Asha: [Attachment: image/jpeg]\n"
+                     "[2026-03-12 09:18] Asha: Mail asha@example.com\nsecond line\n")
+        proc = run("chat_export_filter.py", path, "--sender", "Asha")
+        self.assertIn("Signal", proc.stderr)
+        self.assertEqual(proc.stdout.strip().split("\n\n"), ["Leaving now", "Mail [email]\nsecond line"])
+        listed = run("chat_export_filter.py", path, "--list-senders").stdout
+        self.assertIn("Ravi", listed)
+
+    def test_whatsapp_still_detected(self):
+        path = self.path("wa.txt")
+        with open(path, "w", encoding="utf-8") as fh:
+            fh.write("12/03/24, 9:15 pm - Asha: Hello there\n")
+        proc = run("chat_export_filter.py", path, "--sender", "Asha")
+        self.assertIn("WhatsApp", proc.stderr)
+        self.assertEqual(proc.stdout.strip(), "Hello there")
+
+
+LATEX_SAMPLE = r"""\documentclass{article}
+\title{Preamble title stays}
+\begin{document}
+\section{Introduction}
+It is important to note that our method works well. % keep this comment
+We show that $E = mc^2$ holds, as in \cite{lee2021} and Table~\ref{tab:one}.
+\begin{equation}
+  a^2 + b^2 = c^2 \label{eq:p}
+\end{equation}
+The results are \emph{very promising} and cost 50\% less.
+\end{document}
+"""
+
+
+class LatexRewriteTest(TempDirCase):
+    def setUp(self):
+        super().setUp()
+        self.src = self.path("paper.tex")
+        with open(self.src, "w", encoding="utf-8", newline="") as fh:
+            fh.write(LATEX_SAMPLE)
+
+    def segments(self):
+        return json.loads(run("latex_rewrite.py", "extract", self.src).stdout)["segments"]
+
+    def test_extract_skips_maths_citations_and_preamble(self):
+        texts = [s["text"] for s in self.segments()]
+        joined = " | ".join(texts)
+        self.assertIn("It is important to note that our method works well.", texts)
+        self.assertIn("very promising", texts)
+        self.assertIn("and cost 50\\% less.", texts)
+        for hidden in ("Preamble title", "mc^2", "lee2021", "tab:one", "a^2", "eq:p", "keep this comment"):
+            self.assertNotIn(hidden, joined)
+
+    def test_apply_changes_only_prose(self):
+        ids = {s["text"]: s["id"] for s in self.segments()}
+        changes = write_json(self.path("c.json"), {ids["It is important to note that our method works well."]: "Our method works well."})
+        run("latex_rewrite.py", "apply", self.src, changes)
+        with open(self.path("paper-humanized.tex"), encoding="utf-8", newline="") as fh:
+            out = fh.read()
+        self.assertEqual(out, LATEX_SAMPLE.replace("It is important to note that our method works well.", "Our method works well."))
+
+    def test_unsafe_change_is_skipped(self):
+        ids = {s["text"]: s["id"] for s in self.segments()}
+        changes = write_json(self.path("c.json"), {ids["very promising"]: "very {promising", ids["and cost 50\\% less."]: "and cost 50\\% less overall."})
+        proc = run("latex_rewrite.py", "apply", self.src, changes)
+        self.assertIn("SKIPPED", proc.stdout)
+        with open(self.path("paper-humanized.tex"), encoding="utf-8") as fh:
+            out = fh.read()
+        self.assertIn(r"\emph{very promising}", out)
+        self.assertIn(r"and cost 50\% less overall.", out)
+
+    def test_refuses_to_overwrite(self):
+        changes = write_json(self.path("c.json"), {})
+        proc = run("latex_rewrite.py", "apply", self.src, changes, "-o", self.src, expect=1)
+        self.assertIn("overwrite", proc.stdout + proc.stderr)
+
+
 if __name__ == "__main__":
     unittest.main()

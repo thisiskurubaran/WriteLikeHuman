@@ -339,5 +339,70 @@ class HtmlGoldenTest(unittest.TestCase):
         self.assertEqual(result, expected)
 
 
+LATEX_DOC = r"""\documentclass{article}
+\usepackage{amsmath} % maths
+\begin{document}
+\section{Results}
+It is worth mentioning that sales rose in March, see \cite{rao2024}.
+
+\begin{align}
+  x &= y + 1 \\
+  z &= 2x
+\end{align}
+Overall, the \textbf{new layout} helped. Costs fell by 12\%.
+\begin{verbatim}
+keep   this   spacing
+\end{verbatim}
+\end{document}
+"""
+
+
+class LatexGoldenTest(unittest.TestCase):
+    def test_bytes_outside_changed_segments_identical(self):
+        tmp = tempfile.mkdtemp()
+        src = os.path.join(tmp, "r.tex")
+        with open(src, "w", encoding="utf-8", newline="") as f:
+            f.write(LATEX_DOC)
+        segs = json.loads(run("latex_rewrite.py", "extract", src))["segments"]
+        ids = {s["text"]: s["id"] for s in segs}
+        old1 = "It is worth mentioning that sales rose in March, see"
+        old2 = "Overall, the"
+        changes = os.path.join(tmp, "c.json")
+        with open(changes, "w", encoding="utf-8") as f:
+            json.dump({ids[old1]: "Sales rose in March, see", ids[old2]: "The"}, f)
+        out = os.path.join(tmp, "out.tex")
+        run("latex_rewrite.py", "apply", src, changes, "-o", out)
+        with open(out, encoding="utf-8", newline="") as f:
+            result = f.read()
+        expected = LATEX_DOC.replace(old1, "Sales rose in March, see").replace(old2 + " ", "The ")
+        self.assertEqual(result, expected)
+
+
+@unittest.skipUnless(HAVE_DOCX, "python-docx not installed")
+class LayoutGoldenTest(unittest.TestCase):
+    def test_only_formatting_changes(self):
+        from lxml import etree
+        tmp = tempfile.mkdtemp()
+        src = os.path.join(tmp, "doc.docx")
+        d = docx.Document()
+        d.sections[0].header.paragraphs[0].text = "Header stays"
+        d.add_heading("Plan", 1)
+        p = d.add_paragraph("First line of the plan. ")
+        p.add_run("Bold part.").bold = True
+        t = d.add_table(rows=1, cols=2)
+        t.cell(0, 0).text, t.cell(0, 1).text = "Item", "Rs 1,200"
+        d.add_paragraph("Last line.")
+        d.save(src)
+        out = os.path.join(tmp, "out.docx")
+        run("docx_layout.py", src, "--dyslexia", "-o", out)
+        parts = differing_parts(src, out)
+        self.assertTrue(parts <= {"word/document.xml", "word/styles.xml"}, parts)
+        a, b = docx.Document(src), docx.Document(out)
+        self.assertEqual([p.text for p in a.paragraphs], [p.text for p in b.paragraphs])
+        self.assertEqual([c.text for c in a.tables[0]._cells], [c.text for c in b.tables[0]._cells])
+        self.assertTrue(b.paragraphs[1].runs[1].bold, "bold kept")
+        self.assertEqual(etree.tostring(a.sections[0].header._element), etree.tostring(b.sections[0].header._element))
+
+
 if __name__ == "__main__":
     unittest.main()
