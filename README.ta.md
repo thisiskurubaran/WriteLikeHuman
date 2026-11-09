@@ -1,4 +1,4 @@
-<!-- Translated from README.md at v0.5.0 -->
+<!-- Translated from README.md at v0.6.0 -->
 <div align="center">
 
 # WriteLikeHuman
@@ -122,6 +122,7 @@ Owner anuppina WhatsApp-ku oru polite reply ezhudhi kudunga
 | ஒவ்வொரு மாற்றத்தையும் ஒவ்வொன்றாக ஏற்பது அல்லது நிராகரிப்பது | "Show me the changes side by side" |
 | ஒரு மாற்றம் ஏன் செய்யப்பட்டது என்று கேட்பது | "Why did you change this line?" |
 | இந்தப் பழக்கங்களை நீங்களே கண்டுபிடிக்கக் கற்றுக்கொள்வது | "Teach me why this sounds like AI" |
+| யாரோ அனுப்பிய message-ஐப் புரிந்துகொள்வது | "How does this message from my boss sound?" |
 
 ### புதிய files உருவாக்குங்கள்
 
@@ -155,13 +156,15 @@ File கேளுங்கள், file கிடைக்கும். முத
 | Web pages (.html) | கண்ணுக்குத் தெரியும் text மட்டும் மாறும். Tags, links, code அப்படியே இருக்கும். |
 | Posters, flyers | மீண்டும் type செய்ய text-இன் சுத்தமான version. Claude image-ஐ நேரடியாக edit செய்ய முடியாது. |
 | கையால் எழுதிய notes, whiteboard | Type செய்த text அல்லது Word file. தெளிவாகப் படிக்க முடியாத சொற்கள் ஊகிக்கப்படாமல் குறிக்கப்படும். |
+| நீளமான documents (thesis, manual, நீண்ட reports) | ஒவ்வொரு பகுதியாகச் சரிசெய்யப்படும், பெயர்களும் சொற்களும் முழு document-இலும் ஒரே மாதிரி இருக்கும், எதுவும் விடுபடாது. |
+| LaTeX (.tex) | Text-இன் வார்த்தைகள் மட்டும் மாறும், commands, maths, citations அப்படியே இருக்கும். |
 | நபர்களின் பட்டியல் கொண்ட spreadsheet | ஒவ்வொருவருக்கும் அவர் பெயருடன் ஒரு draft, file-இல் save. எதுவும் அனுப்பப்படாது, உங்களுக்கு ஏற்கனவே தெரிந்தவர்களுக்கு மட்டும். |
 | Gmail, Outlook drafts | Claude உங்கள் mail-உடன் இணைந்திருந்தால் அங்கேயே edit. எதுவும் அனுப்பப்படாது. |
 
 ஒவ்வொரு file-உம் `yourfile-humanized` என்ற பெயரில் புதிய copy-ஆக வரும், அதனால் original பத்திரமாக இருக்கும். "a file showing what changed" என்று கேட்டால், ஒவ்வொரு மாற்றமும் குறிக்கப்பட்ட ஒரு Word file-உம் கிடைக்கும்.
 
 <details>
-<summary><b>என்னென்ன வகை எழுத்துகள் (39)</b></summary>
+<summary><b>என்னென்ன வகை எழுத்துகள் (42)</b></summary>
 
 <br>
 
@@ -206,6 +209,9 @@ File கேளுங்கள், file கிடைக்கும். முத
 | Customer support பதில்கள் | சிறு வணிகங்களுக்கான பதில்கள், நீங்கள் ஒப்புக்கொள்ளாத எந்த வாக்குறுதியும் இல்லாமல் |
 | Out-of-office, away messages | Auto-replies, WhatsApp Business greetings, email signatures |
 | Alt text | Posts, websites, slides-இல் உள்ள படங்களுக்குச் சுருக்கமான விவரம் |
+| பேரம் பேசுதல் | சம்பளம், விலை, வாடகை பேச்சு, உங்கள் உண்மையான எண்களும் காரணங்களும் மட்டும் |
+| Recommendation letters | பரிந்துரைப்பவர் உண்மையில் பார்த்ததை வைத்து எழுதிய references |
+| Video scripts | YouTube, Reels, Shorts-க்கான scripts, பேசுவதற்காக எழுதியவை |
 
 </details>
 
@@ -230,6 +236,8 @@ File கேளுங்கள், file கிடைக்கும். முத
 | வெளிநாட்டு வாசகர்கள் | "Will this sound okay to my client in Germany?" என்றால் வெளிநாட்டில் எது தவறாகப் படலாம் என்று சொல்லும் |
 | இரண்டு நீளம் | "Give me a short and a long version" |
 | Speech நேரம் | "How long will this speech take?" என்றால் ஒவ்வொரு பகுதிக்கும் ஆகும் நேரம் |
+| Easy Read | "Make this Easy Read" என்றால் ஒவ்வொரு வரியிலும் ஒரே ஒரு விஷயம் உள்ள எளிய version |
+| Dyslexia-க்கு எளிதான layout | "Make this Word file dyslexia friendly" என்றால் font, spacing, alignment மாறும், வார்த்தைகள் மாறாது |
 | சிக்கலான பதில்கள் | "Reply to my landlord without sounding rude" என்றால் ஒரு பதில், தேவைப்பட்டால் கொஞ்சம் கடுமையான அல்லது மென்மையான tone பரிந்துரை |
 
 </details>
@@ -240,6 +248,8 @@ File கேளுங்கள், file கிடைக்கும். முத
 <br>
 
 நீங்களே எழுதிய சிலவற்றைக் கொடுங்கள், WriteLikeHuman ஒரு சிறிய voice profile உருவாக்கும்: உங்கள் வாக்கியங்கள் எவ்வளவு நீளம், உங்களுக்குப் பிடித்த சொற்கள், message-ஐ எப்படி முடிப்பீர்கள். அதை ஒரு note அல்லது file ஆக வைத்துக்கொண்டு அடுத்த முறை இணையுங்கள். ஒன்றுக்கு மேல் வைத்துக்கொள்ளலாம், உதாரணமாக "work me", "personal me". உங்கள் WhatsApp chat export-இலிருந்தும் உருவாக்கலாம்: உங்கள் messages மட்டுமே எடுத்துக்கொள்ளப்படும், phone numbers, emails, links முதலிலேயே மறைக்கப்படும்.
+
+WhatsApp, Telegram அல்லது Signal chat export-இலிருந்தும் இதை உருவாக்கலாம், உங்கள் சொந்த messages மட்டுமே எடுக்கப்படும். ஒவ்வொரு முறையும் attach செய்யாமல் இருக்க, இதை ஒரு Claude Project-இல் வைத்துக்கொள்ளுங்கள்.
 
 பழைய samples கையில் இல்லையா? மூன்று சிறிய messages போதும், ஒரு starter profile உருவாகும், மேலும் samples கொடுக்கக் கொடுக்க மேம்படும். நீங்கள் எழுதிய Word, PDF, text files-இலிருந்தும் கற்றுக்கொள்ளும். ஒரு team அல்லது சிறு வணிகத்துக்கு, பொதுவான house style வைத்துக்கொள்ளுங்கள்: product பெயர்கள், பயன்படுத்த வேண்டிய, தவிர்க்க வேண்டிய சொற்கள், message-ஐ எப்படி முடிப்பது. அதை இணைத்தால் ஒவ்வொரு message-உம் அதன்படியே இருக்கும்.
 
@@ -316,7 +326,7 @@ WriteLikeHuman நன்றாக எழுத உதவும். யாரு�
 
 ## Privacy
 
-உங்கள் text Claude-உடனான உங்கள் சொந்த chat-இல் மட்டுமே இருக்கும். இந்த skill உங்கள் எழுத்தை எங்கும் save செய்யாது, அனுப்பாது. அப்படி நடக்கக்கூடும் என்று எப்போதாவது தோன்றினால், [தனிப்பட்ட முறையில் எங்களிடம் சொல்லுங்கள்](SECURITY.md).
+உங்கள் text Claude-உடனான உங்கள் சொந்த chat-இல் மட்டுமே இருக்கும். இந்த skill உங்கள் எழுத்தை எங்கும் save செய்யாது, அனுப்பாது. அப்படி நடக்கக்கூடும் என்று எப்போதாவது தோன்றினால், [தனிப்பட்ட முறையில் எங்களிடம் சொல்லுங்கள்](SECURITY.md). முழு விவரம் [privacy page](https://thisiskurubaran.github.io/WriteLikeHuman/privacy.html)-இல் உள்ளது.
 
 <a name="contributing"></a>
 ## பங்களியுங்கள்

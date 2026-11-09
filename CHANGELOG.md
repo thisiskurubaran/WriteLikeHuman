@@ -26,6 +26,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - The router links every v0.6.0 guide.
 - The README lists every v0.6.0 feature and links the privacy page.
+- Hindi and Tamil README brought up to date with v0.6.0.
 
 ## [0.5.0] - 2026-11-09
 

@@ -1,4 +1,4 @@
-<!-- Translated from README.md at v0.5.0 -->
+<!-- Translated from README.md at v0.6.0 -->
 <div align="center">
 
 # WriteLikeHuman
@@ -122,6 +122,7 @@ Landlord ke is WhatsApp ka reply likh do, politely
 | हर बदलाव एक-एक करके मंज़ूर या नामंज़ूर करना | "Show me the changes side by side" |
 | पूछना कि कोई बदलाव क्यों किया | "Why did you change this line?" |
 | ख़ुद ये आदतें पहचानना सीखना | "Teach me why this sounds like AI" |
+| किसी और का भेजा message समझना | "How does this message from my boss sound?" |
 
 ### नई files बनाइए
 
@@ -155,13 +156,15 @@ File माँगिए और file मिलेगी, जिसके शब�
 | Web pages (.html) | दिखने वाला text बदलता है। Tags, links और code बिल्कुल वैसे ही रहते हैं। |
 | Posters और flyers | दोबारा type करने के लिए text का साफ़ version. Claude image को ख़ुद edit नहीं कर सकता। |
 | हाथ से लिखे notes और whiteboard | Type किया हुआ text या Word file, जो शब्द साफ़ न पढ़े जाएँ उन पर निशान, अंदाज़ा नहीं। |
+| लंबे documents (thesis, manual, लंबी reports) | एक-एक हिस्सा करके ठीक होते हैं, नाम और शब्द पूरे document में एक जैसे रहते हैं, और कुछ भी छूटता नहीं। |
+| LaTeX (.tex) | Text के शब्द बदलते हैं, commands, maths और citations बिल्कुल वैसे ही रहते हैं। |
 | लोगों की list वाली spreadsheet | हर इंसान के लिए उसके नाम के साथ एक draft, file में save. कुछ भी भेजा नहीं जाता, और यह सिर्फ़ उन लोगों के लिए है जिन्हें आप पहले से जानते हैं। |
 | Gmail और Outlook drafts | Claude आपके mail से जुड़ा हो तो वहीं edit. कुछ भी भेजा नहीं जाता। |
 
 हर file एक नई copy बनकर आती है, नाम होता है `yourfile-humanized`, ताकि असली file सुरक्षित रहे। "a file showing what changed" माँगेंगे तो एक Word file भी मिलेगी जिसमें हर बदलाव mark होगा।
 
 <details>
-<summary><b>किस-किस तरह की लिखाई (39)</b></summary>
+<summary><b>किस-किस तरह की लिखाई (42)</b></summary>
 
 <br>
 
@@ -206,6 +209,9 @@ File माँगिए और file मिलेगी, जिसके शब�
 | Customer support के reply | छोटे business के लिए reply, जिसमें आपकी मंज़ूरी के बिना कोई वादा नहीं |
 | Out-of-office और away messages | Auto-replies, WhatsApp Business greetings और email signatures |
 | Alt text | Posts, websites और slides की images के छोटे description |
+| मोल-भाव और बातचीत | Salary, दाम और किराए की बात, सिर्फ़ आपके असली नंबर और वजहों के साथ |
+| Recommendation letters | सिफ़ारिश करने वाले ने जो सच में देखा, उसी पर लिखे references |
+| Video scripts | YouTube, Reels और Shorts के scripts, बोलकर पढ़ने के लिए लिखे हुए |
 
 </details>
 
@@ -230,6 +236,8 @@ File माँगिए और file मिलेगी, जिसके शब�
 | दूसरे देश के लोग | "Will this sound okay to my client in Germany?" बताता है कि बाहर क्या अटपटा लग सकता है |
 | दो लंबाई | "Give me a short and a long version" |
 | Speech का समय | "How long will this speech take?" हर हिस्से का समय बताता है |
+| Easy Read | "Make this Easy Read" से एक आसान version, हर line में एक ही बात |
+| Dyslexia के लिए आसान layout | "Make this Word file dyslexia friendly" से font, spacing और alignment बदलते हैं, शब्द नहीं |
 | मुश्किल reply | "Reply to my landlord without sounding rude" से एक reply, और ज़रूरत हो तो थोड़ा सख़्त या नरम tone का सुझाव |
 
 </details>
@@ -240,6 +248,8 @@ File माँगिए और file मिलेगी, जिसके शब�
 <br>
 
 अपनी लिखी हुई कुछ चीज़ें दीजिए और WriteLikeHuman एक छोटा voice profile बना देता है: आपके वाक्य कितने लंबे होते हैं, कौन से शब्द आपको पसंद हैं, आप message कैसे ख़त्म करते हैं। इसे note या file की तरह रख लीजिए और अगली बार साथ लगा दीजिए। एक से ज़्यादा भी रख सकते हैं, जैसे "work me" और "personal me"। अपनी WhatsApp chat export से भी बना सकते हैं: सिर्फ़ आपके messages लिए जाते हैं, और phone number, email और links पहले ही छिपा दिए जाते हैं।
+
+आप इसे WhatsApp, Telegram या Signal के chat export से भी बना सकते हैं, जिसमें सिर्फ़ आपके अपने messages लिए जाते हैं। हर बार attach न करना पड़े, इसके लिए इसे किसी Claude Project में रख लीजिए।
 
 पुराने samples पास नहीं हैं? तीन छोटे messages से भी एक starter profile बन जाता है, जो आगे और samples देने पर बेहतर होता जाता है। यह आपकी लिखी Word, PDF या text files से भी सीख सकता है। Team या छोटे business के लिए एक shared house style रखिए: product के नाम, कौन से शब्द लिखने हैं और कौन से नहीं, message कैसे ख़त्म करना है। उसे साथ लगाइए और हर message उसी हिसाब से लिखा जाएगा।
 
@@ -316,7 +326,7 @@ Message की शुरुआत "Use WriteLikeHuman to..." से कीजि
 
 ## Privacy
 
-आपका text Claude के साथ आपकी अपनी chat में ही रहता है। यह skill आपकी लिखाई कहीं save या send नहीं करता। अगर कभी लगे कि ऐसा हो सकता है, तो [चुपचाप हमें बताइए](SECURITY.md)।
+आपका text Claude के साथ आपकी अपनी chat में ही रहता है। यह skill आपकी लिखाई कहीं save या send नहीं करता। अगर कभी लगे कि ऐसा हो सकता है, तो [चुपचाप हमें बताइए](SECURITY.md)। पूरी जानकारी [privacy page](https://thisiskurubaran.github.io/WriteLikeHuman/privacy.html) पर है।
 
 <a name="contributing"></a>
 ## Contribute कीजिए
