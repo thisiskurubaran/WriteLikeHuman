@@ -19,7 +19,7 @@ This is for people the user already knows: family, friends, colleagues, guests, 
 
 ## Steps
 
-1. Get the message right first. If the user's draft sounds stiff, rewrite it once using the right writing guide (for a festival wish, `writing/wishes-cards.md`), then show it with the placeholders in place: "Happy Diwali, {Name}! Wishing you and the family in {City} a bright year."
+1. Get the message right first. If the user's draft sounds stiff, rewrite it once using the right writing guide (for a festival wish, `writing/wishes-cards.md`), then show it with the placeholders in place: "Happy Diwali, {Name}! Wishing you and the family in {City} a bright year." If the message needs real curly braces, like a coupon code `{SAVE10}`, write them doubled in the template (`{{SAVE10}}`) so the script doesn't read them as a column.
 2. Check the columns:
    ```
    python scripts/mail_merge.py columns contacts.xlsx

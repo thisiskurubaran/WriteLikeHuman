@@ -28,6 +28,9 @@ column. If a row has no value for a placeholder, that row is still written
 with the placeholder left as it was, and the row is listed in the report,
 so nothing gets invented to fill the gap.
 
+To put real braces in a message, double them: {{SAVE10}} comes out as
+{SAVE10}, and is never treated as a placeholder.
+
 Only uses openpyxl, python-docx (for .docx output), and the standard library.
 """
 
@@ -37,7 +40,12 @@ import os
 import re
 import sys
 
-PLACEHOLDER = re.compile(r"\{([^{}]+)\}")
+# "{{" and "}}" are literal braces; "{Name}" is a placeholder.
+PLACEHOLDER = re.compile(r"\{\{|\}\}|\{([^{}]+)\}")
+
+
+def placeholders(template):
+    return [m.group(1) for m in PLACEHOLDER.finditer(template) if m.group(1) is not None]
 
 
 def read_rows(path):
@@ -74,6 +82,8 @@ def fill(template, row):
     missing = []
 
     def sub(match):
+        if match.group(1) is None:
+            return match.group(0)[0]      # "{{" becomes "{", "}}" becomes "}"
         key = match.group(1).strip()
         value = lookup.get(key.lower())
         if value:
@@ -100,7 +110,7 @@ def cmd_merge(args):
     headings, rows = read_rows(args.file)
     with open(args.template, encoding="utf-8") as fh:
         template = fh.read().strip("\n")
-    used = {m.strip().lower() for m in PLACEHOLDER.findall(template)}
+    used = {m.strip().lower() for m in placeholders(template)}
     unknown = sorted(u for u in used if u not in {h.lower() for h in headings})
     if unknown:
         sys.exit("These placeholders have no matching column: %s. Columns are: %s"

@@ -864,6 +864,14 @@ class MailMergeTest(TempDirCase):
         self.assertIn("Happy Pongal, Lakshmi! Love to everyone in Madurai.", text)
         self.assertIn("Happy Pongal, Karthik! Love to everyone in {City}.", text)
 
+    def test_doubled_braces_are_literal(self):
+        with open(self.template, "w", encoding="utf-8") as fh:
+            fh.write("Hi {Name}, use code {{SAVE10}} at checkout.")
+        run("mail_merge.py", "merge", self.sheet, self.template)
+        with open(self.path("guests-messages.txt"), encoding="utf-8") as fh:
+            text = fh.read()
+        self.assertIn("Hi Lakshmi, use code {SAVE10} at checkout.", text)
+
     def test_csv_output_keeps_columns(self):
         out = self.path("result.csv")
         run("mail_merge.py", "merge", self.sheet, self.template, "--out", out)
