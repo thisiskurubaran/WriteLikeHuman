@@ -15,6 +15,8 @@ The router sends you here when the user gives or asks for a specific kind of wri
 | A cold message: LinkedIn connection note, referral request, cold email to a recruiter or client | [outreach.md](outreach.md) |
 | Release notes, a changelog, or app store "What's new" text | [release-notes.md](release-notes.md) |
 | A complaint to a manager or HR about pay, leave, workload, or harassment | [grievance-letters.md](grievance-letters.md) |
+| A payment reminder, a late-payment follow-up, or an invoice cover note | [payment-reminders.md](payment-reminders.md) |
+| An out-of-office reply, a holiday or away message, a WhatsApp Business greeting, or an email signature | [auto-replies.md](auto-replies.md) |
 
 ### Official, school, and complaints
 
@@ -40,6 +42,7 @@ The router sends you here when the user gives or asks for a specific kind of wri
 | A product or listing description (Meesho, Etsy, Amazon, Flipkart, OLX, Instagram shop) | [listings.md](listings.md) |
 | A flat for rent, PG, or roommate wanted post | [rental-posts.md](rental-posts.md) |
 | An FAQ page or product questions for a small business | [product-faqs.md](product-faqs.md) |
+| A reply to a customer's message or complaint (WhatsApp Business, support email, Amazon, Flipkart, Meesho) | [support-replies.md](support-replies.md) |
 
 ### Personal, family, and social
 
@@ -56,3 +59,4 @@ The router sends you here when the user gives or asks for a specific kind of wri
 | A social media post | [social-post.md](social-post.md) + [../lists/platform-limits.md](../lists/platform-limits.md) |
 | A bio, dating profile, or About page | [bios.md](bios.md) |
 | An announcement: engagement, wedding, birth, or an event | [event-announcements.md](event-announcements.md) |
+| Alt text or a description for an image (Instagram, a website, slides, a document) | [alt-text.md](alt-text.md) |

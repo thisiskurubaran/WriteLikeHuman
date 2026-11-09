@@ -75,6 +75,7 @@ A request can match a file row and a writing row at the same time, such as a res
 | "Make it simpler", "for my mom", "for a 10 year old", "English is their second language" | [references/adjust/reading-level.md](references/adjust/reading-level.md) |
 | "Make it shorter", "200 words", "expand this", "turn these notes into a paragraph" | [references/adjust/length.md](references/adjust/length.md) |
 | "Is this easy to read?", "check accessibility" | [references/adjust/accessibility.md](references/adjust/accessibility.md) |
+| "Write alt text for this image", "describe this photo for my website" | [references/writing/alt-text.md](references/writing/alt-text.md) |
 | "Make it inclusive", "gender neutral" | [references/adjust/inclusive-language.md](references/adjust/inclusive-language.md) |
 | "Don't change these words", "keep our product name as is", a list of terms to leave alone, or a voice profile with "Never change these words" | [references/adjust/protected-words.md](references/adjust/protected-words.md) |
 | "Make it American English", "UK spelling", "for my Australian client", "change it to Indian style" | [references/adjust/english-variants.md](references/adjust/english-variants.md) |
@@ -87,6 +88,7 @@ A request can match a file row and a writing row at the same time, such as a res
 | Attaches a WhatsApp chat export, "build my profile from my WhatsApp messages" | [references/voice/chat-export.md](references/voice/chat-export.md) |
 | "Translate this into..." | [references/languages/translate-humanize.md](references/languages/translate-humanize.md) + the target language file |
 | Hinglish, Tanglish, Manglish, Benglish, Kanglish, Taglish, or other mixed-language writing | [references/languages/mixed-language.md](references/languages/mixed-language.md) |
+| "Write this in Hindi script", "type it in Tamil letters", "convert to English letters" | [references/languages/script-conversion.md](references/languages/script-conversion.md) |
 | Text that is not US or UK English | The matching file in `references/languages/` |
 
 Language files: `indian-english.md`, `hindi.md`, `tamil.md`, `telugu.md`, `kannada.md`, `malayalam.md`, `bengali.md`, `marathi.md`, `gujarati.md`, `punjabi.md`, `odia.md`, `urdu.md`, `assamese.md`, `spanish.md`, `french.md`, `german.md`, `portuguese.md`, `indonesian.md`, `arabic.md`, `japanese.md`, `nepali.md`, `sinhala.md`, `konkani.md`, `italian.md`, `turkish.md`, `korean.md`, `chinese.md`, `filipino.md`, `sindhi.md`, `maithili.md`, `vietnamese.md`, `thai.md`, `swahili.md`. Each lists the AI tells for that language. Never translate unless the user asks. If someone writes in Hindi, answer in Hindi.
