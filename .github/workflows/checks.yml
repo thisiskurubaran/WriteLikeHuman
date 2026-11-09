@@ -108,14 +108,13 @@ jobs:
                   errors.append("The %s section of CHANGELOG.md has no entries" % newest)
               if not re.search(r"^\[%s\]: " % re.escape(newest), log, re.M):
                   errors.append("CHANGELOG.md has no link line for [%s] at the bottom" % newest)
-              plugin = json.load(open(".claude-plugin/plugin.json", encoding="utf-8"))
-              if plugin.get("version") != newest:
-                  errors.append(".claude-plugin/plugin.json version %s does not match the newest CHANGELOG version %s"
-                                % (plugin.get("version"), newest))
           market = json.load(open(".claude-plugin/marketplace.json", encoding="utf-8"))
-          names = [p.get("name") for p in market.get("plugins", [])]
-          if "write-like-human" not in names:
+          entry = next((p for p in market.get("plugins", []) if p.get("name") == "write-like-human"), None)
+          if entry is None:
               errors.append("marketplace.json does not list the write-like-human plugin")
+          elif versions and entry.get("version") != versions[0]:
+              errors.append(".claude-plugin/marketplace.json version %s does not match the newest CHANGELOG version %s"
+                            % (entry.get("version"), versions[0]))
           for e in errors:
               print("::error::" + e)
           sys.exit(1 if errors else 0)

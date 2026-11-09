@@ -51,7 +51,7 @@ write-like-human/
 
 tests/                script tests and skill evals (not part of the zip)
 docs/                 the project website (GitHub Pages)
-.claude-plugin/       plugin files so Claude Code users can install with /plugin
+.claude-plugin/       the marketplace file so Claude Code users can install with /plugin
 ```
 
 `SKILL.md` stays short. It holds the routing tables, the core rules, and the change summary format. Everything else goes in `references/` so Claude reads only what a request needs.
@@ -157,7 +157,7 @@ Then test your change: zip the `write-like-human/` folder, upload it to Claude, 
 
 Maintainers publish a release from the GitHub Releases page. Publishing it starts a workflow that builds `WriteLikeHuman.zip` from the tagged commit and attaches it to the release, so nobody has to zip the folder by hand. If the zip is ever missing, run the **Release zip** workflow from the Actions tab and give it the tag.
 
-Before a release, bump `version` in `.claude-plugin/plugin.json` to match the new version in `CHANGELOG.md`. Claude Code users only get the update when that number changes.
+Before a release, bump `version` in `.claude-plugin/marketplace.json` to match the new version in `CHANGELOG.md`. Claude Code users only get the update when that number changes.
 
 ## Code of conduct
 

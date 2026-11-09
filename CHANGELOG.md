@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Changed
+
+- The Claude Code plugin now installs only the skill folder (about 670 KB), not the website, tests, and translations.
+
 ## [0.3.2] - 2026-11-08
 
 ### Added
