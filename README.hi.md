@@ -1,4 +1,4 @@
-<!-- Translated from README.md at v0.3.2 -->
+<!-- Translated from README.md at v0.5.0 -->
 <div align="center">
 
 # WriteLikeHuman
@@ -62,7 +62,7 @@ Hi team, the quarterly report deadline has moved to 15 March. Please send me you
 
 (यह example English में है, क्योंकि text English में था। आप हिंदी में लिखेंगे तो note भी हिंदी में मिलेगा।)
 
-और examples: [before-after.md](write-like-human/examples/before-after.md)
+और examples: [examples page](https://thisiskurubaran.github.io/WriteLikeHuman/examples.html) पर देखिए, या [before-after.md](write-like-human/examples/before-after.md) पढ़िए।
 
 <a name="install"></a>
 ## दो मिनट में install
@@ -112,7 +112,7 @@ Landlord ke is WhatsApp ka reply likh do, politely
 <a name="features"></a>
 ## Features
 
-### काम करने के चार तरीक़े
+### काम करने के तरीक़े
 
 | तरीक़ा | ऐसे बोलिए |
 |---|---|
@@ -120,6 +120,8 @@ Landlord ke is WhatsApp ka reply likh do, politely
 | कुछ नया लिखवाना, जो पहली बार में ही सही लगे | "Write a thank you note to my teacher" |
 | बिना बदले बताना कि क्या अटपटा लग रहा है | "Does this sound like AI?" |
 | हर बदलाव एक-एक करके मंज़ूर या नामंज़ूर करना | "Show me the changes side by side" |
+| पूछना कि कोई बदलाव क्यों किया | "Why did you change this line?" |
+| ख़ुद ये आदतें पहचानना सीखना | "Teach me why this sounds like AI" |
 
 ### नई files बनाइए
 
@@ -129,17 +131,21 @@ File माँगिए और file मिलेगी, जिसके शब�
 |---|---|
 | "Write my leave letter as a Word file" (या "मेरी छुट्टी की चिट्ठी Word file में बना दो") | सही letter format में एक `.docx`, खोलकर edit करने के लिए तैयार |
 | "Make this society notice into a PDF I can print" | print करने लायक एक `.pdf` |
+| "Make 5 slides for my team meeting from these notes" | एक `.pptx`, slides पर छोटा text और speaker notes में पूरी बात |
+| "Fill my company letterhead template with this letter" | आपका template, उसका look वैसा ही, बस text भर दिया जाता है |
+| "Send this Diwali greeting to everyone in my sheet using each name" | हर इंसान के लिए एक draft, सब एक file में। कुछ भी भेजा नहीं जाता। |
+| "Fill this visa form with my details" | PDF या Word form की भरी हुई copy। जो बात पता नहीं, वह खाली छोड़कर list कर दी जाती है |
 | "Put these expenses in a spreadsheet with a notes column" | एक `.xlsx`, जिसमें आपके numbers ठीक वैसे ही हैं जैसे आपने दिए, और totals formulas में |
 
 ### आपकी पहले से मौजूद files edit कीजिए
 
 | File | आपको क्या वापस मिलता है |
 |---|---|
-| Word (.docx) | वही fonts, styles, tables और lists. चाहें तो tracked changes भी। |
-| PDF | Edit होने वाली Word copy, और अगर कोई page scan की हुई image है तो उसकी सूचना। |
+| Word (.docx) | वही fonts, styles, tables और lists. चाहें तो tracked changes, या हर बदलाव के साथ margin में छोटा सा note कि क्यों बदला। |
+| PDF | Edit होने वाली Word copy. Scan किए हुए pages उनकी image से पढ़े जाते हैं, और नाम व नंबर आपसे पक्के करवाए जाते हैं। |
 | Google Docs और Claude docs | Claude आपके Google account से जुड़ा हो तो वहीं edit, नहीं तो paste करने के लिए साफ़ copy. |
-| Spreadsheets (.xlsx, .csv, Google Sheets) | सिर्फ़ text cells, notes और comments बदलते हैं। नंबर और formulas को हाथ नहीं लगाया जाता। |
-| Slides (.pptx, Google Slides) | Slide का text और speaker notes, layout वैसा ही। |
+| Spreadsheets (.xlsx, .csv, Google Sheets) | सिर्फ़ text cells, notes और comments बदलते हैं। नंबर और formulas को हाथ नहीं लगाया जाता। Claude आपके Google account से जुड़ा हो तो Google Sheets वहीं edit हो जाती है। |
+| Slides (.pptx, Google Slides) | Slide का text और speaker notes, layout वैसा ही। Google से जुड़ा हो तो Google Slides वहीं edit। |
 | Text और Markdown (.txt, .md) | Markdown, links और code blocks जैसे थे वैसे। |
 | Subtitles (.srt, .vtt) | Captions के शब्द बदलते हैं, timing नहीं, ताकि video के साथ sync रहें। |
 | OpenDocument और RTF (.odt, .rtf) | Word file की तरह edit, और बताया जाता है कि वापस किस format में मिलेगी। |
@@ -148,12 +154,14 @@ File माँगिए और file मिलेगी, जिसके शब�
 | Apple Pages और Keynote | Convert करके edit, या पहले export करने के आसान steps. |
 | Web pages (.html) | दिखने वाला text बदलता है। Tags, links और code बिल्कुल वैसे ही रहते हैं। |
 | Posters और flyers | दोबारा type करने के लिए text का साफ़ version. Claude image को ख़ुद edit नहीं कर सकता। |
+| हाथ से लिखे notes और whiteboard | Type किया हुआ text या Word file, जो शब्द साफ़ न पढ़े जाएँ उन पर निशान, अंदाज़ा नहीं। |
+| लोगों की list वाली spreadsheet | हर इंसान के लिए उसके नाम के साथ एक draft, file में save. कुछ भी भेजा नहीं जाता, और यह सिर्फ़ उन लोगों के लिए है जिन्हें आप पहले से जानते हैं। |
 | Gmail और Outlook drafts | Claude आपके mail से जुड़ा हो तो वहीं edit. कुछ भी भेजा नहीं जाता। |
 
 हर file एक नई copy बनकर आती है, नाम होता है `yourfile-humanized`, ताकि असली file सुरक्षित रहे। "a file showing what changed" माँगेंगे तो एक Word file भी मिलेगी जिसमें हर बदलाव mark होगा।
 
 <details>
-<summary><b>किस-किस तरह की लिखाई (29)</b></summary>
+<summary><b>किस-किस तरह की लिखाई (39)</b></summary>
 
 <br>
 
@@ -188,6 +196,16 @@ File माँगिए और file मिलेगी, जिसके शब�
 | School को messages | Teacher, class group और PTA को notes |
 | श्रद्धांजलि और शोक सूचना | सीधे, सच्चे शब्द, सिर्फ़ आपकी असली यादों से |
 | Release notes | Changelogs और app store का "What's new" text |
+| Announcements | सगाई, शादी, बच्चे के जन्म और events की सूचना |
+| किराए का agreement | Clauses सीधी भाषा में समझाए या लिखे, असली clause साथ में। यह कानूनी सलाह नहीं है। |
+| Product FAQs | छोटे business के FAQ pages, सिर्फ़ आपकी दी हुई बातों से |
+| School circulars | School से parents को notice, तारीख़ें और fees बिल्कुल वैसी ही |
+| Grievance letters | Employer या HR को शांत, तथ्यों वाली शिकायत |
+| Insurance claims | Claim letters और follow-ups, कभी बढ़ा-चढ़ाकर नहीं |
+| Payment reminders | शालीन follow-up और invoice notes, रकम और due date बिल्कुल वैसे ही |
+| Customer support के reply | छोटे business के लिए reply, जिसमें आपकी मंज़ूरी के बिना कोई वादा नहीं |
+| Out-of-office और away messages | Auto-replies, WhatsApp Business greetings और email signatures |
+| Alt text | Posts, websites और slides की images के छोटे description |
 
 </details>
 
@@ -204,7 +222,7 @@ File माँगिए और file मिलेगी, जिसके शब�
 | पढ़ने में आसान | "Is this easy to read?" लंबे वाक्य, मुश्किल शब्द और अस्पष्ट links बताता है |
 | सबको शामिल करने वाले शब्द | "Make it gender neutral" (सिर्फ़ जब आप कहें) |
 | जो शब्द नहीं बदलने | "Never change 'FlexiPlan Pro'" से brand नाम, ख़ास शब्द और nicknames वैसे ही रहते हैं |
-| कौन सी English | "Make it UK English" से US, UK, Australian और Indian spelling और dates के बीच बदलाव |
+| कौन सी English | "Make it UK English" से US, UK, Australian और Indian English के बीच बदलाव, और Singapore, Nigerian, Kenyan, Philippine व South African English जैसी आप लिखते हैं वैसी ही रहती है |
 | Paste के लिए तैयार | हर app में ठीक दिखने वाली line breaks और formatting |
 | पढ़ने की उम्र | "What reading age is this?" से मोटा-मोटा अंदाज़ा, सिर्फ़ जब आप पूछें |
 | भेजने से पहले | "Check this before I send it" बताता है: attachment छूट गया, दिन और तारीख़ मेल नहीं खाते, किसी सवाल का जवाब नहीं दिया, या [name] जैसे placeholder रह गए |
@@ -212,6 +230,7 @@ File माँगिए और file मिलेगी, जिसके शब�
 | दूसरे देश के लोग | "Will this sound okay to my client in Germany?" बताता है कि बाहर क्या अटपटा लग सकता है |
 | दो लंबाई | "Give me a short and a long version" |
 | Speech का समय | "How long will this speech take?" हर हिस्से का समय बताता है |
+| मुश्किल reply | "Reply to my landlord without sounding rude" से एक reply, और ज़रूरत हो तो थोड़ा सख़्त या नरम tone का सुझाव |
 
 </details>
 
@@ -221,6 +240,8 @@ File माँगिए और file मिलेगी, जिसके शब�
 <br>
 
 अपनी लिखी हुई कुछ चीज़ें दीजिए और WriteLikeHuman एक छोटा voice profile बना देता है: आपके वाक्य कितने लंबे होते हैं, कौन से शब्द आपको पसंद हैं, आप message कैसे ख़त्म करते हैं। इसे note या file की तरह रख लीजिए और अगली बार साथ लगा दीजिए। एक से ज़्यादा भी रख सकते हैं, जैसे "work me" और "personal me"। अपनी WhatsApp chat export से भी बना सकते हैं: सिर्फ़ आपके messages लिए जाते हैं, और phone number, email और links पहले ही छिपा दिए जाते हैं।
+
+पुराने samples पास नहीं हैं? तीन छोटे messages से भी एक starter profile बन जाता है, जो आगे और samples देने पर बेहतर होता जाता है। यह आपकी लिखी Word, PDF या text files से भी सीख सकता है। Team या छोटे business के लिए एक shared house style रखिए: product के नाम, कौन से शब्द लिखने हैं और कौन से नहीं, message कैसे ख़त्म करना है। उसे साथ लगाइए और हर message उसी हिसाब से लिखा जाएगा।
 
 </details>
 
@@ -233,9 +254,10 @@ File माँगिए और file मिलेगी, जिसके शब�
 |---|---|
 | Indian English | लाख, करोड़, Indian date format और आम Indian बोलचाल बनी रहती है। ज़बरदस्ती American style नहीं। |
 | Hinglish, Tanglish, Manglish, Benglish, Kanglish, Taglish और दूसरे mix | आपका mix और आपकी script वैसी ही। आपको "सुधारकर" pure English में नहीं बदलता। |
-| हिंदी, तमिल, तेलुगु, कन्नड़, मलयालम, बांग्ला, मराठी, गुजराती, पंजाबी, ओड़िया, उर्दू, असमिया, नेपाली, सिंहली, कोंकणी | किताबी, अकड़ी हुई या machine से translate जैसी भाषा ठीक करता है |
-| Spanish, French, German, Portuguese, Italian, Turkish, Indonesian, Arabic, Japanese, Korean, Chinese, Filipino | यही काम, हर भाषा की अपनी आम ग़लतियों के साथ |
+| हिंदी, तमिल, तेलुगु, कन्नड़, मलयालम, बांग्ला, मराठी, गुजराती, पंजाबी, ओड़िया, उर्दू, असमिया, नेपाली, सिंहली, कोंकणी, सिंधी, मैथिली | किताबी, अकड़ी हुई या machine से translate जैसी भाषा ठीक करता है |
+| Spanish, French, German, Portuguese, Italian, Turkish, Indonesian, Arabic, Japanese, Korean, Chinese, Filipino, Vietnamese, Thai, Swahili | यही काम, हर भाषा की अपनी आम ग़लतियों के साथ |
 | Translation | "Translate this into Hindi" से ऐसा version मिलता है जो सच में हिंदी जैसा लगे |
+| Script बदलना | "Write this in Hindi script" से शब्द वही रहते हैं, सिर्फ़ लिपि बदलती है, हिंदी, तमिल, तेलुगु और दूसरी भारतीय लिपियों के लिए |
 
 जब तक आप न कहें, यह translate नहीं करता। तमिल में लिखेंगे तो जवाब तमिल में आएगा।
 

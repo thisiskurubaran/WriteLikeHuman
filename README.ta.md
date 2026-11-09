@@ -1,4 +1,4 @@
-<!-- Translated from README.md at v0.3.2 -->
+<!-- Translated from README.md at v0.5.0 -->
 <div align="center">
 
 # WriteLikeHuman
@@ -62,7 +62,7 @@ Hi team, the quarterly report deadline has moved to 15 March. Please send me you
 
 (Text English-இல் இருந்ததால் இந்த example English-இல் இருக்கிறது. நீங்கள் தமிழில் எழுதினால் குறிப்பும் தமிழில் வரும்.)
 
-மேலும் examples: [before-after.md](write-like-human/examples/before-after.md)
+மேலும் examples: [examples page](https://thisiskurubaran.github.io/WriteLikeHuman/examples.html)-இல் பாருங்கள், அல்லது [before-after.md](write-like-human/examples/before-after.md) படியுங்கள்.
 
 <a name="install"></a>
 ## இரண்டு நிமிடத்தில் install
@@ -112,7 +112,7 @@ Owner anuppina WhatsApp-ku oru polite reply ezhudhi kudunga
 <a name="features"></a>
 ## Features
 
-### வேலை செய்ய நான்கு வழிகள்
+### வேலை செய்யும் வழிகள்
 
 | வழி | இப்படிச் சொல்லுங்கள் |
 |---|---|
@@ -120,6 +120,8 @@ Owner anuppina WhatsApp-ku oru polite reply ezhudhi kudunga
 | முதல் முறையிலேயே சரியாக இருக்கும் புதிய ஒன்றை எழுதுவது | "Write a thank you note to my teacher" |
 | எதையும் மாற்றாமல், எது இயல்பாக இல்லை என்று சொல்வது | "Does this sound like AI?" |
 | ஒவ்வொரு மாற்றத்தையும் ஒவ்வொன்றாக ஏற்பது அல்லது நிராகரிப்பது | "Show me the changes side by side" |
+| ஒரு மாற்றம் ஏன் செய்யப்பட்டது என்று கேட்பது | "Why did you change this line?" |
+| இந்தப் பழக்கங்களை நீங்களே கண்டுபிடிக்கக் கற்றுக்கொள்வது | "Teach me why this sounds like AI" |
 
 ### புதிய files உருவாக்குங்கள்
 
@@ -129,17 +131,21 @@ File கேளுங்கள், file கிடைக்கும். முத
 |---|---|
 | "Write my leave letter as a Word file" (அல்லது "என் லீவ் லெட்டரை Word file-ஆ எழுதிக் குடுங்க") | சரியான letter format-இல் ஒரு `.docx`, திறந்து edit செய்யத் தயார் |
 | "Make this society notice into a PDF I can print" | print செய்யத் தயாரான ஒரு `.pdf` |
+| "Make 5 slides for my team meeting from these notes" | ஒரு `.pptx`, slides-இல் சுருக்கமான text, speaker notes-இல் முழு விவரம் |
+| "Fill my company letterhead template with this letter" | உங்கள் template, அதன் தோற்றம் அப்படியே, text மட்டும் நிரப்பப்படும் |
+| "Send this Diwali greeting to everyone in my sheet using each name" | ஒவ்வொருவருக்கும் ஒரு draft, எல்லாம் ஒரு file-இல். எதுவும் அனுப்பப்படாது. |
+| "Fill this visa form with my details" | PDF அல்லது Word form-இன் நிரப்பிய copy. தெரியாதவை காலியாக விடப்பட்டு பட்டியலிடப்படும் |
 | "Put these expenses in a spreadsheet with a notes column" | ஒரு `.xlsx`, நீங்கள் கொடுத்த numbers அப்படியே, totals formulas-ஆக |
 
 ### உங்களிடம் உள்ள files-ஐ edit செய்யுங்கள்
 
 | File | உங்களுக்குத் திரும்பக் கிடைப்பது |
 |---|---|
-| Word (.docx) | அதே fonts, styles, tables, lists. வேண்டுமென்றால் tracked changes-உம். |
-| PDF | Edit செய்யக்கூடிய Word copy. ஏதாவது page scan செய்த image என்றால் அதையும் சொல்லும். |
+| Word (.docx) | அதே fonts, styles, tables, lists. வேண்டுமென்றால் tracked changes, அல்லது ஒவ்வொரு மாற்றத்துக்கும் ஏன் என்று margin-இல் ஒரு சிறிய note. |
+| PDF | Edit செய்யக்கூடிய Word copy. Scan செய்த pages அவற்றின் image-இலிருந்து படிக்கப்படும், பெயர்களும் எண்களும் உங்களிடம் உறுதி செய்யப்படும். |
 | Google Docs, Claude docs | Claude உங்கள் Google account-உடன் இணைந்திருந்தால் அங்கேயே edit, இல்லையென்றால் paste செய்ய ஒரு சுத்தமான copy. |
-| Spreadsheets (.xlsx, .csv, Google Sheets) | Text cells, notes, comments மட்டுமே மாறும். எண்களையும் formulas-ஐயும் தொடாது. |
-| Slides (.pptx, Google Slides) | Slide text-உம் speaker notes-உம், layout அப்படியே. |
+| Spreadsheets (.xlsx, .csv, Google Sheets) | Text cells, notes, comments மட்டுமே மாறும். எண்களையும் formulas-ஐயும் தொடாது. Claude உங்கள் Google account-உடன் இணைந்திருந்தால் Google Sheets அங்கேயே edit ஆகும். |
+| Slides (.pptx, Google Slides) | Slide text-உம் speaker notes-உம், layout அப்படியே. Google இணைப்பு இருந்தால் Google Slides அங்கேயே edit ஆகும். |
 | Text, Markdown (.txt, .md) | Markdown, links, code blocks எல்லாம் இருந்தபடியே. |
 | Subtitles (.srt, .vtt) | Captions-இன் வார்த்தைகள் மாறும், timing மாறாது, அதனால் video-வுடன் sync-இல் இருக்கும். |
 | OpenDocument, RTF (.odt, .rtf) | Word file ஆக edit செய்யப்படும், எந்த format-இல் திரும்ப வரும் என்றும் சொல்லும். |
@@ -148,12 +154,14 @@ File கேளுங்கள், file கிடைக்கும். முத
 | Apple Pages, Keynote | Convert செய்து edit செய்யப்படும், அல்லது முதலில் export செய்வதற்கான எளிய steps. |
 | Web pages (.html) | கண்ணுக்குத் தெரியும் text மட்டும் மாறும். Tags, links, code அப்படியே இருக்கும். |
 | Posters, flyers | மீண்டும் type செய்ய text-இன் சுத்தமான version. Claude image-ஐ நேரடியாக edit செய்ய முடியாது. |
+| கையால் எழுதிய notes, whiteboard | Type செய்த text அல்லது Word file. தெளிவாகப் படிக்க முடியாத சொற்கள் ஊகிக்கப்படாமல் குறிக்கப்படும். |
+| நபர்களின் பட்டியல் கொண்ட spreadsheet | ஒவ்வொருவருக்கும் அவர் பெயருடன் ஒரு draft, file-இல் save. எதுவும் அனுப்பப்படாது, உங்களுக்கு ஏற்கனவே தெரிந்தவர்களுக்கு மட்டும். |
 | Gmail, Outlook drafts | Claude உங்கள் mail-உடன் இணைந்திருந்தால் அங்கேயே edit. எதுவும் அனுப்பப்படாது. |
 
 ஒவ்வொரு file-உம் `yourfile-humanized` என்ற பெயரில் புதிய copy-ஆக வரும், அதனால் original பத்திரமாக இருக்கும். "a file showing what changed" என்று கேட்டால், ஒவ்வொரு மாற்றமும் குறிக்கப்பட்ட ஒரு Word file-உம் கிடைக்கும்.
 
 <details>
-<summary><b>என்னென்ன வகை எழுத்துகள் (29)</b></summary>
+<summary><b>என்னென்ன வகை எழுத்துகள் (39)</b></summary>
 
 <br>
 
@@ -188,6 +196,16 @@ File கேளுங்கள், file கிடைக்கும். முத
 | School-க்கு messages | Teacher, class group, PTA-க்கு notes |
 | இரங்கல் உரை, மரண அறிவிப்பு | எளிய, உண்மையான வார்த்தைகள், உங்கள் சொந்த நினைவுகளிலிருந்து மட்டும் |
 | Release notes | Changelogs, app store-இன் "What's new" text |
+| அறிவிப்புகள் | நிச்சயதார்த்தம், கல்யாணம், குழந்தை பிறப்பு, நிகழ்ச்சிகள் |
+| வாடகை ஒப்பந்தம் | Clauses எளிய வார்த்தைகளில் விளக்கம் அல்லது எழுத்து, அசல் clause அருகிலேயே. இது சட்ட ஆலோசனை அல்ல. |
+| Product FAQs | சிறு வணிகங்களுக்கான FAQ pages, நீங்கள் கொடுத்த தகவல்கள் மட்டும் |
+| School circulars | School-இலிருந்து பெற்றோருக்கான அறிவிப்புகள், தேதிகளும் fees-உம் அப்படியே |
+| Grievance letters | Employer அல்லது HR-க்கு அமைதியான, உண்மைகளுடன் கூடிய புகார் |
+| Insurance claims | Claim letters, follow-ups, ஒருபோதும் மிகைப்படுத்தாமல் |
+| Payment reminders | மரியாதையான follow-up, invoice notes, தொகையும் due date-உம் அப்படியே |
+| Customer support பதில்கள் | சிறு வணிகங்களுக்கான பதில்கள், நீங்கள் ஒப்புக்கொள்ளாத எந்த வாக்குறுதியும் இல்லாமல் |
+| Out-of-office, away messages | Auto-replies, WhatsApp Business greetings, email signatures |
+| Alt text | Posts, websites, slides-இல் உள்ள படங்களுக்குச் சுருக்கமான விவரம் |
 
 </details>
 
@@ -204,7 +222,7 @@ File கேளுங்கள், file கிடைக்கும். முத
 | படிக்க எளிதா | "Is this easy to read?" நீண்ட வாக்கியங்கள், கடினமான சொற்கள், தெளிவில்லாத links-ஐச் சுட்டிக்காட்டும் |
 | எல்லோரையும் உள்ளடக்கிய சொற்கள் | "Make it gender neutral" (நீங்கள் கேட்டால் மட்டும்) |
 | மாற்றக்கூடாத சொற்கள் | "Never change 'FlexiPlan Pro'" என்றால் brand பெயர்கள், சிறப்புச் சொற்கள், செல்லப் பெயர்கள் அப்படியே இருக்கும் |
-| எந்த English | "Make it UK English" என்றால் US, UK, Australian, Indian spelling, dates இடையே மாற்றும் |
+| எந்த English | "Make it UK English" என்றால் US, UK, Australian, Indian English இடையே மாற்றும். Singapore, Nigerian, Kenyan, Philippine, South African English நீங்கள் எழுதியபடியே இருக்கும் |
 | Paste செய்யத் தயார் | ஒவ்வொரு app-இலும் சரியாகத் தெரியும் line breaks, formatting |
 | படிக்கும் வயது | "What reading age is this?" என்றால் ஒரு தோராயமான அளவு, நீங்கள் கேட்டால் மட்டும் |
 | அனுப்பும் முன் | "Check this before I send it" என்றால்: attachment விடுபட்டது, கிழமையும் தேதியும் பொருந்தாதது, பதில் சொல்லாத கேள்வி, [name] போன்ற placeholders மீதம் இருப்பது |
@@ -212,6 +230,7 @@ File கேளுங்கள், file கிடைக்கும். முத
 | வெளிநாட்டு வாசகர்கள் | "Will this sound okay to my client in Germany?" என்றால் வெளிநாட்டில் எது தவறாகப் படலாம் என்று சொல்லும் |
 | இரண்டு நீளம் | "Give me a short and a long version" |
 | Speech நேரம் | "How long will this speech take?" என்றால் ஒவ்வொரு பகுதிக்கும் ஆகும் நேரம் |
+| சிக்கலான பதில்கள் | "Reply to my landlord without sounding rude" என்றால் ஒரு பதில், தேவைப்பட்டால் கொஞ்சம் கடுமையான அல்லது மென்மையான tone பரிந்துரை |
 
 </details>
 
@@ -221,6 +240,8 @@ File கேளுங்கள், file கிடைக்கும். முத
 <br>
 
 நீங்களே எழுதிய சிலவற்றைக் கொடுங்கள், WriteLikeHuman ஒரு சிறிய voice profile உருவாக்கும்: உங்கள் வாக்கியங்கள் எவ்வளவு நீளம், உங்களுக்குப் பிடித்த சொற்கள், message-ஐ எப்படி முடிப்பீர்கள். அதை ஒரு note அல்லது file ஆக வைத்துக்கொண்டு அடுத்த முறை இணையுங்கள். ஒன்றுக்கு மேல் வைத்துக்கொள்ளலாம், உதாரணமாக "work me", "personal me". உங்கள் WhatsApp chat export-இலிருந்தும் உருவாக்கலாம்: உங்கள் messages மட்டுமே எடுத்துக்கொள்ளப்படும், phone numbers, emails, links முதலிலேயே மறைக்கப்படும்.
+
+பழைய samples கையில் இல்லையா? மூன்று சிறிய messages போதும், ஒரு starter profile உருவாகும், மேலும் samples கொடுக்கக் கொடுக்க மேம்படும். நீங்கள் எழுதிய Word, PDF, text files-இலிருந்தும் கற்றுக்கொள்ளும். ஒரு team அல்லது சிறு வணிகத்துக்கு, பொதுவான house style வைத்துக்கொள்ளுங்கள்: product பெயர்கள், பயன்படுத்த வேண்டிய, தவிர்க்க வேண்டிய சொற்கள், message-ஐ எப்படி முடிப்பது. அதை இணைத்தால் ஒவ்வொரு message-உம் அதன்படியே இருக்கும்.
 
 </details>
 
@@ -233,9 +254,10 @@ File கேளுங்கள், file கிடைக்கும். முத
 |---|---|
 | Indian English | லட்சம், கோடி, Indian date format, இயல்பான Indian பேச்சு வழக்கு அப்படியே. வலுக்கட்டாயமான American style இல்லை. |
 | Hinglish, Tanglish, Manglish, Benglish, Kanglish, Taglish, மற்ற கலவைகள் | உங்கள் கலவையும் உங்கள் எழுத்துமுறையும் அப்படியே. உங்களை "திருத்தி" pure English ஆக்காது. |
-| இந்தி, தமிழ், தெலுங்கு, கன்னடம், மலையாளம், வங்காளம், மராத்தி, குஜராத்தி, பஞ்சாபி, ஒடியா, உருது, அஸ்ஸாமி, நேபாளி, சிங்களம், கொங்கணி | புத்தகத்தனமான, இறுக்கமான, அல்லது machine மொழிபெயர்ப்பு போன்ற வார்த்தைகளைச் சரிசெய்யும் |
-| Spanish, French, German, Portuguese, Italian, Turkish, Indonesian, Arabic, Japanese, Korean, Chinese, Filipino | அதே வேலை, ஒவ்வொரு மொழியின் பொதுவான தவறுகளுடன் |
+| இந்தி, தமிழ், தெலுங்கு, கன்னடம், மலையாளம், வங்காளம், மராத்தி, குஜராத்தி, பஞ்சாபி, ஒடியா, உருது, அஸ்ஸாமி, நேபாளி, சிங்களம், கொங்கணி, சிந்தி, மைதிலி | புத்தகத்தனமான, இறுக்கமான, அல்லது machine மொழிபெயர்ப்பு போன்ற வார்த்தைகளைச் சரிசெய்யும் |
+| Spanish, French, German, Portuguese, Italian, Turkish, Indonesian, Arabic, Japanese, Korean, Chinese, Filipino, Vietnamese, Thai, Swahili | அதே வேலை, ஒவ்வொரு மொழியின் பொதுவான தவறுகளுடன் |
 | மொழிபெயர்ப்பு | "Translate this into Tamil" என்றால் உண்மையான தமிழ் போலத் தோன்றும் version கிடைக்கும் |
+| எழுத்துமுறை மாற்றம் | "Write this in Tamil script" என்றால் சொற்கள் அதே, எழுத்துமுறை மட்டும் மாறும். தமிழ், இந்தி, தெலுங்கு மற்றும் பிற இந்திய எழுத்துமுறைகளுக்கு |
 
 நீங்கள் கேட்காமல் மொழிபெயர்க்காது. தமிழில் எழுதினால் தமிழில் பதில் வரும்.
 

@@ -13,6 +13,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - The router links the new writing types, alt text, and script conversion.
 - A tighter skill description that leads with the most common requests and leaves room for future features.
 - The README lists every v0.5.0 feature.
+- Hindi and Tamil README brought up to date with v0.5.0.
 
 ### Added
 
