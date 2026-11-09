@@ -106,6 +106,7 @@ Show me each change so I can approve it
 | Approve or reject each change, one by one | "Show me the changes side by side" |
 | Ask why something was changed | "Why did you change this line?" |
 | Learn to spot the habits yourself | "Teach me why this sounds like AI" |
+| Understand a message someone sent you | "How does this message from my boss sound?" |
 
 ### Create new files
 
@@ -139,13 +140,15 @@ Ask for a file and you get one, with words that read naturally from the first dr
 | Web pages (.html) | Visible text reworded. Tags, links, and code stay exactly as they were. |
 | Posters and flyers | A cleaner version of the text to retype. Claude can't edit the image itself. |
 | Handwritten notes and whiteboards | Typed text or a Word file, with unclear words marked instead of guessed. |
+| Long documents (theses, manuals, long reports) | Worked through section by section, with names and terms kept consistent and nothing dropped. |
+| LaTeX (.tex) | Prose reworded, while commands, maths, and citations stay exactly as they were. |
 | A spreadsheet of people | One personalised draft per person, using their name, saved to a file. Nothing is sent, and it's only for people you already know. |
 | Gmail and Outlook drafts | Edited in place when Claude is connected to your mail. Nothing is ever sent. |
 
 Every file comes back as a new copy named `yourfile-humanized`, so the original stays safe. Ask for "a file showing what changed" and you also get a Word file with every change marked.
 
 <details>
-<summary><b>Kinds of writing it knows (39)</b></summary>
+<summary><b>Kinds of writing it knows (42)</b></summary>
 
 <br>
 
@@ -190,6 +193,9 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 | Customer support replies | Replies for small businesses, with nothing promised that you didn't approve |
 | Out-of-office and away messages | Auto-replies, WhatsApp Business greetings, and email signatures |
 | Alt text | Short image descriptions for posts, websites, and slides |
+| Negotiation | Salary, price, and rent talks, using only your real numbers and reasons |
+| Recommendation letters | References written from what the recommender actually saw |
+| Video scripts | YouTube, Reels, and Shorts scripts written to be spoken |
 
 </details>
 
@@ -214,6 +220,8 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 | Other countries | "Will this sound okay to my client in Germany?" notes what might read badly abroad |
 | Two lengths | "Give me a short and a long version" |
 | Speech timing | "How long will this speech take?" shows the time for each part |
+| Easy Read | "Make this Easy Read" gives a simple accessible version with one idea per line |
+| Dyslexia-friendly layout | "Make this Word file dyslexia friendly" changes the font, spacing, and alignment, not the words |
 | Tricky replies | "Reply to my landlord without sounding rude" gives one reply and offers a firmer or softer tone |
 
 </details>
@@ -225,7 +233,7 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 
 Share a few things you wrote yourself and WriteLikeHuman builds a short voice profile: how long your sentences run, the words you like, how you sign off. Keep it as a note or file and attach it next time. You can have more than one, like "work me" and "personal me". You can also build one from your own WhatsApp chat export: only your messages are used, and phone numbers, emails, and links are hidden first.
 
-No samples handy? Three short messages are enough for a starter profile that grows as you add more. It can also learn from Word, PDF, or text files you wrote. For a team or a small business, keep a shared house style instead: product names, words to use and avoid, how you sign off. Attach it and every message follows it.
+You can build it from WhatsApp, Telegram, or Signal chat exports too, using only your own messages. To stop attaching it every time, keep it in a Claude Project. No samples handy? Three short messages are enough for a starter profile that grows as you add more. It can also learn from Word, PDF, or text files you wrote. For a team or a small business, keep a shared house style instead: product names, words to use and avoid, how you sign off. Attach it and every message follows it.
 
 </details>
 
@@ -299,7 +307,7 @@ Start your message with "Use WriteLikeHuman to...". If that doesn't help, check 
 
 ## Privacy
 
-Your text stays in your own chat with Claude. The skill doesn't save or send your writing anywhere. If you ever spot a case where it might, please [report it privately](SECURITY.md).
+Your text stays in your own chat with Claude. The skill doesn't save or send your writing anywhere. If you ever spot a case where it might, please [report it privately](SECURITY.md). The full details are on the [privacy page](https://thisiskurubaran.github.io/WriteLikeHuman/privacy.html).
 
 ## Contributing
 
