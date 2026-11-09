@@ -30,6 +30,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Photos of handwritten notes, whiteboards, and letters turned into typed text, with unclear words marked instead of guessed.
 - A router check that every guide can be reached and every link and example points at a real guide.
 - Eval cases and test prompts for every new v0.4.0 guide (124 cases in all).
+- An examples page on the website: every before and after sample, searchable and filterable by kind of writing.
 
 ## [0.3.2] - 2026-11-08
 

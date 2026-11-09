@@ -1,4 +1,5 @@
-// Loads the landing page at phone, tablet, and desktop sizes in Chromium
+// Loads every page of the website (the landing page, the examples page,
+// and the Hindi and Tamil landing pages) at phone, tablet, and desktop sizes in Chromium
 // and WebKit (the engine behind Safari) and fails if the page is wider
 // than the screen, if a phone lays it out at the wrong width (the page
 // gets zoomed out), or if the page throws a script error.
@@ -15,7 +16,10 @@ const require = createRequire(import.meta.url);
 const { chromium, webkit } = require("playwright");
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const page = pathToFileURL(path.join(root, "docs", "index.html")).href;
+const pages = ["index.html", "examples.html", "hi/index.html", "ta/index.html"].map((p) => ({
+  name: p,
+  url: pathToFileURL(path.join(root, "docs", ...p.split("/"))).href,
+}));
 
 const sizes = [
   { name: "phone 320", width: 320, height: 640, mobile: true },
@@ -40,6 +44,7 @@ for (const [engineName, engine] of engines) {
     if (process.env.CI) failures++;
     continue;
   }
+  for (const page of pages) {
   for (const size of sizes) {
     const options = { viewport: { width: size.width, height: size.height }, hasTouch: size.mobile, reducedMotion: "reduce" };
     // Firefox has no mobile mode; Chromium and WebKit both do.
@@ -48,7 +53,7 @@ for (const [engineName, engine] of engines) {
     const tab = await context.newPage();
     const errors = [];
     tab.on("pageerror", (e) => errors.push(e.message));
-    await tab.goto(page);
+    await tab.goto(page.url);
     await tab.waitForTimeout(300);
     const r = await tab.evaluate(() => {
       const vw = window.innerWidth;
@@ -73,11 +78,12 @@ for (const [engineName, engine] of engines) {
     if (errors.length) problems.push(`script errors: ${errors.join(" | ")}`);
     if (problems.length) {
       failures++;
-      console.log(`FAIL ${engineName} ${size.name}: ${problems.join("; ")}`);
+      console.log(`FAIL ${engineName} ${page.name} ${size.name}: ${problems.join("; ")}`);
     } else {
-      console.log(`ok   ${engineName} ${size.name}`);
+      console.log(`ok   ${engineName} ${page.name} ${size.name}`);
     }
     await context.close();
+  }
   }
   await browser.close();
 }
@@ -86,4 +92,4 @@ if (failures) {
   console.log(`\n${failures} problem(s) found.`);
   process.exit(1);
 }
-console.log("\nThe page fits every screen size.");
+console.log("\nEvery page fits every screen size.");
