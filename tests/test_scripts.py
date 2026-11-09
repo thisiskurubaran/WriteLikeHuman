@@ -693,5 +693,95 @@ class WordCountSpeechTest(unittest.TestCase):
         self.assertEqual(len(data["speech"]["sections"]), 2)
 
 
+def make_png(path, w=20, h=10):
+    """A tiny solid-colour PNG, written with the standard library only."""
+    import struct
+    import zlib
+    raw = b"".join(b"\x00" + bytes([200, 60, 40]) * w for _ in range(h))
+
+    def chunk(kind, data):
+        return struct.pack(">I", len(data)) + kind + data + struct.pack(">I", zlib.crc32(kind + data) & 0xFFFFFFFF)
+
+    with open(path, "wb") as fh:
+        fh.write(b"\x89PNG\r\n\x1a\n"
+                 + chunk(b"IHDR", struct.pack(">IIBBBBB", w, h, 8, 2, 0, 0, 0))
+                 + chunk(b"IDAT", zlib.compress(raw))
+                 + chunk(b"IEND", b""))
+    return path
+
+
+@unittest.skipUnless(HAVE_PYPDF and HAVE_REPORTLAB, "pypdf or reportlab is not installed")
+class FormFillTest(TempDirCase):
+    def make_form(self):
+        from reportlab.pdfgen import canvas
+        path = self.path("form.pdf")
+        c = canvas.Canvas(path)
+        c.drawString(72, 760, "Full name:")
+        c.acroForm.textfield(name="full_name", x=160, y=750, width=200, height=20, tooltip="Full name")
+        c.acroForm.textfield(name="city", x=160, y=720, width=200, height=20)
+        c.acroForm.checkbox(name="agree", x=160, y=690, size=16)
+        c.save()
+        return path
+
+    def fields(self, path):
+        out = run("form_fill.py", "fields", path).stdout
+        return {f["name"]: f for f in json.loads(out)["fields"]}
+
+    def test_lists_fields_with_types_and_options(self):
+        fields = self.fields(self.make_form())
+        self.assertEqual(fields["full_name"]["type"], "text")
+        self.assertEqual(fields["full_name"]["label"], "Full name")
+        self.assertEqual(fields["agree"]["type"], "checkbox")
+        self.assertIn("/Yes", fields["agree"]["options"])
+
+    def test_fill_writes_a_copy_and_reports_blanks(self):
+        src = self.make_form()
+        values = write_json(self.path("v.json"), {"full_name": "Asha Verma", "agree": "/Yes", "missing": "x"})
+        out = run("form_fill.py", "fill", src, values).stdout
+        self.assertIn("SKIP", out)
+        self.assertIn("STILL BLANK: city", out)
+        filled = self.path("form-filled.pdf")
+        self.assertTrue(os.path.exists(filled))
+        fields = self.fields(filled)
+        self.assertEqual(fields["full_name"]["value"], "Asha Verma")
+        self.assertEqual(fields["agree"]["value"], "/Yes")
+        self.assertEqual(fields["city"]["value"], "")
+        self.assertEqual(self.fields(src)["full_name"]["value"], "")
+        from pypdf import PdfReader
+        self.assertTrue(PdfReader(filled).trailer["/Root"]["/AcroForm"]["/NeedAppearances"])
+
+    def test_refuses_to_overwrite_and_bad_checkbox_value(self):
+        src = self.make_form()
+        values = write_json(self.path("v.json"), {"full_name": "Asha"})
+        proc = run("form_fill.py", "fill", src, values, "-o", src, expect=None)
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("overwrite", proc.stdout + proc.stderr)
+        bad = write_json(self.path("bad.json"), {"agree": "maybe"})
+        proc = run("form_fill.py", "fill", src, bad, expect=None)
+        self.assertNotEqual(proc.returncode, 0)
+
+
+@unittest.skipUnless(HAVE_PYPDF and HAVE_REPORTLAB, "pypdf or reportlab is not installed")
+class PdfImagesTest(TempDirCase):
+    def test_saves_images_and_flags_pages_without_one(self):
+        from reportlab.pdfgen import canvas
+        png = make_png(self.path("p.png"))
+        src = self.path("scan.pdf")
+        c = canvas.Canvas(src)
+        c.drawString(72, 760, "Page one has words only.")
+        c.showPage()
+        c.drawImage(png, 72, 500, width=200, height=100)
+        c.save()
+        out_dir = self.path("imgs")
+        out = run("pdf_extract.py", "images", src, "--pages", "1,2", "--out", out_dir).stdout
+        self.assertIn("PAGE 1: no picture", out)
+        saved = os.listdir(out_dir)
+        self.assertEqual(len(saved), 1)
+        self.assertTrue(saved[0].startswith("scan-page2-"))
+        proc = run("pdf_extract.py", "images", src, "--pages", "9", expect=None)
+        self.assertNotEqual(proc.returncode, 0)
+        self.assertIn("out of range", proc.stdout + proc.stderr)
+
+
 if __name__ == "__main__":
     unittest.main()
