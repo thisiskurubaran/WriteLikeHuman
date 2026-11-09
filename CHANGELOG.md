@@ -12,6 +12,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - GitHub Actions in the workflows are pinned to exact versions, and Dependabot keeps those pins up to date.
 - The router links the new writing types, alt text, and script conversion.
 - A tighter skill description that leads with the most common requests and leaves room for future features.
+- The README lists every v0.5.0 feature.
 
 ### Added
 

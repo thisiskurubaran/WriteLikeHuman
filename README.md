@@ -117,6 +117,7 @@ Ask for a file and you get one, with words that read naturally from the first dr
 | "Make this society notice into a PDF I can print" | A print-ready `.pdf` |
 | "Make 5 slides for my team meeting from these notes" | A `.pptx` with short slide text and fuller speaker notes |
 | "Fill my company letterhead template with this letter" | Your template, with its look kept and the text filled in |
+| "Send this Diwali greeting to everyone in my sheet using each name" | A file of drafts, one per person. Nothing is sent. |
 | "Fill this visa form with my details" | A filled copy of the PDF or Word form, with anything it doesn't know left blank and listed |
 | "Put these expenses in a spreadsheet with a notes column" | An `.xlsx` with your numbers exactly as you gave them, and totals as formulas |
 
@@ -124,11 +125,11 @@ Ask for a file and you get one, with words that read naturally from the first dr
 
 | File | What you get back |
 |---|---|
-| Word (.docx) | Same fonts, styles, tables, and lists. Tracked changes if you want them. |
+| Word (.docx) | Same fonts, styles, tables, and lists. Tracked changes if you want them, or a short note in the margin explaining each change. |
 | PDF | An editable Word copy. Scanned pages are read from their images, and you're asked to confirm names and numbers. |
 | Google Docs and Claude docs | Edited in place when Claude is connected to your Google account, or a clean copy to paste back. |
-| Spreadsheets (.xlsx, .csv, Google Sheets) | Only text cells, notes, and comments change. Numbers and formulas are never touched. |
-| Slides (.pptx, Google Slides) | Slide text and speaker notes, with the layout left alone. |
+| Spreadsheets (.xlsx, .csv, Google Sheets) | Only text cells, notes, and comments change. Numbers and formulas are never touched. Google Sheets can be edited in place when Claude is connected to your Google account. |
+| Slides (.pptx, Google Slides) | Slide text and speaker notes, with the layout left alone. Google Slides can be edited in place with a Google connection. |
 | Text and Markdown (.txt, .md) | Markdown, links, and code blocks kept as they were. |
 | Subtitles (.srt, .vtt) | Captions reworded, timings untouched, so they stay in sync. |
 | OpenDocument and RTF (.odt, .rtf) | Edited as a Word file, and you're told which format you get back. |
@@ -138,12 +139,13 @@ Ask for a file and you get one, with words that read naturally from the first dr
 | Web pages (.html) | Visible text reworded. Tags, links, and code stay exactly as they were. |
 | Posters and flyers | A cleaner version of the text to retype. Claude can't edit the image itself. |
 | Handwritten notes and whiteboards | Typed text or a Word file, with unclear words marked instead of guessed. |
+| A spreadsheet of people | One personalised draft per person, using their name, saved to a file. Nothing is sent, and it's only for people you already know. |
 | Gmail and Outlook drafts | Edited in place when Claude is connected to your mail. Nothing is ever sent. |
 
 Every file comes back as a new copy named `yourfile-humanized`, so the original stays safe. Ask for "a file showing what changed" and you also get a Word file with every change marked.
 
 <details>
-<summary><b>Kinds of writing it knows (35)</b></summary>
+<summary><b>Kinds of writing it knows (39)</b></summary>
 
 <br>
 
@@ -184,6 +186,10 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 | School circulars | Notices from schools to parents, with dates and fees exact |
 | Grievance letters | Calm, factual complaints to an employer or HR |
 | Insurance claims | Claim letters and follow-ups, never inflated |
+| Payment reminders | Polite follow-ups and invoice notes, with amounts and due dates exact |
+| Customer support replies | Replies for small businesses, with nothing promised that you didn't approve |
+| Out-of-office and away messages | Auto-replies, WhatsApp Business greetings, and email signatures |
+| Alt text | Short image descriptions for posts, websites, and slides |
 
 </details>
 
@@ -219,7 +225,7 @@ Every file comes back as a new copy named `yourfile-humanized`, so the original 
 
 Share a few things you wrote yourself and WriteLikeHuman builds a short voice profile: how long your sentences run, the words you like, how you sign off. Keep it as a note or file and attach it next time. You can have more than one, like "work me" and "personal me". You can also build one from your own WhatsApp chat export: only your messages are used, and phone numbers, emails, and links are hidden first.
 
-It can also learn from Word, PDF, or text files you wrote. For a team or a small business, keep a shared house style instead: product names, words to use and avoid, how you sign off. Attach it and every message follows it.
+No samples handy? Three short messages are enough for a starter profile that grows as you add more. It can also learn from Word, PDF, or text files you wrote. For a team or a small business, keep a shared house style instead: product names, words to use and avoid, how you sign off. Attach it and every message follows it.
 
 </details>
 
@@ -235,6 +241,7 @@ It can also learn from Word, PDF, or text files you wrote. For a team or a small
 | Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, Gujarati, Punjabi, Odia, Urdu, Assamese, Nepali, Sinhala, Konkani, Sindhi, Maithili | Fixes stiff, textbook, or machine-translated wording |
 | Spanish, French, German, Portuguese, Italian, Turkish, Indonesian, Arabic, Japanese, Korean, Chinese, Filipino, Vietnamese, Thai, Swahili | The same, with each language's own common slips |
 | Translation | "Translate this into Hindi" gives you a version that sounds native |
+| Script conversion | "Write this in Hindi script" keeps the same words and only changes the alphabet, for Hindi, Tamil, Telugu, and other Indian scripts |
 
 It never translates unless you ask. Write in Tamil and it answers in Tamil.
 
