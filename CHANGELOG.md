@@ -19,6 +19,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Reply options for tricky messages: one reply plus a single tone offer, never a pile of versions.
 - Voice profiles can be built from Word, PDF, or text files the user wrote.
 - Team style guides: a shared house style for a small business or team, with a fill-in template.
+- Explain mode: ask why any single change was made and get a plain answer, with an offer to undo it.
 
 ## [0.3.2] - 2026-11-08
 
