@@ -43,6 +43,7 @@ write-like-human/
 │   ├── files/           Word, PDF, Google Docs, spreadsheets, slides, web pages, subtitles, and more
 │   ├── writing/         email, letters, resumes, posts, speeches, and more
 │   ├── adjust/          tone, reading level, length, accessibility, inclusive wording
+│   ├── developer/       READMEs, commit messages, architecture docs, API and UI text, code comments
 │   ├── voice/           personal voice profiles
 │   ├── lists/           buzzwords and platform limits
 │   └── languages/       one file per language, plus translation and mixed language
@@ -69,7 +70,7 @@ Every module uses the same sections, in this order:
 4. **Output**: what the user gets back.
 5. **Example**: one short before and after in everyday language.
 
-Scripts must use only the Python standard library plus `python-docx`, `openpyxl`, `python-pptx`, and `pypdf`, since those are what claude.ai has. Add a test for each script in `tests/test_scripts.py`. Every script needs a plain fallback written into its module, in case it fails. Scripts write a new file and never overwrite the original.
+Scripts must use only the Python standard library plus `python-docx`, `openpyxl`, `python-pptx`, and `pypdf`, since those are what claude.ai has. Add a test for each script in `tests/test_scripts.py`. Every script needs a plain fallback written into its module, in case it fails. Scripts write a new file and never overwrite the original. The one exception is `code_comments.py --in-place`, which only works on a file tracked in git with no uncommitted changes.
 
 ## Style rules
 

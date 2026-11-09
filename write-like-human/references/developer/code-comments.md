@@ -30,6 +30,10 @@ Load `lists/buzzwords.md` (the developer section) with this guide. In Claude Cod
 
 The new file (or the in-place edit), then a short change summary with how many comments changed, and a list of comments you'd suggest deleting.
 
+## Known limits
+
+The script reads Python, JavaScript and TypeScript, Java, Go, C, C++, C#, Kotlin, Swift, Rust, PHP, Scala, Dart, shell, Ruby, YAML, TOML, R, and Perl. A few spots can confuse it: text between JSX tags, unusual JavaScript regex literals, and Perl or Ruby quote operators like `qw()` or `%w()`. In those files, look over the extract list and leave alone anything that isn't really a comment.
+
 ## If the script fails
 
 Rewrite the comments by hand, changing only the text after the comment markers. Then compare the old and new code with the comments removed, line by line, before giving it back. Tell the user in one line that you did it by hand.

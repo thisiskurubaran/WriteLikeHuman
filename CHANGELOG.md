@@ -18,6 +18,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Work chat messages for Slack, Teams, and Google Chat.
 - Mail merge templates can include real curly braces by doubling them, so {{SAVE10}} comes out as {SAVE10}.
 - Eval cases and test prompts for every v0.7.0 guide, plus checks that coding requests still don't start the skill (161 cases in all).
+- Code comments and docstrings: a new script rewrites only comment text in 20 languages and refuses to write anything if a single character of code would change. Licence headers, tool directives, doc tags, and commented-out code are left alone.
 
 ### Changed
 
