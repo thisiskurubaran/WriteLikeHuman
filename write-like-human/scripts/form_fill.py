@@ -136,7 +136,7 @@ def cmd_fields(args):
     if args.output:
         with open(args.output, "w", encoding="utf-8") as fh:
             fh.write(text + "\n")
-        print("Wrote %d fields to %s" % (len(fields), args.output))
+        print("Wrote %d %s to %s" % (len(fields), "field" if len(fields) == 1 else "fields", args.output))
     else:
         print(text)
 

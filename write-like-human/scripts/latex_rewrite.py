@@ -28,7 +28,9 @@ segment keeps its original leading and trailing spaces and line breaks.
 A change is skipped, with a message, if the new text contains a
 command (a backslash other than an escaped \\%, \\$, \\&, \\# or \\_), a
 brace, or an unescaped %, $, &, #, ^ or _, since those would change the
-LaTeX itself. Use --force to apply such changes anyway.
+LaTeX itself. Use --force to apply such changes anyway. When any change
+is skipped, the file is still written but the script exits with code 2,
+so a skipped change can't go unnoticed.
 
 Only uses the standard library.
 """
@@ -222,7 +224,7 @@ def split_ws(text):
 
 
 def cmd_extract(args):
-    with open(args.file, encoding="utf-8") as fh:
+    with open(args.file, encoding="utf-8", newline="") as fh:
         src = fh.read()
     _, _, spans = segments(src)
     out = []
@@ -234,13 +236,13 @@ def cmd_extract(args):
     if args.output:
         with open(args.output, "w", encoding="utf-8") as fh:
             fh.write(payload)
-        print("Wrote %d segments to %s" % (len(out), args.output))
+        print("Wrote %d %s to %s" % (len(out), "segment" if len(out) == 1 else "segments", args.output))
     else:
         print(payload)
 
 
 def cmd_apply(args):
-    with open(args.file, encoding="utf-8") as fh:
+    with open(args.file, encoding="utf-8", newline="") as fh:
         src = fh.read()
     with open(args.changes, encoding="utf-8") as fh:
         data = json.load(fh)
@@ -278,10 +280,14 @@ def cmd_apply(args):
     result = src
     for a, b, text in sorted(edits, reverse=True):
         result = result[:a] + text + result[b:]
-    with open(out_path, "w", encoding="utf-8") as fh:
+    with open(out_path, "w", encoding="utf-8", newline="") as fh:
         fh.write(result)
-    print("Wrote %s with %d changed segments%s." % (out_path, len(edits),
-                                                  (", %d skipped" % skipped) if skipped else ""))
+    print("Wrote %s with %d changed %s%s." % (out_path, len(edits),
+                                             "segment" if len(edits) == 1 else "segments",
+                                             (", %d skipped" % skipped) if skipped else ""))
+    if skipped:
+        # Exit code 2: the file was written, but some changes were left out.
+        sys.exit(2)
 
 
 def main():

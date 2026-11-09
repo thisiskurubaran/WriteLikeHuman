@@ -109,6 +109,29 @@ def resolve(m, us, year_opt, today):
     return day, month, year, assumed
 
 
+def impossible_date(m, us, year_opt, today):
+    """An item for a date with no weekday that cannot exist, else None."""
+    g = m.groupdict()
+    named = bool(g.get("mon"))
+    has_year = bool(g.get("year") or g.get("nyear"))
+    if not named and not has_year:
+        return None        # "14.03" may be a version number or a score
+    day, month, year, assumed = resolve(m, us, year_opt, today)
+    if not (1 <= month <= 12 and 1 <= day <= 31):
+        return None        # not a date at all, for example "45/80/2024"
+    if month == 2 and day == 29 and not has_year:
+        return None        # fine in a leap year, and no year was given
+    try:
+        datetime.date(year, month, day)
+        return None
+    except ValueError:
+        pass
+    text = m.string
+    return {"text": m.group(0).strip().rstrip("."), "line": text.count("\n", 0, m.start()) + 1,
+            "stated_weekday": None, "year_assumed": assumed, "date": None, "actual_weekday": None,
+            "ok": False, "problem": "%d/%d/%d is not a real date" % (day, month, year)}
+
+
 def check(text, us=False, year_opt=None, today=None):
     today = today or datetime.date.today()
     results = []
@@ -117,6 +140,11 @@ def check(text, us=False, year_opt=None, today=None):
         after = AFTER_RE.match(text[m.end():m.end() + 20])
         wd_match = before or after
         if not wd_match:
+            # No weekday to compare, but a date that can't exist ("31 April",
+            # "29 Feb 2023") is still worth flagging.
+            impossible = impossible_date(m, us, year_opt, today)
+            if impossible:
+                results.append(impossible)
             continue
         stated = WEEKDAYS[wd_match.group("wd").lower()]
         if before:
@@ -144,7 +172,7 @@ def check(text, us=False, year_opt=None, today=None):
 
 def describe(results):
     if not results:
-        return "No dates with a weekday found."
+        return "No dates with a weekday, and no impossible dates, found."
     lines = []
     for r in results:
         note = " (year assumed: %d)" % r["year_assumed"] if r["year_assumed"] else ""

@@ -16,6 +16,7 @@ Never touch:
 - True/false values, checkboxes, dropdown choices
 - Codes and IDs, even when stored as text: phone numbers, PIN codes, invoice numbers, SKUs
 - Column headers (other sheets, filters, and formulas may look them up by name)
+- Text on hidden sheets, rows, or columns (marked `"hidden": true`), unless the user asks. Mention in one line that you left them alone.
 - Sheet names, cell formatting, colours, column widths, filters, frozen rows
 - Names, addresses, and the other protected content in the core rules
 

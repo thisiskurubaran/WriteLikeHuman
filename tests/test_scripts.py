@@ -163,6 +163,27 @@ class DocxRewriteTest(TempDirCase):
 
 
 @unittest.skipUnless(HAVE_XLSX, "openpyxl is not installed")
+class XlsxHiddenCellsTest(TempDirCase):
+    def test_hidden_sheet_row_and_column_marked(self):
+        from openpyxl import Workbook
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "Main"
+        ws["A1"] = "Shown text here"
+        ws["A2"] = "Hidden row text"
+        ws.row_dimensions[2].hidden = True
+        ws["C1"] = "Hidden column text"
+        ws.column_dimensions["C"].hidden = True
+        other = wb.create_sheet("Notes")
+        other["A1"] = "Hidden sheet text"
+        other.sheet_state = "hidden"
+        src = self.path("h.xlsx")
+        wb.save(src)
+        cells = json.loads(run("xlsx_text_cells.py", "extract", src).stdout)["cells"]
+        hidden = {c["id"]: c.get("hidden", False) for c in cells}
+        self.assertEqual(hidden, {"Main!A1": False, "Main!C1": True, "Main!A2": True, "Notes!A1": True})
+
+
 class XlsxTextCellsTest(TempDirCase):
     def make_book(self):
         from openpyxl import Workbook
@@ -381,6 +402,17 @@ class SrtRewriteTest(TempDirCase):
             result = fh.read()
         self.assertIn("1\n00:00:01,000 --> 00:00:03,500\nHello everyone,\nthanks for coming.", result)
         self.assertIn("2\n00:00:03,600 --> 00:00:06,000\nToday we'll look at budgets.", result)
+
+    def test_keeps_bom_and_windows_line_endings(self):
+        src = self.path("talk.srt")
+        with open(src, "wb") as fh:
+            fh.write(b"\xef\xbb\xbf" + SRT.replace("\n", "\r\n").encode("utf-8"))
+        run("srt_rewrite.py", "apply", src, write_json(self.path("c.json"), {"1": "Hello all."}))
+        with open(self.path("talk-humanized.srt"), "rb") as fh:
+            raw = fh.read()
+        self.assertTrue(raw.startswith(b"\xef\xbb\xbf1\r\n"))
+        self.assertIn(b"Hello all.\r\n", raw)
+        self.assertNotIn(b"\n", raw.replace(b"\r\n", b""))
 
     def test_rejects_timing_change(self):
         src = self.path("talk.srt")
@@ -669,6 +701,11 @@ class DateCheckTest(unittest.TestCase):
         self.assertEqual(data["to_fix"], 0)
         self.assertTrue(data["dates"][0]["ok"])
 
+    def test_impossible_dates_without_weekday(self):
+        proc, data = self.check("Due 31 April 2026, or 29 Feb 2027. Version 3.14, Feb 29 is fine.", expect=1)
+        self.assertEqual([d["text"] for d in data["dates"]], ["31 April 2026", "29 Feb 2027"])
+        self.assertTrue(all(not d["ok"] for d in data["dates"]))
+
     def test_mismatch(self):
         proc, data = self.check("Meeting: Mon, 14/03/2026 at 10.30.", expect=1)
         item = data["dates"][0]
@@ -901,6 +938,31 @@ class DocSectionsTest(TempDirCase):
         self.assertEqual(len(out["sections"]), 2)
         self.assertEqual(out["sections"][0]["range"], "lines 1 to 3")
 
+    def test_terms_skip_words_only_capitalised_at_sentence_start(self):
+        txt = self.path("t.txt")
+        with open(txt, "w", encoding="utf-8") as fh:
+            fh.write("Final words here. Final checks done. Final notes. "
+                     "The Northbay Project began. We met at the Northbay Project. "
+                     "Northbay Project ended. We saw Priya. Then Priya left, and then we ate. "
+                     "Ask Priya, or ask Ravi.\n")
+        out = json.loads(run("doc_sections.py", "terms", txt, "--json").stdout)
+        found = {t["term"] for t in out["terms"]}
+        self.assertIn("Northbay Project", found)
+        self.assertIn("Priya", found)
+        self.assertNotIn("Final", found)
+
+    def test_outline_latex(self):
+        tex = self.path("thesis.tex")
+        with open(tex, "w", encoding="utf-8") as fh:
+            fh.write("\\documentclass{report}\n\\title{Preamble words}\n\\begin{document}\n"
+                     "\\chapter{Introduction}\nThis chapter sets out the question.\n"
+                     "% \\section{Commented out}\n\\section[Short]{Background}\nMore prose here.\n"
+                     "\\chapter*{Results}\nThe results were clear.\n\\end{document}\n")
+        out = json.loads(run("doc_sections.py", "outline", tex, "--json").stdout)
+        self.assertEqual([(s["heading"], s["level"]) for s in out["sections"]],
+                         [("Introduction", 1), ("Background", 2), ("Results", 1)])
+        self.assertEqual(out["sections"][0]["range"], "lines 4 to 6")
+
     def test_terms_finds_names_and_spelling_variants(self):
         out = json.loads(run("doc_sections.py", "terms", self.make_docx(), "--min", "2", "--json").stdout)
         terms = {t["term"]: t["count"] for t in out["terms"]}
@@ -998,6 +1060,35 @@ The results are \emph{very promising} and cost 50\% less.
 """
 
 
+class LineEndingTest(TempDirCase):
+    """Text formats keep a byte-order mark and Windows line endings."""
+
+    def check(self, script, name, body, changes):
+        src = self.path(name)
+        with open(src, "wb") as fh:
+            fh.write(b"\xef\xbb\xbf" + body.replace("\n", "\r\n").encode("utf-8"))
+        same = self.path("same" + os.path.splitext(name)[1])
+        run(script, "apply", src, write_json(self.path("none.json"), {}), "-o", same)
+        with open(src, "rb") as a, open(same, "rb") as b:
+            self.assertEqual(a.read(), b.read(), "a run with no changes must give the same bytes")
+        out = self.path("out" + os.path.splitext(name)[1])
+        run(script, "apply", src, write_json(self.path("c.json"), changes), "-o", out)
+        with open(out, "rb") as fh:
+            raw = fh.read()
+        self.assertTrue(raw.startswith(b"\xef\xbb\xbf"))
+        self.assertNotIn(b"\n", raw.replace(b"\r\n", b""))
+
+    def test_latex(self):
+        self.check("latex_rewrite.py", "w.tex",
+                   "\\documentclass{article}\n\\begin{document}\nWe utilise it here.\n\\end{document}\n",
+                   {"t1": "We use it here."})
+
+    def test_html(self):
+        self.check("html_rewrite.py", "w.html",
+                   "<html>\n<body>\n<p>We make use of things.</p>\n</body></html>\n",
+                   {"t1": "We use things."})
+
+
 class LatexRewriteTest(TempDirCase):
     def setUp(self):
         super().setUp()
@@ -1028,7 +1119,7 @@ class LatexRewriteTest(TempDirCase):
     def test_unsafe_change_is_skipped(self):
         ids = {s["text"]: s["id"] for s in self.segments()}
         changes = write_json(self.path("c.json"), {ids["very promising"]: "very {promising", ids["and cost 50\\% less."]: "and cost 50\\% less overall."})
-        proc = run("latex_rewrite.py", "apply", self.src, changes)
+        proc = run("latex_rewrite.py", "apply", self.src, changes, expect=2)
         self.assertIn("SKIPPED", proc.stdout)
         with open(self.path("paper-humanized.tex"), encoding="utf-8") as fh:
             out = fh.read()

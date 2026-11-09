@@ -166,7 +166,7 @@ def cmd_extract(args):
     if args.output:
         with open(args.output, "w", encoding="utf-8") as fh:
             fh.write(payload)
-        print("Wrote %d paragraphs from %d slides to %s" % (len(segments), len(prs.slides), args.output))
+        print("Wrote %d %s from %d %s to %s" % (len(segments), "paragraph" if len(segments) == 1 else "paragraphs", len(prs.slides), "slide" if len(prs.slides) == 1 else "slides", args.output))
     else:
         print(payload)
 
@@ -194,7 +194,7 @@ def cmd_apply(args):
         if apply_plain(p, new):
             changed += 1
     prs.save(out_path)
-    print("Saved %s (%d paragraphs changed, %d unchanged)" % (out_path, changed, skipped))
+    print("Saved %s (%d %s changed, %d unchanged)" % (out_path, changed, "paragraph" if changed == 1 else "paragraphs", skipped))
     for w in warnings:
         print("CHECK: " + w)
     missing = sorted(set(changes) - seen)

@@ -17,7 +17,9 @@ Two steps:
      comment. In a CSV the sheet name is "csv". Each item has "words" so
      you can skip short labels like "Total" or "Name". Row 1 is marked
      "header": true; leave headers alone unless the user asks, since other
-     sheets or tools may look them up by name.
+     sheets or tools may look them up by name. Cells on a hidden sheet, row,
+     or column are marked "hidden": true; leave them alone unless the user
+     asks, since the user may not know they are there.
 
   2. apply: give back new text for the ids you changed.
 
@@ -110,17 +112,25 @@ def xlsx_extract(args):
     wb = load_workbook(args.file)
     items = []
     for ws in wb.worksheets:
+        sheet_hidden = ws.sheet_state != "visible"
         for row in ws.iter_rows():
             for cell in row:
                 ref = "%s!%s" % (ws.title, cell.coordinate)
+                hidden = (sheet_hidden or ws.row_dimensions[cell.row].hidden
+                          or ws.column_dimensions[cell.column_letter].hidden)
+                found = []
                 if cell.data_type == "s" and is_editable_text(cell.value):
                     words = word_count(cell.value)
                     if words >= args.min_words:
-                        items.append({"id": ref, "text": cell.value, "words": words,
+                        found.append({"id": ref, "text": cell.value, "words": words,
                                       "header": cell.row == 1})
                 if cell.comment is not None and cell.comment.text.strip():
-                    items.append({"id": ref + "#comment", "text": cell.comment.text,
+                    found.append({"id": ref + "#comment", "text": cell.comment.text,
                                   "words": word_count(cell.comment.text), "header": False})
+                for item in found:
+                    if hidden:
+                        item["hidden"] = True
+                    items.append(item)
     risky = risky_parts(args.file)
     if risky:
         sys.stderr.write("NOTE: this workbook has %s. Saving with this script would drop them.\n"
@@ -250,7 +260,7 @@ def csv_apply(args, out_path):
 # ---------------------------------------------------------------- shared
 
 def report(out_path, changed, refused, warnings):
-    print("Saved %s (%d cells changed)" % (out_path, changed))
+    print("Saved %s (%d %s changed)" % (out_path, changed, "cell" if changed == 1 else "cells"))
     for w in warnings:
         print("CHECK: " + w)
     for r in refused:

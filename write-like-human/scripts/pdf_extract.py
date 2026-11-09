@@ -256,7 +256,7 @@ def cmd_extract(args):
     if args.output:
         with open(args.output, "w", encoding="utf-8") as fh:
             fh.write(payload)
-        print("Wrote %d pages to %s" % (len(pages), args.output))
+        print("Wrote %d %s to %s" % (len(pages), "page" if len(pages) == 1 else "pages", args.output))
     else:
         print(payload)
     if scanned_pages:

@@ -176,7 +176,8 @@ def main():
     sys.stderr.write("Reading this as a %s export.\n" % names[fmt])
 
     if args.list_senders:
-        counts = collections.Counter(s for s, _ in messages if s)
+        # Count only the messages that would be kept (no media or deleted ones).
+        counts = collections.Counter(s for s, t in messages if s and clean(t))
         if not counts:
             sys.exit("No messages found. Is this a WhatsApp, Telegram, or Signal chat export?")
         for name, n in counts.most_common():
@@ -198,7 +199,7 @@ def main():
     if args.output:
         with open(args.output, "w", encoding="utf-8") as fh:
             fh.write(out)
-        print("Wrote %d messages from %s to %s" % (len(kept), args.sender, args.output))
+        print("Wrote %d %s from %s to %s" % (len(kept), "message" if len(kept) == 1 else "messages", args.sender, args.output))
     else:
         sys.stdout.write(out)
 

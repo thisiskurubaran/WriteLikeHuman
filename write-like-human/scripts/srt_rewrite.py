@@ -155,7 +155,7 @@ def cmd_extract(args):
     if args.output:
         with open(args.output, "w", encoding="utf-8") as fh:
             fh.write(payload)
-        print("Wrote %d captions to %s" % (len(items), args.output))
+        print("Wrote %d %s to %s" % (len(items), "caption" if len(items) == 1 else "captions", args.output))
     else:
         print(payload)
 
@@ -201,9 +201,15 @@ def cmd_apply(args):
             changed += 1
         notes.extend(checks(c["id"], new_lines, cue_seconds(c["timing"])))
     missing = sorted(set(changes) - set(by_id))
-    with open(out_path, "w", encoding="utf-8") as fh:
+    # Keep the original's byte-order mark and line endings: some TVs and
+    # older players need them to show the captions, or non-English text.
+    with open(args.file, "rb") as fh:
+        raw = fh.read()
+    encoding = "utf-8-sig" if raw.startswith(b"\xef\xbb\xbf") else "utf-8"
+    newline = "\r\n" if b"\r\n" in raw else "\n"
+    with open(out_path, "w", encoding=encoding, newline=newline) as fh:
         fh.write(render(fmt, header, cues))
-    print("Saved %s (%d captions changed, timings untouched)" % (out_path, changed))
+    print("Saved %s (%d %s changed, timings untouched)" % (out_path, changed, "caption" if changed == 1 else "captions"))
     for n in notes:
         print("CHECK: " + n)
     if missing:

@@ -181,8 +181,14 @@ def find_nodes(source, attributes=False):
 
 
 def read(path):
-    with open(path, encoding="utf-8-sig") as fh:
+    # newline="" keeps Windows line endings exactly as they are.
+    with open(path, encoding="utf-8-sig", newline="") as fh:
         return fh.read()
+
+
+def has_bom(path):
+    with open(path, "rb") as fh:
+        return fh.read(3) == b"\xef\xbb\xbf"
 
 
 def cmd_extract(args):
@@ -193,7 +199,7 @@ def cmd_extract(args):
     if args.output:
         with open(args.output, "w", encoding="utf-8") as fh:
             fh.write(text)
-        print("Wrote %d text pieces to %s" % (len(nodes), args.output))
+        print("Wrote %d %s to %s" % (len(nodes), "text piece" if len(nodes) == 1 else "text pieces", args.output))
     else:
         print(text)
 
@@ -260,9 +266,10 @@ def cmd_apply(args):
         changed += 1
     pieces.append(source[pos:])
 
-    with open(out_path, "w", encoding="utf-8") as fh:
+    encoding = "utf-8-sig" if has_bom(args.file) else "utf-8"
+    with open(out_path, "w", encoding=encoding, newline="") as fh:
         fh.write("".join(pieces))
-    print("Changed %d text pieces. Saved %s" % (changed, out_path))
+    print("Changed %d %s. Saved %s" % (changed, "text piece" if changed == 1 else "text pieces", out_path))
 
 
 def main():

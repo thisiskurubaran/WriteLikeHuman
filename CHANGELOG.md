@@ -10,6 +10,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - Dependabot. The pinned GitHub Actions versions are now updated by hand.
 
+### Fixed
+
+- Long LaTeX theses can now be split into chapters and sections. Before, the first step refused .tex files.
+- Subtitle, LaTeX, and web page files keep their Windows line endings and byte-order mark, so captions still show correctly on TVs and older players, and LaTeX files really do keep every other byte the same.
+- The date check now flags dates that can't exist, like "31 April" or "29 Feb 2023", even with no weekday next to them.
+- Spreadsheet text on hidden sheets, rows, and columns is marked as hidden and left alone unless you ask.
+- The consistency list for long documents no longer lists ordinary words that start sentences, like "Final" or "Then", as names.
+- The LaTeX script exits with code 2 when it skips an unsafe change, so the skip can't go unnoticed.
+- Chat sender counts no longer include media and deleted messages.
+- Script messages say "1 section" and "1 cell" instead of "1 sections" and "1 cells".
+
 ## [0.6.0] - 2026-11-09
 
 ### Added

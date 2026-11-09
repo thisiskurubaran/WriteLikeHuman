@@ -403,7 +403,7 @@ def cmd_extract(args):
     if args.output:
         with open(args.output, "w", encoding="utf-8") as fh:
             fh.write(payload)
-        print("Wrote %d paragraphs to %s" % (len(segments), args.output))
+        print("Wrote %d %s to %s" % (len(segments), "paragraph" if len(segments) == 1 else "paragraphs", args.output))
     else:
         print(payload)
 
@@ -438,7 +438,7 @@ def cmd_apply(args):
                 commenter.add(p, why)
     missing = sorted(set(changes) - seen)
     doc.save(out_path)
-    print("Saved %s (%d paragraphs changed, %d unchanged)" % (out_path, changed, skipped))
+    print("Saved %s (%d %s changed, %d unchanged)" % (out_path, changed, "paragraph" if changed == 1 else "paragraphs", skipped))
     for w in warnings:
         print("CHECK: " + w)
     if missing:

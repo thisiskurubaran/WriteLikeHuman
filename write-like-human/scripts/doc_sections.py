@@ -15,6 +15,10 @@ heading, a word count, and where it sits:
     extract and apply one section at a time.
   - Markdown (.md): sections start at each # heading. Ranges are line
     numbers.
+  - LaTeX (.tex): sections start at each \\part, \\chapter, \\section, or
+    \\subsection. Ranges are line numbers, the same lines
+    latex_rewrite.py extract reports, so you can rewrite one section's
+    pieces at a time. Comments and the preamble are not counted.
   - Plain text (.txt) without headings and PDF: sections are chunks of
     about --words words (default 2500), split at paragraph or page breaks.
     Ranges are line numbers for text and page numbers for PDF.
@@ -144,6 +148,44 @@ def outline_markdown(lines):
     return renumber(out)
 
 
+LATEX_HEAD = re.compile(r"\\(part|chapter|section|subsection)\*?\s*(?:\[[^\]]*\])?\s*\{(.*)\}")
+LATEX_LEVEL = {"part": 0, "chapter": 1, "section": 2, "subsection": 3}
+
+
+def latex_prose_words(line):
+    """Rough word count for one line of LaTeX: drop comments and command names."""
+    line = re.sub(r"(?<!\\)%.*", "", line)
+    line = re.sub(r"\\[A-Za-z@]+\*?", " ", line)
+    line = re.sub(r"\$[^$]*\$", " ", line)
+    return words(re.sub(r"[{}\[\]]", " ", line))
+
+
+def outline_latex(path):
+    with open(path, encoding="utf-8-sig") as fh:
+        lines = fh.read().splitlines()
+    begin = next((n for n, l in enumerate(lines, 1) if "\\begin{document}" in l), 0)
+    used = {LATEX_HEAD.match(l.strip()).group(1) for l in lines[begin:]
+            if not l.lstrip().startswith("%") and LATEX_HEAD.match(l.strip())}
+    top = min((LATEX_LEVEL[u] for u in used), default=1)
+    sections, current = [], None
+    for n, line in enumerate(lines, 1):
+        if n <= begin:
+            continue
+        if "\\end{document}" in line:
+            break
+        m = None if line.lstrip().startswith("%") else LATEX_HEAD.match(line.strip())
+        if m or current is None:
+            current = {"heading": m.group(2).strip() if m else "(start)",
+                       "level": LATEX_LEVEL[m.group(1)] - top + 1 if m else None,
+                       "first": n, "last": n, "words": 0}
+            sections.append(current)
+        current["last"] = n
+        current["words"] += latex_prose_words(line)
+    out = [{"id": "", "heading": s["heading"], "level": s["level"], "words": s["words"],
+            "range": "lines %d to %d" % (s["first"], s["last"])} for s in sections if s["words"]]
+    return renumber(out), "line numbers"
+
+
 def chunk_blocks(blocks, target, unit):
     """blocks: list of (start, end, text). Group into chunks of about target words."""
     out, start, count = [], None, 0
@@ -199,16 +241,31 @@ def renumber(sections):
 
 def find_terms(text, min_count):
     counts = collections.Counter()
+    mid_sentence = set()   # seen capitalised somewhere other than the start of a sentence
+    lowercase = set(re.findall(r"\b[a-z][\w’'-]*", text))
     for sentence in re.split(r"(?<=[.!?])\s+|\n+", text):
-        tokens = re.findall(r"[A-Z][\w’'-]*(?:\s+[A-Z][\w’'-]*)*", sentence)
-        for tok in tokens:
-            parts = tok.split()
+        start = len(sentence) - len(sentence.lstrip(" \t\"'“‘(*#-"))
+        for m in re.finditer(r"[A-Z][\w’'-]*(?:\s+[A-Z][\w’'-]*)*", sentence):
+            parts = m.group(0).split()
+            at_start = m.start() == start
             while parts and parts[0] in COMMON_CAPITALISED:
                 parts.pop(0)
+                at_start = False
+            # "Then Priya left": an opener that also appears in lowercase is
+            # an ordinary word, not part of the name.
+            if at_start and len(parts) > 1 and parts[0].lower() in lowercase:
+                parts.pop(0)
+                at_start = False
             if not parts:
                 continue
-            counts[" ".join(parts)] += 1
-    terms = [{"term": t, "count": n} for t, n in counts.most_common() if n >= min_count]
+            term = " ".join(parts)
+            counts[term] += 1
+            if not at_start or len(parts) > 1:
+                mid_sentence.add(term)
+    # A single word that is only ever capitalised at the start of a sentence
+    # ("Final", "Overall") is an ordinary word, not a name.
+    terms = [{"term": t, "count": n} for t, n in counts.most_common()
+             if n >= min_count and t in mid_sentence]
     lower = text.lower()
     variants = []
     for a, b in VARIANT_PAIRS:
@@ -227,9 +284,11 @@ def load_outline(path, target):
         return outline_docx(path)
     if ext == ".pdf":
         return outline_pdf(path, target)
+    if ext == ".tex":
+        return outline_latex(path)
     if ext in (".md", ".markdown", ".txt", ".text"):
         return outline_text(path, target)
-    sys.exit("Use a .docx, .pdf, .md, or .txt file.")
+    sys.exit("Use a .docx, .pdf, .tex, .md, or .txt file.")
 
 
 def load_text(path):
@@ -249,7 +308,8 @@ def cmd_outline(args):
         print(json.dumps({"file": os.path.basename(args.file), "unit": unit, "total_words": total,
                           "sections": sections}, ensure_ascii=False, indent=2))
         return
-    print("%s: %d sections, about %d words. Ranges are %s." % (os.path.basename(args.file), len(sections), total, unit))
+    print("%s: %d %s, about %d words. Ranges are %s." % (os.path.basename(args.file), len(sections),
+          "section" if len(sections) == 1 else "sections", total, unit))
     for s in sections:
         indent = "  " * max((s["level"] or 1) - 1, 0)
         print("%-4s %s%s  (%d words, %s)" % (s["id"], indent, s["heading"], s["words"], s["range"]))

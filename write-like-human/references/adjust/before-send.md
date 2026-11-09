@@ -15,7 +15,7 @@ Everything. You report problems; you do not change the text unless the user asks
 ## What to look for
 
 - An attachment mentioned but nothing attached: "please find attached", "I've attached", "see the enclosed", "PFA". If the user is writing in chat, you can't see their email client, so ask: "You mention an attachment. Remember to add it."
-- A weekday that doesn't match its date: "Monday, 14 March 2027". Run `python scripts/date_check.py FILE` (or pipe the text in, or use `--text "..."`). Add `--us` if the writer uses MM/DD dates, and `--year N` when dates are written without a year. Exit code 1 means a mismatch. If the script fails, work the weekday out carefully yourself, and if you're not sure, say so instead of guessing.
+- A weekday that doesn't match its date: "Monday, 14 March 2027". Run `python scripts/date_check.py FILE` (or pipe the text in, or use `--text "..."`). Add `--us` if the writer uses MM/DD dates, and `--year N` when dates are written without a year. It also flags dates that cannot exist, like "31 April" or "29 Feb 2023". Exit code 1 means something to fix. If the script fails, work the weekday out carefully yourself, and if you're not sure, say so instead of guessing.
 - Questions left unanswered. If the user pasted the message they're replying to, list each question or request in it and check the reply answers it. "She asked whether Thursday works. Your reply doesn't say."
 - A name spelled two ways in the same message: "Priya" in the greeting, "Pria" in the body.
 - The wrong name, or no name, in the greeting. "Hi Rahul" in a reply to Rohan. If the user pasted the original message, compare with how the sender signed off.
@@ -29,7 +29,7 @@ Skip anything that's just style. Tone and AI patterns belong in check mode, not 
 ## Steps
 
 1. Read the whole message once. If the user gave the message being replied to, read that first.
-2. Go through the list above. Run `date_check.py` if the text has any weekday with a date.
+2. Go through the list above. Run `date_check.py` if the text has any dates.
 3. Collect only real problems. If you're not sure something is wrong, say "check this" rather than "this is wrong".
 4. Report them, most important first. Wrong names and wrong dates come before a missing comma.
 5. If the user asks you to fix them, fix only those items and return the full text.
