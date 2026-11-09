@@ -21,6 +21,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Voice profiles from Telegram and Signal chat exports, as well as WhatsApp.
 - LaTeX files: prose rewritten while commands, maths, and citations stay exactly as they were.
 
+### Changed
+
+- The router links every v0.6.0 guide.
+
 ## [0.5.0] - 2026-11-09
 
 ### Added

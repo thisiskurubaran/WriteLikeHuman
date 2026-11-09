@@ -17,6 +17,8 @@ The router sends you here when the user gives or asks for a specific kind of wri
 | A complaint to a manager or HR about pay, leave, workload, or harassment | [grievance-letters.md](grievance-letters.md) |
 | A payment reminder, a late-payment follow-up, or an invoice cover note | [payment-reminders.md](payment-reminders.md) |
 | An out-of-office reply, a holiday or away message, a WhatsApp Business greeting, or an email signature | [auto-replies.md](auto-replies.md) |
+| A salary or offer negotiation, a price talk with a vendor or client, or a rent negotiation | [negotiation.md](negotiation.md) |
+| A recommendation or reference letter, written by the recommender or drafted for them to review | [recommendations.md](recommendations.md) |
 
 ### Official, school, and complaints
 
@@ -60,3 +62,4 @@ The router sends you here when the user gives or asks for a specific kind of wri
 | A bio, dating profile, or About page | [bios.md](bios.md) |
 | An announcement: engagement, wedding, birth, or an event | [event-announcements.md](event-announcements.md) |
 | Alt text or a description for an image (Instagram, a website, slides, a document) | [alt-text.md](alt-text.md) |
+| A script or description for a YouTube video, Reel, or Short | [video-scripts.md](video-scripts.md) |

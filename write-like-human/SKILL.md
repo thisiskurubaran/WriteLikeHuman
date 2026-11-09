@@ -33,6 +33,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | "Show me the changes", "let me approve each one", "side by side" | [references/modes/side-by-side.md](references/modes/side-by-side.md) |
 | "Why did you change this?", "explain change 3", asks about one line of a rewrite | [references/modes/explain.md](references/modes/explain.md) |
 | "Teach me", "how can I write better myself?", "help me learn to avoid this" | [references/modes/learn.md](references/modes/learn.md) |
+| "How does this sound?", "is this rude?", "is my boss angry?", about a message someone else sent | [references/modes/read.md](references/modes/read.md) |
 
 ## Input (add any that match)
 
@@ -61,6 +62,8 @@ A request can match a file row and a writing row at the same time, such as a res
 | A form to fill: a fillable PDF, or a Word form with blanks (visa, school, bank KYC) | [references/files/forms.md](references/files/forms.md) + [references/writing/form-answers.md](references/writing/form-answers.md) |
 | A photo of handwritten notes, a whiteboard, a diary page, or a handwritten letter | [references/files/handwriting.md](references/files/handwriting.md) |
 | A spreadsheet of people plus one message to personalise for each ("send this greeting to everyone in my sheet using each name") | [references/files/personalised-messages.md](references/files/personalised-messages.md) |
+| A long document: a thesis, dissertation, manual, or report over about 30 pages or 10,000 words | [references/files/long-documents.md](references/files/long-documents.md) |
+| A LaTeX file (.tex): a paper, thesis, or CV written in LaTeX | [references/files/latex.md](references/files/latex.md) |
 
 ### Kinds of writing
 
@@ -77,6 +80,8 @@ A request can match a file row and a writing row at the same time, such as a res
 | "Make it shorter", "200 words", "expand this", "turn these notes into a paragraph" | [references/adjust/length.md](references/adjust/length.md) |
 | "Is this easy to read?", "check accessibility" | [references/adjust/accessibility.md](references/adjust/accessibility.md) |
 | "Write alt text for this image", "describe this photo for my website" | [references/writing/alt-text.md](references/writing/alt-text.md) |
+| "Make this Easy Read", "for someone with a learning disability" | [references/adjust/easy-read.md](references/adjust/easy-read.md) |
+| "Make this dyslexia friendly", "easier to read layout", "for a reader with dyslexia" | [references/adjust/dyslexia-friendly.md](references/adjust/dyslexia-friendly.md) |
 | "Make it inclusive", "gender neutral" | [references/adjust/inclusive-language.md](references/adjust/inclusive-language.md) |
 | "Don't change these words", "keep our product name as is", a list of terms to leave alone, or a voice profile with "Never change these words" | [references/adjust/protected-words.md](references/adjust/protected-words.md) |
 | "Make it American English", "UK spelling", "for my Australian client", "change it to Indian style" | [references/adjust/english-variants.md](references/adjust/english-variants.md) |
@@ -85,6 +90,7 @@ A request can match a file row and a writing row at the same time, such as a res
 | "Will this sound okay to my client in Germany?", "is this too direct for a US reader?", a message going to another country | [references/adjust/cross-cultural.md](references/adjust/cross-cultural.md) |
 | A tricky or sensitive reply (a landlord dispute, saying no to a boss), "I don't want to sound rude", "give me two versions" | [references/adjust/reply-options.md](references/adjust/reply-options.md) |
 | Attaches a team or company style guide, "use our house style", "help me make a style guide" | [references/voice/style-guide.md](references/voice/style-guide.md) (blank form: [references/voice/style-guide-template.md](references/voice/style-guide-template.md)) |
+| "Can you remember my voice?", "I don't want to paste my profile every time", "always use our house style" | [references/voice/saving-in-claude.md](references/voice/saving-in-claude.md) |
 | Pastes or attaches a voice profile, "make it sound like me", "use my work voice" | [references/voice/voice-profile.md](references/voice/voice-profile.md) (the blank form is [references/voice/voice-profile-template.md](references/voice/voice-profile-template.md)) |
 | Attaches a WhatsApp chat export, "build my profile from my WhatsApp messages" | [references/voice/chat-export.md](references/voice/chat-export.md) |
 | "Translate this into..." | [references/languages/translate-humanize.md](references/languages/translate-humanize.md) + the target language file |
