@@ -15,6 +15,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Recommendation and reference letters written from what the recommender actually saw.
 - Scripts and descriptions for YouTube videos, Reels, and Shorts, written to be spoken.
 - Easy Read: a simple accessible format with one idea per line and picture suggestions.
+- Keeping your voice profile or house style in a Claude Project so it applies without attaching it each time.
 
 ## [0.5.0] - 2026-11-09
 
