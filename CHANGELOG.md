@@ -6,14 +6,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
-### Changed
-
-- Python cache folders and Node packages are ignored, so test runs no longer leave untracked files.
-- GitHub Actions in the workflows are pinned to exact versions, and Dependabot keeps those pins up to date.
-- The router links the new writing types, alt text, and script conversion.
-- A tighter skill description that leads with the most common requests and leaves room for future features.
-- The README lists every v0.5.0 feature.
-- Hindi and Tamil README brought up to date with v0.5.0.
+## [0.5.0] - 2026-11-09
 
 ### Added
 
@@ -31,6 +24,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Eval cases and test prompts for every v0.5.0 guide, including a decline case for bulk messages to a bought list (131 cases in all).
 - The scripts that build the Hindi, Tamil, examples, and guide pages are in the repo, and a check fails if those pages fall out of date with the English page.
 - A How do I guide on the website with short steps for every common task, and a What's new section on the home page.
+
+### Changed
+
+- Python cache folders and Node packages are ignored, so test runs no longer leave untracked files.
+- GitHub Actions in the workflows are pinned to exact versions, and Dependabot keeps those pins up to date.
+- The router links the new writing types, alt text, and script conversion.
+- A tighter skill description that leads with the most common requests and leaves room for future features.
+- The README lists every v0.5.0 feature.
+- Hindi and Tamil README brought up to date with v0.5.0.
 
 ## [0.4.0] - 2026-11-09
 
@@ -198,7 +200,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Security policy with private reporting.
 - Issue templates for bugs and feature requests, and a pull request checklist.
 
-[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.2...v0.4.0
 [0.3.2]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.0...v0.3.1
