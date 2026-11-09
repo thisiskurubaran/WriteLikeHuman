@@ -2174,6 +2174,221 @@
         "the skill does not load"
       ],
       "must_not": []
+    },
+    {
+      "id": "quick-options-vague",
+      "prompt": "help with this\n\nHi, the rent for next month needs to be paid by the 25th instead of the 1st this time. Please arrange. - Mr Kapoor",
+      "should_load": [
+        "modes/quick-options.md"
+      ],
+      "must": [
+        "offers two to four short numbered choices, such as replying, reading the tone, or saying no politely",
+        "does not rewrite or reply before the user picks"
+      ],
+      "must_not": [
+        "a full reply or rewrite",
+        "a change summary"
+      ]
+    },
+    {
+      "id": "quick-options-not-for-clear-request",
+      "prompt": "Make this friendlier: Send me the report by 5 pm today.",
+      "should_load": [
+        "modes/rewrite.md",
+        "adjust/tone-presets.md"
+      ],
+      "must": [
+        "goes straight to a friendlier version",
+        "keeps 5 pm and today"
+      ],
+      "must_not": [
+        "a numbered menu of options"
+      ]
+    },
+    {
+      "id": "readme-rewrite",
+      "prompt": "Make my README sound less like AI:\n\n# 🚀 ShelfSort ✨\nShelfSort is a powerful, next-generation solution that seamlessly leverages ISBN data to revolutionise your book collection! 📚\n## ⚡ Installation\nSimply run `npm install -g shelfsort` and you're all set! 🎉\n## Usage\n`shelfsort scan ./books.csv`",
+      "should_load": [
+        "developer/readme.md",
+        "lists/buzzwords.md"
+      ],
+      "must": [
+        "opens with a plain sentence saying what the tool does",
+        "keeps `npm install -g shelfsort` and `shelfsort scan ./books.csv` exactly",
+        "removes the emoji headings and sales words"
+      ],
+      "must_not": [
+        "features, platforms, or numbers not in the original",
+        "changed commands"
+      ]
+    },
+    {
+      "id": "commit-message",
+      "prompt": "Write a commit message. Our repo uses Conventional Commits. The diff: in checkout.js, the Pay button now gets disabled after the first click until the payment request finishes.",
+      "should_load": [
+        "developer/commits-and-prs.md"
+      ],
+      "must": [
+        "a summary line in the fix(scope): style, under about 72 characters, imperative",
+        "says the button is disabled while the payment request runs"
+      ],
+      "must_not": [
+        "claims that tests were added or passed",
+        "words like comprehensive or enhances"
+      ]
+    },
+    {
+      "id": "pr-description",
+      "prompt": "Write a PR description: I split utils.py into dates.py and money.py because it was 1,400 lines. No behaviour changes. Run pytest to check.",
+      "should_load": [
+        "developer/commits-and-prs.md"
+      ],
+      "must": [
+        "says what changed and why, using utils.py, dates.py, money.py, and 1,400 lines",
+        "says how to check it with pytest"
+      ],
+      "must_not": [
+        "claims tests passed",
+        "invented changes"
+      ]
+    },
+    {
+      "id": "architecture-doc",
+      "prompt": "Explain the architecture of my project for the docs. web/ is a React app, api/ is an Express server that the app calls, and worker/ sends emails from a Redis queue.",
+      "should_load": [
+        "developer/architecture.md"
+      ],
+      "must": [
+        "names web/, api/, worker/, and Redis as given",
+        "describes how a request or job moves between them"
+      ],
+      "must_not": [
+        "components that were not mentioned, such as a cache or microservices",
+        "claims about scale or speed"
+      ]
+    },
+    {
+      "id": "folder-structure",
+      "prompt": "Write a 'how this repo is organised' section. Folders: src/ (app code), tests/, scripts/ (release helpers), docs/.",
+      "should_load": [
+        "developer/architecture.md"
+      ],
+      "must": [
+        "a short tree or list with one plain line per folder",
+        "uses the descriptions given"
+      ],
+      "must_not": [
+        "folders that were not given"
+      ]
+    },
+    {
+      "id": "adr",
+      "prompt": "Write a decision record: we chose Postgres over MongoDB because our data is relational and the team knows SQL.",
+      "should_load": [
+        "developer/architecture.md"
+      ],
+      "must": [
+        "Context, Decision, and Consequences sections",
+        "gives only the two reasons the user gave"
+      ],
+      "must_not": [
+        "invented benchmarks or other alternatives"
+      ]
+    },
+    {
+      "id": "error-message",
+      "prompt": "Make this error friendlier: 'ERR_UPLOAD_413: Request entity too large.' The limit is 25 MB.",
+      "should_load": [
+        "developer/api-docs-and-ui-text.md"
+      ],
+      "must": [
+        "says the file is too big and the limit is 25 MB",
+        "tells the person what they can do"
+      ],
+      "must_not": [
+        "Oops or jokes",
+        "blaming the user"
+      ]
+    },
+    {
+      "id": "ui-strings-json",
+      "prompt": "Rewrite the values in this en.json so they sound natural. Keep the keys and placeholders.\n{\"empty_state\": \"There are currently no items available to display at this time.\", \"greeting\": \"Welcome back, {name}! We hope you are having a wonderful day!\"}",
+      "should_load": [
+        "developer/api-docs-and-ui-text.md"
+      ],
+      "must": [
+        "keeps the keys empty_state and greeting",
+        "keeps {name} exactly",
+        "returns valid JSON"
+      ],
+      "must_not": [
+        "changed keys",
+        "removed placeholders"
+      ]
+    },
+    {
+      "id": "code-comments",
+      "prompt": "Clean up the comments in this file, don't touch the code (attach a small .py file with stiff comments).",
+      "should_load": [
+        "developer/code-comments.md",
+        "lists/buzzwords.md"
+      ],
+      "must": [
+        "changes only comments and docstrings",
+        "leaves licence headers, directives like noqa, and commented-out code alone"
+      ],
+      "must_not": [
+        "any change to the code",
+        "removing comments without asking"
+      ]
+    },
+    {
+      "id": "repo-in-place",
+      "prompt": "(In Claude Code, inside a git repo) Make our CONTRIBUTING.md sound less robotic.",
+      "should_load": [
+        "developer/repo-files.md"
+      ],
+      "must": [
+        "edits CONTRIBUTING.md in place after checking it has no uncommitted changes",
+        "tells the user how to see or undo the change with git"
+      ],
+      "must_not": [
+        "committing or pushing without being asked",
+        "changing commands or code blocks"
+      ]
+    },
+    {
+      "id": "work-chat",
+      "prompt": "Turn this into a Slack message for my team: Dear Team, I hope this message finds you well. I wanted to inform you that the release scheduled for Thursday will be postponed to Monday due to a bug in the payment flow. Kind regards, Neha",
+      "should_load": [
+        "writing/work-chat.md"
+      ],
+      "must": [
+        "puts the news first",
+        "keeps Thursday, Monday, and the payment bug",
+        "drops the email greeting and sign-off"
+      ],
+      "must_not": [
+        "new commitments the user didn't make"
+      ]
+    },
+    {
+      "id": "not-triggered-write-code",
+      "prompt": "Write a React component that shows a list of users with a search box.",
+      "should_load": [],
+      "must": [
+        "the skill does not load"
+      ],
+      "must_not": []
+    },
+    {
+      "id": "not-triggered-fix-bug",
+      "prompt": "Why does this Python code throw a KeyError? data = {} ; print(data['x'])",
+      "should_load": [],
+      "must": [
+        "the skill does not load"
+      ],
+      "must_not": []
     }
   ]
 }

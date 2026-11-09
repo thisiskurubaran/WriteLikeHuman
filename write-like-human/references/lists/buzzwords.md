@@ -91,6 +91,29 @@ These are common in Indian business writing. They are not wrong, but some hide t
 | Prepone | Move earlier (prepone is fine in Indian English, keep it for Indian readers) |
 | Intimate (as in "intimate the office") | Inform, tell |
 
+## Developer docs, READMEs, and commit messages
+
+Use with the guides in `developer/`. These make a README, a pull request, or a code comment sound machine written.
+
+| Phrase or habit | Plain replacement |
+|---|---|
+| "🚀 Features", "✨ Highlights", an emoji on every heading | Plain headings: "Features", "Install", "Usage" |
+| A wall of badges before the first sentence | Keep the two or three that matter (build, version, licence) |
+| "A powerful, robust, and scalable solution" | Say what it does: "Converts CSV files to JSON" |
+| "Seamlessly integrates with" | "Works with", or name how: "Reads your existing .env file" |
+| "Leverages X to deliver Y" | "Uses X to Y" |
+| "Simply run", "just run", "easily" | "Run". Don't promise it's easy |
+| "Blazing fast", "lightning fast" | A real number if the user has one ("parses 1 GB in 4 seconds"), else delete |
+| "Comprehensive", "cutting-edge", "state-of-the-art" | Delete, or list what it covers |
+| "This PR introduces a comprehensive refactor that enhances..." | "Splits the parser into two modules so..." |
+| "Updated code", "Fixed stuff", "Misc changes" | Say what changed and why: "fix(login): stop double submit on slow networks" |
+| "This function is responsible for handling the processing of" | "Parses", "Sends", "Checks" |
+| A comment that repeats the code (`i += 1  # increment i`) | Delete, or say why |
+| "Note that", "It's worth noting that", "Please note" | Delete, keep the note |
+| "In this section, we will explore" | Delete. Start with the content |
+| "Feel free to open an issue" on every page | Once, in the contributing section |
+| "Happy coding! 🎉" | Delete |
+
 ## How to use this list
 
 - Replace a buzzword only when the plain version keeps the meaning.

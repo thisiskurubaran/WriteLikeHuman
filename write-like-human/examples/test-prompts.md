@@ -15,6 +15,7 @@ Prompts to try after uploading the skill. Each line says what should happen. All
 | "Be honest, is this robotic?" | check |
 | "Show me each change so I can approve it" | side-by-side |
 | "What would you change in my SOP? Don't just rewrite it" | side-by-side + form-answers |
+| "help with this" (with a pasted message and no other instruction) | quick-options (a short numbered menu, nothing else) |
 
 ### Files
 
@@ -92,6 +93,22 @@ Prompts to try after uploading the skill. Each line says what should happen. All
 | "Write a reference for my intern" | draft + recommendations |
 | "Write a 60 second Reels script" | draft + video-scripts |
 | "Make my visa purpose letter sound natural" | rewrite + form-answers |
+| "Turn this into a Slack message for my team" | rewrite + work-chat |
+
+### Developer writing
+
+| Prompt | Should load |
+|---|---|
+| "Make my README sound less like AI" (with a pasted README) | readme + buzzwords |
+| "Write a commit message for this diff" | commits-and-prs |
+| "Write the PR description, we use the repo template" | commits-and-prs |
+| "Explain the architecture of this project for new joiners" | architecture |
+| "Write a decision record for choosing Postgres" | architecture |
+| "Explain our folder structure in the README" | architecture + readme |
+| "Make these error messages friendlier" | api-docs-and-ui-text |
+| "Rewrite the values in en.json, keep the keys" | api-docs-and-ui-text |
+| "Clean up the comments in this file, don't touch the code" (with a .py or .ts file) | code-comments + buzzwords |
+| "Make CONTRIBUTING.md less robotic" (in Claude Code, in a git repo) | readme + repo-files (edits in place, says how to undo) |
 
 ### Adjust, voice, language
 
@@ -136,6 +153,8 @@ Prompts to try after uploading the skill. Each line says what should happen. All
 |---|---|
 | "What's the capital of Peru?" | A question, not writing help |
 | "Write a Python function to sort a list" | Code, not everyday writing |
+| "Write a React component with a search box" | Writing code is not this skill, even for developers |
+| "Why does this code throw a KeyError?" | Debugging, not writing |
 | "Summarize this PDF in 5 bullets" | Summary, not humanizing (unless they ask it to sound natural) |
 | "Fix the formula in cell C4" | Spreadsheet maths, not wording |
 | "Convert this table to a chart" | Data work |
@@ -162,3 +181,4 @@ Prompts to try after uploading the skill. Each line says what should happen. All
 - Output saved as a new file ending in `-humanized`, original untouched.
 - Change summary is short and in plain words, with no scores or pattern numbers.
 - No long dashes in the output.
+- For developer files: commands, code blocks, and code are unchanged.

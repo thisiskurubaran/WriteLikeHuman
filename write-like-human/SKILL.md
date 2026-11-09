@@ -1,13 +1,13 @@
 ---
 name: write-like-human
-description: Make anything you write sound like a real person, not AI, keeping your facts, numbers, and formatting. Fixes or drafts emails, WhatsApp replies, letters (including RTI and complaints), resumes, posts, bios, reports, speeches, wishes, reviews, form answers, payment reminders, and customer replies. Works on pasted text, Word, PDF (including scans), Excel, PowerPoint, Google Docs, templates, forms, screenshots, and handwritten notes, and creates new Word, PDF, Excel, and PowerPoint files. Use when someone asks to humanize text, make it sound natural, less robotic, less like ChatGPT, more like them, friendlier, simpler, shorter, or more professional, asks if text sounds AI written, or wants a message checked before sending. Handles Indian English, Hinglish, Indian scripts, and over 30 languages, and translates so it sounds native.
+description: Make anything you write sound like a real person, not AI, keeping your facts, numbers, and formatting. Fixes or drafts emails, WhatsApp replies, letters (including RTI and complaints), resumes, posts, bios, reports, speeches, wishes, reviews, form answers, payment reminders, customer replies, work chat messages, and developer writing like READMEs, commit messages, docs, and code comments. Works on pasted text, Word, PDF (including scans), Excel, PowerPoint, Google Docs, templates, forms, screenshots, and handwritten notes, and creates new Word, PDF, Excel, and PowerPoint files. Use when someone asks to humanize text, make it sound natural, less robotic, less like ChatGPT, more like them, friendlier, simpler, shorter, or more professional, asks if text sounds AI written, or wants a message checked before sending. Handles Indian English, Hinglish, Indian scripts, and over 30 languages, and translates so it sounds native.
 ---
 
 # WriteLikeHuman
 
 Make everyday writing sound like a person wrote it. Keep what it says, keep the facts, keep the file looking the same.
 
-The people using this are not developers. They paste an email, attach a Word file, or forward a WhatsApp message and say "make this sound less robotic". Talk to them in plain words. Never mention modules, file paths, or pattern names in replies.
+Most people using this are not developers. They paste an email, attach a Word file, or forward a WhatsApp message and say "make this sound less robotic". Talk to them in plain words. Never mention modules, file paths, or pattern names in replies. Some users are developers asking for READMEs, commit messages, or docs: the same plain-words rules apply, and code itself is never changed.
 
 ## How to work
 
@@ -21,7 +21,7 @@ The people using this are not developers. They paste an email, attach a Word fil
 
 Modules combine. A resume sent as a .docx loads `files/word.md`, `writing/resume.md`, and `lists/buzzwords.md`. "Shorten this LinkedIn post and make it friendlier" loads `writing/social-post.md`, `lists/platform-limits.md`, `adjust/length.md`, and `adjust/tone-presets.md`.
 
-If nothing in a table matches, use rewrite mode with no extra modules. That covers most pasted text.
+If the user gives text with no clear task ("help with this", or just the text), offer quick options. If a clear request matches nothing in a table, use rewrite mode with no extra modules. That covers most pasted text.
 
 ## Mode (pick one)
 
@@ -34,6 +34,7 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | "Why did you change this?", "explain change 3", asks about one line of a rewrite | [references/modes/explain.md](references/modes/explain.md) |
 | "Teach me", "how can I write better myself?", "help me learn to avoid this" | [references/modes/learn.md](references/modes/learn.md) |
 | "How does this sound?", "is this rude?", "is my boss angry?", about a message someone else sent | [references/modes/read.md](references/modes/read.md) |
+| Text or a file with no clear task: "help with this", "look at this", or nothing at all | [references/modes/quick-options.md](references/modes/quick-options.md) |
 
 ## Input (add any that match)
 
@@ -70,6 +71,19 @@ A request can match a file row and a writing row at the same time, such as a res
 | User gives or asks for | Read |
 |---|---|
 | A specific kind of writing: an email, a WhatsApp reply, a letter, a resume, a post, a bio, a report, a speech, wishes, a review, a form answer, biodata, an RTI, an invitation, a complaint, an agreement, and more | [references/writing/index.md](references/writing/index.md), then the one guide it points to |
+
+## Developer writing (add any that match)
+
+Only the words around code. Requests to write or change code are not for this skill.
+
+| User gives or asks for | Read |
+|---|---|
+| A README, a package description, or a GitHub profile README | [references/developer/readme.md](references/developer/readme.md) + [references/lists/buzzwords.md](references/lists/buzzwords.md) |
+| A commit message, a pull request description, or a diff to describe | [references/developer/commits-and-prs.md](references/developer/commits-and-prs.md) |
+| An architecture doc, a design decision record (ADR), or "explain our folder structure" | [references/developer/architecture.md](references/developer/architecture.md) |
+| API docs, error messages, button labels, empty states, or strings in a translation file | [references/developer/api-docs-and-ui-text.md](references/developer/api-docs-and-ui-text.md) |
+| "Clean up the comments" or docstrings in a code file | [references/developer/code-comments.md](references/developer/code-comments.md) |
+| Any of the above in Claude Code, in a folder under git | [references/developer/repo-files.md](references/developer/repo-files.md) as well |
 
 ## Adjust, voice, and language (add any that match)
 
@@ -110,7 +124,7 @@ Language files: `indian-english.md`, `hindi.md`, `tamil.md`, `telugu.md`, `kanna
 6. **Use the voice profile if the user has one.** If they paste or attach their profile, follow it. If not, do not nag. Offer once, at the end, to build one.
 7. **Plain change summary at the end.** See the format below.
 8. **Do not over-correct.** Keep the meaning, the length (within about 10 percent unless asked), and the level of formality. Do not make professional writing casual. Do not add slang, jokes, or typos the user did not use. Do one rewrite and one quick re-check against `ai-patterns.md`, then stop.
-9. **Output a new file, never overwrite.** Save as `<original-name>-humanized.<ext>` so the original stays safe.
+9. **Output a new file, never overwrite.** Save as `<original-name>-humanized.<ext>` so the original stays safe. The one exception: in Claude Code, inside a git repository, edit developer files in place, since git keeps the old version (see `developer/repo-files.md`).
 10. **Respect privacy.** These are personal files. Do not quote large chunks back unless asked. Never store contents anywhere.
 
 ## Ethics

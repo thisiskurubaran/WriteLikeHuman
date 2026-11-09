@@ -19,6 +19,7 @@ The router sends you here when the user gives or asks for a specific kind of wri
 | An out-of-office reply, a holiday or away message, a WhatsApp Business greeting, or an email signature | [auto-replies.md](auto-replies.md) |
 | A salary or offer negotiation, a price talk with a vendor or client, or a rent negotiation | [negotiation.md](negotiation.md) |
 | A recommendation or reference letter, written by the recommender or drafted for them to review | [recommendations.md](recommendations.md) |
+| A Slack, Teams, or Google Chat message: a status update, asking for help, a thread reply, or pushing back | [work-chat.md](work-chat.md) |
 
 ### Official, school, and complaints
 
