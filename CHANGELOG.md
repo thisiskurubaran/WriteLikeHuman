@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Changed
+
+- Python cache folders and Node packages are ignored, so test runs no longer leave untracked files.
+
 ## [0.4.0] - 2026-11-09
 
 ### Added
