@@ -59,11 +59,13 @@ jobs:
           cd write-like-human/references
           for f in $(find . -name '*.md' | sed 's|^\./||'); do
             case "$f" in
-              languages/*) name="${f#languages/}" ;;
-              *) name="$f" ;;
+              */index.md) continue ;;
+              languages/*) name="${f#languages/}"; where="../SKILL.md" ;;
+              writing/*) name="(${f#writing/})"; where="../SKILL.md writing/index.md" ;;
+              *) name="$f"; where="../SKILL.md" ;;
             esac
-            if ! grep -q "$name" ../SKILL.md; then
-              echo "::error::$f is not linked from SKILL.md"
+            if ! grep -qF "$name" $where; then
+              echo "::error::$f is not linked from SKILL.md or an index it links to"
               missing=1
             fi
           done

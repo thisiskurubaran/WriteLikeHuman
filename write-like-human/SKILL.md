@@ -31,10 +31,12 @@ If nothing in a table matches, use rewrite mode with no extra modules. That cove
 | "Write me a...", "draft a...", "help me write...", including "...as a Word file, PDF, or spreadsheet" | [references/modes/draft.md](references/modes/draft.md) |
 | "Does this sound like AI?", "check this", "what gives it away?" | [references/modes/check.md](references/modes/check.md) |
 | "Show me the changes", "let me approve each one", "side by side" | [references/modes/side-by-side.md](references/modes/side-by-side.md) |
+| "Why did you change this?", "explain change 3", asks about one line of a rewrite | [references/modes/explain.md](references/modes/explain.md) |
+| "Teach me", "how can I write better myself?", "help me learn to avoid this" | [references/modes/learn.md](references/modes/learn.md) |
 
 ## Input (add any that match)
 
-Find the group first, then the row. A request can match rows in more than one group, such as a resume sent as a .docx.
+A request can match a file row and a writing row at the same time, such as a resume sent as a .docx.
 
 ### Files
 
@@ -55,55 +57,15 @@ Find the group first, then the row. A request can match rows in more than one gr
 | An .html web page file | [references/files/web-pages.md](references/files/web-pages.md) |
 | A photo or image of a poster, flyer, banner, or menu card | [references/files/posters.md](references/files/posters.md) |
 | "Fix my draft in Gmail or Outlook" (with a mail connector) | [references/files/email-drafts.md](references/files/email-drafts.md) + [references/writing/email.md](references/writing/email.md) |
+| A Word or PowerPoint template to fill: "use my letterhead", "fill this resume layout" | [references/files/templates.md](references/files/templates.md) |
+| A form to fill: a fillable PDF, or a Word form with blanks (visa, school, bank KYC) | [references/files/forms.md](references/files/forms.md) + [references/writing/form-answers.md](references/writing/form-answers.md) |
+| A photo of handwritten notes, a whiteboard, a diary page, or a handwritten letter | [references/files/handwriting.md](references/files/handwriting.md) |
 
-### Work and career
+### Kinds of writing
 
-| User gives | Read |
+| User gives or asks for | Read |
 |---|---|
-| An email, a whole email thread, or an .eml file | [references/writing/email.md](references/writing/email.md) |
-| A resume or cover letter | [references/writing/resume.md](references/writing/resume.md) + [references/lists/buzzwords.md](references/lists/buzzwords.md) |
-| A school or work report | [references/writing/report.md](references/writing/report.md) |
-| Meeting notes | [references/writing/meeting-notes.md](references/writing/meeting-notes.md) |
-| A job post or job description | [references/writing/job-posts.md](references/writing/job-posts.md) + [references/lists/buzzwords.md](references/lists/buzzwords.md) |
-| A freelance proposal or quote | [references/writing/proposals.md](references/writing/proposals.md) |
-| A cold message: LinkedIn connection note, referral request, cold email to a recruiter or client | [references/writing/outreach.md](references/writing/outreach.md) |
-| Release notes, a changelog, or app store "What's new" text | [references/writing/release-notes.md](references/writing/release-notes.md) |
-
-### Official, school, and complaints
-
-| User gives | Read |
-|---|---|
-| A leave, complaint, bank, government, or school letter | [references/writing/formal-letters.md](references/writing/formal-letters.md) |
-| A personal statement, visa letter, or scholarship answer | [references/writing/form-answers.md](references/writing/form-answers.md) |
-| A newsletter or notice for a society, school, club, or office | [references/writing/notices.md](references/writing/notices.md) |
-| A school or college essay, or a college application essay | [references/writing/essays.md](references/writing/essays.md) |
-| A complaint to a company: online shop, airline, telecom, bank | [references/writing/consumer-complaints.md](references/writing/consumer-complaints.md) |
-| An RTI (Right to Information) application | [references/writing/rti.md](references/writing/rti.md) |
-| A note or message to a teacher, school, class group, or PTA | [references/writing/school-messages.md](references/writing/school-messages.md) |
-
-### Selling and reviews
-
-| User gives | Read |
-|---|---|
-| A review of a product, place, or service | [references/writing/reviews.md](references/writing/reviews.md) |
-| A reply to a customer review of their own business | [references/writing/review-replies.md](references/writing/review-replies.md) |
-| A product or listing description (Meesho, Etsy, Amazon, Flipkart, OLX, Instagram shop) | [references/writing/listings.md](references/writing/listings.md) |
-| A flat for rent, PG, or roommate wanted post | [references/writing/rental-posts.md](references/writing/rental-posts.md) |
-
-### Personal, family, and social
-
-| User gives | Read |
-|---|---|
-| A WhatsApp or SMS message | [references/writing/chat-replies.md](references/writing/chat-replies.md) |
-| A speech or toast | [references/writing/speeches.md](references/writing/speeches.md) |
-| A greeting, card, or condolence message | [references/writing/wishes-cards.md](references/writing/wishes-cards.md) |
-| A voice note transcript | [references/writing/voice-notes.md](references/writing/voice-notes.md) |
-| An invitation: wedding, housewarming, naming ceremony, birthday party | [references/writing/invitations.md](references/writing/invitations.md) |
-| An apology, a boundary, or saying no to friends or family | [references/writing/hard-conversations.md](references/writing/hard-conversations.md) |
-| A marriage biodata or matrimony profile | [references/writing/marriage-biodata.md](references/writing/marriage-biodata.md) |
-| A eulogy, obituary, or death notice | [references/writing/eulogies.md](references/writing/eulogies.md) |
-| A social media post | [references/writing/social-post.md](references/writing/social-post.md) + [references/lists/platform-limits.md](references/lists/platform-limits.md) |
-| A bio, dating profile, or About page | [references/writing/bios.md](references/writing/bios.md) |
+| A specific kind of writing: an email, a WhatsApp reply, a letter, a resume, a post, a bio, a report, a speech, wishes, a review, a form answer, biodata, an RTI, an invitation, a complaint, an agreement, and more | [references/writing/index.md](references/writing/index.md), then the one guide it points to |
 
 ## Adjust, voice, and language (add any that match)
 
@@ -119,13 +81,15 @@ Find the group first, then the row. A request can match rows in more than one gr
 | "Check this before I send it", "did I miss anything?", "final check" | [references/adjust/before-send.md](references/adjust/before-send.md) |
 | "Check this report for consistency", "make the terms consistent", a long document to read as one piece | [references/adjust/consistency.md](references/adjust/consistency.md) |
 | "Will this sound okay to my client in Germany?", "is this too direct for a US reader?", a message going to another country | [references/adjust/cross-cultural.md](references/adjust/cross-cultural.md) |
+| A tricky or sensitive reply (a landlord dispute, saying no to a boss), "I don't want to sound rude", "give me two versions" | [references/adjust/reply-options.md](references/adjust/reply-options.md) |
+| Attaches a team or company style guide, "use our house style", "help me make a style guide" | [references/voice/style-guide.md](references/voice/style-guide.md) (blank form: [references/voice/style-guide-template.md](references/voice/style-guide-template.md)) |
 | Pastes or attaches a voice profile, "make it sound like me", "use my work voice" | [references/voice/voice-profile.md](references/voice/voice-profile.md) (the blank form is [references/voice/voice-profile-template.md](references/voice/voice-profile-template.md)) |
 | Attaches a WhatsApp chat export, "build my profile from my WhatsApp messages" | [references/voice/chat-export.md](references/voice/chat-export.md) |
 | "Translate this into..." | [references/languages/translate-humanize.md](references/languages/translate-humanize.md) + the target language file |
 | Hinglish, Tanglish, Manglish, Benglish, Kanglish, Taglish, or other mixed-language writing | [references/languages/mixed-language.md](references/languages/mixed-language.md) |
 | Text that is not US or UK English | The matching file in `references/languages/` |
 
-Language files: `indian-english.md`, `hindi.md`, `tamil.md`, `telugu.md`, `kannada.md`, `malayalam.md`, `bengali.md`, `marathi.md`, `gujarati.md`, `punjabi.md`, `odia.md`, `urdu.md`, `assamese.md`, `spanish.md`, `french.md`, `german.md`, `portuguese.md`, `indonesian.md`, `arabic.md`, `japanese.md`, `nepali.md`, `sinhala.md`, `konkani.md`, `italian.md`, `turkish.md`, `korean.md`, `chinese.md`, `filipino.md`. Each lists the AI tells for that language. Never translate unless the user asks. If someone writes in Hindi, answer in Hindi.
+Language files: `indian-english.md`, `hindi.md`, `tamil.md`, `telugu.md`, `kannada.md`, `malayalam.md`, `bengali.md`, `marathi.md`, `gujarati.md`, `punjabi.md`, `odia.md`, `urdu.md`, `assamese.md`, `spanish.md`, `french.md`, `german.md`, `portuguese.md`, `indonesian.md`, `arabic.md`, `japanese.md`, `nepali.md`, `sinhala.md`, `konkani.md`, `italian.md`, `turkish.md`, `korean.md`, `chinese.md`, `filipino.md`, `sindhi.md`, `maithili.md`, `vietnamese.md`, `thai.md`, `swahili.md`. Each lists the AI tells for that language. Never translate unless the user asks. If someone writes in Hindi, answer in Hindi.
 
 ## Core rules
 

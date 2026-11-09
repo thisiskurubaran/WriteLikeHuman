@@ -56,7 +56,7 @@ docs/                 the project website (GitHub Pages)
 
 `SKILL.md` stays short. It holds the routing tables, the core rules, and the change summary format. Everything else goes in `references/` so Claude reads only what a request needs.
 
-If you add a module, link it from the right table in `SKILL.md`. A module nobody links to never gets loaded.
+If you add a module, link it from the right table in `SKILL.md`, or for a new kind of writing, from `references/writing/index.md`. A module nobody links to never gets loaded.
 
 ## Module format
 
