@@ -40,10 +40,16 @@ Only the words in text boxes, table cells, and speaker notes change.
 7. **Read the CHECK lines.** `may not fit its box` means the new text is noticeably longer than the old. Shorten it. `numbers differ` means a figure changed. Fix it.
 8. **Quick re-check** against `ai-patterns.md`. Then stop.
 
-### Google Slides
+## With a Google connector
 
-- With a Google Drive or Slides connector: make a copy named `<title> (humanized)` and edit the text in the copy, following the same rules. Edit the original only if the user clearly asks.
-- Without one: ask the user to download it (**File > Download > Microsoft PowerPoint (.pptx)**) and attach it, or paste the slide text and notes. If they paste, give it back slide by slide with "Slide 1", "Slide 2" labels so they know where each line goes.
+When the user links a Google Slides deck and a Google Drive or Slides connector is attached, edit the deck itself instead of asking for a download.
+
+1. Make a copy first, named `<title> (humanized)`, and edit the copy. Edit the original only if the user clearly says to.
+2. Change only the text in text boxes, tables, and speaker notes, by the same rules as above. Leave layouts, images, charts, and the figures in them alone.
+3. Keep each text box about as long as before, so nothing spills off the slide.
+4. Tell the user where the copy is and give the change summary.
+
+Without a connector, ask the user to download it (**File > Download > Microsoft PowerPoint (.pptx)**) and attach it, or paste the slide text and notes. If they paste, give it back slide by slide with "Slide 1", "Slide 2" labels so they know where each line goes.
 
 ## Creating a new deck
 

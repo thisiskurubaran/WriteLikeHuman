@@ -44,14 +44,21 @@ Short labels like "Done", "Pending", "North", "Total" are left alone. A rough ru
 6. **Read the CHECK lines.** `numbers differ` means a number inside a sentence changed. Fix it.
 7. **Quick re-check.** Formulas still there, totals unchanged, only the notes changed. Then stop.
 
-### Google Sheets
-
-- With a Google Drive or Sheets connector: make a copy named `<title> (humanized)` and edit only the text cells in the copy, following the same rules. Edit the original only if the user clearly asks.
-- Without one: ask the user to download it (**File > Download > Microsoft Excel (.xlsx)** or **Comma separated values (.csv)**), or to paste the column they want fixed. If they paste a column, give it back in the same order, one line per cell, so they can paste it straight back.
-
 ### CSV files
 
 A CSV has no formatting and no formulas, just text. The script keeps the separator (comma, semicolon, tab) and line endings as they were. Dates and numbers are still left alone. Keep commas and quotes inside cells safe by letting the script write the file, never by hand.
+
+## With a Google connector
+
+When the user links a Google Sheet and a Google Drive or Sheets connector is attached, edit the sheet itself instead of asking for a download.
+
+1. Make a copy first, named `<title> (humanized)`, and edit the copy. Edit the original only if the user clearly says to.
+2. Read the cells through the connector. Change only text cells, notes, and comments, by the same rules as above.
+3. Never touch numbers, dates, formulas, or anything a formula refers to. If a cell shows text but holds a formula, leave it.
+4. Write back only the cells you changed, one by one, so nothing else in the sheet moves.
+5. Tell the user where the copy is and give the change summary.
+
+Without a connector, ask the user to download it (**File > Download > Microsoft Excel (.xlsx)** or **Comma separated values (.csv)**), or to paste the column they want fixed. If they paste a column, give it back in the same order, one line per cell, so they can paste it straight back.
 
 ## Output
 
