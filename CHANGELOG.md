@@ -32,6 +32,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - The router links every v0.6.0 guide.
 - The README lists every v0.6.0 feature and links the privacy page.
 - Hindi and Tamil README brought up to date with v0.6.0.
+- The website's What's new section and the guide (in English, Hindi, and Tamil) cover reading a message, negotiation, long documents, and Easy Read.
 
 ### Fixed
 
