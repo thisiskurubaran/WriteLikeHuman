@@ -34,6 +34,8 @@ Kanglish notes (Kannada and English): keep "guru", "maga", "swalpa", "beda", "ad
 
 Taglish notes (Tagalog and English): keep "po", "naman", "na lang", "kasi", "sana" and English words like "meeting", "deadline", "load" as the user writes them. Do not turn a Taglish chat into deep, formal Tagalog or into pure English.
 
+If the user wants the same words in another script ("write this in Hindi script", "type this in Tamil letters", "convert to English letters"), that is script conversion, not a rewrite. See `script-conversion.md`. Never change the script on your own.
+
 ## Steps
 
 1. Work out the base language (the grammar) and the mix ratio.

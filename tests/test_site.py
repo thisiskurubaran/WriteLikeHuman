@@ -20,7 +20,7 @@ REFS = os.path.join(ROOT, "write-like-human", "references")
 SITES = [os.path.join(ROOT, "docs", *p.split("/")) for p in ("index.html", "hi/index.html", "ta/index.html")]
 EVALS = os.path.join(ROOT, "tests", "evals", "evals.json")
 
-NOT_A_LANGUAGE = {"translate-humanize.md", "mixed-language.md", "indian-english.md"}
+NOT_A_LANGUAGE = {"translate-humanize.md", "mixed-language.md", "indian-english.md", "script-conversion.md"}
 
 
 def actual_counts():

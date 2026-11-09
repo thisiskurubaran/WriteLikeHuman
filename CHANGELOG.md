@@ -14,6 +14,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Added
 
 - A GitHub workflow you start by hand that runs the evals with your API key and attaches the score. It never runs on its own.
+- Script conversion: write the same words in Hindi, Tamil, or another Indian script, or back into Roman letters, without translating.
 
 ## [0.4.0] - 2026-11-09
 
