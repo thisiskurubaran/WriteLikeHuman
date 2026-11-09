@@ -4,7 +4,10 @@
 // than the screen, if a phone lays it out at the wrong width (the page
 // gets zoomed out), or if the page throws a script error.
 //
-// Needs Playwright:  npm install --no-save playwright@1.63.0
+// It also runs axe-core on every page and fails on serious or critical
+// accessibility problems.
+//
+// Needs Playwright:  npm install --no-save playwright@1.63.0 axe-core@4.10.2
 //                    npx playwright install --with-deps chromium webkit
 // Run from the repo root:  node tests/site_layout.mjs
 
@@ -16,7 +19,7 @@ const require = createRequire(import.meta.url);
 const { chromium, webkit } = require("playwright");
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const pages = ["index.html", "examples.html", "guide.html", "hi/index.html", "ta/index.html"].map((p) => ({
+const pages = ["index.html", "examples.html", "guide.html", "privacy.html", "hi/index.html", "ta/index.html", "hi/guide.html", "ta/guide.html"].map((p) => ({
   name: p,
   url: pathToFileURL(path.join(root, "docs", ...p.split("/"))).href,
 }));
@@ -88,8 +91,47 @@ for (const [engineName, engine] of engines) {
   await browser.close();
 }
 
+// Accessibility: run axe-core on every page at a phone and a desktop size,
+// in Chromium only, and fail on serious or critical problems.
+let axePath = null;
+try {
+  axePath = require.resolve("axe-core/axe.min.js", { paths: [root] });
+} catch (err) {
+  axePath = null;
+}
+if (!axePath) {
+  console.log("\nSKIP accessibility: axe-core is not installed (npm install --no-save axe-core@4.10.2)");
+  if (process.env.CI) failures++;
+} else if (!only || only.includes("chromium")) {
+  const browser = await chromium.launch();
+  for (const page of pages) {
+    for (const size of [{ name: "phone 390", width: 390, height: 844, mobile: true }, { name: "desktop 1280", width: 1280, height: 900, mobile: false }]) {
+      for (const scheme of ["light", "dark"]) {
+        const context = await browser.newContext({ viewport: { width: size.width, height: size.height }, isMobile: size.mobile, hasTouch: size.mobile, reducedMotion: "reduce", colorScheme: scheme });
+        const tab = await context.newPage();
+        await tab.goto(page.url);
+        await tab.addScriptTag({ path: axePath });
+        const result = await tab.evaluate(async () => {
+          const r = await window.axe.run(document, { resultTypes: ["violations"] });
+          return r.violations
+            .filter((v) => v.impact === "serious" || v.impact === "critical")
+            .map((v) => ({ id: v.id, impact: v.impact, targets: v.nodes.slice(0, 4).map((n) => n.target.join(" ")) }));
+        });
+        if (result.length) {
+          failures++;
+          console.log(`FAIL a11y ${page.name} ${size.name} ${scheme}: ` + result.map((v) => `${v.id} (${v.impact}) at ${v.targets.join(" | ")}`).join("; "));
+        } else {
+          console.log(`ok   a11y ${page.name} ${size.name} ${scheme}`);
+        }
+        await context.close();
+      }
+    }
+  }
+  await browser.close();
+}
+
 if (failures) {
   console.log(`\n${failures} problem(s) found.`);
   process.exit(1);
 }
-console.log("\nEvery page fits every screen size.");
+console.log("\nEvery page fits every screen size and passes the accessibility scan.");
