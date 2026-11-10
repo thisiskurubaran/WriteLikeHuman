@@ -10,6 +10,10 @@
 4. For `should_load`, ask Claude at the end of the chat which reference files it read, or check its tool calls if your app shows them.
 5. Write down any failures in the release pull request, and fix the module or the router table in `SKILL.md` before tagging.
 
+## Testing in the app
+
+The API runner can't attach files or show how replies look on a phone. For that, use [../app-checklist.md](../app-checklist.md): twenty prompts with made-up files to attach, and a column to mark pass or fail.
+
 ## Adding a case
 
 Add an object to `cases` with a unique `id`. Keep prompts in the words a normal person would type. If you add a module, add at least one case that should load it, and one prompt for something close to it that should not.
@@ -18,7 +22,7 @@ Add an object to `cases` with a unique `id`. Keep prompts in the words a normal 
 
 ## Running them through the API (optional)
 
-`tests/run_evals.py` sends each case through the Claude API and grades the answer automatically. It is a first pass only, and it costs money on your own account, so it never runs on GitHub. Cases that need an attached file are skipped.
+`tests/run_evals.py` sends each case through the Claude API and grades the answer automatically. It is a first pass only, and it costs money on your own account, so it never runs on its own. Cases that need an attached file or Claude Code with a real repository are skipped (31 of the 161); try those with the [app checklist](../app-checklist.md).
 
 ```bash
 pip install anthropic

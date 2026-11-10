@@ -14,7 +14,8 @@ How it works, for each case:
      "must_not" lists and returns pass or fail with reasons.
   4. The files Claude read are compared with "should_load".
 
-Cases that need an attached or pasted file are skipped.
+Cases that need an attached or pasted file, or Claude Code with a real
+repository, are skipped.
 
 Setup:
   pip install anthropic
@@ -88,8 +89,9 @@ JUDGE_SCHEMA = {
 
 
 def needs_attachment(case):
+    """True for cases the API can't run: an attached file, or Claude Code in a repo."""
     prompt = case["prompt"].lower()
-    return "(attach" in prompt or "(paste" in prompt
+    return "(attach" in prompt or "(paste" in prompt or "(in claude code" in prompt
 
 
 def skill_system_prompt():
@@ -192,7 +194,7 @@ def main():
 
     for case in cases:
         if needs_attachment(case):
-            print("SKIP  %s (needs a file, try it in the Claude app)" % case["id"])
+            print("SKIP  %s (needs a file or Claude Code, try it in the app)" % case["id"])
             skipped += 1
             continue
         try:

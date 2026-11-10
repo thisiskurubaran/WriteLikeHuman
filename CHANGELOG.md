@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Added
 
 - Size budgets for what Claude reads per request: SKILL.md and the pattern catalog stay under 6,000 words together, and a common request under 11,000, checked on every pull request.
+- An app testing checklist: twenty prompts to try in the Claude app before a release, with made-up Word, PDF, Excel, PowerPoint, subtitle, LaTeX, and code files to attach.
+
+### Fixed
+
+- The API eval runner skips cases that need Claude Code with a real repository, instead of failing them.
 
 ## [0.7.0] - 2026-11-09
 
