@@ -42,4 +42,5 @@ Add the sample to `write-like-human/examples/before-after.md`, then add its head
 
 - `gen_guide_i18n.py` holds the Hindi and Tamil text for the guide (`docs/hi/guide.html`, `docs/ta/guide.html`). Add a task to `gen_guide.py` and you must add it here too, or the build stops and names the missing task.
 - `gen_privacy.py` builds `docs/privacy.html` from its `SECTIONS` list, using the guide's page frame.
-- If `tests/evals/results/` holds a saved score (from `tests/run_evals.py --save`), `sync_site.py` shows the newest one by version under the stats on the English, Hindi, and Tamil landing pages. With no saved score, nothing is shown.
+- If `tests/evals/results/` holds a saved score (from `tests/run_evals.py --save`), `sync_site.py` shows the newest one by version as a tile in the stats row on the English, Hindi, and Tamil landing pages. With no saved score, the tile is left out.
+- `sync_site.py` also fills in the version next to the download buttons (between the `site-version` markers on the landing page) from the `write-like-human` entry in `.claude-plugin/marketplace.json`, so it changes at each release.

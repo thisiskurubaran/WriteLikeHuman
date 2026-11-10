@@ -9,10 +9,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Added
 
 - A changelog page on the website, built from CHANGELOG.md, with every release, newest first, and links to each release on GitHub.
+- Website: a "What do you want to do?" chooser that links common tasks to their guide steps, a direct download button showing the latest version, a download bar on phones, copy buttons on example prompts, a Hinglish before-and-after example, four more FAQs (privacy, plans, updating, removing), and "Report a problem" links.
 
 ### Changed
 
 - The website's announcement bar points to v0.9.0, the 1.0 release candidate.
+- Website: a shorter phone page (long sections fold behind "Show more"), a shorter top menu, before and after side by side on wide screens, wrapped language list on phones, and the test pass rate as its own tile. Copy fixes in English, Hindi, and Tamil.
 
 ### Fixed
 

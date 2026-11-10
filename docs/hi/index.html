@@ -251,6 +251,16 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .xbody p { margin: 0; color: var(--muted); font-size: 14px; }
 .xprompt { display: block; margin-top: 10px; font-size: 13.5px; color: var(--ink-2); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px; overflow-wrap: anywhere; }
 .xprompt::before { content: "You: "; font-weight: 700; color: var(--muted); }
+/* The script adds a copy button to each prompt */
+.xprompt.has-copy { display: flex; align-items: flex-start; gap: 6px; padding-right: 5px; }
+.xprompt.has-copy::before { flex: none; }
+.xprompt-text { flex: 1; min-width: 0; }
+.copy-sm { flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-width: 28px; height: 28px; margin: -3px 0; padding: 0 7px; font: 600 12px var(--sans); color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; cursor: pointer; transition: color .15s, border-color .15s; }
+.copy-sm:hover { color: var(--ink); border-color: var(--line-strong); }
+.copy-sm .icon { width: 13px; height: 13px; }
+.copy-sm.done { color: var(--ok); border-color: currentColor; }
+.copy-sm-tx:empty { display: none; }
+@media (pointer: coarse) { .copy-sm { min-width: 32px; height: 32px; margin: -5px 0; } }
 .xout { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font: 600 12.5px var(--mono); color: var(--ink-2); overflow-wrap: anywhere; }
 .xout .icon { width: 14px; height: 14px; color: var(--ok); stroke-width: 2.6; flex: none; }
 .xnote { margin: 16px 0 0; display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); }
@@ -289,8 +299,6 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 #developers .checks li span:last-child { min-width: 0; }
 #developers code { font: 600 .92em var(--mono); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; }
 #developers .more-link { margin-top: 16px; }
-/* The nav has room for this link only on wider screens. The phone menu always has it. */
-@media (max-width: 1099px) { .links .nav-wide { display: none; } }
 
 /* ---------- What's new ---------- */
 .whats-new { padding-top: clamp(48px, 7vw, 72px); }
@@ -359,9 +367,12 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .more-link .icon { width: 16px; height: 16px; transition: translate .2s; }
 .more-link:hover .icon { translate: 3px 0; }
 
-/* Latest saved eval score, filled in by docs/_build/sync_site.py */
-.eval-score { margin: 14px 0 0; text-align: center; font-size: 13.5px; color: var(--muted); }
-.eval-score b { color: var(--ink); }
+/* Download version line under the hero buttons. The version is filled in by docs/_build/sync_site.py */
+.dl-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin: 12px 0 0; font-size: 13.5px; color: var(--muted); }
+.dl-meta b { color: var(--ink-2); font-weight: 600; }
+.dl-meta a { display: inline-flex; align-items: center; min-height: 32px; color: var(--accent); font-weight: 600; text-decoration: none; }
+.dl-meta a:hover { text-decoration: underline; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* ---------- Translated page ---------- */
 .tr-note { margin: 14px 0 0; padding: 10px 14px; border: 1px dashed var(--line-strong); border-radius: 14px; background: var(--panel); font-size: 13.5px; color: var(--muted); }
@@ -383,13 +394,68 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .stats b { display: block; font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.05; letter-spacing: -0.045em; font-weight: 750; }
 .stats b em { font-style: normal; color: var(--accent); }
 .stats dd { margin: 0; font-size: 14px; color: var(--muted); }
+/* An odd last tile (the pass rate, when there is one) takes the full row on phones */
+.stats > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
 @media (min-width: 768px) {
-  .stats { margin-top: 56px; grid-template-columns: repeat(4, minmax(0, 1fr)); border-radius: var(--r-xl); }
+  .stats { margin-top: 56px; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); border-radius: var(--r-xl); }
+  .stats > div:last-child:nth-child(odd) { grid-column: auto; }
   .stats > div { padding: 24px 22px; }
   .stats > div + div { border-left: 1px solid var(--line); }
   .stats > div:nth-child(n+3) { border-top: 0; }
 }
 @media (min-width: 1024px) { .stats > div { padding: 26px 28px; } }
+
+/* ---------- Task chooser ---------- */
+.tasks { padding-top: clamp(40px, 6vw, 64px); }
+.tasks-head { margin-bottom: 18px; }
+.tasks h2 { font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.2rem); }
+.tasks-head p { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
+.task-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+@media (min-width: 640px) { .task-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
+@media (min-width: 1024px) { .task-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; } }
+.task-card { display: flex; align-items: center; gap: 12px; height: 100%; min-height: 44px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--panel); color: var(--ink); text-decoration: none; box-shadow: var(--shadow-sm); transition: border-color .15s, transform .15s; }
+.task-card:hover { border-color: var(--accent); }
+@media (hover: hover) { .task-card:hover { transform: translateY(-2px); } }
+.task-card .new-ic { width: 36px; height: 36px; border-radius: 10px; }
+.task-card .new-ic svg { width: 18px; height: 18px; }
+.task-tx { flex: 1; min-width: 0; display: grid; gap: 1px; }
+.task-tx b { font-size: 15px; letter-spacing: -0.01em; }
+.task-tx small { font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+.task-card > .icon { color: var(--muted); }
+@media (min-width: 1024px) { .task-card { align-items: flex-start; flex-wrap: wrap; } .task-card > .icon { display: none; } }
+
+/* Phones: tighter task cards and install steps */
+@media (max-width: 699px) {
+  .task-card { padding: 10px 12px; }
+  .task-card > .icon { display: none; }
+  .step .n { margin-bottom: 8px; }
+  .step .n b { font-size: 2rem; }
+}
+
+/* ---------- Show more on phones (the button is shown and wired up by the script) ---------- */
+.fold[hidden] { display: none; }
+.fold-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; margin-top: 4px; padding: 0 18px; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); background: var(--panel); border: 1px solid var(--line-strong); border-radius: 999px; cursor: pointer; box-shadow: var(--shadow-sm); }
+.fold-btn:hover { background: var(--panel-2); }
+.fold-btn[hidden] { display: none; }
+.fold-btn .icon { transition: rotate .2s var(--ease); }
+.fold-btn[aria-expanded="true"] .icon { rotate: 180deg; }
+.fold-btn[aria-expanded="true"] .fold-more, .fold-btn[aria-expanded="false"] .fold-less { display: none; }
+.fold-btn[aria-expanded="true"] { margin-top: 16px; }
+
+/* ---------- Download bar on phones ---------- */
+.dl-bar { position: fixed; z-index: 25; left: var(--gutter); right: var(--gutter); bottom: max(12px, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: color-mix(in srgb, var(--panel) 92%, transparent); backdrop-filter: saturate(1.6) blur(14px); -webkit-backdrop-filter: saturate(1.6) blur(14px); box-shadow: var(--shadow-lg); visibility: hidden; opacity: 0; translate: 0 18px; transition: opacity .2s, translate .25s var(--ease), visibility 0s linear .25s; }
+.dl-bar.show { visibility: visible; opacity: 1; translate: 0 0; transition: opacity .2s, translate .25s var(--ease), visibility 0s; }
+.dl-bar .logo { width: 24px; height: 24px; }
+.dl-bar-tx { flex: 1; min-width: 0; display: grid; font-size: 12.5px; line-height: 1.25; color: var(--muted); white-space: nowrap; }
+.dl-bar-tx b, .dl-bar-tx span { overflow: hidden; text-overflow: ellipsis; }
+.dl-bar-tx b { font-size: 13.5px; color: var(--ink); }
+.dl-bar .btn { flex: none; height: 40px; padding: 0 16px; font-size: 14px; box-shadow: none; }
+.dl-bar-x { flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 999px; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+.dl-bar-x:hover { background: var(--panel-2); color: var(--ink); }
+.dl-bar-x .icon { width: 15px; height: 15px; }
+body.has-dl-bar { padding-bottom: 72px; }
+@media (min-width: 700px) { .dl-bar { display: none; } body.has-dl-bar { padding-bottom: 0; } }
+@media (max-width: 359px) { .dl-bar .logo { display: none; } }
 
 /* ---------- Sections ---------- */
 section { padding: var(--section-space) 0 0; }
@@ -436,7 +502,7 @@ h2 { font-size: clamp(1.85rem, 1.2rem + 3vw, 3.1rem); line-height: 1.04; letter-
 .doc-head .label { display: flex; align-items: center; gap: 8px; font-weight: 550; }
 .status { font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: var(--bad-soft); color: var(--bad); }
 .status.after { background: var(--ok-soft); color: var(--ok); }
-.doc-body { padding: clamp(14px, 3vw, 18px) clamp(16px, 3vw, 20px); font-size: 15.5px; color: var(--ink-2); min-height: 150px; view-transition-name: demo-doc; }
+.doc-body { padding: clamp(14px, 3vw, 18px) clamp(16px, 3vw, 20px); font-size: 15.5px; color: var(--ink-2); min-height: 150px; }
 .doc-body p { margin: 0 0 10px; } .doc-body p:last-child { margin: 0; }
 del { color: var(--muted); text-decoration-color: var(--bad); text-decoration-thickness: 1.5px; }
 mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3px; }
@@ -447,6 +513,27 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .legend { font-size: 13.5px; color: var(--muted); display: flex; gap: 8px 18px; flex-wrap: wrap; align-items: center; }
 .legend mark { color: var(--ink); }
 ::view-transition-old(demo-doc), ::view-transition-new(demo-doc) { animation-duration: .25s; }
+.doc-pair { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; view-transition-name: demo-doc; }
+.doc-pair[data-view="before"] .doc-after, .doc-pair[data-view="after"] .doc-before { display: none; }
+.changes[data-view="before"] .chg-after, .changes[data-view="after"] .chg-before { display: none; }
+.chg-after { display: grid; gap: 8px; }
+.demo-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 20px; margin-top: auto; }
+.demo-links { padding-top: 6px; }
+.demo-links .more-link { margin-top: 0; }
+.report-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 0; font-size: 13.5px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.report-link:hover { color: var(--ink); }
+@media (max-width: 479px) {
+  .demo-controls .seg { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); width: 100%; border-radius: 20px; }
+}
+/* Wide screens: Before and After side by side, so the switch isn't needed */
+@media (min-width: 1000px) {
+  .doc-pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .doc-pair[data-view] .doc { display: flex; }
+  .demo-controls .switch { display: none; }
+  .changes[data-view] .chg-before { display: block; }
+  .changes[data-view] .chg-after { display: grid; }
+  .changes { gap: 12px; }
+}
 
 /* Stat tile */
 .stat { font-size: clamp(3.2rem, 6vw, 4.4rem); line-height: 1; font-weight: 750; letter-spacing: -0.055em; margin: 10px 0 10px; }
@@ -485,6 +572,17 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .marquee:hover .track { animation-play-state: paused; }
 .track span { font-size: 15px; border: 1px solid var(--line); background: var(--panel-2); padding: 6px 13px; border-radius: 999px; white-space: nowrap; }
 @keyframes scroll { to { transform: translateX(-50%); } }
+.lang-more { display: none; font: inherit; font-size: 14px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border: 1px solid transparent; padding: 6px 13px; border-radius: 999px; cursor: pointer; }
+.lang-more:hover { border-color: var(--accent); }
+/* Phones: wrap the pills instead of scrolling them, and show a few with a "+N more" button */
+@media (max-width: 699px) {
+  .marquee { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 0; overflow: visible; }
+  .track { display: contents; }
+  .track span[aria-hidden="true"] { display: none; }
+  .marquee .lang-extra { display: none; }
+  .marquee.open .lang-extra { display: inline-block; }
+  .lang-more { display: inline-flex; align-items: center; min-height: 36px; }
+}
 
 /* Honest */
 .nots { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px 28px; }
@@ -533,6 +631,11 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .acc details p { margin: 0; padding: 0 18px 18px; color: var(--muted); max-width: 62ch; }
 @media (min-width: 640px) { .acc summary { padding: 18px 20px; } .acc details p { padding: 0 20px 20px; } }
 .acc details p a { color: var(--accent); }
+.acc details code { font: 600 .9em var(--mono); background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; color: var(--ink-2); }
+.faq-report { margin: 8px 0 0; padding: 0 4px; font-size: 14.5px; color: var(--muted); }
+.faq-report a { color: var(--accent); font-weight: 600; }
+.sub-links { display: flex; flex-wrap: wrap; gap: 0 20px; margin: 4px 0 0; }
+.sub-links .more-link { margin-top: 6px; }
 .acc details::details-content { block-size: 0; overflow: hidden; transition: block-size .3s var(--ease), content-visibility .3s allow-discrete; }
 .acc details[open]::details-content { block-size: auto; }
 
@@ -600,10 +703,8 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       WriteLikeHuman
     </a>
     <div class="links">
-      <a href="#files">Files</a>
-      <a class="nav-wide" href="#developers">Developers</a>
       <a href="#features">खूबियाँ</a>
-      <a href="../examples.html">उदाहरण</a>
+      <a href="#developers">Developers</a>
       <a href="guide.html">गाइड</a>
       <a href="#install">Install</a>
       <a href="#faq">सवाल-जवाब</a>
@@ -617,7 +718,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <button class="icon-btn menu-btn" id="menu-btn" type="button" popovertarget="menu" aria-label="Menu खोलें" aria-controls="menu">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
-      <a class="nav-cta" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Download करें</a>
+      <a class="nav-cta" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip">Download करें</a>
     </div>
   </div>
 </nav>
@@ -631,7 +732,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
   <a href="#install">Install <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#faq">सवाल-जवाब <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Download करें <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>
+  <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip">Download करें <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>
   <div class="lang-switch" role="group" aria-label="भाषा"><a href="../" lang="en">English</a><a href="./" lang="hi" aria-current="page">हिंदी</a><a href="../ta/" lang="ta">தமிழ்</a></div>
 </div>
 
@@ -646,9 +747,10 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <h1><span class="you">आपकी<svg viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3 8c12-6 22-6 30 0s18 6 28 0 20-6 28 0 18 6 28 0"/></svg></span> आवाज़ में लिखाई।</h1>
       <p class="lede">एक free Claude skill जो अकड़ी हुई, chatbot जैसी लिखाई को सीधी, सहज भाषा में बदल देती है। आपकी बातें, नंबर और formatting जैसे थे, वैसे ही रहते हैं।</p>
       <div class="actions">
-        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Skill download करें</a>
+        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Skill download करें</a>
         <a class="btn btn-secondary" href="#install">Install कैसे करें</a>
       </div>
+      <p class="dl-meta"><span>सबसे नया version <b><!-- site-version:start -->v0.9.0<!-- site-version:end --></b></span><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases">सारे releases</a></p>
       <ul class="assure">
         <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Free और open source</li>
         <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>Web, desktop और phone पर</li>
@@ -710,20 +812,40 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <div><dt><b data-stat="evals">161</b></dt><dd>हर release से पहले test cases</dd></div>
       <div><dt><b><span data-stat="languages">32</span><em>+</em></b></dt><dd>भाषाएँ, साथ में Hinglish जैसे mix</dd></div>
       <div><dt><b>MIT</b></dt><dd>free और open source</dd></div>
+      <!-- eval-score:start --><div><dt><b>93<em>%</em></b></dt><dd>v0.9.0 पर test pass rate</dd></div><!-- eval-score:end -->
     </dl>
-    <!-- eval-score:start --><p class="eval-score">Test pass rate: v0.9.0 पर <b>93%</b> (2026-11-10)</p><!-- eval-score:end -->
   </div>
 </div>
+
+<section id="tasks" class="tasks" aria-labelledby="tasks-h">
+  <div class="wrap">
+    <div class="tasks-head">
+      <h2 id="tasks-h">आप क्या करना चाहते हैं?</h2>
+      <p>किसी पर tap कीजिए, guide में तरीका दिखेगा।</p>
+    </div>
+    <ul class="task-grid">
+      <li><a class="task-card" href="guide.html#humanize-email"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 6h18v12H3zM3 7l9 6 9-6"/></svg></span><span class="task-tx"><b>Email ठीक करें</b><small>अकड़े हुए email को ऐसा बनाइए जैसे आपने खुद लिखा हो।</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="task-card" href="guide.html#word-file"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 13h6M9 17h4"/></svg></span><span class="task-tx"><b>Word या PDF file ठीक करें</b><small>शब्द सुधरी हुई नई copy लीजिए। Original वैसी ही रहती है।</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="task-card" href="guide.html#tricky-reply"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h16v10H9l-5 4zM8 9h8M8 12h5"/></svg></span><span class="task-tx"><b>मुश्किल message का जवाब</b><small>मकान मालिक, boss या customer को शांत और साफ़ जवाब।</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="task-card" href="guide.html#script"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h9M8.5 4v2M6 6c0 4 3 7 6 8M11 6c0 3-3 7-7 8M14 20l4-9 4 9M15.5 17h5"/></svg></span><span class="task-tx"><b>हिंदी या तमिल में लिखें</b><small>English letters में लिखा है? उसे हिंदी या तमिल script में पाइए।</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="task-card" href="guide.html#before-send"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span class="task-tx"><b>भेजने से पहले check</b><small>छूटा हुआ attachment या गलत दिन वाली तारीख पकड़िए।</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="task-card" href="guide.html#form"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span><span class="task-tx"><b>Form भरें</b><small>अपनी details एक बार दीजिए, check करने के लिए भरी हुई copy मिलेगी।</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="task-card" href="guide.html#readme"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13 6l-2 12"/></svg></span><span class="task-tx"><b>README या commit message लिखें</b><small>सीधे शब्द, हर command बिल्कुल वैसी ही।</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      <li><a class="task-card" href="guide.html#payment-reminder"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 5h10M7 9h10M7 5c5.5 0 5.5 8 0 8h-1l7 7"/></svg></span><span class="task-tx"><b>Payment reminder भेजें</b><small>विनम्र और साफ़, रकम और due date सही।</small></span><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+    </ul>
+  </div>
+</section>
 
 <section id="whats-new" class="whats-new" aria-labelledby="new-h">
   <div class="wrap">
     <div class="new-head">
       <div>
-        <p class="eyebrow">v0.7.0 में नया</p>
+        <p class="eyebrow">हाल में जोड़ा गया</p>
         <h2 id="new-h">क्या नया है</h2>
       </div>
       <p class="sub">Code के आस-पास के शब्दों में मदद, अधूरी request पर झट से चुनने वाले options, और work chat के messages।</p>
     </div>
+    <div class="fold" id="new-fold">
     <ul class="new-grid">
       <li><a class="new-card" href="guide.html#quick-options"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11M4 6h1M4 12h1M4 18h1"/></svg></span><span class="new-tx"><b>झटपट options</b><small>बस "help with this" कहिए और 2 से 4 छोटे options में से चुनिए। साफ़ request पर सीधे काम शुरू।</small></span></a></li>
       <li><a class="new-card" href="guide.html#readme"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 21V5M8 7h7M8 11h5"/></svg></span><span class="new-tx"><b>README और docs</b><small>सीधी शुरुआत और असली install steps, हर command बिल्कुल वैसी ही।</small></span></a></li>
@@ -732,6 +854,8 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <li><a class="new-card" href="guide.html#code-comments"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13 6l-2 12"/></svg></span><span class="new-tx"><b>Code comments, code वैसा ही</b><small>साफ़ comments और docstrings। Code ज़रा भी बदले तो script save नहीं करती।</small></span></a></li>
       <li><a class="new-card" href="guide.html#work-chat"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h12v8H9l-5 4zM20 9v10l-3-2h-6"/></svg></span><span class="new-tx"><b>Work chat messages</b><small>Slack, Teams और Google Chat के messages, असली बात पहली line में।</small></span></a></li>
     </ul>
+    </div>
+    <button class="fold-btn" type="button" aria-expanded="true" aria-controls="new-fold" aria-describedby="new-h" hidden><span class="fold-more">और देखें</span><span class="fold-less">कम दिखाएँ</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
     <a class="more-link" href="guide.html">हर एक कैसे इस्तेमाल करें, guide में देखिए <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     <a class="more-link" href="../changelog.html" hreflang="en">हर release की पूरी जानकारी changelog में देखिए (अंग्रेज़ी में) <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </div>
@@ -746,6 +870,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       </div>
       <p class="sub">Word document, PDF या spreadsheet माँगिए, पहले draft से ही शब्द सहज लगेंगे। या अपनी file भेजिए, शब्द सुधरकर वापस आएँगे और layout वैसा ही रहेगा।</p>
     </div>
+    <div class="fold" id="files-fold">
     <div class="xfiles">
       <article class="xpanel reveal" aria-labelledby="create-h">
         <div class="xpanel-head"><h3 id="create-h">नई file बनाइए</h3><span class="xmode">बनाएँ</span></div>
@@ -767,6 +892,8 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       </article>
     </div>
     <p class="xnote"><svg class="icon" aria-hidden="true"><use href="#i-doc"/></svg><span>PowerPoint slides और speaker notes, Google Docs, Pages और Keynote, web pages और subtitle files के साथ भी चलती है। Claude में <strong>Code execution and file creation</strong> चालू होना चाहिए।</span></p>
+    </div>
+    <button class="fold-btn" type="button" aria-expanded="true" aria-controls="files-fold" aria-describedby="files-h" hidden><span class="fold-more">और देखें</span><span class="fold-less">कम दिखाएँ</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
   </div>
 </section>
 
@@ -779,6 +906,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       </div>
       <p class="sub">README, commit messages, pull requests, architecture docs, API docs, error messages और code comments। Claude Code में इस्तेमाल कीजिए, या text को Claude के किसी भी chat में paste कीजिए।</p>
     </div>
+    <div class="fold" id="dev-fold">
     <div class="xfiles">
       <article class="xpanel reveal" aria-labelledby="dev-ask-h">
         <div class="xpanel-head"><h3 id="dev-ask-h">अपने शब्दों में पूछिए</h3></div>
@@ -803,6 +931,8 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
         </ul>
       </article>
     </div>
+    </div>
+    <button class="fold-btn" type="button" aria-expanded="true" aria-controls="dev-fold" aria-describedby="dev-h" hidden><span class="fold-more">और देखें</span><span class="fold-less">कम दिखाएँ</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
     <a class="more-link" href="guide.html#readme">Developers वाले guides देखिए <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </div>
 </section>
@@ -814,7 +944,10 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
         <p class="eyebrow">खूबियाँ</p>
         <h2 id="features-h">आप जो भी लिखें, सबके लिए एक skill</h2>
       </div>
-      <p class="sub">एक zip, एक बार upload कीजिए। आप क्या देते हैं और क्या माँगते हैं, उसके हिसाब से Claude सही तरीका चुन लेता है।</p>
+      <div>
+        <p class="sub">एक zip, एक बार upload कीजिए। आप क्या देते हैं और क्या माँगते हैं, उसके हिसाब से Claude सही तरीका चुन लेता है।</p>
+        <p class="sub-links"><a class="more-link" href="#files">Files दीजिए, files लीजिए <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="more-link" href="../examples.html">सारे उदाहरण <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+      </div>
     </div>
 
     <div class="bento">
@@ -823,7 +956,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
         <div class="demo-head">
           <div>
             <h3 id="demo-h">फ़र्क देखिए</h3>
-            <p>एक उदाहरण चुनिए, फिर switch दबाकर नया version देखिए। उदाहरण अंग्रेज़ी में हैं।</p>
+            <p>एक उदाहरण चुनिए और देखिए क्या बदलता है। उदाहरण अंग्रेज़ी और Hinglish में हैं।</p>
           </div>
         </div>
         <div class="demo-controls">
@@ -831,6 +964,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
             <button type="button" role="tab" aria-selected="true" data-ex="email">Email</button>
             <button type="button" role="tab" aria-selected="false" data-ex="whatsapp">WhatsApp</button>
             <button type="button" role="tab" aria-selected="false" data-ex="linkedin">LinkedIn</button>
+            <button type="button" role="tab" aria-selected="false" data-ex="hinglish">Hinglish</button>
           </div>
           <label class="switch">
             <input type="checkbox" role="switch" id="view-toggle">
@@ -838,15 +972,27 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
             बाद वाला देखें
           </label>
         </div>
-        <div class="doc">
-          <div class="doc-head">
-            <span class="label"><svg class="icon" aria-hidden="true"><use href="#i-doc"/></svg><span id="doc-label">Team को email</span></span>
-            <span class="status" id="doc-status">पहले</span>
+        <div class="doc-pair" id="doc-pair" data-view="before">
+          <div class="doc doc-before">
+            <div class="doc-head">
+              <span class="label"><svg class="icon" aria-hidden="true"><use href="#i-doc"/></svg><span class="doc-label">Team को email</span></span>
+              <span class="status">पहले</span>
+            </div>
+            <div class="doc-body" id="doc-before" aria-live="polite"></div>
           </div>
-          <div class="doc-body" id="doc" aria-live="polite"></div>
+          <div class="doc doc-after">
+            <div class="doc-head">
+              <span class="label"><svg class="icon" aria-hidden="true"><use href="#i-doc"/></svg><span class="doc-label">Team को email</span></span>
+              <span class="status after">बाद में</span>
+            </div>
+            <div class="doc-body" id="doc-after" aria-live="polite"></div>
+          </div>
         </div>
-        <div class="changes" id="changes"></div>
-        <a class="more-link" href="../examples.html">और उदाहरण देखें <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <div class="changes" id="changes" data-view="before"></div>
+        <div class="demo-links">
+          <a class="more-link" href="../examples.html">और उदाहरण देखें <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <a class="report-link" href="https://github.com/thisiskurubaran/WriteLikeHuman/issues/new/choose">कुछ गलत दिखा? Problem बताइए</a>
+        </div>
       </article>
 
       <article class="tile span-2 reveal">
@@ -871,7 +1017,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
         <p>कहिए "भेजने से पहले इसे check कर दो" और छोटी-छोटी गलतियाँ पकड़ ली जाती हैं।</p>
         <ul class="checks">
           <li class="no"><span class="dot" aria-hidden="true"><svg class="icon"><use href="#i-x"/></svg></span>"Attached" लिखा है, पर कुछ attach नहीं है</li>
-          <li class="no"><span class="dot" aria-hidden="true"><svg class="icon"><use href="#i-x"/></svg></span>"Monday 14 March" असल में Sunday है</li>
+          <li class="no"><span class="dot" aria-hidden="true"><svg class="icon"><use href="#i-x"/></svg></span>"Monday 14 March 2027" असल में Sunday है</li>
           <li class="ok"><span class="dot" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>उनके email के हर सवाल का जवाब है</li>
         </ul>
       </article>
@@ -934,7 +1080,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <p class="sub">अगर आप photo upload कर सकते हैं, तो इसे भी install कर लेंगे। Website पर जोड़ी skills Claude के phone app में भी दिखती हैं।</p>
     </div>
     <ol class="steps">
-      <li class="step reveal"><div class="n"><b>01</b><span>Download</span></div><h3>Zip लीजिए</h3><p><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Latest release</a> से <strong>WriteLikeHuman.zip</strong> download कीजिए। इसे unzip मत कीजिए।</p></li>
+      <li class="step reveal"><div class="n"><b>01</b><span>Download</span></div><h3>Zip लीजिए</h3><p><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip"><strong>WriteLikeHuman.zip</strong> download कीजिए</a>। इसे unzip मत कीजिए। पुराने versions <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases">releases page</a> पर हैं।</p></li>
       <li class="step reveal"><div class="n"><b>02</b><span>चालू करें</span></div><h3>File creation चालू कीजिए</h3><p>Claude में <strong>Settings &gt; Capabilities</strong> खोलिए और <strong>Code execution and file creation</strong> चालू कीजिए।</p></li>
       <li class="step reveal"><div class="n"><b>03</b><span>Upload</span></div><h3>Skill जोड़िए</h3><p><strong>Customize &gt; Skills</strong> में जाइए, <strong>+</strong> दबाइए, <strong>Upload a skill</strong> चुनिए और zip चुन लीजिए।</p></li>
     </ol>
@@ -962,6 +1108,11 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <details name="faq"><summary>क्या यह phone पर चलेगी?<span class="plus" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>हाँ। एक बार Claude website या desktop app पर upload कीजिए, फिर उसी account से Claude phone app में इस्तेमाल कीजिए।</p></details>
       <details name="faq"><summary>यह चली ही नहीं, अब क्या करूँ?<span class="plus" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>अपना message "Use WriteLikeHuman to..." से शुरू कीजिए। फिर भी न चले तो <strong>Customize &gt; Skills</strong> में देखिए कि switch चालू है।</p></details>
       <details name="faq"><summary>क्या मैं इसे बेहतर बनाने में मदद कर सकता हूँ?<span class="plus" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>हाँ, खासकर अगर आप इनमें से कोई भाषा बोलते हैं। किसी भी language guide को अभी तक native speaker ने check नहीं किया है। <a href="https://github.com/thisiskurubaran/WriteLikeHuman/issues/new?template=language_review.md">सुधार सुझाइए</a> या <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md">contributing guide</a> पढ़िए।</p></details>
+      <details name="faq"><summary>क्या मेरी लिखाई private रहती है?<span class="plus" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>आपकी लिखाई Claude के साथ आपकी अपनी chat में ही रहती है। यह skill बस कुछ instructions और छोटी scripts का set है। यह आपकी लिखाई save नहीं करती, कहीं भेजती भी नहीं। ज़्यादा जानकारी <a href="../privacy.html" hreflang="en">privacy page</a> पर है (अंग्रेज़ी में)।</p></details>
+      <details name="faq"><summary>किन Claude plans में skills चलती हैं?<span class="plus" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>Skills वहाँ चलती हैं जहाँ Claude उन्हें देता है, और किन plans में मिलेंगी, यह Anthropic तय करता है। अपना account check करने के लिए <strong>Settings &gt; Capabilities</strong> खोलिए और skills वाली setting देखिए। ताज़ा जानकारी Anthropic के help page पर है: <a href="https://support.claude.com/en/articles/12512180-use-skills-in-claude" hreflang="en">Use skills in Claude</a> (अंग्रेज़ी में)।</p></details>
+      <details name="faq"><summary>नए version पर update कैसे करूँ?<span class="plus" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>नई zip download कीजिए और उसी तरह <strong>Customize &gt; Skills</strong> में upload कीजिए। देख लीजिए कि वहाँ सिर्फ़ एक ही WriteLikeHuman दिख रहा है, फिर नई chat शुरू कीजिए। Claude Code में <code>/plugin marketplace update writelikehuman</code> चलाइए।</p></details>
+      <details name="faq"><summary>क्या मैं इसे हटा सकता हूँ?<span class="plus" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>हाँ। <strong>Customize &gt; Skills</strong> में इसे बंद कीजिए या हटा दीजिए। Claude Code में <code>/plugin uninstall write-like-human@writelikehuman</code> चलाइए।</p></details>
+      <p class="faq-report">कोई bug मिला, या कुछ अटपटा लगा? <a href="https://github.com/thisiskurubaran/WriteLikeHuman/issues/new/choose">Problem बताइए</a></p>
     </div>
   </div>
 
@@ -970,9 +1121,9 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <svg class="squiggle sq1" viewBox="0 0 400 60" aria-hidden="true"><path d="M10 40c30-30 50-30 70 0s40 30 70 0 50-30 70 0 40 30 70 0 50-30 70 0"/></svg>
       <svg class="squiggle sq2" viewBox="0 0 400 60" aria-hidden="true"><path d="M10 40c30-30 50-30 70 0s40 30 70 0 50-30 70 0 40 30 70 0 50-30 70 0"/></svg>
       <h2>अपने अगले email पर आज़माइए</h2>
-      <p>एक बार download, एक बार upload, और उसके बाद हर message थोड़ा और आप जैसा लगेगा।</p>
+      <p>एक बार download, एक बार upload, फिर हर message के लिए इस्तेमाल कीजिए।</p>
       <div class="actions">
-        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Skill download करें</a>
+        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Skill download करें</a>
         <a class="btn btn-secondary" href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub पर देखें</a>
       </div>
     </div>
@@ -1001,6 +1152,13 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
     <p class="foot-small">एक स्वतंत्र project। Claude को Anthropic ने बनाया है।</p>
   </div>
 </footer>
+
+<div class="dl-bar" id="dl-bar">
+  <svg class="logo" aria-hidden="true" focusable="false"><use href="#logo"/></svg>
+  <span class="dl-bar-tx"><b>WriteLikeHuman</b><span><!-- site-version:start -->v0.9.0<!-- site-version:end --></span></span>
+  <a class="btn btn-primary dl-bar-btn" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip">Download करें</a>
+  <button class="dl-bar-x" type="button" aria-label="यह bar छिपाएँ"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+</div>
 
 <script>
 (function () {
@@ -1073,22 +1231,31 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       before: '<p><del>I\'m thrilled to announce that I\'ve started a new chapter!</del> After an incredible journey, I\'m joining <mark>Brightlane</mark> as a <mark>Product Designer</mark>.</p><p><del>Grateful. Humbled. Excited.</del> <del>#NewJob #Grateful #Design #Career #Growth</del></p>',
       after: '<p>I\'ve joined <mark>Brightlane</mark> as a <mark>Product Designer</mark>. I\'ll be working on their delivery app, which I\'ve used for years. Thanks to everyone at Northbay for four good years.</p><p>#ProductDesign</p>',
       notes: ['एक-एक शब्द वाली lines और hashtags की दीवार हटाई', 'App और पुरानी team के बारे में आपकी असली बातें इस्तेमाल कीं', 'Company और job title बिल्कुल वैसे रखे']
+    },
+    hinglish: {
+      label: 'Manager को Hinglish message',
+      before: '<p><del>Respected Sir, hope you are doing well.</del> <del>This is to inform you that</del> kal ka client call <mark>11:30 baje</mark> shift ho gaya hai, <mark>Zoom</mark> pe hoga. <del>Kindly do the needful and revert back at the earliest.</del> <del>Thanks and regards.</del></p>',
+      after: '<p>Sir, kal ka client call ab <mark>11:30 baje</mark> hai, <mark>Zoom</mark> pe. Aap join kar paenge?</p>',
+      notes: ['"Kindly do the needful" और "revert back" हटाए', 'Hinglish में ही रखा, जैसे आप सच में text करते हैं', 'Time और app बिल्कुल वैसे रखे']
     }
   };
   var ex = 'email', view = 'before';
-  var doc = document.getElementById('doc'), changes = document.getElementById('changes');
-  var label = document.getElementById('doc-label'), status = document.getElementById('doc-status');
+  var pair = document.getElementById('doc-pair'), changes = document.getElementById('changes');
+  var docBefore = document.getElementById('doc-before'), docAfter = document.getElementById('doc-after');
+  var labels = document.querySelectorAll('.doc-label');
   var toggle = document.getElementById('view-toggle');
   var tick = '<span class="tick" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>';
+  var legend = '<div class="legend"><span><del>कटे हुए</del> chatbot वाली आदतें, जो हटती हैं</span><span><mark>Highlight किए</mark> तथ्य, जो कभी नहीं बदलते</span></div>';
   function render() {
     var e = examples[ex];
-    label.textContent = e.label;
-    doc.innerHTML = e[view];
-    status.textContent = view === 'after' ? 'बाद में' : 'पहले';
-    status.classList.toggle('after', view === 'after');
-    changes.innerHTML = view === 'after'
-      ? e.notes.map(function (n) { return '<div class="change">' + tick + '<span>' + n + '</span></div>'; }).join('')
-      : '<div class="legend"><span><del>कटे हुए</del> chatbot वाली आदतें, जो हटती हैं</span><span><mark>Highlight किए</mark> तथ्य, जो कभी नहीं बदलते</span></div>';
+    labels.forEach(function (l) { l.textContent = e.label; });
+    pair.setAttribute('data-view', view);
+    changes.setAttribute('data-view', view);
+    /* Both panes are filled every time, so a screen reader hears the one in view */
+    docBefore.innerHTML = e.before;
+    docAfter.innerHTML = e.after;
+    changes.innerHTML = '<div class="chg-before">' + legend + '</div><div class="chg-after">'
+      + e.notes.map(function (n) { return '<div class="change">' + tick + '<span>' + n + '</span></div>'; }).join('') + '</div>';
   }
   function bindGroup(attr, aria, onPick) {
     var btns = document.querySelectorAll('[' + attr + ']');
@@ -1136,16 +1303,122 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
   }
 
   /* Copy */
+  function copyToClipboard(text, done, fail) {
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fail);
+    else fail();
+  }
   var copyBtn = document.querySelector('.copy'), copyText = copyBtn.querySelector('span');
   copyBtn.addEventListener('click', function () {
     var text = document.getElementById('cmd-1').textContent + '\n' + document.getElementById('cmd-2').textContent;
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(function () {
+    copyToClipboard(text, function () {
         copyText.textContent = 'Copy हो गया';
         setTimeout(function () { copyText.textContent = 'Copy करें'; }, 1600);
       }, function () { copyText.textContent = 'Select करके copy करें'; });
-    } else { copyText.textContent = 'Select करके copy करें'; }
   });
+
+  /* Copy buttons on the example prompts. Only the prompt is copied, not "You:" */
+  var copyLabel = 'यह prompt copy करें', copiedLabel = 'Copy हो गया', failLabel = 'Text select करके copy करें';
+  var live = document.createElement('span');
+  live.className = 'sr-only';
+  live.setAttribute('aria-live', 'polite');
+  document.body.appendChild(live);
+  document.querySelectorAll('.xprompt').forEach(function (p) {
+    var text = p.textContent.trim();
+    var t = document.createElement('span');
+    t.className = 'xprompt-text';
+    t.textContent = text;
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'copy-sm';
+    b.setAttribute('aria-label', copyLabel);
+    b.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-copy"/></svg><span class="copy-sm-tx"></span>';
+    p.textContent = '';
+    p.appendChild(t);
+    p.appendChild(b);
+    p.classList.add('has-copy');
+    var tx = b.lastChild, timer;
+    b.addEventListener('click', function () {
+      copyToClipboard(text, function () {
+        b.classList.add('done');
+        b.setAttribute('aria-label', copiedLabel);
+        tx.textContent = copiedLabel;
+        live.textContent = copiedLabel;
+        clearTimeout(timer);
+        timer = setTimeout(function () { b.classList.remove('done'); b.setAttribute('aria-label', copyLabel); tx.textContent = ''; live.textContent = ''; }, 1600);
+      }, function () { live.textContent = failLabel; });
+    });
+  });
+
+  /* Phones: fold the long sections behind a Show more button. With no script, everything stays open */
+  var phone = window.matchMedia('(max-width: 699px)');
+  var foldBtns = document.querySelectorAll('.fold-btn');
+  function setFold(b, open) {
+    b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.getElementById(b.getAttribute('aria-controls')).hidden = !open;
+  }
+  function syncFolds() {
+    foldBtns.forEach(function (b) { b.hidden = !phone.matches; setFold(b, !phone.matches); });
+  }
+  foldBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var open = b.getAttribute('aria-expanded') !== 'true';
+      setFold(b, open);
+      if (!open) b.scrollIntoView({ block: 'nearest' });
+    });
+  });
+
+  /* Phones: show a few language pills and a "+N more" button */
+  var marquee = document.querySelector('.marquee');
+  var pills = marquee ? marquee.querySelectorAll('.track span:not([aria-hidden])') : [];
+  var langMore = null, shown = 8;
+  if (pills.length > shown + 2) {
+    for (var k = shown; k < pills.length; k++) pills[k].classList.add('lang-extra');
+    langMore = document.createElement('button');
+    langMore.type = 'button';
+    langMore.className = 'lang-more';
+    langMore.setAttribute('aria-expanded', 'false');
+    var moreText = '+' + (pills.length - shown) + ' और', lessText = 'कम दिखाएँ';
+    langMore.textContent = moreText;
+    marquee.appendChild(langMore);
+    langMore.addEventListener('click', function () {
+      var open = marquee.classList.toggle('open');
+      langMore.setAttribute('aria-expanded', open ? 'true' : 'false');
+      langMore.textContent = open ? lessText : moreText;
+    });
+  }
+
+  /* Phones: a small download bar after the hero, hidden again near the end of the page */
+  var bar = document.getElementById('dl-bar'), hero = document.getElementById('top');
+  var ends = [document.querySelector('.cta-band'), document.querySelector('footer')];
+  var dismissed = false;
+  try { dismissed = sessionStorage.getItem('wlh-dl-bar') === 'off'; } catch (e) {}
+  var pastHero = false, nearEnd = false, endSeen = {};
+  function syncBar() {
+    var on = phone.matches && !dismissed;
+    document.body.classList.toggle('has-dl-bar', on);
+    bar.classList.toggle('show', on && pastHero && !nearEnd);
+  }
+  if (bar && hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { pastHero = !en.isIntersecting && en.boundingClientRect.top < 0; });
+      syncBar();
+    }).observe(hero);
+    var endIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { endSeen[en.target.tagName] = en.isIntersecting; });
+      nearEnd = Object.keys(endSeen).some(function (k) { return endSeen[k]; });
+      syncBar();
+    });
+    ends.forEach(function (el) { if (el) endIo.observe(el); });
+    bar.querySelector('.dl-bar-x').addEventListener('click', function () {
+      dismissed = true;
+      try { sessionStorage.setItem('wlh-dl-bar', 'off'); } catch (e) {}
+      syncBar();
+    });
+  }
+
+  function syncPhone() { syncFolds(); if (bar) syncBar(); }
+  if (phone.addEventListener) phone.addEventListener('change', syncPhone);
+  syncPhone();
 })();
 </script>
 </body>

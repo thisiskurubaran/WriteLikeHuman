@@ -12,8 +12,11 @@ The English landing page (docs/index.html) is the source. This script:
    gen_guide_i18n.py.
 5. Rebuilds the privacy page (docs/privacy.html) from gen_privacy.py.
 6. Rebuilds the changelog page (docs/changelog.html) from CHANGELOG.md.
-7. Fills in the latest saved eval score (tests/evals/results/*.json) under
-   the stats on the landing pages, or leaves it out if there is none.
+7. Fills in the latest saved eval score (tests/evals/results/*.json) as a
+   tile in the stats row on the landing pages, or leaves it out if there is
+   none.
+8. Fills in the current version (the write-like-human plugin's version in
+   .claude-plugin/marketplace.json) next to the download buttons.
 
 Run from the repo root:
     python3 docs/_build/sync_site.py           write any pages that changed
@@ -51,10 +54,11 @@ def load_counts():
 
 SCORE_RE = re.compile(r"<!-- eval-score:start -->.*?<!-- eval-score:end -->", re.S)
 SCORE_TEXT = {
-    "en": "Test pass rate: <b>{rate}%</b> on {label} ({date})",
-    "hi": "Test pass rate: {label} पर <b>{rate}%</b> ({date})",
-    "ta": "Test pass rate: {label}-ல <b>{rate}%</b> ({date})",
+    "en": "test pass rate on {label}",
+    "hi": "{label} पर test pass rate",
+    "ta": "{label}-ல test pass rate",
 }
+VERSION_RE = re.compile(r"<!-- site-version:start -->.*?<!-- site-version:end -->", re.S)
 
 
 def version_key(label):
@@ -80,13 +84,31 @@ def latest_score():
 
 
 def fill_score(html, lang, score):
+    """Put the score in its own tile in the stats row, or remove the tile if there's no score."""
     if score:
-        line = SCORE_TEXT[lang].format(rate=round(score["pass_rate"] * 100), label=score["label"],
-                                       date=score.get("date", ""))
-        inner = '<p class="eval-score">%s</p>' % line
+        label = SCORE_TEXT[lang].format(label=score["label"], date=score.get("date", ""))
+        inner = '<div><dt><b>%d<em>%%</em></b></dt><dd>%s</dd></div>' % (round(score["pass_rate"] * 100), label)
     else:
         inner = ""
-    return SCORE_RE.sub("<!-- eval-score:start -->%s<!-- eval-score:end -->" % inner, html, count=1)
+    if not SCORE_RE.search(html):
+        sys.exit("The eval-score marker is missing from a landing page.")
+    return SCORE_RE.sub(lambda m: "<!-- eval-score:start -->%s<!-- eval-score:end -->" % inner, html, count=1)
+
+
+def plugin_version():
+    """The write-like-human plugin's version from .claude-plugin/marketplace.json."""
+    with open(os.path.join(ROOT, ".claude-plugin", "marketplace.json"), encoding="utf-8") as f:
+        market = json.load(f)
+    for plugin in market.get("plugins", []):
+        if plugin.get("name") == "write-like-human" and plugin.get("version"):
+            return plugin["version"]
+    sys.exit("No version for write-like-human in .claude-plugin/marketplace.json")
+
+
+def fill_version(html, version):
+    if not VERSION_RE.search(html):
+        sys.exit("The site-version marker is missing from docs/index.html.")
+    return VERSION_RE.sub(lambda m: "<!-- site-version:start -->v%s<!-- site-version:end -->" % version, html)
 
 
 def read(rel):
@@ -108,6 +130,7 @@ def expected_pages():
     index = re.sub(r'data-stat="(\w+)">(\d+)<', fix, index)
     score = latest_score()
     index = fill_score(index, "en", score)
+    index = fill_version(index, plugin_version())
     pages = {"docs/index.html": index}
     for lang, html in gen_lang.build(index).items():
         pages["docs/%s/index.html" % lang] = fill_score(html, lang, score)

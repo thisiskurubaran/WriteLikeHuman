@@ -251,6 +251,16 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .xbody p { margin: 0; color: var(--muted); font-size: 14px; }
 .xprompt { display: block; margin-top: 10px; font-size: 13.5px; color: var(--ink-2); background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 7px 10px; overflow-wrap: anywhere; }
 .xprompt::before { content: "You: "; font-weight: 700; color: var(--muted); }
+/* The script adds a copy button to each prompt */
+.xprompt.has-copy { display: flex; align-items: flex-start; gap: 6px; padding-right: 5px; }
+.xprompt.has-copy::before { flex: none; }
+.xprompt-text { flex: 1; min-width: 0; }
+.copy-sm { flex: none; display: inline-flex; align-items: center; justify-content: center; gap: 4px; min-width: 28px; height: 28px; margin: -3px 0; padding: 0 7px; font: 600 12px var(--sans); color: var(--muted); background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px; cursor: pointer; transition: color .15s, border-color .15s; }
+.copy-sm:hover { color: var(--ink); border-color: var(--line-strong); }
+.copy-sm .icon { width: 13px; height: 13px; }
+.copy-sm.done { color: var(--ok); border-color: currentColor; }
+.copy-sm-tx:empty { display: none; }
+@media (pointer: coarse) { .copy-sm { min-width: 32px; height: 32px; margin: -5px 0; } }
 .xout { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font: 600 12.5px var(--mono); color: var(--ink-2); overflow-wrap: anywhere; }
 .xout .icon { width: 14px; height: 14px; color: var(--ok); stroke-width: 2.6; flex: none; }
 .xnote { margin: 16px 0 0; display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--muted); }
@@ -289,8 +299,6 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 #developers .checks li span:last-child { min-width: 0; }
 #developers code { font: 600 .92em var(--mono); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; }
 #developers .more-link { margin-top: 16px; }
-/* The nav has room for this link only on wider screens. The phone menu always has it. */
-@media (max-width: 1099px) { .links .nav-wide { display: none; } }
 
 /* ---------- What's new ---------- */
 .whats-new { padding-top: clamp(48px, 7vw, 72px); }
@@ -359,9 +367,12 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .more-link .icon { width: 16px; height: 16px; transition: translate .2s; }
 .more-link:hover .icon { translate: 3px 0; }
 
-/* Latest saved eval score, filled in by docs/_build/sync_site.py */
-.eval-score { margin: 14px 0 0; text-align: center; font-size: 13.5px; color: var(--muted); }
-.eval-score b { color: var(--ink); }
+/* Download version line under the hero buttons. The version is filled in by docs/_build/sync_site.py */
+.dl-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin: 12px 0 0; font-size: 13.5px; color: var(--muted); }
+.dl-meta b { color: var(--ink-2); font-weight: 600; }
+.dl-meta a { display: inline-flex; align-items: center; min-height: 32px; color: var(--accent); font-weight: 600; text-decoration: none; }
+.dl-meta a:hover { text-decoration: underline; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* ---------- Works with ---------- */
 .works { padding: clamp(32px, 5vw, 40px) 0 0; }
@@ -378,13 +389,68 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .stats b { display: block; font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.05; letter-spacing: -0.045em; font-weight: 750; }
 .stats b em { font-style: normal; color: var(--accent); }
 .stats dd { margin: 0; font-size: 14px; color: var(--muted); }
+/* An odd last tile (the pass rate, when there is one) takes the full row on phones */
+.stats > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
 @media (min-width: 768px) {
-  .stats { margin-top: 56px; grid-template-columns: repeat(4, minmax(0, 1fr)); border-radius: var(--r-xl); }
+  .stats { margin-top: 56px; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); border-radius: var(--r-xl); }
+  .stats > div:last-child:nth-child(odd) { grid-column: auto; }
   .stats > div { padding: 24px 22px; }
   .stats > div + div { border-left: 1px solid var(--line); }
   .stats > div:nth-child(n+3) { border-top: 0; }
 }
 @media (min-width: 1024px) { .stats > div { padding: 26px 28px; } }
+
+/* ---------- Task chooser ---------- */
+.tasks { padding-top: clamp(40px, 6vw, 64px); }
+.tasks-head { margin-bottom: 18px; }
+.tasks h2 { font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.2rem); }
+.tasks-head p { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
+.task-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; }
+@media (min-width: 640px) { .task-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
+@media (min-width: 1024px) { .task-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; } }
+.task-card { display: flex; align-items: center; gap: 12px; height: 100%; min-height: 44px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--panel); color: var(--ink); text-decoration: none; box-shadow: var(--shadow-sm); transition: border-color .15s, transform .15s; }
+.task-card:hover { border-color: var(--accent); }
+@media (hover: hover) { .task-card:hover { transform: translateY(-2px); } }
+.task-card .new-ic { width: 36px; height: 36px; border-radius: 10px; }
+.task-card .new-ic svg { width: 18px; height: 18px; }
+.task-tx { flex: 1; min-width: 0; display: grid; gap: 1px; }
+.task-tx b { font-size: 15px; letter-spacing: -0.01em; }
+.task-tx small { font-size: 13.5px; color: var(--muted); line-height: 1.4; }
+.task-card > .icon { color: var(--muted); }
+@media (min-width: 1024px) { .task-card { align-items: flex-start; flex-wrap: wrap; } .task-card > .icon { display: none; } }
+
+/* Phones: tighter task cards and install steps */
+@media (max-width: 699px) {
+  .task-card { padding: 10px 12px; }
+  .task-card > .icon { display: none; }
+  .step .n { margin-bottom: 8px; }
+  .step .n b { font-size: 2rem; }
+}
+
+/* ---------- Show more on phones (the button is shown and wired up by the script) ---------- */
+.fold[hidden] { display: none; }
+.fold-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; margin-top: 4px; padding: 0 18px; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); background: var(--panel); border: 1px solid var(--line-strong); border-radius: 999px; cursor: pointer; box-shadow: var(--shadow-sm); }
+.fold-btn:hover { background: var(--panel-2); }
+.fold-btn[hidden] { display: none; }
+.fold-btn .icon { transition: rotate .2s var(--ease); }
+.fold-btn[aria-expanded="true"] .icon { rotate: 180deg; }
+.fold-btn[aria-expanded="true"] .fold-more, .fold-btn[aria-expanded="false"] .fold-less { display: none; }
+.fold-btn[aria-expanded="true"] { margin-top: 16px; }
+
+/* ---------- Download bar on phones ---------- */
+.dl-bar { position: fixed; z-index: 25; left: var(--gutter); right: var(--gutter); bottom: max(12px, env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: color-mix(in srgb, var(--panel) 92%, transparent); backdrop-filter: saturate(1.6) blur(14px); -webkit-backdrop-filter: saturate(1.6) blur(14px); box-shadow: var(--shadow-lg); visibility: hidden; opacity: 0; translate: 0 18px; transition: opacity .2s, translate .25s var(--ease), visibility 0s linear .25s; }
+.dl-bar.show { visibility: visible; opacity: 1; translate: 0 0; transition: opacity .2s, translate .25s var(--ease), visibility 0s; }
+.dl-bar .logo { width: 24px; height: 24px; }
+.dl-bar-tx { flex: 1; min-width: 0; display: grid; font-size: 12.5px; line-height: 1.25; color: var(--muted); white-space: nowrap; }
+.dl-bar-tx b, .dl-bar-tx span { overflow: hidden; text-overflow: ellipsis; }
+.dl-bar-tx b { font-size: 13.5px; color: var(--ink); }
+.dl-bar .btn { flex: none; height: 40px; padding: 0 16px; font-size: 14px; box-shadow: none; }
+.dl-bar-x { flex: none; width: 36px; height: 36px; display: grid; place-items: center; border-radius: 999px; border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+.dl-bar-x:hover { background: var(--panel-2); color: var(--ink); }
+.dl-bar-x .icon { width: 15px; height: 15px; }
+body.has-dl-bar { padding-bottom: 72px; }
+@media (min-width: 700px) { .dl-bar { display: none; } body.has-dl-bar { padding-bottom: 0; } }
+@media (max-width: 359px) { .dl-bar .logo { display: none; } }
 
 /* ---------- Sections ---------- */
 section { padding: var(--section-space) 0 0; }
@@ -431,7 +497,7 @@ h2 { font-size: clamp(1.85rem, 1.2rem + 3vw, 3.1rem); line-height: 1.04; letter-
 .doc-head .label { display: flex; align-items: center; gap: 8px; font-weight: 550; }
 .status { font-size: 12px; font-weight: 700; padding: 2px 10px; border-radius: 999px; background: var(--bad-soft); color: var(--bad); }
 .status.after { background: var(--ok-soft); color: var(--ok); }
-.doc-body { padding: clamp(14px, 3vw, 18px) clamp(16px, 3vw, 20px); font-size: 15.5px; color: var(--ink-2); min-height: 150px; view-transition-name: demo-doc; }
+.doc-body { padding: clamp(14px, 3vw, 18px) clamp(16px, 3vw, 20px); font-size: 15.5px; color: var(--ink-2); min-height: 150px; }
 .doc-body p { margin: 0 0 10px; } .doc-body p:last-child { margin: 0; }
 del { color: var(--muted); text-decoration-color: var(--bad); text-decoration-thickness: 1.5px; }
 mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3px; }
@@ -442,6 +508,27 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .legend { font-size: 13.5px; color: var(--muted); display: flex; gap: 8px 18px; flex-wrap: wrap; align-items: center; }
 .legend mark { color: var(--ink); }
 ::view-transition-old(demo-doc), ::view-transition-new(demo-doc) { animation-duration: .25s; }
+.doc-pair { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; view-transition-name: demo-doc; }
+.doc-pair[data-view="before"] .doc-after, .doc-pair[data-view="after"] .doc-before { display: none; }
+.changes[data-view="before"] .chg-after, .changes[data-view="after"] .chg-before { display: none; }
+.chg-after { display: grid; gap: 8px; }
+.demo-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0 20px; margin-top: auto; }
+.demo-links { padding-top: 6px; }
+.demo-links .more-link { margin-top: 0; }
+.report-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 0; font-size: 13.5px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.report-link:hover { color: var(--ink); }
+@media (max-width: 479px) {
+  .demo-controls .seg { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); width: 100%; border-radius: 20px; }
+}
+/* Wide screens: Before and After side by side, so the switch isn't needed */
+@media (min-width: 1000px) {
+  .doc-pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .doc-pair[data-view] .doc { display: flex; }
+  .demo-controls .switch { display: none; }
+  .changes[data-view] .chg-before { display: block; }
+  .changes[data-view] .chg-after { display: grid; }
+  .changes { gap: 12px; }
+}
 
 /* Stat tile */
 .stat { font-size: clamp(3.2rem, 6vw, 4.4rem); line-height: 1; font-weight: 750; letter-spacing: -0.055em; margin: 10px 0 10px; }
@@ -480,6 +567,17 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .marquee:hover .track { animation-play-state: paused; }
 .track span { font-size: 15px; border: 1px solid var(--line); background: var(--panel-2); padding: 6px 13px; border-radius: 999px; white-space: nowrap; }
 @keyframes scroll { to { transform: translateX(-50%); } }
+.lang-more { display: none; font: inherit; font-size: 14px; font-weight: 600; color: var(--accent); background: var(--accent-soft); border: 1px solid transparent; padding: 6px 13px; border-radius: 999px; cursor: pointer; }
+.lang-more:hover { border-color: var(--accent); }
+/* Phones: wrap the pills instead of scrolling them, and show a few with a "+N more" button */
+@media (max-width: 699px) {
+  .marquee { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 0; overflow: visible; }
+  .track { display: contents; }
+  .track span[aria-hidden="true"] { display: none; }
+  .marquee .lang-extra { display: none; }
+  .marquee.open .lang-extra { display: inline-block; }
+  .lang-more { display: inline-flex; align-items: center; min-height: 36px; }
+}
 
 /* Honest */
 .nots { list-style: none; margin: 18px 0 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px 28px; }
@@ -528,6 +626,11 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .acc details p { margin: 0; padding: 0 18px 18px; color: var(--muted); max-width: 62ch; }
 @media (min-width: 640px) { .acc summary { padding: 18px 20px; } .acc details p { padding: 0 20px 20px; } }
 .acc details p a { color: var(--accent); }
+.acc details code { font: 600 .9em var(--mono); background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; color: var(--ink-2); }
+.faq-report { margin: 8px 0 0; padding: 0 4px; font-size: 14.5px; color: var(--muted); }
+.faq-report a { color: var(--accent); font-weight: 600; }
+.sub-links { display: flex; flex-wrap: wrap; gap: 0 20px; margin: 4px 0 0; }
+.sub-links .more-link { margin-top: 6px; }
 .acc details::details-content { block-size: 0; overflow: hidden; transition: block-size .3s var(--ease), content-visibility .3s allow-discrete; }
 .acc details[open]::details-content { block-size: auto; }
 
@@ -652,7 +755,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <button class="icon-btn menu-btn" id="menu-btn" type="button" popovertarget="menu" aria-label="Menu திற" aria-controls="menu">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
-      <a class="nav-cta" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Download</a>
+      <a class="nav-cta" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip">Download</a>
     </div>
   </div>
 </nav>
@@ -664,7 +767,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
   <a href="../examples.html">உதாரணங்கள் <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="./#install">Install <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Download <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>
+  <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip">Download <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>
   <div class="lang-switch" role="group" aria-label="மொழி"><a href="../guide.html" lang="en">English</a><a href="../hi/guide.html" lang="hi">हिंदी</a><a href="guide.html" lang="ta" aria-current="page">தமிழ்</a></div>
 </div>
 
@@ -904,7 +1007,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <h2>இன்னும் install பண்ணலையா?</h2>
       <p>ரெண்டு நிமிஷம் போதும்: zip-ஐ download பண்ணுங்க, அப்புறம் Claude-ல upload பண்ணுங்க.</p>
       <div class="actions">
-        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Skill-ஐ download செய்யுங்கள்</a>
+        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Skill-ஐ download செய்யுங்கள்</a>
         <a class="btn btn-secondary" href="./#install">எப்படி install செய்வது</a>
       </div>
     </div>

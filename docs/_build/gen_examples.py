@@ -184,7 +184,7 @@ def build(idx, md):
       <button class="icon-btn menu-btn" id="menu-btn" type="button" popovertarget="menu" aria-label="Open menu" aria-controls="menu">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
       </button>
-      <a class="nav-cta" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Download</a>
+      <a class="nav-cta" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip">Download</a>
     </div>
   </div>
 </nav>
@@ -196,7 +196,7 @@ def build(idx, md):
   <a href="guide.html">Guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="./#install">Install <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Download <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>
+  <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip">Download <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>
   <div class="lang-switch" role="group" aria-label="Language"><a href="./" lang="en">English</a><a href="hi/" lang="hi">हिंदी</a><a href="ta/" lang="ta">தமிழ்</a></div>
 </div>
 '''
@@ -276,7 +276,7 @@ def build(idx, md):
       <h2>Try it on your own writing</h2>
       <p>Download once, upload once, and ask in your own words.</p>
       <div class="actions">
-        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Download the skill</a>
+        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Download the skill</a>
         <a class="btn btn-secondary" href="./#install">How to install</a>
       </div>
     </div>
