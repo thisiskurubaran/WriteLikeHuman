@@ -34,7 +34,6 @@ CSS = """
 .c-jump a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--ink-2); font: 600 13.5px var(--mono); text-decoration: none; }
 .c-jump a:hover { border-color: var(--line-strong); color: var(--ink); }
 .c-ver { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); margin-bottom: 14px; box-shadow: var(--shadow-sm); }
-section.c-ver[id] { scroll-margin-top: 0; }
 .c-ver-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
 .c-ver h2 { font-size: clamp(1.4rem, 1.1rem + 1vw, 1.8rem); margin: 0; }
 .c-date { margin: 0; color: var(--muted); font-size: 14.5px; }
