@@ -162,6 +162,20 @@ Maintainers publish a release from the GitHub Releases page. Publishing it start
 
 Before a release, go through [tests/app-checklist.md](tests/app-checklist.md) in the Claude app, and bump `version` in `.claude-plugin/marketplace.json` to match the new version in `CHANGELOG.md`. Claude Code users only get the update when that number changes.
 
+## Versioning
+
+Releases use [semantic versioning](https://semver.org/): MAJOR.MINOR.PATCH. From 1.0.0 on, this is what each number promises.
+
+- **Patch (1.0.1):** fixes only. A guide gets clearer or a script bug is fixed. Nothing you rely on changes.
+- **Minor (1.1.0):** new things. New guides, new languages, new script options, new file types. Everything that worked before still works the same way.
+- **Major (2.0.0):** something you may rely on changes. For example:
+  - a script is removed or renamed, or one of its options, output file names (`-humanized`, `-filled`, `-readable`), or JSON fields changes in a way that breaks existing use
+  - a guide is removed or merged into another, so a link to it stops working
+  - the skill's folder name or the plugin name changes
+  - the skill stops supporting something it used to (a file type, a language)
+
+Changes to wording inside a guide, the eval cases, the website, and the tests are not breaking, even when they change how Claude phrases a reply. Breaking changes are listed first in the changelog, under their own heading, with what to do instead.
+
 ## Code of conduct
 
 By taking part you agree to follow our [Code of Conduct](CODE_OF_CONDUCT.md).

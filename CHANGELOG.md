@@ -18,6 +18,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Fixes from the first full eval (107 of 130 passed): Claude asks whether an experience really happened before adding it to a form answer, keeps a date that could be read two ways as written, doesn't add an unasked English translation after rewriting in another language, never suggests rewritten lines in "does this sound like AI?" mode, and keeps its closing offer to one sentence.
 - Voice profiles and style guides start by showing the fill-in template, and a "sound like me" rewrite ends with one offer to save the samples as a profile.
 
+### Added
+
+- A versioning policy in CONTRIBUTING.md: what patch, minor, and major releases promise from 1.0 on, and what counts as a breaking change.
+
 ## [0.8.0] - 2026-11-10
 
 ### Added
