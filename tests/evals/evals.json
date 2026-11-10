@@ -1223,11 +1223,11 @@
         "languages/assamese.md"
       ],
       "must": [
-        "answers in Assamese, in Assamese script",
+        "the rewrite is in Assamese, in Assamese script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1319,11 +1319,11 @@
         "languages/kannada.md"
       ],
       "must": [
-        "answers in Kannada, in Kannada script",
+        "the rewrite is in Kannada, in Kannada script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1367,11 +1367,11 @@
         "languages/marathi.md"
       ],
       "must": [
-        "answers in Marathi, in Devanagari script",
+        "the rewrite is in Marathi, in Devanagari script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },

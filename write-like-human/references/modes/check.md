@@ -9,7 +9,7 @@ Point out what makes the text read like AI, without rewriting it.
 
 ## What stays the same
 
-Everything. You do not change the text in this mode. If the user wants changes after seeing the findings, switch to rewrite or side by side mode.
+Everything. You do not change the text in this mode, and you don't suggest replacement sentences either, not even one sample line. If the user wants changes after seeing the findings, switch to rewrite or side by side mode.
 
 ## What this is not
 

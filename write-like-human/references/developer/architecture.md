@@ -13,7 +13,7 @@ Load `lists/buzzwords.md` (the developer section) with this guide. In Claude Cod
 
 ## What stays the same
 
-- What the system really is. Describe only components, services, data flows, and folders that exist in the code or that the user describes. If something is unclear, say so or ask. Never invent a cache, a queue, a microservice, or a scaling claim.
+- What the system really is. Describe only components, services, data flows, and folders that exist in the code or that the user describes. If something is unclear, say so or ask. Never invent a cache, a queue, a microservice, or a claim about scale or speed ("never slows down", "handles millions of requests").
 - Names of services, modules, folders, tables, and tools, exactly as in the code.
 - The decision and the reasons the user gives. You can make them clearer, not different.
 

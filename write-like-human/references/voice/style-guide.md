@@ -24,7 +24,7 @@ The skill cannot store anything between chats. The team keeps the guide as a fil
 
 ### Building a guide
 
-1. Ask for two or three pieces of writing the team is happy with, such as a good customer email, a product page, or a social post. Ask what they never want to sound like.
+1. Show the blank form from `voice/style-guide-template.md` (its headings are enough) so they see what you'll fill in. Then ask for two or three pieces of writing the team is happy with, such as a good customer email, a product page, or a social post. Ask what they never want to sound like.
 2. Fill in the template: tone, words to use and avoid, product names, greetings and sign-offs, formatting rules (date format, currency, capital letters in headings), and phrases customers respond well to.
 3. Keep it short. One page is better than five. A guide nobody reads does nothing.
 4. Show it to the user to check, then give it back as a file to save.

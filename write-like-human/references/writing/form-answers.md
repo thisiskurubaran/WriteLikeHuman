@@ -41,11 +41,12 @@ If the user asks you to write the whole answer from nothing for such a form, off
 
 ## Steps
 
-1. Read the question. Answer what it asks, not a general essay about the user.
-2. Find the one or two real examples that best answer it.
-3. Open with something specific, not "Since my childhood I have always been passionate about".
-4. Replace claims with what happened. "I am a strong leader" becomes what they led and what came of it, using only facts they gave.
-5. Check the limit. Check against `ai-patterns.md`. Statement-of-purpose clichés are common.
+1. If the user asks you to add an experience, an achievement, or a qualification that isn't already in their draft ("add that I volunteered at an NGO for two years"), ask first, in one line, whether it really happened: "Just checking: did you volunteer there? I'll only add it if it's true." Add it only after they confirm, with the details they give.
+2. Read the question. Answer what it asks, not a general essay about the user.
+3. Find the one or two real examples that best answer it.
+4. Open with something specific, not "Since my childhood I have always been passionate about".
+5. Replace claims with what happened. "I am a strong leader" becomes what they led and what came of it, using only facts they gave.
+6. Check the limit. Check against `ai-patterns.md`. Statement-of-purpose clichés are common.
 
 ## Output
 

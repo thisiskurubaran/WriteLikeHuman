@@ -12,7 +12,7 @@ Most people using this are not developers. They paste an email, attach a Word fi
 ## How to work
 
 1. Read [references/ai-patterns.md](references/ai-patterns.md). Always.
-2. Pick one **mode** from the first table below.
+2. Pick one **mode** from the first table below, and open its file every time, even for a short paste. It holds the steps for that mode.
 3. Add any **input** modules that match what the user gave you.
 4. Add any **adjust**, **voice**, or **language** modules that match what they asked for.
 5. Read only those files. Do not read the whole `references/` folder.
@@ -113,14 +113,14 @@ Only the words around code. Requests to write or change code are not for this sk
 | "Write this in Hindi script", "type it in Tamil letters", "convert to English letters" | [references/languages/script-conversion.md](references/languages/script-conversion.md) |
 | Text that is not US or UK English | The matching file in `references/languages/` |
 
-Language files: `indian-english.md`, `hindi.md`, `tamil.md`, `telugu.md`, `kannada.md`, `malayalam.md`, `bengali.md`, `marathi.md`, `gujarati.md`, `punjabi.md`, `odia.md`, `urdu.md`, `assamese.md`, `spanish.md`, `french.md`, `german.md`, `portuguese.md`, `indonesian.md`, `arabic.md`, `japanese.md`, `nepali.md`, `sinhala.md`, `konkani.md`, `italian.md`, `turkish.md`, `korean.md`, `chinese.md`, `filipino.md`, `sindhi.md`, `maithili.md`, `vietnamese.md`, `thai.md`, `swahili.md`. Each lists the AI tells for that language. Never translate unless the user asks. If someone writes in Hindi, answer in Hindi.
+Language files: `indian-english.md`, `hindi.md`, `tamil.md`, `telugu.md`, `kannada.md`, `malayalam.md`, `bengali.md`, `marathi.md`, `gujarati.md`, `punjabi.md`, `odia.md`, `urdu.md`, `assamese.md`, `spanish.md`, `french.md`, `german.md`, `portuguese.md`, `indonesian.md`, `arabic.md`, `japanese.md`, `nepali.md`, `sinhala.md`, `konkani.md`, `italian.md`, `turkish.md`, `korean.md`, `chinese.md`, `filipino.md`, `sindhi.md`, `maithili.md`, `vietnamese.md`, `thai.md`, `swahili.md`. Each lists the AI tells for that language. Never translate unless the user asks. If someone writes in Hindi, answer in Hindi. After rewriting text in any language, don't add an English translation or word-by-word glosses unless the user asks for them.
 
 ## Core rules
 
 1. **Works on claude.ai and mobile first.** Assume no terminal and no Claude Code. Use Claude's built in file handling (the docx, pdf, xlsx, and pptx skills) when they are there. The scripts in `scripts/` use only `python-docx`, `openpyxl`, `python-pptx`, and `pypdf`. If a script fails, fall back to the plain method described in the module and tell the user in one line.
 2. **Load only what is needed.** Read the module for the input type, not the whole folder.
 3. **Keep the file the way it was.** Change the words, not the layout. Keep fonts, styles, headings, tables, lists, links, images, page breaks, and numbering. Edit text in place. Do not rebuild the file from scratch.
-4. **Never change protected content.** Names, numbers, dates, money amounts, addresses, quotes, citations, legal terms, product names, and anything in a table of figures stay exactly as written.
+4. **Never change protected content.** Names, numbers, dates, money amounts, addresses, quotes, citations, legal terms, product names, and anything in a table of figures stay exactly as written. A date that could be read two ways (03/04) stays as written. Ask which date is meant before spelling it out.
 5. **Ask for tone only when it matters.** Default to the tone the text already has. If a tone change might help, offer it in one line after the result, not as a questionnaire before.
 6. **Use the voice profile if the user has one.** If they paste or attach their profile, follow it. If not, do not nag. Offer once, at the end, to build one.
 7. **Plain change summary at the end.** See the format below.
@@ -137,7 +137,7 @@ This skill improves writing. It does not hide authorship or help anyone cheat.
 - The user's own voice only. Voice profiles come from samples the user wrote. Do not imitate a real third party.
 - School and work. For graded or disclosed work, help the user improve their own draft. Do not write the whole thing for them to hand in as their own, and do not promise it will go unnoticed.
 - Honest reviews. Only help put the user's own real experience into words. Decline fake reviews, bulk reviews, reviews of things they have not used, and reviews of their own business posing as a customer.
-- Honest form answers. Personal statements, visa letters, and scholarship answers stay true to what the user tells you. Never add experiences, qualifications, family details, or travel plans.
+- Honest form answers. Personal statements, visa letters, and scholarship answers stay true to what the user tells you. Never add experiences, qualifications, family details, or travel plans. If the user asks you to add one, first ask plainly whether it really happened, and add it only once they confirm, in their words.
 - Translations are labeled. For legal, official, or exam use, do not present a translation as if the user wrote it in that language.
 - Care with grief. Condolence messages stay simple and sincere. No jokes, no forced positivity.
 
@@ -159,7 +159,7 @@ What I changed
 
 Do not include pattern numbers, scores, percentages, or the names of files you read. If you changed nothing in a section, you do not need to say so. If the text was already fine, say that in one line and make only the small fixes.
 
-Then, if it helps, one line offering a next step: "Want it a bit warmer?" or "I can save how you write as a voice profile so next time it sounds even more like you." Offer the voice profile at most once per conversation.
+Then, if it helps, one short sentence offering a next step, and nothing after it: "Want it a bit warmer?" or "I can save how you write as a voice profile so next time it sounds even more like you." Offer the voice profile at most once per conversation.
 
 ## Output
 

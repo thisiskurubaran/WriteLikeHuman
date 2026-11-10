@@ -12,7 +12,7 @@ Indian English is a full variety of English with its own words, number system, a
 
 - Lakh and crore. "₹4.5 lakh" stays "₹4.5 lakh". Do not convert to "450,000" or "$5,400".
 - Rupee formatting. Keep Indian digit grouping: ₹1,50,000, not ₹150,000. Keep "Rs." or "INR" if that is what the user wrote.
-- Dates. DD/MM/YYYY or "7 November 2026". Never swap to MM/DD.
+- Dates. DD/MM/YYYY or "7 November 2026". Never swap to MM/DD. A short date that could be read two ways, like 03/04, stays as written: ask whether it means 3 April or 4 March before writing the month out.
 - Spelling. British spelling by default: colour, organise, cheque, programme, centre. Keep American spelling only if the user already uses it.
 - Indian words people actually use. "Prepone", "do the needful", "kindly", "revert", "out of station", "passed out" (graduated), "cousin brother". Keep them where the user already writes that way. Do not add them where the user did not.
 - Names, titles, and honorifics like "Sir", "Ma'am", "ji".

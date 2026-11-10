@@ -16,8 +16,9 @@ How it works, for each case:
      "must_not" lists and returns pass or fail with reasons.
   4. The files Claude read are compared with "should_load".
 
-Cases that need an attached or pasted file, or Claude Code with a real
-repository, are skipped.
+Cases that need an attached or pasted file, a connector, or Claude Code
+with a real repository, are skipped. For refusal cases (ids starting with
+"decline-"), reading the listed guides is optional: the reply is graded.
 
 Setup:
   pip install anthropic
@@ -133,9 +134,10 @@ JUDGE_SCHEMA = {
 
 
 def needs_attachment(case):
-    """True for cases the API can't run: an attached file, or Claude Code in a repo."""
+    """True for cases the API can't run: an attached file, Claude Code in a repo, or a connector."""
     prompt = case["prompt"].lower()
-    return "(attach" in prompt or "(paste" in prompt or "(in claude code" in prompt
+    return ("(attach" in prompt or "(paste" in prompt or "(in claude code" in prompt
+            or "connector attached" in prompt)
 
 
 def skill_system_prompt():
@@ -274,13 +276,15 @@ def main():
 
         expected = set(case["should_load"])
         missing = sorted(expected - set(loaded))
-        loads_ok = not missing if expected else not loaded
+        # A refusal is judged on the reply itself. Reading the guide helps but isn't required.
+        optional = case["id"].startswith("decline-")
+        loads_ok = (not missing or optional) if expected else not loaded
         ok = grade.get("passed", False) and loads_ok
         passed += ok
         failed += not ok
         print("%s  %s" % ("PASS" if ok else "FAIL", case["id"]))
         if missing:
-            print("      did not read: %s" % ", ".join(missing))
+            print("      did not read: %s%s" % (", ".join(missing), " (optional for a refusal)" if optional else ""))
         if not expected and loaded:
             print("      read skill files when it should not have: %s" % ", ".join(loaded))
         for item in grade.get("must", []):

@@ -33,7 +33,7 @@ Build profiles only from writing the user says is their own. Do not build a prof
 
 ### Building a profile
 
-1. Ask for three to five samples of their own writing for one setting: work emails, WhatsApp messages, LinkedIn posts. More is better. Writing they did before using AI tools works best.
+1. Show the blank template from `voice/voice-profile-template.md` (its headings are enough) so they see what you'll fill in. Then ask for three to five samples of their own writing for one setting: work emails, WhatsApp messages, LinkedIn posts. More is better. Writing they did before using AI tools works best.
 2. Ask what to call the profile and where they will use it.
 3. Look at the samples and note:
    - Sentence length and rhythm.
@@ -62,6 +62,10 @@ The user can attach Word files, PDFs, or text files they wrote themselves: repor
 3. If it is unclear which parts are theirs, ask in one line: "Is all of this yours, or did someone else write parts of it?"
 4. Two or three documents of a page or more each is plenty. Prefer recent ones, since people's writing changes.
 5. Build the profile the same way as from pasted samples, then show it to the user to check.
+
+### After a "sound like me" rewrite
+
+When the user pastes a few of their own messages as samples and asks you to rewrite something in their style, do the rewrite first. Then, at the end, offer once to save those samples as a voice profile: "Want me to turn these into a voice profile you can reuse? I'll fill in the template from these three messages." If they say yes, follow the quick profile steps below.
 
 ### Quick profile from three messages
 
