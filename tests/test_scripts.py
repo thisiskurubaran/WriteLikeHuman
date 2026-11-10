@@ -1140,5 +1140,378 @@ class LatexRewriteTest(TempDirCase):
         self.assertIn("overwrite", proc.stdout + proc.stderr)
 
 
+# ------------------------------------------------- bug sweep: awkward input
+
+W_NS = ('xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" '
+        'xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" '
+        'xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" '
+        'xmlns:v="urn:schemas-microsoft-com:vml" '
+        'xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" '
+        'xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"')
+
+TEXT_BOX_PARA = (
+    '<w:p %s><w:r><w:t xml:space="preserve">Before the box </w:t></w:r>'
+    '<w:r><mc:AlternateContent><mc:Choice Requires="wps"><w:drawing><wp:anchor><a:graphic>'
+    '<a:graphicData><wps:wsp><wps:txbx><w:txbxContent><w:p><w:r><w:t>Box text here</w:t></w:r>'
+    '</w:p></w:txbxContent></wps:txbx></wps:wsp></a:graphicData></a:graphic></wp:anchor>'
+    '</w:drawing></mc:Choice><mc:Fallback><w:pict><v:shape><v:textbox><w:txbxContent><w:p>'
+    '<w:r><w:t>Box text here</w:t></w:r></w:p></w:txbxContent></v:textbox></v:shape></w:pict>'
+    '</mc:Fallback></mc:AlternateContent></w:r>'
+    '<w:r><w:t xml:space="preserve">and after it.</w:t></w:r></w:p>' % W_NS)
+
+FIELD_PARA = (
+    '<w:p %s><w:r><w:t xml:space="preserve">Updated on </w:t></w:r>'
+    '<w:r><w:fldChar w:fldCharType="begin"/></w:r><w:r><w:instrText> DATE </w:instrText></w:r>'
+    '<w:r><w:fldChar w:fldCharType="separate"/></w:r><w:r><w:t>10/11/2026</w:t></w:r>'
+    '<w:r><w:fldChar w:fldCharType="end"/></w:r>'
+    '<w:r><w:t xml:space="preserve"> by the team utilizing data.</w:t></w:r></w:p>' % W_NS)
+
+
+def run_items(p_el):
+    """(kind, text) for the text, tabs, breaks, and field marks of a paragraph."""
+    from docx.oxml.ns import qn
+    names = {qn("w:t"): "t", qn("w:delText"): "del", qn("w:tab"): "tab", qn("w:br"): "br",
+             qn("w:fldChar"): "fld"}
+    out = []
+    for r in p_el.iter(qn("w:r")):
+        for c in r:
+            if c.tag in names:
+                out.append((names[c.tag], c.text or ""))
+            elif c.tag.endswith("}AlternateContent"):
+                out.append(("box", ""))
+    return out
+
+
+@unittest.skipUnless(HAVE_DOCX, "python-docx is not installed")
+class DocxAwkwardInputTest(TempDirCase):
+    def make(self):
+        from docx import Document
+        from docx.oxml import parse_xml
+        doc = Document()
+        p = doc.add_paragraph()
+        r = p.add_run("Asha Verma")
+        r.add_break()
+        r.add_text("12 Lake Road")
+        r.add_tab()
+        r.add_text("Pune 411001 utilized")
+        body = doc.element.body
+        body.insert(len(body) - 1, parse_xml(TEXT_BOX_PARA))
+        body.insert(len(body) - 1, parse_xml(FIELD_PARA))
+        path = self.path("odd.docx")
+        doc.save(path)
+        return path
+
+    def segments(self, path):
+        return json.loads(run("docx_rewrite.py", "extract", path).stdout)["segments"]
+
+    def test_tabs_and_line_breaks_are_shown_and_kept(self):
+        src = self.make()
+        segs = self.segments(src)
+        self.assertEqual(segs[0]["text"], "Asha Verma\n12 Lake Road\tPune 411001 utilized")
+        changes = write_json(self.path("c.json"), {"p1": "Asha Verma\n12 Lake Road\tPune 411001 used"})
+        for extra in ([], ["--track-changes"]):
+            out = self.path("out%d.docx" % len(extra))
+            run("docx_rewrite.py", "apply", src, changes, "-o", out, *extra)
+            import docx as _docx
+            p = _docx.Document(out).element.body[0]
+            items = [i for i in run_items(p) if i[0] != "del"]
+            self.assertEqual(items[:4], [("t", "Asha Verma"), ("br", ""), ("t", "12 Lake Road"), ("tab", "")])
+            self.assertEqual("".join(t for _, t in items[4:]), "Pune 411001 used")
+            self.assertEqual(self.segments(out)[0]["text"], "Asha Verma\n12 Lake Road\tPune 411001 used")
+
+    def test_text_box_is_its_own_paragraph_and_not_touched(self):
+        src = self.make()
+        texts = [s["text"] for s in self.segments(src)]
+        self.assertIn("Before the box and after it.", texts)
+        self.assertEqual(texts.count("Box text here"), 1)
+        pid = [s["id"] for s in self.segments(src) if s["text"].startswith("Before")][0]
+        changes = write_json(self.path("c.json"), {pid: "Before the box, and then after it."})
+        for extra in ([], ["--track-changes"]):
+            out = self.path("box%d.docx" % len(extra))
+            run("docx_rewrite.py", "apply", src, changes, "-o", out, *extra)
+            texts = [s["text"] for s in self.segments(out)]
+            self.assertIn("Before the box, and then after it.", texts)
+            self.assertIn("Box text here", texts)
+            import docx as _docx
+            outer = [i for i in run_items(_docx.Document(out).element.body[1]) if i[0] in ("t", "box")]
+            self.assertEqual([t for k, t in outer if k == "t"].count("Box text here"), 2,
+                             "both copies of the text box keep their text")
+
+    def test_tracked_changes_keep_a_field_in_place(self):
+        src = self.make()
+        pid = [s["id"] for s in self.segments(src) if s["text"].startswith("Updated")][0]
+        changes = write_json(self.path("c.json"), {pid: "Updated on 10/11/2026 by the team using data."})
+        out = self.path("fld.docx")
+        run("docx_rewrite.py", "apply", src, changes, "-o", out, "--track-changes")
+        import docx as _docx
+        items = run_items(_docx.Document(out).element.body[2])
+        kinds = [k for k, _ in items]
+        # The date stays inside the field: begin, separate, the date, end.
+        start = kinds.index("fld")
+        self.assertEqual(items[start:start + 4], [("fld", ""), ("fld", ""), ("t", "10/11/2026"), ("fld", "")])
+        self.assertEqual(items[0], ("t", "Updated on "))
+
+
+@unittest.skipUnless(HAVE_PPTX, "python-pptx is not installed")
+class PptxLineBreakTest(TempDirCase):
+    def test_soft_line_break_kept(self):
+        from pptx import Presentation
+        prs = Presentation()
+        slide = prs.slides.add_slide(prs.slide_layouts[0])
+        p = slide.shapes.title.text_frame.paragraphs[0]
+        p.text = "Quarterly Results"
+        p.add_line_break()
+        p.add_run().text = "FY 2025 utilized"
+        src = self.path("deck.pptx")
+        prs.save(src)
+        segs = json.loads(run("pptx_rewrite.py", "extract", src).stdout)["segments"]
+        self.assertEqual(segs[0]["text"], "Quarterly Results\nFY 2025 utilized")
+        sid = segs[0]["id"]
+        run("pptx_rewrite.py", "apply", src, write_json(self.path("c.json"), {sid: "Quarterly Results\nFY 2025 in review"}))
+        title = Presentation(self.path("deck-humanized.pptx")).slides[0].shapes.title.text_frame
+        self.assertEqual(title.paragraphs[0].text, "Quarterly Results\vFY 2025 in review")
+        proc = run("pptx_rewrite.py", "apply", src, write_json(self.path("d.json"), {sid: "Quarterly Results FY 2025"}),
+                   "-o", self.path("other.pptx"))
+        self.assertIn("Left as it was", proc.stdout)
+        title = Presentation(self.path("other.pptx")).slides[0].shapes.title.text_frame
+        self.assertEqual(title.paragraphs[0].text, "Quarterly Results\vFY 2025 utilized")
+
+
+@unittest.skipUnless(HAVE_DOCX, "python-docx is not installed")
+class DocxLayoutLinksAndNestedTablesTest(TempDirCase):
+    def test_link_text_and_nested_table_get_the_font(self):
+        from docx.oxml import parse_xml
+        from docx.shared import Pt
+        d = docx.Document()
+        p = d.add_paragraph("See ")
+        p._p.append(parse_xml(
+            '<w:hyperlink xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" '
+            'w:anchor="top"><w:r><w:rPr><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/>'
+            '<w:sz w:val="18"/></w:rPr><w:t>our page</w:t></w:r></w:hyperlink>'))
+        outer = d.add_table(rows=1, cols=1)
+        inner = outer.cell(0, 0).add_table(rows=1, cols=1)
+        inner.cell(0, 0).paragraphs[0].add_run("Nested cell").font.size = Pt(9)
+        src = self.path("links.docx")
+        d.save(src)
+        run("docx_layout.py", src, "--dyslexia")
+        out = docx.Document(self.path("links-readable.docx"))
+        link_run = out.paragraphs[0].iter_inner_content()
+        runs = []
+        for item in link_run:
+            runs.extend(item.runs if hasattr(item, "runs") else [item])
+        self.assertEqual([r.text for r in runs], ["See ", "our page"])
+        self.assertEqual(runs[1].font.name, "Arial")
+        self.assertEqual(runs[1].font.size.pt, 12)
+        cell_run = out.tables[0].cell(0, 0).tables[0].cell(0, 0).paragraphs[0].runs[0]
+        self.assertEqual((cell_run.font.name, cell_run.font.size.pt), ("Arial", 12))
+
+
+@unittest.skipUnless(HAVE_DOCX, "python-docx is not installed")
+class ChangeReportControlCharsTest(TempDirCase):
+    def test_form_feed_from_pdf_text(self):
+        from docx import Document
+        before, after = self.path("a.txt"), self.path("b.txt")
+        with open(before, "w", encoding="utf-8") as fh:
+            fh.write("End of page one.\n\x0cPage two starts\x0bhere.\x00\n")
+        with open(after, "w", encoding="utf-8") as fh:
+            fh.write("End of page one.\n\x0cPage two begins here.\n")
+        run("change_report.py", before, after, "-o", self.path("r.docx"))
+        paras = [p.text for p in Document(self.path("r.docx")).paragraphs]
+        self.assertIn("End of page one.", paras)
+
+
+class WordCountLineEndingTest(unittest.TestCase):
+    def test_windows_line_endings_count_the_same_from_stdin(self):
+        proc = subprocess.run([sys.executable, os.path.join(SCRIPTS, "word_count.py"), "--json"],
+                              input=b"One two.\r\n\r\nThree four five.\r\n", capture_output=True)
+        data = json.loads(proc.stdout.decode("utf-8"))
+        self.assertEqual(data["characters"], 27)
+        self.assertEqual(data["paragraphs"], 2)
+
+
+class MailMergeAwkwardInputTest(TempDirCase):
+    def template(self, text, bom=False):
+        path = self.path("msg.txt")
+        with open(path, "w", encoding="utf-8-sig" if bom else "utf-8") as fh:
+            fh.write(text)
+        return path
+
+    @unittest.skipUnless(HAVE_XLSX, "openpyxl is not installed")
+    def test_xlsx_dates_and_numbers_as_the_sheet_shows_them(self):
+        import datetime
+        import openpyxl
+        book = self.path("dues.xlsx")
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.append(["Name", "Amount", "Due", "Rate", "Joined", "Pin"])
+        ws.append(["Kavya", 1200, datetime.datetime(2026, 11, 20), 0.15, datetime.datetime(2025, 1, 5), 501])
+        ws["B2"].number_format = "#,##0"
+        ws["C2"].number_format = "dd/mm/yyyy"
+        ws["D2"].number_format = "0%"
+        ws["E2"].number_format = "mm-dd-yy"  # Excel's default short date
+        ws["F2"].number_format = "00000"
+        ws.append(["Rohan", 1250.5, datetime.datetime(2026, 12, 1), 0.075, None, None])
+        ws["C3"].number_format = "d mmm yyyy"
+        ws["D3"].number_format = "0.0%"
+        wb.save(book)
+        tpl = self.template("{Name}: Rs {Amount} due {Due} ({Rate}), joined {Joined}, pin {Pin}")
+        run("mail_merge.py", "merge", book, tpl)
+        with open(self.path("dues-messages.txt"), encoding="utf-8") as fh:
+            text = fh.read()
+        self.assertIn("Kavya: Rs 1,200 due 20/11/2026 (15%), joined 2025-01-05, pin 00501", text)
+        self.assertIn("Rohan: Rs 1250.5 due 1 Dec 2026 (7.5%), joined {Joined}, pin {Pin}", text)
+        self.assertNotIn("00:00:00", text)
+
+    def test_duplicate_headings_keep_both_columns(self):
+        sheet = self.path("people.csv")
+        with open(sheet, "w", newline="", encoding="utf-8") as fh:
+            w = csv.writer(fh)
+            w.writerow(["Name", "Phone", "Phone", ""])
+            w.writerow(["Meera", "98765 43210", "Office", "note"])
+        out = self.path("out.csv")
+        run("mail_merge.py", "merge", sheet, self.template("Hi {Name}"), "--out", out)
+        with open(out, newline="", encoding="utf-8") as fh:
+            rows = list(csv.reader(fh))
+        self.assertEqual(rows[0], ["Name", "Phone", "Phone", "", "Message"])
+        self.assertEqual(rows[1], ["Meera", "98765 43210", "Office", "note", "Hi Meera"])
+        proc = run("mail_merge.py", "merge", sheet, self.template("Call {Phone}"), expect=1)
+        self.assertIn("More than one column is called {phone}", proc.stdout + proc.stderr)
+
+    def test_row_numbers_count_blank_rows_and_bom_template(self):
+        sheet = self.path("guests.csv")
+        with open(sheet, "w", newline="", encoding="utf-8") as fh:
+            w = csv.writer(fh)
+            w.writerow(["Name", "City"])
+            w.writerow(["", ""])
+            w.writerow(["Karthik", ""])
+        out = run("mail_merge.py", "merge", sheet, self.template("Hi {Name} in {City}", bom=True)).stdout
+        self.assertIn("row 3 (Karthik)", out)
+        with open(self.path("guests-messages.txt"), encoding="utf-8") as fh:
+            self.assertTrue(fh.read().startswith("Hi Karthik"))
+
+    def test_csv_not_in_utf8(self):
+        sheet = self.path("old.csv")
+        with open(sheet, "wb") as fh:
+            fh.write("Name\nJos\xe9\n".encode("cp1252"))
+        proc = run("mail_merge.py", "merge", sheet, self.template("Hi {Name}"), expect=1)
+        self.assertIn("CSV UTF-8", proc.stdout + proc.stderr)
+        self.assertNotIn("Traceback", proc.stderr)
+
+
+class DateCheckAwkwardInputTest(unittest.TestCase):
+    def check(self, text, expect):
+        proc = run("date_check.py", "--json", "--today", "2026-11-10", "--text", text, expect=expect)
+        return json.loads(proc.stdout)["dates"]
+
+    def test_words_ending_in_a_weekday_are_not_weekdays(self):
+        self.assertEqual(self.check("The visa was renewed 14 March 2026.", 0), [])
+        self.assertEqual(self.check("Call Simon 3 May 2026 about it.", 0), [])
+
+    def test_hours_and_times_are_not_dates(self):
+        self.assertEqual(self.check("Open Monday to Friday 9-5.", 0), [])
+        self.assertEqual(self.check("See you Monday 9.15 sharp.", 0), [])
+        self.assertEqual(len(self.check("Friday 13-11-2026", 0)), 1)
+
+    def test_29_february_without_a_year_uses_the_next_leap_year(self):
+        dates = self.check("Tuesday 29 Feb", 0)
+        self.assertEqual((dates[0]["date"], dates[0]["year_assumed"]), ("2028-02-29", 2028))
+
+
+def make_group_form(path):
+    """A form with a group "applicant" holding "name" and "city", built by hand."""
+    from pypdf import PdfWriter
+    from pypdf.generic import ArrayObject, DictionaryObject, FloatObject, NameObject, TextStringObject
+    w = PdfWriter()
+    page = w.add_blank_page(612, 792)
+    parent = DictionaryObject({NameObject("/T"): TextStringObject("applicant")})
+    pref = w._add_object(parent)
+    kids = ArrayObject()
+    for i, name in enumerate(["name", "city"]):
+        kid = DictionaryObject({
+            NameObject("/Type"): NameObject("/Annot"), NameObject("/Subtype"): NameObject("/Widget"),
+            NameObject("/FT"): NameObject("/Tx"), NameObject("/T"): TextStringObject(name),
+            NameObject("/Rect"): ArrayObject([FloatObject(v) for v in (50, 700 - 40 * i, 250, 720 - 40 * i)]),
+            NameObject("/Parent"): pref, NameObject("/DA"): TextStringObject("/Helv 10 Tf 0 g")})
+        kids.append(w._add_object(kid))
+    parent[NameObject("/Kids")] = kids
+    page[NameObject("/Annots")] = ArrayObject(list(kids))
+    font = DictionaryObject({NameObject("/Type"): NameObject("/Font"), NameObject("/Subtype"): NameObject("/Type1"),
+                             NameObject("/BaseFont"): NameObject("/Helvetica")})
+    w._root_object[NameObject("/AcroForm")] = DictionaryObject({
+        NameObject("/Fields"): ArrayObject([pref]), NameObject("/DA"): TextStringObject("/Helv 0 Tf 0 g"),
+        NameObject("/DR"): DictionaryObject({NameObject("/Font"): DictionaryObject({NameObject("/Helv"): w._add_object(font)})})})
+    w.write(path)
+    return path
+
+
+@unittest.skipUnless(HAVE_PYPDF and HAVE_REPORTLAB, "pypdf or reportlab is not installed")
+class FormFillAwkwardInputTest(TempDirCase):
+    def fields(self, path):
+        return {f["name"]: f for f in json.loads(run("form_fill.py", "fields", path).stdout)["fields"]}
+
+    def test_fields_inside_a_group_are_filled(self):
+        src = make_group_form(self.path("group.pdf"))
+        fields = self.fields(src)
+        self.assertEqual(sorted(fields), ["applicant.city", "applicant.name"])
+        self.assertEqual(fields["applicant.name"]["page"], 1)
+        values = write_json(self.path("v.json"), {"applicant.name": "Neha Rao", "applicant.city": "Kochi"})
+        run("form_fill.py", "fill", src, values)
+        fields = self.fields(self.path("group-filled.pdf"))
+        self.assertEqual(fields["applicant.name"]["value"], "Neha Rao")
+        self.assertEqual(fields["applicant.city"]["value"], "Kochi")
+
+    def test_drop_down_lists_stored_values(self):
+        from reportlab.pdfgen import canvas
+        src = self.path("drop.pdf")
+        c = canvas.Canvas(src)
+        c.drawString(50, 600, "State:")
+        c.acroForm.choice(name="state", x=50, y=550, width=150, height=20,
+                          options=[("Kerala", "KL"), ("Tamil Nadu", "TN")], value="KL")
+        c.showPage()
+        c.save()
+        field = self.fields(src)["state"]
+        self.assertEqual(field["value"], "KL")
+        self.assertEqual(field["options"], ["KL", "TN"])
+        self.assertEqual(field["option_labels"], ["Kerala", "Tamil Nadu"])
+        run("form_fill.py", "fill", src, write_json(self.path("v.json"), {"state": "Tamil Nadu"}))
+        self.assertEqual(self.fields(self.path("drop-filled.pdf"))["state"]["value"], "TN")
+
+    def test_password_protected_pdf(self):
+        from pypdf import PdfWriter
+        src = self.path("plain.pdf")
+        make_pdf(src)
+        locked = self.path("locked.pdf")
+        w = PdfWriter(clone_from=src)
+        w.encrypt("secret", algorithm="AES-128")
+        w.write(locked)
+        for cmd in (["form_fill.py", "fields", locked], ["pdf_extract.py", "extract", locked],
+                    ["pdf_extract.py", "images", locked, "--out", self.path("imgs")]):
+            proc = run(*cmd, expect=1)
+            self.assertIn("password protected", proc.stdout + proc.stderr)
+            self.assertNotIn("Traceback", proc.stderr)
+
+
+@unittest.skipUnless(HAVE_PYPDF and HAVE_DOCX, "pypdf or python-docx is not installed")
+class PdfToDocxAwkwardInputTest(TempDirCase):
+    def test_numbered_items_keep_their_numbers_and_control_characters_go(self):
+        from docx import Document
+        src = self.path("terms.pdf")
+        make_pdf(src)
+        pages = write_json(self.path("p.json"), {"pages": [
+            {"page": 1, "text": "1. Payment within 30 days.\n2. Delivery to Pune.\x0c"},
+            {"page": 2, "text": "7. Notices go to the office.\x00\n8. Disputes go to Mumbai courts."}]})
+        run("pdf_extract.py", "to-docx", src, pages)
+        paras = [p.text for p in Document(self.path("terms-humanized.docx")).paragraphs]
+        self.assertIn("7. Notices go to the office.", paras)
+        self.assertIn("8. Disputes go to Mumbai courts.", paras)
+        self.assertIn("1. Payment within 30 days.", paras)
+
+    def test_bad_page_list(self):
+        src = self.path("terms.pdf")
+        make_pdf(src)
+        proc = run("pdf_extract.py", "images", src, "--pages", "2-", "--out", self.path("i"), expect=1)
+        self.assertIn("page numbers", proc.stdout + proc.stderr)
+
+
 if __name__ == "__main__":
     unittest.main()

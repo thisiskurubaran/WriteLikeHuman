@@ -13,7 +13,8 @@ and reports any where the weekday does not match the date.
   cat draft.txt | python date_check.py
 
 Numeric dates like 03/04 are read as day/month (the Indian and British
-way) unless you pass --us. When a date has no year, the script uses the
+way) unless you pass --us. Without a year, "Friday 9-5" (opening hours)
+and "Monday 9.15" (a time) are not read as dates. When a date has no year, the script uses the
 next time that date comes round (today counts), or the year from --year,
 and says which year it assumed. --today YYYY-MM-DD sets "today" for that
 guess.
@@ -61,7 +62,7 @@ DATE_FORMS = [
     r"(?P<n1>[0-3]?\d)[/.\-](?P<n2>[01]?\d)(?:[/.\-](?P<nyear>\d{4}|\d{2}))?",
 ]
 DATE_RE = [re.compile(r"(?<![\w/.\-])" + f + r"(?![\w/]|[.\-]\d)", re.IGNORECASE) for f in DATE_FORMS]
-BEFORE_RE = re.compile(WD + r"\.?,?\s+(?:the\s+)?$", re.IGNORECASE)
+BEFORE_RE = re.compile(r"(?<!\w)" + WD + r"\.?,?\s+(?:the\s+)?$", re.IGNORECASE)
 AFTER_RE = re.compile(r"^\s*,?\s*[(\[]?\s*" + WD + r"\b\.?(?:\s*[)\]])?", re.IGNORECASE)
 
 
@@ -105,6 +106,11 @@ def resolve(m, us, year_opt, today):
                 year += 1
         except ValueError:
             pass
+        if month == 2 and day == 29:
+            # 29 February comes round only in a leap year.
+            while not (year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
+                       and datetime.date(year, 2, 29) >= today):
+                year += 1
         assumed = year
     return day, month, year, assumed
 
@@ -146,6 +152,12 @@ def check(text, us=False, year_opt=None, today=None):
             if impossible:
                 results.append(impossible)
             continue
+        g = m.groupdict()
+        if not g.get("mon") and not g.get("nyear"):
+            # "Friday 9-5" is opening hours and "Monday 9.15" a time, not dates.
+            a, b = int(g["n1"]), int(g["n2"])
+            if "-" in m.group(0) or not (1 <= (a if us else b) <= 12 and 1 <= (b if us else a) <= 31):
+                continue
         stated = WEEKDAYS[wd_match.group("wd").lower()]
         if before:
             start = m.start() - (len(before.group(0)))

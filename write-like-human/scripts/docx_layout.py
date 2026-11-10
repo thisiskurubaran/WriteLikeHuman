@@ -63,14 +63,31 @@ def effective_size(run, paragraph):
     return None
 
 
-def body_paragraphs(doc):
-    for p in doc.paragraphs:
-        yield p
-    for table in doc.tables:
+def table_paragraphs(tables):
+    for table in tables:
         for row in table.rows:
             for cell in row.cells:
                 for p in cell.paragraphs:
                     yield p
+                for p in table_paragraphs(cell.tables):
+                    yield p
+
+
+def body_paragraphs(doc):
+    for p in doc.paragraphs:
+        yield p
+    for p in table_paragraphs(doc.tables):
+        yield p
+
+
+def paragraph_runs(p):
+    """The paragraph's runs, including the ones inside links."""
+    if not hasattr(p, "iter_inner_content"):  # python-docx before 1.0
+        return p.runs
+    runs = []
+    for item in p.iter_inner_content():
+        runs.extend(item.runs if hasattr(item, "runs") else [item])
+    return runs
 
 
 def apply_dyslexia(doc, font):
@@ -93,7 +110,7 @@ def apply_dyslexia(doc, font):
             fmt.space_after = Pt(8)
             if fmt.alignment in (None, WD_ALIGN_PARAGRAPH.JUSTIFY, WD_ALIGN_PARAGRAPH.DISTRIBUTE):
                 fmt.alignment = WD_ALIGN_PARAGRAPH.LEFT
-        for run in p.runs:
+        for run in paragraph_runs(p):
             if not run.text:
                 continue
             if not heading:

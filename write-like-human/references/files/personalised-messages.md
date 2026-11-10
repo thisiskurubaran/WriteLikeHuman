@@ -30,6 +30,7 @@ This is for people the user already knows: family, friends, colleagues, guests, 
    python scripts/mail_merge.py merge contacts.xlsx message.txt --out diwali-messages.csv
    ```
    Use `.csv` to keep the sheet's columns with a new Message column, `.txt` for a plain list to copy from, or `.docx` for one block per person.
+   Dates and numbers from a .xlsx come out the way the sheet shows them (20/11/2026, 1,200, 15%), without currency signs. A date in Excel's default short date format comes out as 2026-11-20, since that format depends on the computer. If two columns share a heading that the message uses, the script stops and asks for one to be renamed.
 4. Read the CHECK lines. A row with a missing value keeps its placeholder, such as `{City}`. Tell the user which rows need a value, or offer a version of the message without that placeholder. Do not fill the gap yourself.
 5. Show the first two or three messages in the chat so the user can see how they read, then give the file.
 

@@ -26,7 +26,7 @@ Only the words inside paragraphs change. You never rebuild the document from scr
    ```
    python scripts/docx_rewrite.py extract <file>.docx -o segments.json
    ```
-   Each paragraph comes back with an id (`p12`, `h1-1` for a header, `f1-1` for a footer) and where it sits (`body`, `table`, `header`, `footer`).
+   Each paragraph comes back with an id (`p12`, `h1-1` for a header, `f1-1` for a footer) and where it sits (`body`, `table`, `header`, `footer`). A tab inside a paragraph shows as `\t` and a line break as `\n`. Keep them where they are in the new text. Text in a text box gets its own id.
 3. **Decide what to touch.** Rewrite body paragraphs and text in table cells that holds sentences. Leave alone:
    - Headings, unless they are clearly AI filler ("Harnessing the Power of Our Q3 Results")
    - Short labels in tables ("Region", "Total", "Q3")

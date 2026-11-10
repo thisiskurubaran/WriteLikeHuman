@@ -4,6 +4,8 @@
 Two steps:
 
   1. extract: list every paragraph that has text, each with a stable id.
+     A tab shows as "\t" and a line break inside a paragraph as "\n".
+     Text in a text box is a paragraph of its own.
 
        python docx_rewrite.py extract report.docx -o segments.json
 
@@ -67,28 +69,71 @@ def humanized_path(path, ext=None):
     return "%s-humanized%s" % (root, ext or old_ext)
 
 
+def is_text_child(c):
+    """A run child that shows as text: w:t, a tab, or a line break.
+
+    Page and column breaks are not text and are left where they are.
+    """
+    if c.tag in (qn("w:t"), qn("w:tab"), qn("w:cr")):
+        return True
+    return c.tag == qn("w:br") and c.get(qn("w:type")) in (None, "textWrapping")
+
+
+def owning_paragraph(el):
+    parent = el.getparent()
+    while parent is not None and parent.tag != qn("w:p"):
+        parent = parent.getparent()
+    return parent
+
+
 def text_runs(p_el):
     """All w:r elements in a paragraph that carry visible text, in order.
 
     Includes runs inside hyperlinks and earlier insertions. Skips deleted
-    text, field codes, and runs that hold only images or breaks.
+    text, field codes, runs that hold only images or page breaks, and runs
+    in text boxes anchored here (each text box paragraph has its own id).
     """
     runs = []
     for r in p_el.iter(qn("w:r")):
         parent = r.getparent()
         if parent is not None and parent.tag == qn("w:del"):
             continue
-        if r.find(qn("w:t")) is not None:
+        if owning_paragraph(r) is not p_el:
+            continue
+        if any(is_text_child(c) for c in r):
             runs.append(r)
     return runs
 
 
 def run_text(r):
-    return "".join(t.text or "" for t in r.findall(qn("w:t")))
+    """The run's text, with tabs as "\\t" and line breaks as "\\n"."""
+    parts = []
+    for c in r:
+        if c.tag == qn("w:t"):
+            parts.append(c.text or "")
+        elif is_text_child(c):
+            parts.append("\t" if c.tag == qn("w:tab") else "\n")
+    return "".join(parts)
 
 
 def para_text(p_el):
     return "".join(run_text(r) for r in text_runs(p_el))
+
+
+def text_elements(r, text, tag="w:t"):
+    """New w:t (or w:delText), w:tab, and w:br elements for text."""
+    out = []
+    for piece in re.split(r"(\t|\n)", text):
+        if piece == "\t":
+            out.append(r.makeelement(qn("w:tab"), {}))
+        elif piece == "\n":
+            out.append(r.makeelement(qn("w:br"), {}))
+        elif piece:
+            t = r.makeelement(qn(tag), {})
+            t.text = piece
+            t.set(XML_SPACE, "preserve")
+            out.append(t)
+    return out
 
 
 def in_fallback(el):
@@ -185,12 +230,12 @@ def plan_edit(runs, new_text):
 
 
 def set_run_text(r, text):
-    ts = r.findall(qn("w:t"))
-    first = ts[0]
-    first.text = text
-    first.set(XML_SPACE, "preserve")
-    for t in ts[1:]:
-        r.remove(t)
+    olds = [c for c in r if is_text_child(c)]
+    index = list(r).index(olds[0])
+    for c in olds:
+        r.remove(c)
+    for offset, el in enumerate(text_elements(r, text)):
+        r.insert(index + offset, el)
 
 
 def apply_plain(p_el, new_text):
@@ -222,10 +267,8 @@ def make_run(template, text, deleted=False):
     for child in list(r):
         if child.tag != qn("w:rPr"):
             r.remove(child)
-    t = r.makeelement(qn("w:delText") if deleted else qn("w:t"), {})
-    t.text = text
-    t.set(XML_SPACE, "preserve")
-    r.append(t)
+    for el in text_elements(r, text, "w:delText" if deleted else "w:t"):
+        r.append(el)
     return r
 
 
@@ -261,25 +304,27 @@ def apply_tracked(p_el, new_text, ids, when):
     for kind, text, owner in pieces:
         template = runs[owner]
         if kind == "equal":
-            new_elements.append(make_run(template, text))
+            el = make_run(template, text)
         elif kind == "delete":
-            new_elements.append(wrap("w:del", make_run(template, text, deleted=True), ids, when))
+            el = wrap("w:del", make_run(template, text, deleted=True), ids, when)
         else:
-            new_elements.append(wrap("w:ins", make_run(template, text), ids, when))
+            el = wrap("w:ins", make_run(template, text), ids, when)
+        new_elements.append((owner, el))
 
-    # Runs that also hold other things (tabs, breaks, images) are kept but
-    # lose their text; plain text runs are replaced by the new elements.
-    anchor = runs[0]
-    index = list(p_el).index(anchor)
-    for r in runs:
-        others = [c for c in r if c.tag not in (qn("w:rPr"), qn("w:t"))]
+    # Each run's new pieces go where that run was, so fields, images, and
+    # bookmarks between runs keep their place. Runs that also hold other
+    # things (images, page breaks) are kept but lose their text; plain text
+    # runs are replaced by the new elements.
+    for i, r in enumerate(runs):
+        for owner, el in new_elements:
+            if owner == i:
+                r.addprevious(el)
+        others = [c for c in r if c.tag != qn("w:rPr") and not is_text_child(c)]
         if others:
-            for t in r.findall(qn("w:t")):
+            for t in [c for c in r if is_text_child(c)]:
                 r.remove(t)
         else:
             p_el.remove(r)
-    for offset, el in enumerate(new_elements):
-        p_el.insert(index + offset, el)
     return True
 
 

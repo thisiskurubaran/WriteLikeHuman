@@ -219,17 +219,25 @@ def tidy(text):
     return join_lines([{"text": ln.strip(), "y": None, "size": None} for ln in text.split("\n")])
 
 
+def open_pdf(PdfReader, path):
+    """Open a PDF, unlocking it when it has no password to open it."""
+    reader = PdfReader(path)
+    if reader.is_encrypted:
+        try:
+            unlocked = reader.decrypt("")
+        except Exception:
+            unlocked = False
+        if not unlocked:  # decrypt returns 0 when the password is wrong
+            sys.exit("This PDF is password protected. Ask the user for an unlocked copy.")
+    return reader
+
+
 def cmd_extract(args):
     try:
         from pypdf import PdfReader
     except ImportError:
         sys.exit("pypdf is not installed. Read the PDF with Claude's own PDF handling instead.")
-    reader = PdfReader(args.file)
-    if reader.is_encrypted:
-        try:
-            reader.decrypt("")
-        except Exception:
-            sys.exit("This PDF is password protected. Ask the user for an unlocked copy.")
+    reader = open_pdf(PdfReader, args.file)
     pages = []
     for i, page in enumerate(reader.pages, start=1):
         if args.raw:
@@ -260,8 +268,10 @@ def cmd_extract(args):
     else:
         print(payload)
     if scanned_pages:
-        sys.stderr.write("NOTE: pages %s look scanned. Their text needs reading from the image.\n"
-                         % ", ".join(str(n) for n in scanned_pages))
+        one = len(scanned_pages) == 1
+        sys.stderr.write("NOTE: %s %s %s scanned. %s text needs reading from the image.\n"
+                         % ("page" if one else "pages", ", ".join(str(n) for n in scanned_pages),
+                            "looks" if one else "look", "Its" if one else "Their"))
 
 
 def add_block(doc, block):
@@ -276,7 +286,9 @@ def add_block(doc, block):
         elif re.match(r"^[-*•]\s", line):
             doc.add_paragraph(line[2:].strip(), style="List Bullet")
         elif re.match(r"^\d+[.)]\s", line):
-            doc.add_paragraph(re.sub(r"^\d+[.)]\s+", "", line), style="List Number")
+            # Keep the number as written. Word's own numbering would count
+            # on from the last list, so "7." could come out as "3.".
+            doc.add_paragraph(line, style="List Paragraph")
         else:
             doc.add_paragraph(line)
 
@@ -297,7 +309,10 @@ def cmd_to_docx(args):
     for n, page in enumerate(pages):
         if n and not args.no_page_breaks:
             doc.add_paragraph().add_run().add_break(WD_BREAK.PAGE)
-        for block in re.split(r"\n\s*\n", page.get("text", "")):
+        # Word files cannot hold control characters, which PDF text can carry.
+        text = page.get("text", "").replace("\f", "\n\n").replace("\v", "\n")
+        text = re.sub(r"[\x00-\x08\x0e-\x1f]", "", text)
+        for block in re.split(r"\n\s*\n", text):
             add_block(doc, block)
     doc.save(out_path)
     print("Saved %s (%d pages of text)" % (out_path, len(pages)))
@@ -309,11 +324,14 @@ def parse_pages(spec, total):
         part = part.strip()
         if not part:
             continue
-        if "-" in part:
-            a, b = part.split("-", 1)
-            pages.extend(range(int(a), int(b) + 1))
-        else:
-            pages.append(int(part))
+        try:
+            if "-" in part:
+                a, b = part.split("-", 1)
+                pages.extend(range(int(a), int(b) + 1))
+            else:
+                pages.append(int(part))
+        except ValueError:
+            sys.exit("Could not read the page numbers %r. Use numbers like 2,3 or 2-4." % spec)
     bad = [n for n in pages if n < 1 or n > total]
     if bad:
         sys.exit("Page %s is out of range. This PDF has %d pages." % (bad[0], total))
@@ -325,7 +343,7 @@ def cmd_images(args):
         from pypdf import PdfReader
     except ImportError:
         sys.exit("pypdf is not installed. Look at the PDF pages directly, or ask for a photo of the page.")
-    reader = PdfReader(args.file)
+    reader = open_pdf(PdfReader, args.file)
     total = len(reader.pages)
     pages = parse_pages(args.pages, total) if args.pages else list(range(1, total + 1))
     os.makedirs(args.out, exist_ok=True)

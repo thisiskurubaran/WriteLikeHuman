@@ -15,7 +15,14 @@ never guesses a value: fields you leave out stay as they were.
        {"file": "form.pdf", "fields": [
           {"name": "full_name", "type": "text", "value": "", "page": 1},
           {"name": "agree", "type": "checkbox", "value": "/Off",
-           "options": ["/Yes", "/Off"], "page": 1}]}
+           "options": ["/Yes", "/Off"], "page": 1},
+          {"name": "state", "type": "choice", "value": "KL",
+           "options": ["KL", "TN"], "option_labels": ["Kerala", "Tamil Nadu"],
+           "page": 1}]}
+
+     A field inside a group has its full name, such as "applicant.name".
+     A drop-down whose choices show different text from the value it
+     stores also has "option_labels"; either one can be given to fill.
 
   2. fill: write values into a copy of the form. Give a JSON object of
      field name to value. Checkboxes take one of their listed options,
@@ -43,6 +50,20 @@ def need_pypdf():
                  "Fallback: list the form's questions as text and give the answers to type in.")
 
 
+def open_pdf(path):
+    """Open a PDF, unlocking it when it has no password to open it."""
+    from pypdf import PdfReader
+    reader = PdfReader(path)
+    if reader.is_encrypted:
+        try:
+            unlocked = reader.decrypt("")
+        except Exception:
+            unlocked = False
+        if not unlocked:  # decrypt returns 0 when the password is wrong
+            sys.exit("This PDF is password protected. Ask the user for an unlocked copy.")
+    return reader
+
+
 def filled_path(path):
     base, _ = os.path.splitext(path)
     return base + "-filled.pdf"
@@ -66,6 +87,20 @@ def button_options(annot):
         return []
 
 
+def widget_name(annot):
+    """The full name of the field a widget belongs to, such as
+    "applicant.name" when a field "name" sits inside "applicant". This is
+    the name reader.get_fields() uses."""
+    parts, node, seen = [], annot, set()
+    while node is not None and id(node) not in seen:
+        seen.add(id(node))
+        if node.get("/T") is not None:
+            parts.insert(0, str(node["/T"]))
+        parent = node.get("/Parent")
+        node = parent.get_object() if parent is not None else None
+    return ".".join(parts) or None
+
+
 def collect_fields(reader):
     """Return field info keyed by name, with page numbers from widgets."""
     pages_by_name = {}
@@ -75,14 +110,9 @@ def collect_fields(reader):
             annot = ref.get_object()
             if annot.get("/Subtype") != "/Widget":
                 continue
-            node = annot
-            name = node.get("/T")
-            if name is None and node.get("/Parent") is not None:
-                node = node["/Parent"].get_object()
-                name = node.get("/T")
+            name = widget_name(annot)
             if name is None:
                 continue
-            name = str(name)
             pages_by_name.setdefault(name, page_no)
             opts = button_options(annot)
             if opts:
@@ -91,6 +121,8 @@ def collect_fields(reader):
 
     out = []
     for name, field in (reader.get_fields() or {}).items():
+        if field.get("/FT") is None:
+            continue  # a group that only holds other fields
         ftype = field_type(field.get("/FT"))
         flags = int(field.get("/Ff", 0) or 0)
         if ftype == "button":
@@ -110,12 +142,17 @@ def collect_fields(reader):
         if ftype in ("checkbox", "radio"):
             info["options"] = options_by_name.get(name, [])
         elif ftype == "choice":
+            # An option is either plain text or a pair [value, text shown].
+            # The value is what the form stores, so that is what is listed.
             raw = field.get("/Opt") or []
-            opts = []
+            opts, labels = [], []
             for o in raw:
                 o = o.get_object() if hasattr(o, "get_object") else o
-                opts.append(str(o[-1]) if isinstance(o, list) else str(o))
+                opts.append(str(o[0]) if isinstance(o, list) else str(o))
+                labels.append(str(o[-1]) if isinstance(o, list) else str(o))
             info["options"] = opts
+            if labels != opts:
+                info["option_labels"] = labels
         if field.get("/TU"):
             info["label"] = str(field.get("/TU"))
         out.append(info)
@@ -124,8 +161,7 @@ def collect_fields(reader):
 
 def cmd_fields(args):
     need_pypdf()
-    from pypdf import PdfReader
-    reader = PdfReader(args.file)
+    reader = open_pdf(args.file)
     fields = collect_fields(reader)
     if not fields:
         print("No fillable fields found. This PDF is probably a flat form: "
@@ -143,7 +179,7 @@ def cmd_fields(args):
 
 def cmd_fill(args):
     need_pypdf()
-    from pypdf import PdfReader, PdfWriter
+    from pypdf import PdfWriter
     from pypdf.generic import BooleanObject, NameObject
 
     out_path = args.output or filled_path(args.file)
@@ -155,7 +191,7 @@ def cmd_fill(args):
     if not isinstance(values, dict):
         sys.exit("values JSON must be an object of field name to value.")
 
-    reader = PdfReader(args.file)
+    reader = open_pdf(args.file)
     known = {f["name"]: f for f in collect_fields(reader)}
     unknown = [k for k in values if k not in known]
     for k in unknown:
@@ -168,18 +204,21 @@ def cmd_fill(args):
             sys.exit("Field %r is a signature box. Leave it for the user to sign." % k)
 
     to_fill = {k: ("" if v is None else str(v)) for k, v in values.items() if k in known}
+    for k, v in to_fill.items():
+        # A drop-down answer given as the text shown ("Kerala") is stored as
+        # its value ("KL").
+        f = known[k]
+        if f["type"] == "choice" and v not in f.get("options", []) and v in f.get("option_labels", []):
+            to_fill[k] = f["options"][f["option_labels"].index(v)]
 
     writer = PdfWriter()
     writer.append(reader)
     for page in writer.pages:
         names_here = set()
         for ref in page.get("/Annots") or []:
-            annot = ref.get_object()
-            name = annot.get("/T")
-            if name is None and annot.get("/Parent") is not None:
-                name = annot["/Parent"].get_object().get("/T")
+            name = widget_name(ref.get_object())
             if name is not None:
-                names_here.add(str(name))
+                names_here.add(name)
         page_values = {k: v for k, v in to_fill.items() if k in names_here}
         if page_values:
             writer.update_page_form_field_values(page, page_values, auto_regenerate=False)
@@ -191,7 +230,7 @@ def cmd_fill(args):
         writer.write(fh)
 
     blank = [n for n, f in known.items() if f["type"] in ("text", "choice") and n not in to_fill and not f["value"]]
-    print("Saved %s (%d fields filled)" % (out_path, len(to_fill)))
+    print("Saved %s (%d %s filled)" % (out_path, len(to_fill), "field" if len(to_fill) == 1 else "fields"))
     if blank:
         print("STILL BLANK: " + ", ".join(blank))
 

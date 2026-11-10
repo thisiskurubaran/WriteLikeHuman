@@ -14,6 +14,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Fixed
 
 - The API eval runner skips cases that need Claude Code with a real repository, instead of failing them.
+- Word files: line breaks and tabs inside a paragraph stay where they were, text boxes are no longer mixed into the paragraph around them, and tracked changes keep fields like dates and page numbers in place.
+- Slides: soft line breaks inside a slide paragraph are kept, so words no longer run together.
+- Messages from a spreadsheet: dates, percentages, and PIN codes come out the way the sheet shows them, two columns with the same heading no longer overwrite each other, row numbers in the report match the sheet, and non-UTF-8 CSV files get a plain message instead of a crash.
+- Fillable PDFs: fields inside groups are really filled, and drop-downs accept the text shown on the form. Password-protected PDFs get a plain message instead of a crash.
+- PDF to Word: numbered clauses keep their own numbers instead of turning into Word's automatic numbering, and odd characters in page text no longer crash it.
+- The date check no longer mistakes words like "renewed" or "Simon" for weekdays, or opening hours like "Monday to Friday 9-5" for dates, and handles 29 February with no year.
+- Change reports no longer crash on text copied from PDFs, the dyslexia layout reaches text inside links and nested tables, and word counts treat Windows line breaks the same everywhere.
+
+### Changed
+
+- Word and slide extracts now show line breaks and tabs as `\n` and `\t`, so they can be kept when the text is rewritten.
 
 ## [0.7.0] - 2026-11-09
 

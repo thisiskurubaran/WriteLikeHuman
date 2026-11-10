@@ -46,6 +46,11 @@ def read_paragraphs(path):
         return [p for p in paras if p.strip()]
     with open(path, encoding="utf-8-sig") as fh:
         text = fh.read().replace("\r\n", "\n")
+    # Word files cannot hold control characters. A form feed (a page break
+    # in text saved from a PDF) starts a new paragraph, a vertical tab is a
+    # line break, and the rest are dropped.
+    text = text.replace("\f", "\n\n").replace("\v", "\n")
+    text = re.sub(r"[\x00-\x08\x0e-\x1f]", "", text)
     return [p.strip("\n") for p in re.split(r"\n\s*\n", text) if p.strip()]
 
 

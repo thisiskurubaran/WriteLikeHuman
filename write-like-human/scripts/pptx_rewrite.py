@@ -11,7 +11,9 @@ Two steps:
      Each segment has an id like "s3-2-1" (slide 3, shape 2, paragraph 1)
      or "s3-notes-1" for notes. Slide text segments also show "chars", the
      current length, so you can keep new text about the same size and stop
-     it spilling out of its box.
+     it spilling out of its box. A soft line break inside a paragraph
+     shows as "\n". Keep the same number of them in the new text, or
+     that paragraph is left as it was.
 
   2. apply: give back new text for the ids you changed.
 
@@ -55,16 +57,24 @@ def humanized_path(path):
 
 # ---------------------------------------------------------------- reading
 
-def text_runs(p_el):
-    return [r for r in p_el.findall(A_NS + "r") if r.find(A_NS + "t") is not None]
-
-
 def run_text(r):
     return "".join(t.text or "" for t in r.findall(A_NS + "t"))
 
 
+def line_runs(p_el):
+    """Text runs grouped into lines, split at soft line breaks (a:br)."""
+    lines = [[]]
+    for child in p_el:
+        if child.tag == A_NS + "br":
+            lines.append([])
+        elif child.tag == A_NS + "r" and child.find(A_NS + "t") is not None:
+            lines[-1].append(child)
+    return lines
+
+
 def para_text(p_el):
-    return "".join(run_text(r) for r in text_runs(p_el))
+    """The paragraph's text, with a soft line break shown as "\\n"."""
+    return "\n".join("".join(run_text(r) for r in line) for line in line_runs(p_el))
 
 
 def walk_shapes(shapes, prefix):
@@ -106,9 +116,24 @@ def collect_paragraphs(prs):
 # ---------------------------------------------------------------- editing
 
 def apply_plain(p_el, new_text):
-    runs = text_runs(p_el)
-    if not runs:
+    """Write new_text into the paragraph. Each line goes into the runs of the
+    matching line, so soft line breaks stay where they are. Returns False
+    when nothing could be written."""
+    lines = line_runs(p_el)
+    new_lines = new_text.split("\n")
+    if len(new_lines) != len(lines):
         return False
+    done = False
+    for runs, text in zip(lines, new_lines):
+        if not runs:
+            if text:
+                return False
+            continue
+        done = apply_runs(runs, text) or done
+    return done
+
+
+def apply_runs(runs, new_text):
     old_tokens, owners = [], []
     for i, r in enumerate(runs):
         for tok in TOKEN_RE.findall(run_text(r)):
@@ -191,8 +216,17 @@ def cmd_apply(args):
         if where == "slide" and len(new) > len(old) * LONGER_WARNING and len(new) - len(old) > 5:
             warnings.append("%s: new text is %d chars, was %d. It may not fit its box."
                             % (pid, len(new), len(old)))
+        old_lines, new_lines = old.count("\n") + 1, new.count("\n") + 1
+        if old_lines != new_lines:
+            warnings.append("%s: has %d %s, the new text has %d. Left as it was. "
+                            "Keep each \\n where the line breaks."
+                            % (pid, old_lines, "line" if old_lines == 1 else "lines", new_lines))
+            continue
         if apply_plain(p, new):
             changed += 1
+        else:
+            warnings.append("%s: could not place the new text (a line has no text to replace). "
+                            "Left as it was." % pid)
     prs.save(out_path)
     print("Saved %s (%d %s changed, %d unchanged)" % (out_path, changed, "paragraph" if changed == 1 else "paragraphs", skipped))
     for w in warnings:

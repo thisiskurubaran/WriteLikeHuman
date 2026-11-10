@@ -204,6 +204,8 @@ def main():
             text = fh.read()
     else:
         text = sys.stdin.read()
+    # Count a Windows line ending as one character, however the text came in.
+    text = text.replace("\r\n", "\n")
 
     r = stats(text, args.target, args.tolerance)
     if args.readability:

@@ -25,7 +25,7 @@ Only the words in text boxes, table cells, and speaker notes change.
    ```
    python scripts/pptx_rewrite.py extract <file>.pptx -o segments.json
    ```
-   Each paragraph has an id like `s3-2-1` (slide 3, shape 2, paragraph 1), `s3-2.1-1` for a shape inside a group, `s3-4-r2c3-1` for a table cell, and `s3-notes-1` for speaker notes. Slide text also shows `chars`, its current length.
+   Each paragraph has an id like `s3-2-1` (slide 3, shape 2, paragraph 1), `s3-2.1-1` for a shape inside a group, `s3-4-r2c3-1` for a table cell, and `s3-notes-1` for speaker notes. Slide text also shows `chars`, its current length. A line break inside a paragraph shows as `\n`. Keep the same number of them in the new text, or the paragraph is left as it was.
 3. **Rewrite slide text with length in mind.** A text box is a fixed size. Longer text spills out of the box or shrinks to an unreadable size.
    - Keep each new line at or under the old length. A little shorter is better.
    - Bullets stay as short fragments, not full sentences. "Sales up 12% in Q3" is fine on a slide.

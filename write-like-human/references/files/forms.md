@@ -29,7 +29,7 @@ A wrong answer on an official form can get the user rejected or worse. So:
    ```
    python scripts/form_fill.py fields <form>.pdf -o fields.json
    ```
-   Each field has a `name`, a `type` (text, checkbox, radio, choice, signature), its current `value`, and for checkboxes and drop-downs the `options` it accepts. Some have a `label` with the question text.
+   Each field has a `name`, a `type` (text, checkbox, radio, choice, signature), its current `value`, and for checkboxes and drop-downs the `options` it accepts. A drop-down that shows different text from the value it stores also has `option_labels`. Some have a `label` with the question text. A field inside a group has its full name, such as `applicant.name`.
 2. **Match the user's facts to the fields.** Field names can be cryptic (`txt_f3`). Use the label, the page number, and the order to work out which is which, and check with the user if you're unsure.
 3. **Write the values** as a JSON object of field name to value. Text answers in plain words, short enough for the box. Checkboxes take one of their listed options, such as `/Yes`.
 4. **Fill a copy:**
