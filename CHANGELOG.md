@@ -15,6 +15,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - The website's announcement bar points to v0.9.0, the 1.0 release candidate.
 - Website: a shorter phone page (long sections fold behind "Show more"), a shorter top menu, before and after side by side on wide screens, wrapped language list on phones, and the test pass rate as its own tile. Copy fixes in English, Hindi, and Tamil.
+- Website: the footer is now a rounded panel that matches the header, with the logo, links, and language buttons in one row on wide screens and a tidy card on phones.
 
 ### Fixed
 

@@ -170,7 +170,6 @@ def build(idx, md):
       <a class="brand" href="#top" aria-label="WriteLikeHuman, back to top"><svg class="logo" aria-hidden="true" focusable="false"><use href="#logo"/></svg>WriteLikeHuman</a>
       <a class="to-top" href="#top">Top <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>
     </div>
-    <p class="foot-note">Free and open source under the MIT license.</p>
     <nav class="flinks" aria-label="Footer">
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>
       <a href="changelog.html">Changelog</a>
@@ -181,7 +180,10 @@ def build(idx, md):
       <a href="privacy.html">Privacy</a>
     </nav>
     <div class="lang-switch foot-langs" role="group" aria-label="Language"><a href="./" lang="en">English</a><a href="hi/" lang="hi">हिंदी</a><a href="ta/" lang="ta">தமிழ்</a></div>
-    <p class="foot-small">An independent project. Claude is made by Anthropic. All names and numbers in these examples are made up.</p>
+    <div class="foot-meta">
+      <p class="foot-note">Free and open source under the MIT license.</p>
+      <p class="foot-small">An independent project. Claude is made by Anthropic. All names and numbers in these examples are made up.</p>
+    </div>
   </div>
 </footer>
 '''
