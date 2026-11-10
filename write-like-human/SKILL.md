@@ -15,7 +15,7 @@ Most people using this are not developers. They paste an email, attach a Word fi
 2. Pick one **mode** from the first table below, and open its file every time, even for a short paste. It holds the steps for that mode.
 3. Add any **input** modules that match what the user gave you.
 4. Add any **adjust**, **voice**, or **language** modules that match what they asked for.
-5. Read only those files. Do not read the whole `references/` folder.
+5. Read those files, and only those. Open the guide for the kind of writing even when the task looks simple: it holds the details people notice, like platform limits, letter formats, and what never to promise. Do not read the whole `references/` folder.
 6. Do the work, following the core rules.
 7. End with the plain change summary.
 

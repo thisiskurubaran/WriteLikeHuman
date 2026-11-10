@@ -580,7 +580,7 @@
       ],
       "must": [
         "rewrites in a short, casual style like the samples",
-        "offers to save a voice profile using the template"
+        "offers to save a voice profile from the samples"
       ],
       "must_not": [
         "imitates anyone other than the user"
