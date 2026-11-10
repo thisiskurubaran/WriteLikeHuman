@@ -1,8 +1,10 @@
 """Optional eval runner: sends tests/evals/evals.json through the Claude API.
 
-This is NOT part of the normal tests and never runs on GitHub. Each run
+This is NOT part of the normal tests and never runs on its own. Each run
 calls the API and costs money on your own account, so run it by hand
-before a release if you want an automatic first pass. Trying the cases
+before a release if you want an automatic first pass. It prints the
+tokens used and an estimated cost at the end, and --max-cost stops the
+run before the estimate goes over a limit you set. Trying the cases
 in the Claude app (see tests/evals/README.md) is still the real test.
 
 How it works, for each case:
@@ -26,6 +28,7 @@ Usage, from the repo root:
   python tests/run_evals.py --case check-paragraph --case us-to-uk
   python tests/run_evals.py --model claude-sonnet-5-5 --json results.json
   python tests/run_evals.py --save v0.4.0     # keep a score summary for this release
+  python tests/run_evals.py --max-cost 5      # stop before spending more than about $5
 
 Saved summaries go to tests/evals/results/<label>.json, with the date,
 model, and pass, fail, and skip counts per case, so scores can be
@@ -51,6 +54,47 @@ REFERENCES = os.path.join(SKILL_DIR, "references")
 EVALS = os.path.join(ROOT, "tests", "evals", "evals.json")
 
 FALLBACK_BETA = "server-side-fallback-2026-07-01"
+
+# US dollars per million tokens: input, output, cache write (5 minute), cache read.
+# Used only for the cost estimate. Other models get token counts and no estimate.
+PRICES = {
+    "claude-opus-5-5": (4.00, 20.00, 5.00, 0.20),
+    "claude-sonnet-5-5": (2.00, 10.00, 2.50, 0.10),
+}
+
+
+class Spend:
+    """Adds up token usage across calls, per model."""
+
+    def __init__(self):
+        self.by_model = {}
+
+    def add(self, model, usage):
+        if usage is None:
+            return
+        t = self.by_model.setdefault(model, [0, 0, 0, 0])
+        t[0] += getattr(usage, "input_tokens", 0) or 0
+        t[1] += getattr(usage, "output_tokens", 0) or 0
+        t[2] += getattr(usage, "cache_creation_input_tokens", 0) or 0
+        t[3] += getattr(usage, "cache_read_input_tokens", 0) or 0
+
+    def cost(self):
+        """Estimated dollars, or None if a model has no known price."""
+        total = 0.0
+        for model, t in self.by_model.items():
+            if model not in PRICES:
+                return None
+            total += sum(n * price for n, price in zip(t, PRICES[model])) / 1e6
+        return total
+
+    def report(self):
+        lines = []
+        for model, (inp, out, write, read) in self.by_model.items():
+            lines.append("%s: %d input, %d output, %d written to cache, %d read from cache"
+                         % (model, inp, out, write, read))
+        cost = self.cost()
+        lines.append("Estimated cost: %s" % ("$%.2f" % cost if cost is not None else "unknown for this model"))
+        return "\n".join(lines)
 
 JUDGE_SCHEMA = {
     "type": "object",
@@ -106,7 +150,7 @@ def skill_system_prompt():
     )
 
 
-def run_case(client, model, case):
+def run_case(client, model, case, spend):
     loaded = []
 
     @beta_tool
@@ -129,21 +173,28 @@ def run_case(client, model, case):
     runner = client.beta.messages.tool_runner(
         model=model,
         max_tokens=16000,
-        system=skill_system_prompt(),
+        # The skill text is the same for every case, so it is cached once
+        # and read back cheaply. The top-level cache_control caches the
+        # growing conversation within a case, turn by turn.
+        system=[{"type": "text", "text": skill_system_prompt(), "cache_control": {"type": "ephemeral"}}],
+        cache_control={"type": "ephemeral"},
         tools=[read_reference],
         messages=[{"role": "user", "content": case["prompt"]}],
         output_config={"effort": "medium"},
         betas=[FALLBACK_BETA],
         fallbacks="default",
     )
-    final = runner.until_done()
+    final = None
+    for message in runner:
+        spend.add(model, message.usage)
+        final = message
     if final.stop_reason == "refusal":
         return "", loaded, "refused"
     answer = "".join(b.text for b in final.content if b.type == "text")
     return answer, loaded, final.stop_reason
 
 
-def judge(client, model, case, answer):
+def judge(client, model, case, answer, spend):
     rubric = {
         "prompt": case["prompt"],
         "must": case["must"],
@@ -165,6 +216,7 @@ def judge(client, model, case, answer):
         betas=[FALLBACK_BETA],
         fallbacks="default",
     )
+    spend.add(model, response.usage)
     if response.stop_reason == "refusal":
         return {"passed": False, "must": [], "must_not": [], "error": "judge refused"}
     text = next(b.text for b in response.content if b.type == "text")
@@ -177,6 +229,8 @@ def main():
     parser.add_argument("--model", default="claude-opus-5-5", help="Model for the skill (default: claude-opus-5-5)")
     parser.add_argument("--judge-model", default="claude-opus-5-5", help="Model for grading (default: claude-opus-5-5)")
     parser.add_argument("--json", metavar="FILE", help="Also write full results to this JSON file")
+    parser.add_argument("--max-cost", type=float, metavar="DOLLARS",
+                        help="Stop before the estimated spend goes over this many US dollars")
     parser.add_argument("--save", metavar="LABEL", help="Save a score summary as tests/evals/results/LABEL.json, for example v0.4.0")
     args = parser.parse_args()
 
@@ -191,15 +245,25 @@ def main():
 
     client = anthropic.Anthropic()
     results, passed, failed, skipped = [], 0, 0, 0
+    spend = Spend()
+    stopped = False
 
     for case in cases:
+        cost = spend.cost()
+        done = passed + failed
+        if args.max_cost is not None and cost is not None and done:
+            # Stop if one more case at the average so far would go over the limit.
+            if cost + cost / done > args.max_cost:
+                print("STOP  spending limit: about $%.2f used, next case would pass $%.2f" % (cost, args.max_cost))
+                stopped = True
+                break
         if needs_attachment(case):
             print("SKIP  %s (needs a file or Claude Code, try it in the app)" % case["id"])
             skipped += 1
             continue
         try:
-            answer, loaded, stop = run_case(client, args.model, case)
-            grade = judge(client, args.judge_model, case, answer) if answer else {
+            answer, loaded, stop = run_case(client, args.model, case, spend)
+            grade = judge(client, args.judge_model, case, answer, spend) if answer else {
                 "passed": False, "must": [], "must_not": [], "error": "no answer (%s)" % stop}
         except anthropic.APIStatusError as e:
             print("ERROR %s: API returned %s" % (case["id"], e.status_code))
@@ -229,7 +293,9 @@ def main():
             print("      %s" % grade["error"])
         results.append({"id": case["id"], "passed": ok, "loaded": loaded, "answer": answer, "grade": grade})
 
-    print("\n%d passed, %d failed, %d skipped" % (passed, failed, skipped))
+    print("\n%d passed, %d failed, %d skipped%s" % (passed, failed, skipped,
+                                                 " (stopped early at the spending limit)" if stopped else ""))
+    print(spend.report())
     if args.save:
         if not re.fullmatch(r"[A-Za-z0-9._-]+", args.save):
             sys.exit("--save label may only use letters, numbers, dots, dashes, and underscores")
@@ -244,6 +310,8 @@ def main():
             "failed": failed,
             "skipped": skipped,
             "pass_rate": round(passed / (passed + failed), 3) if passed + failed else None,
+            "estimated_cost_usd": round(spend.cost(), 2) if spend.cost() is not None else None,
+            "stopped_early": stopped,
             "cases": {r["id"]: r["passed"] for r in results},
         }
         path = os.path.join(out_dir, args.save + ".json")

@@ -19,6 +19,10 @@ on:
         description: "Model for the skill"
         required: false
         default: "claude-opus-5-5"
+      max_cost:
+        description: "Stop before the estimated spend goes over this many US dollars"
+        required: false
+        default: "40"
 
 permissions:
   contents: read
@@ -32,11 +36,16 @@ jobs:
       LABEL: ${{ inputs.label }}
       CASES: ${{ inputs.cases }}
       MODEL: ${{ inputs.model }}
+      MAX_COST: ${{ inputs.max_cost }}
     steps:
       - name: Check the API key is set
         run: |
           if [ -z "$ANTHROPIC_API_KEY" ]; then
             echo "::error::Add your API key as the repository secret ANTHROPIC_API_KEY first."
+            exit 1
+          fi
+          if ! printf '%s' "$MAX_COST" | grep -Eq '^[0-9]+([.][0-9]+)?$'; then
+            echo "::error::max_cost must be a number of dollars, for example 40."
             exit 1
           fi
           if ! printf '%s' "$LABEL" | grep -Eq '^[A-Za-z0-9._-]+$'; then
@@ -55,7 +64,7 @@ jobs:
 
       - name: Run the evals
         run: |
-          args=(--save "$LABEL" --model "$MODEL")
+          args=(--save "$LABEL" --model "$MODEL" --max-cost "$MAX_COST")
           for c in $CASES; do args+=(--case "$c"); done
           python tests/run_evals.py "${args[@]}" | tee eval-output.txt
 

@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Changed
+
+- The API eval runner caches the skill's instructions and each conversation, prints the tokens used and an estimated cost, and can stop at a spending limit (`--max-cost`, default $40 in the GitHub workflow).
+
 ## [0.8.0] - 2026-11-10
 
 ### Added
