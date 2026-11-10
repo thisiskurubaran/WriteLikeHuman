@@ -107,7 +107,7 @@ We use [Conventional Commits](https://www.conventionalcommits.org/).
 - Summary in the imperative, lowercase, no period at the end, under 72 characters
 - Add a body when the reason is not obvious. Wrap it at 72 characters.
 - One logical change per commit.
-- Keep files small. SKILL.md has a budget of 200 lines and 2,600 words, the pattern catalog 3,500 words, and every other guide 1,500 words. `tests/test_sizes.py` checks this.
+- Keep files small. SKILL.md has a budget of 200 lines and 2,600 words, the pattern catalog 3,500 words, and every other guide 1,500 words. SKILL.md and the catalog together, which Claude reads on every request, stay under 6,000 words, and everything read for a common request stays under 11,000. `tests/test_sizes.py` checks this.
 
 Example:
 
@@ -160,7 +160,7 @@ Then test your change: zip the `write-like-human/` folder, upload it to Claude, 
 
 Maintainers publish a release from the GitHub Releases page. Publishing it starts a workflow that builds `WriteLikeHuman.zip` from the tagged commit and attaches it to the release, so nobody has to zip the folder by hand. If the zip is ever missing, run the **Release zip** workflow from the Actions tab and give it the tag.
 
-Before a release, bump `version` in `.claude-plugin/marketplace.json` to match the new version in `CHANGELOG.md`. Claude Code users only get the update when that number changes.
+Before a release, go through [tests/app-checklist.md](tests/app-checklist.md) in the Claude app, and bump `version` in `.claude-plugin/marketplace.json` to match the new version in `CHANGELOG.md`. Claude Code users only get the update when that number changes.
 
 ## Code of conduct
 

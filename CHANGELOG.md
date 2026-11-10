@@ -6,6 +6,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Added
+
+- Size budgets for what Claude reads per request: SKILL.md and the pattern catalog stay under 6,000 words together, and a common request under 11,000, checked on every pull request.
+
 ## [0.7.0] - 2026-11-09
 
 ### Added
