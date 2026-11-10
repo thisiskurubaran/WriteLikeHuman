@@ -10,6 +10,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - The API eval runner caches the skill's instructions and each conversation, prints the tokens used and an estimated cost, and can stop at a spending limit (`--max-cost`, default $40 in the GitHub workflow).
 
+### Fixed
+
+- Fixes from the first real eval run: Claude goes straight to the email guide for emails, opens the matching guide before declining a request (so it offers the best honest alternative), and says plainly when a message mentions an attachment but no file came with it.
+
 ## [0.8.0] - 2026-11-10
 
 ### Added

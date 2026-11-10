@@ -14,7 +14,7 @@ Everything. You report problems; you do not change the text unless the user asks
 
 ## What to look for
 
-- An attachment mentioned but nothing attached: "please find attached", "I've attached", "see the enclosed", "PFA". If the user is writing in chat, you can't see their email client, so ask: "You mention an attachment. Remember to add it."
+- An attachment mentioned but nothing attached: "please find attached", "I've attached", "see the enclosed", "PFA". If the user pasted the text and no file came with it, say so plainly rather than as a general reminder: "You say the quote is attached, but no file came with this message. Add it before you send."
 - A weekday that doesn't match its date: "Monday, 14 March 2027". Run `python scripts/date_check.py FILE` (or pipe the text in, or use `--text "..."`). Add `--us` if the writer uses MM/DD dates, and `--year N` when dates are written without a year. It also flags dates that cannot exist, like "31 April" or "29 Feb 2023". Exit code 1 means something to fix. If the script fails, work the weekday out carefully yourself, and if you're not sure, say so instead of guessing.
 - Questions left unanswered. If the user pasted the message they're replying to, list each question or request in it and check the reply answers it. "She asked whether Thursday works. Your reply doesn't say."
 - A name spelled two ways in the same message: "Priya" in the greeting, "Pria" in the body.

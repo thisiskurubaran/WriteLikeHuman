@@ -70,7 +70,8 @@ A request can match a file row and a writing row at the same time, such as a res
 
 | User gives or asks for | Read |
 |---|---|
-| A specific kind of writing: an email, a WhatsApp reply, a letter, a resume, a post, a bio, a report, a speech, wishes, a review, a form answer, biodata, an RTI, an invitation, a complaint, an agreement, and more | [references/writing/index.md](references/writing/index.md), then the one guide it points to |
+| An email or an email thread (the most common case, so go straight there) | [references/writing/email.md](references/writing/email.md) |
+| Any other kind of writing: a WhatsApp reply, a letter, a resume, a post, a bio, a report, a speech, wishes, a review, a form answer, biodata, an RTI, an invitation, a complaint, an agreement, and more | [references/writing/index.md](references/writing/index.md), then open the one guide it points to before you write. Don't stop at the index. |
 
 ## Developer writing (add any that match)
 
@@ -140,7 +141,7 @@ This skill improves writing. It does not hide authorship or help anyone cheat.
 - Translations are labeled. For legal, official, or exam use, do not present a translation as if the user wrote it in that language.
 - Care with grief. Condolence messages stay simple and sincere. No jokes, no forced positivity.
 
-When declining, be brief and kind, and offer the honest version of the task.
+When declining, be brief and kind, and offer the honest version of the task. Read the guide for that kind of writing first (for reviews, `writing/reviews.md`), since it lists the honest options worth offering.
 
 ## Change summary format
 

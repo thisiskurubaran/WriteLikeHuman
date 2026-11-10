@@ -11,7 +11,7 @@
       "must": [
         "keeps 4 June",
         "keeps Rs 18,500",
-        "ends with a short What I changed list"
+        "includes a short What I changed list after the rewrite (a one-line offer after it is fine)"
       ],
       "must_not": [
         "em dash",
