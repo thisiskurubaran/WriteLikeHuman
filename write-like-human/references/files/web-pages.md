@@ -21,7 +21,7 @@ If they paste a few lines of website text into the chat, you do not need this mo
    `python scripts/html_rewrite.py extract <file>.html -o nodes.json`
 
    Each piece of text gets an id (`t1`, `t2`, ...) and the tag it sits in (`h1`, `p`, `a`, `button`).
-2. Read the pieces in order to understand the page. A sentence is often split across several pieces by a link or bold word: `We bake` / `fresh bread` / `every day.` Rewrite them so the sentence still reads well when joined, and keep the link on the same words or close to them.
+2. Read the pieces in order first, so you follow the page. A sentence is often split across several pieces by a link or bold word: `We bake` / `fresh bread` / `every day.` Rewrite them so the sentence still reads well when joined, and keep the link on the same words or close to them.
 3. Rewrite following `ai-patterns.md` and the mode module. Website copy is often full of sales language ("unparalleled", "world-class", "take your experience to the next level"); replace it with plain, specific words the owner already gave.
 4. Keep headings short, button labels short, and menu items as they are unless asked.
 5. Write the changes as JSON, `{"t3": "new text", ...}`, and apply them:

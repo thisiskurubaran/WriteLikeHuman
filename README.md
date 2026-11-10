@@ -66,7 +66,7 @@ More samples: browse them on the [examples page](https://thisiskurubaran.github.
 | 1 | Download **`WriteLikeHuman.zip`** from the [Releases page](https://github.com/thisiskurubaran/WriteLikeHuman/releases). Don't unzip it. |
 | 2 | In Claude, open **Settings > Capabilities** and turn on **Code execution and file creation**. |
 | 3 | Go to **Customize > Skills**, click **+**, then **Upload a skill**, and pick the zip. |
-| 4 | Check the switch next to WriteLikeHuman is on. That's it. |
+| 4 | Check that the switch next to WriteLikeHuman is on, and you're ready. |
 
 It's one skill and one upload. Once it's on your account, it works in the Claude phone app too.
 
