@@ -1482,7 +1482,8 @@ class FormFillAwkwardInputTest(TempDirCase):
         make_pdf(src)
         locked = self.path("locked.pdf")
         w = PdfWriter(clone_from=src)
-        w.encrypt("secret", algorithm="AES-128")
+        # RC4 needs no extra packages, so this runs where cryptography isn't installed.
+        w.encrypt("secret", algorithm="RC4-128")
         w.write(locked)
         for cmd in (["form_fill.py", "fields", locked], ["pdf_extract.py", "extract", locked],
                     ["pdf_extract.py", "images", locked, "--out", self.path("imgs")]):

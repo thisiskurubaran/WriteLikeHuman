@@ -57,7 +57,12 @@ def open_pdf(path):
     if reader.is_encrypted:
         try:
             unlocked = reader.decrypt("")
-        except Exception:
+        except Exception as e:
+            if type(e).__name__ == "DependencyError":
+                # AES encryption needs the cryptography package. The PDF may
+                # open without a password, but this computer can't open it.
+                sys.exit("This PDF is locked with encryption that can't be opened here. "
+                         "Ask the user for an unlocked copy, or to paste the text.")
             unlocked = False
         if not unlocked:  # decrypt returns 0 when the password is wrong
             sys.exit("This PDF is password protected. Ask the user for an unlocked copy.")
