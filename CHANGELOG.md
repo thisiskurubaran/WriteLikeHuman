@@ -6,6 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-10
+
+### Added
+
+- A versioning policy in CONTRIBUTING.md: what patch, minor, and major releases promise from 1.0 on, and what counts as a breaking change.
+- More troubleshooting in the install guide (English, Hindi, and Tamil): an old version still running, the quick-options menu, replies in the wrong language, and why it sometimes asks whether something really happened or which date you meant.
+- The website shows the latest eval pass rate: 93% on v0.9.0 (120 of 129 runnable cases).
+
 ### Changed
 
 - The API eval runner caches the skill's instructions and each conversation, prints the tokens used and an estimated cost, and can stop at a spending limit (`--max-cost`, default $40 in the GitHub workflow).
@@ -18,12 +26,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Fixes from the first full eval (107 of 130 passed): Claude asks whether an experience really happened before adding it to a form answer, keeps a date that could be read two ways as written, doesn't add an unasked English translation after rewriting in another language, never suggests rewritten lines in "does this sound like AI?" mode, and keeps its closing offer to one sentence.
 - Voice profiles and style guides start by showing the fill-in template, and a "sound like me" rewrite ends with one offer to save the samples as a profile.
 - PDFs locked with AES encryption get a clear message when they can't be opened, instead of being called password protected, and the script tests pass on GitHub again (one test needed an extra package that only some computers have).
-
-### Added
-
-- A versioning policy in CONTRIBUTING.md: what patch, minor, and major releases promise from 1.0 on, and what counts as a breaking change.
-- More troubleshooting in the install guide (English, Hindi, and Tamil): an old version still running, the quick-options menu, replies in the wrong language, and why it sometimes asks whether something really happened or which date you meant.
-- The website shows the latest eval pass rate: 93% on v0.9.0 (120 of 129 runnable cases).
 
 ## [0.8.0] - 2026-11-10
 
@@ -315,7 +317,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Security policy with private reporting.
 - Issue templates for bugs and feature requests, and a pull request checklist.
 
-[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.9.0...HEAD
+[0.9.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.1...v0.7.0
 [0.6.1]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.0...v0.6.1
