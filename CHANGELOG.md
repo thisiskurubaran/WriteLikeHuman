@@ -10,6 +10,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - The API eval runner caches the skill's instructions and each conversation, prints the tokens used and an estimated cost, and can stop at a spending limit (`--max-cost`, default $40 in the GitHub workflow).
 - The eval runner skips cases that need a connector, and treats reading a guide as optional for refusals, which are graded on the reply.
+- GitHub Actions updated to their current versions (checkout, setup-python, setup-node, and upload-artifact v7), still pinned to exact commits, ahead of GitHub retiring Node.js 20.
 
 ### Fixed
 
