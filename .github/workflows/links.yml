@@ -29,6 +29,7 @@ jobs:
             --accept 200,206,429
             --exclude-loopback
             --exclude "^https?://localhost"
+            --exclude "^https://claude\.ai"
             --exclude "github\.com/thisiskurubaran/WriteLikeHuman/releases/latest"
             --exclude "github\.com/thisiskurubaran/WriteLikeHuman/issues/new"
             --exclude-path docs/_build
