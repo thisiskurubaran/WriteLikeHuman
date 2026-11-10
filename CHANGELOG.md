@@ -6,10 +6,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-10
+
 ### Added
 
 - Size budgets for what Claude reads per request: SKILL.md and the pattern catalog stay under 6,000 words together, and a common request under 11,000, checked on every pull request.
 - An app testing checklist: twenty prompts to try in the Claude app before a release, with made-up Word, PDF, Excel, PowerPoint, subtitle, LaTeX, and code files to attach.
+
+### Changed
+
+- Word and slide extracts now show line breaks and tabs as `\n` and `\t`, so they can be kept when the text is rewritten.
 
 ### Fixed
 
@@ -21,10 +27,6 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - PDF to Word: numbered clauses keep their own numbers instead of turning into Word's automatic numbering, and odd characters in page text no longer crash it.
 - The date check no longer mistakes words like "renewed" or "Simon" for weekdays, or opening hours like "Monday to Friday 9-5" for dates, and handles 29 February with no year.
 - Change reports no longer crash on text copied from PDFs, the dyslexia layout reaches text inside links and nested tables, and word counts treat Windows line breaks the same everywhere.
-
-### Changed
-
-- Word and slide extracts now show line breaks and tabs as `\n` and `\t`, so they can be kept when the text is rewritten.
 
 ## [0.7.0] - 2026-11-09
 
@@ -294,7 +296,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Security policy with private reporting.
 - Issue templates for bugs and feature requests, and a pull request checklist.
 
-[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.1...v0.7.0
 [0.6.1]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.5.0...v0.6.0
