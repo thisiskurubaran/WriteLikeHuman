@@ -307,7 +307,8 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .new-tx { min-width: 0; display: grid; gap: 3px; }
 .new-tx b { font-size: 15px; letter-spacing: -0.01em; }
 .new-tx small { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
-.whats-new .more-link { margin-top: 16px; }
+.whats-new .more-link { display: flex; width: fit-content; margin-top: 16px; }
+.whats-new .more-link + .more-link { margin-top: 0; }
 
 /* ---------- Mobile polish ---------- */
 .announce { white-space: nowrap; }
@@ -920,7 +921,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
     <p class="foot-note">MIT license-ல இலவசம், open source.</p>
     <nav class="flinks" aria-label="Footer">
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>
-      <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../changelog.html" hreflang="en">மாற்றங்கள் பட்டியல்</a>
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md">பங்களியுங்க</a>
       <a href="./">முகப்பு</a>
       <a href="../examples.html">உதாரணங்கள்</a>

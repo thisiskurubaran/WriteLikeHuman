@@ -1,5 +1,5 @@
 // Loads every page of the website (the landing page, the examples page,
-// the guide, and the Hindi and Tamil landing pages) at phone, tablet, and desktop sizes in Chromium
+// the guide, the privacy and changelog pages, and the Hindi and Tamil pages) at phone, tablet, and desktop sizes in Chromium
 // and WebKit (the engine behind Safari) and fails if the page is wider
 // than the screen, if a phone lays it out at the wrong width (the page
 // gets zoomed out), or if the page throws a script error.
@@ -19,7 +19,7 @@ const require = createRequire(import.meta.url);
 const { chromium, webkit } = require("playwright");
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const pages = ["index.html", "examples.html", "guide.html", "privacy.html", "hi/index.html", "ta/index.html", "hi/guide.html", "ta/guide.html"].map((p) => ({
+const pages = ["index.html", "examples.html", "guide.html", "privacy.html", "changelog.html", "hi/index.html", "ta/index.html", "hi/guide.html", "ta/guide.html"].map((p) => ({
   name: p,
   url: pathToFileURL(path.join(root, "docs", ...p.split("/"))).href,
 }));

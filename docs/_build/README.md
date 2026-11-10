@@ -4,14 +4,15 @@ The English landing page, `docs/index.html`, is the source for the whole site. T
 
 | Script | What it does |
 |---|---|
-| `sync_site.py` | Runs everything below. Updates the numbers on the English page (guides, writing types, languages, test cases) from the repo, then rebuilds the Hindi, Tamil, examples, and guide pages. |
+| `sync_site.py` | Runs everything below. Updates the numbers on the English page (guides, writing types, languages, test cases) from the repo, then rebuilds the Hindi, Tamil, examples, guide, privacy, and changelog pages. |
 | `gen_lang.py` | Builds `docs/hi/index.html` and `docs/ta/index.html` from the English page, using the translation table `T` at the top of the file. |
 | `gen_guide.py` | Builds `docs/guide.html`, the "How do I..." guide. The tasks are listed in `TASKS` at the top: edit them there. |
+| `gen_changelog.py` | Builds `docs/changelog.html` from `CHANGELOG.md`: one card per version, newest first, with links to its GitHub release and code changes. Edit `CHANGELOG.md`, not the page. |
 | `gen_examples.py` | Builds `docs/examples.html` from `write-like-human/examples/before-after.md`, reusing the landing page's styles, icons, nav, and footer. |
 
 ## Everyday use
 
-Run from the repo root after you change `docs/index.html`, add a guide, add a test case, or add a sample to `before-after.md`:
+Run from the repo root after you change `docs/index.html` or `CHANGELOG.md`, add a guide, add a test case, or add a sample to `before-after.md`:
 
 ```bash
 python3 docs/_build/sync_site.py

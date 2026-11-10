@@ -307,7 +307,8 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .new-tx { min-width: 0; display: grid; gap: 3px; }
 .new-tx b { font-size: 15px; letter-spacing: -0.01em; }
 .new-tx small { font-size: 13.5px; color: var(--muted); line-height: 1.45; }
-.whats-new .more-link { margin-top: 16px; }
+.whats-new .more-link { display: flex; width: fit-content; margin-top: 16px; }
+.whats-new .more-link + .more-link { margin-top: 0; }
 
 /* ---------- Mobile polish ---------- */
 .announce { white-space: nowrap; }
@@ -641,7 +642,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <a class="announce" href="#whats-new"><span class="tag">புதுசு</span><span class="ann-text"><span class="ann-long">v0.7.0-ல: developers-க்கு உதவி, work chat, சட்டுனு options</span><span class="ann-short">v0.7.0-ல என்ன இருக்கு</span></span><span class="ann-arrow" aria-hidden="true">→</span></a>
+      <a class="announce" href="../changelog.html" hreflang="en"><span class="tag">புதுசு</span><span class="ann-text"><span class="ann-long">v0.9.0 தான் 1.0-க்கான release candidate: நல்லா test பண்ணி சரிசெஞ்சது</span><span class="ann-short">v0.9.0 release candidate</span></span><span class="ann-arrow" aria-hidden="true">→</span></a>
       <h1><span class="you">உங்கள்<svg viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3 8c12-6 22-6 30 0s18 6 28 0 20-6 28 0 18 6 28 0"/></svg></span> குரலில் எழுத்து.</h1>
       <p class="lede">விறைப்பான, chatbot மாதிரி இருக்கும் எழுத்தை எளிமையான, இயல்பான மொழியாக மாற்றும் இலவச Claude skill. உங்கள் விவரங்கள், எண்கள், formatting எல்லாம் அப்படியே இருக்கும்.</p>
       <div class="actions">
@@ -732,6 +733,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       <li><a class="new-card" href="guide.html#work-chat"><span class="new-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5h12v8H9l-5 4zM20 9v10l-3-2h-6"/></svg></span><span class="new-tx"><b>Work chat messages</b><small>Slack, Teams, Google Chat messages, முக்கிய விஷயம் முதல் வரியிலேயே.</small></span></a></li>
     </ul>
     <a class="more-link" href="guide.html">ஒவ்வொன்னையும் எப்படி பயன்படுத்தறதுன்னு guide-ல பாருங்க <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <a class="more-link" href="../changelog.html" hreflang="en">ஒவ்வொரு release பத்தியும் changelog-ல பாருங்க (ஆங்கிலத்தில்) <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   </div>
 </section>
 
@@ -988,7 +990,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
     <p class="foot-note">MIT license-ல இலவசம், open source.</p>
     <nav class="flinks" aria-label="Footer">
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>
-      <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="../changelog.html" hreflang="en">மாற்றங்கள் பட்டியல்</a>
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md">பங்களியுங்க</a>
       <a href="../examples.html">உதாரணங்கள்</a>
       <a href="guide.html">வழிகாட்டி</a>

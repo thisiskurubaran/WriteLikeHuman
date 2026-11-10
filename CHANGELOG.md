@@ -6,6 +6,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+### Added
+
+- A changelog page on the website, built from CHANGELOG.md, with every release, newest first, and links to each release on GitHub.
+
+### Changed
+
+- The website's announcement bar points to v0.9.0, the 1.0 release candidate.
+
 ## [0.9.0] - 2026-11-10
 
 ### Added

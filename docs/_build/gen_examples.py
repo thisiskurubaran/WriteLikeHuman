@@ -209,7 +209,7 @@ def build(idx, md):
     <p class="foot-note">Free and open source under the MIT license.</p>
     <nav class="flinks" aria-label="Footer">
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>
-      <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="changelog.html">Changelog</a>
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md">Contribute</a>
       <a href="./">Home</a>
       <a href="guide.html">Guide</a>

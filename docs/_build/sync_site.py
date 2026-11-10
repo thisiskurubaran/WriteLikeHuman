@@ -11,7 +11,8 @@ The English landing page (docs/index.html) is the source. This script:
    (docs/hi/guide.html, docs/ta/guide.html) from gen_guide.py and
    gen_guide_i18n.py.
 5. Rebuilds the privacy page (docs/privacy.html) from gen_privacy.py.
-6. Fills in the latest saved eval score (tests/evals/results/*.json) under
+6. Rebuilds the changelog page (docs/changelog.html) from CHANGELOG.md.
+7. Fills in the latest saved eval score (tests/evals/results/*.json) under
    the stats on the landing pages, or leaves it out if there is none.
 
 Run from the repo root:
@@ -32,6 +33,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 
+import gen_changelog  # noqa: E402
 import gen_examples  # noqa: E402
 import gen_guide  # noqa: E402
 import gen_lang  # noqa: E402
@@ -115,6 +117,7 @@ def expected_pages():
     for lang in ("hi", "ta"):
         pages["docs/%s/guide.html" % lang] = gen_guide.build(index, lang)
     pages["docs/privacy.html"] = gen_privacy.build(index)
+    pages["docs/changelog.html"] = gen_changelog.build(index, read("CHANGELOG.md"))
     return pages, counts
 
 

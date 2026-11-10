@@ -275,18 +275,18 @@ EN_UI = {
     "home": "Home", "files": "Files", "features": "Features", "examples": "Examples", "guide": "Guide",
     "install": "Install", "download": "Download", "top": "Top",
     "foot_note": "Free and open source under the MIT license.",
-    "contribute": "Contribute", "feedback": "Share feedback", "privacy": "Privacy",
+    "contribute": "Contribute", "feedback": "Share feedback", "privacy": "Privacy", "changelog": "Changelog",
     "foot_small": "An independent project. Claude is made by Anthropic. All names and numbers in this guide are made up.",
     "skip": "Skip to content", "lang": "Language", "theme": "Switch theme", "menu": "Open menu",
 }
 
 # Where links point from each version of the guide.
 PATHS = {
-    "en": {"home": "./", "examples": "examples.html", "privacy": "privacy.html",
+    "en": {"home": "./", "examples": "examples.html", "privacy": "privacy.html", "changelog": "changelog.html",
            "en": "guide.html", "hi": "hi/guide.html", "ta": "ta/guide.html", "url": "guide.html"},
-    "hi": {"home": "./", "examples": "../examples.html", "privacy": "../privacy.html",
+    "hi": {"home": "./", "examples": "../examples.html", "privacy": "../privacy.html", "changelog": "../changelog.html",
            "en": "../guide.html", "hi": "guide.html", "ta": "../ta/guide.html", "url": "hi/guide.html"},
-    "ta": {"home": "./", "examples": "../examples.html", "privacy": "../privacy.html",
+    "ta": {"home": "./", "examples": "../examples.html", "privacy": "../privacy.html", "changelog": "../changelog.html",
            "en": "../guide.html", "hi": "../hi/guide.html", "ta": "guide.html", "url": "ta/guide.html"},
 }
 
@@ -424,7 +424,7 @@ def build(idx, lang="en"):
         '    <p class="foot-note">%s</p>' % ui["foot_note"],
         '    <nav class="flinks" aria-label="Footer">',
         '      <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>',
-        '      <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CHANGELOG.md">Changelog</a>',
+        '      <a href="%s"%s>%s</a>' % (P["changelog"], ' hreflang="en"' if lang != "en" else '', ui["changelog"]),
         '      <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md">%s</a>' % ui["contribute"],
         '      <a href="%s">%s</a>' % (h, ui["home"]),
         '      <a href="%s">%s</a>' % (P["examples"], ui["examples"]),
