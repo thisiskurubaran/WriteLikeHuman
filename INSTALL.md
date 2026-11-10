@@ -96,6 +96,21 @@ Check step 2. Code execution and file creation must be turned on. On a work acco
 **Claude does not use the skill.**
 Say its name in your message, for example: "Use WriteLikeHuman to make this sound more natural." Also check that the switch next to it in **Customize > Skills** is on.
 
+**It still behaves like an older version.**
+After uploading a new zip, check that **Customize > Skills** shows only one WriteLikeHuman and that it's switched on. Then start a new chat, since an open chat keeps the skill it started with. In Claude Code, run `/plugin marketplace update writelikehuman` and restart Claude Code.
+
+**It gave me a short menu instead of doing anything.**
+That happens when the message doesn't say what you want, like "help with this" and some text. Pick a number, or say it in your own words: "rewrite it", "reply to it", "check it before I send". A clear request skips the menu.
+
+**It answered in English when I wrote in Hindi, Tamil, or another language.**
+The rewrite stays in your language and script. The short "What I changed" list follows the language you asked in, so if you asked in English, the list is in English. To get everything in your language, ask in that language, or add "reply in Tamil".
+
+**It asked me whether something really happened.**
+That's on purpose. It won't add an experience, achievement, or qualification to a form, resume, or letter until you confirm it's true. Answer yes with the details, or leave it out.
+
+**It asked which date I meant.**
+Also on purpose. A date like 03/04 can mean 3 April or 4 March, so it keeps the date as you wrote it, or asks before writing the month out.
+
 **Your file is too big.**
 Very large files can fail to upload or take a long time. Try sending one chapter or a few pages at a time, or paste the text straight into the chat.
 

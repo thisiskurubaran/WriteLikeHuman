@@ -1,4 +1,4 @@
-<!-- Translated from INSTALL.md at v0.3.1 -->
+<!-- Translated from INSTALL.md at v0.9.0 -->
 # WriteLikeHuman install करना
 
 > यह English [INSTALL guide](INSTALL.md) का हिंदी अनुवाद है। असली version English वाला है, और वह इससे नया हो सकता है। अगर आपकी भाषा हिंदी है और कुछ अटपटा लगे, तो सुधार भेजिए, [यहाँ देखें कैसे](CONTRIBUTING.md#help-wanted)।
@@ -102,6 +102,21 @@ Step 2 दोबारा देखिए। Code execution and file creation �
 
 **Claude skill इस्तेमाल नहीं कर रहा।**
 Message में उसका नाम लिखिए, जैसे: "Use WriteLikeHuman to make this sound more natural." यह भी देखिए कि **Customize > Skills** में उसके आगे वाला switch on है।
+
+**अब भी पुराने version जैसा चल रहा है।**
+नया zip upload करने के बाद देखिए कि **Customize > Skills** में WriteLikeHuman सिर्फ़ एक बार दिख रहा है और on है। फिर नई chat शुरू कीजिए, क्योंकि खुली chat उसी skill से चलती है जिससे वह शुरू हुई थी। Claude Code में `/plugin marketplace update writelikehuman` चलाइए और Claude Code दोबारा खोलिए।
+
+**कुछ करने की बजाय छोटा-सा menu दे दिया।**
+ऐसा तब होता है जब message से साफ़ नहीं होता कि आप क्या चाहते हैं, जैसे सिर्फ़ "help with this" और कुछ text। कोई नंबर चुनिए, या अपने शब्दों में कहिए: "rewrite कर दो", "इसका जवाब लिख दो", "भेजने से पहले check कर दो"। साफ़ request पर menu नहीं आता।
+
+**मैंने हिंदी में लिखा, जवाब अंग्रेज़ी में आया।**
+दोबारा लिखा गया text आपकी भाषा और लिपि में ही रहता है। "What I changed" वाली छोटी list उस भाषा में आती है जिसमें आपने पूछा था। सब कुछ हिंदी में चाहिए तो हिंदी में पूछिए, या लिख दीजिए "हिंदी में जवाब दो"।
+
+**इसने पूछा कि क्या यह सच में हुआ था।**
+यह जानबूझकर है। आप पुष्टि न करें तब तक यह form, resume या letter में कोई अनुभव, उपलब्धि या qualification नहीं जोड़ता। हाँ कहकर details दीजिए, या उसे छोड़ दीजिए।
+
+**इसने पूछा कि मेरा मतलब कौन-सी तारीख से है।**
+यह भी जानबूझकर है। 03/04 का मतलब 3 अप्रैल भी हो सकता है और 4 मार्च भी, इसलिए यह तारीख वैसी ही रखता है जैसी आपने लिखी, या महीना लिखने से पहले पूछ लेता है।
 
 **File बहुत बड़ी है।**
 बहुत बड़ी files upload होने में fail हो सकती हैं या बहुत समय ले सकती हैं। एक बार में एक chapter या कुछ pages भेजिए, या text सीधे chat में paste कर दीजिए।

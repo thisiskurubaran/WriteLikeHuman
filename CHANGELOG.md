@@ -21,6 +21,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Added
 
 - A versioning policy in CONTRIBUTING.md: what patch, minor, and major releases promise from 1.0 on, and what counts as a breaking change.
+- More troubleshooting in the install guide (English, Hindi, and Tamil): an old version still running, the quick-options menu, replies in the wrong language, and why it sometimes asks whether something really happened or which date you meant.
 
 ## [0.8.0] - 2026-11-10
 
