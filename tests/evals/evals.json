@@ -1207,11 +1207,11 @@
         "languages/arabic.md"
       ],
       "must": [
-        "answers in Arabic, in Arabic script",
+        "the rewrite is in Arabic, in Arabic script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1239,11 +1239,11 @@
         "languages/bengali.md"
       ],
       "must": [
-        "answers in Bengali, in Bengali script",
+        "the rewrite is in Bengali, in Bengali script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1259,7 +1259,7 @@
         "keeps the time 3 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1271,11 +1271,11 @@
         "languages/filipino.md"
       ],
       "must": [
-        "answers in Filipino, in Roman script",
+        "the rewrite is in Filipino, in Roman script (the short change summary may follow the language the user asked in)",
         "keeps the time alas-3 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1287,11 +1287,11 @@
         "languages/indonesian.md"
       ],
       "must": [
-        "answers in Indonesian, in Roman script",
+        "the rewrite is in Indonesian, in Roman script (the short change summary may follow the language the user asked in)",
         "keeps the time 10.00 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1303,11 +1303,11 @@
         "languages/italian.md"
       ],
       "must": [
-        "answers in Italian, in Roman script",
+        "the rewrite is in Italian, in Roman script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1335,11 +1335,11 @@
         "languages/konkani.md"
       ],
       "must": [
-        "answers in Konkani, in Devanagari script",
+        "the rewrite is in Konkani, in Devanagari script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1351,11 +1351,11 @@
         "languages/malayalam.md"
       ],
       "must": [
-        "answers in Malayalam, in Malayalam script",
+        "the rewrite is in Malayalam, in Malayalam script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1383,11 +1383,11 @@
         "languages/nepali.md"
       ],
       "must": [
-        "answers in Nepali, in Devanagari script",
+        "the rewrite is in Nepali, in Devanagari script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1399,11 +1399,11 @@
         "languages/odia.md"
       ],
       "must": [
-        "answers in Odia, in Odia script",
+        "the rewrite is in Odia, in Odia script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1415,11 +1415,11 @@
         "languages/portuguese.md"
       ],
       "must": [
-        "answers in Portuguese, in Roman script",
+        "the rewrite is in Portuguese, in Roman script (the short change summary may follow the language the user asked in)",
         "keeps the time 10h exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1431,11 +1431,11 @@
         "languages/punjabi.md"
       ],
       "must": [
-        "answers in Punjabi, in Gurmukhi script",
+        "the rewrite is in Punjabi, in Gurmukhi script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1447,11 +1447,11 @@
         "languages/sinhala.md"
       ],
       "must": [
-        "answers in Sinhala, in Sinhala script",
+        "the rewrite is in Sinhala, in Sinhala script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1463,11 +1463,11 @@
         "languages/telugu.md"
       ],
       "must": [
-        "answers in Telugu, in Telugu script",
+        "the rewrite is in Telugu, in Telugu script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1483,7 +1483,7 @@
         "keeps the time 10.00 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1495,11 +1495,11 @@
         "languages/urdu.md"
       ],
       "must": [
-        "answers in Urdu, in Urdu script",
+        "the rewrite is in Urdu, in Urdu script (the short change summary may follow the language the user asked in)",
         "keeps the time 10 exactly"
       ],
       "must_not": [
-        "translates into English",
+        "adds an English translation or glosses of the rewrite",
         "switches to a different script"
       ]
     },
@@ -1759,7 +1759,7 @@
         "keeps 10 exactly"
       ],
       "must_not": [
-        "translates into English"
+        "adds an English translation or glosses of the rewrite"
       ]
     },
     {
@@ -1789,7 +1789,7 @@
         "keeps 10 giờ"
       ],
       "must_not": [
-        "translates into English"
+        "adds an English translation or glosses of the rewrite"
       ]
     },
     {
@@ -1804,7 +1804,7 @@
         "keeps the polite particle the user used"
       ],
       "must_not": [
-        "translates into English"
+        "adds an English translation or glosses of the rewrite"
       ]
     },
     {
@@ -1819,7 +1819,7 @@
         "keeps saa 4 asubuhi"
       ],
       "must_not": [
-        "translates into English"
+        "adds an English translation or glosses of the rewrite"
       ]
     },
     {
