@@ -14,6 +14,10 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 - The website's announcement bar points to v0.9.0, the 1.0 release candidate.
 
+### Fixed
+
+- Drafts no longer work out details you didn't give (like counting "three working days" from two dates), job posts swap buzzwords for plain words instead of placeholders, folder-structure notes stick to what you said, and change lists for other languages describe changes without word-by-word English glosses.
+
 ## [0.9.0] - 2026-11-10
 
 ### Added

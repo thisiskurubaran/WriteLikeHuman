@@ -34,7 +34,7 @@ Formal letters can stay formal. The problem is formal words where the user wante
 
 ## Output
 
-The rewritten Odia text, then a short **What I changed** list in the language the user is using with you.
+The rewritten Odia text, then a short **What I changed** list in the language the user is using with you. Describe the changes in plain words, without word-by-word English glosses of the rewritten text.
 
 ## Example
 

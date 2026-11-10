@@ -37,7 +37,7 @@ The Arabic-based Sindhi script is written right to left. When you edit a Word fi
 
 ## Output
 
-The rewritten Sindhi text, then a short **What I changed** list in the language the user is using with you.
+The rewritten Sindhi text, then a short **What I changed** list in the language the user is using with you. Describe the changes in plain words, without word-by-word English glosses of the rewritten text.
 
 ## Example
 

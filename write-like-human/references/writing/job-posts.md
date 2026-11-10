@@ -31,7 +31,7 @@ Also read `lists/buzzwords.md` for plain replacements. For wording that might pu
 2. Open with the role and the key facts in one or two lines. People scan job posts quickly.
 3. Describe the work in plain, specific lines: what a normal week looks like. "Answer customer calls and WhatsApp messages, and update orders in our sheet" beats "Drive customer delight across touchpoints".
 4. Split requirements into must-have and nice-to-have if the employer gave both. Long must-have lists put good people off.
-5. Swap buzzwords using `lists/buzzwords.md`.
+5. Swap buzzwords using `lists/buzzwords.md`. Replace each one with the plain word it stands for ("rockstar ninja developer" becomes "developer"). Use a `[bracket]` only for a fact that is missing, like the salary, never for a word you took out.
 6. Run the inclusive checks: use "you" and "they", drop "young and energetic", drop "he will", keep real requirements.
 7. End with how to apply, clearly.
 8. Check every fact against the draft.

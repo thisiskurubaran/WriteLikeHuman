@@ -29,6 +29,7 @@ There is no original text, so "the same" means the facts the user gave you:
 
 - Writing a long draft when a short one would do. A thank you message is three lines, not three paragraphs.
 - Filling gaps with plausible details. A blank in brackets is better than a made up fact.
+- Working out details the user didn't state, like counting "three working days" from two dates or guessing who covers your work. Use the dates and facts exactly as given.
 - Opening with "I hope this email finds you well" or any line from the openers list in `ai-patterns.md`, unless the setting truly calls for a formula (some formal Indian letters do, see `writing/formal-letters.md`).
 - Offering three versions unless asked. Give one good one.
 

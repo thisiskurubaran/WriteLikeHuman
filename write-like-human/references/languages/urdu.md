@@ -37,7 +37,7 @@ Urdu is written right to left. When you edit a Word file in place, keep each par
 
 ## Output
 
-The rewritten Urdu text, then a short **What I changed** list in the language the user is using with you.
+The rewritten Urdu text, then a short **What I changed** list in the language the user is using with you. Describe the changes in plain words, without word-by-word English glosses of the rewritten text.
 
 ## Example
 

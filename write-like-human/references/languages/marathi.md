@@ -35,7 +35,7 @@ Official letters stay formal. Fix stiffness, keep the register.
 
 ## Output
 
-The rewritten Marathi text, then a short **What I changed** list in the language the user is using with you.
+The rewritten Marathi text, then a short **What I changed** list in the language the user is using with you. Describe the changes in plain words, without word-by-word English glosses of the rewritten text.
 
 ## Example
 

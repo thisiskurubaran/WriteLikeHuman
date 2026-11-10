@@ -44,7 +44,7 @@ Government, court, and official letters in Hindi use formal, Sanskritized Hindi 
 
 ## Output
 
-The rewritten Hindi text, then a short **What I changed** list. Write the summary in the language the user is using with you. If they wrote to you in English, the summary can be in English.
+The rewritten Hindi text, then a short **What I changed** list. Write the summary in the language the user is using with you. If they wrote to you in English, the summary can be in English. Describe the changes in plain words, without word-by-word English glosses of the rewritten text.
 
 ## Example
 

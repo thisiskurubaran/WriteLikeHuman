@@ -35,7 +35,7 @@ Rewrite Korean so it sounds like a person wrote it, at the speech level the user
 
 ## Output
 
-The rewritten Korean text, then a short **What I changed** list in the language the user is using with you.
+The rewritten Korean text, then a short **What I changed** list in the language the user is using with you. Describe the changes in plain words, without word-by-word English glosses of the rewritten text.
 
 ## Example
 

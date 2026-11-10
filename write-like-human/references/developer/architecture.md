@@ -35,7 +35,7 @@ Use the usual short sections: Title, Status, Context, Decision, Consequences (go
 ### Folder structure
 
 1. Show the tree, trimmed to two or three levels, in a code block.
-2. Under it, one line per folder that matters: what lives there and when you'd edit it. Skip obvious ones (`.git`, `node_modules`).
+2. Under it, one line per folder that matters: what lives there, in the user's words or as the files show it. Don't add advice the user didn't give ("most changes start here"). Skip obvious ones (`.git`, `node_modules`). Use one code block for the tree and no code fences inside it.
 3. For a new project, suggest a layout that follows the framework's usual convention, explain each folder in one line, and say it's a suggestion.
 
 ## Output
