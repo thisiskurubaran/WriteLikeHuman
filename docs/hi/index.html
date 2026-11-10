@@ -135,6 +135,8 @@ p { text-wrap: pretty; }
 .links { display: none; align-items: center; gap: 2px; font-size: 14px; }
 .links a { text-decoration: none; color: var(--muted); padding: 8px 12px; border-radius: 999px; transition: color .15s, background .15s; }
 .links a:hover { color: var(--ink); background: var(--panel-2); }
+.links a[aria-current="page"] { color: var(--ink); background: var(--panel-2); font-weight: 600; }
+.menu a[aria-current="page"] { background: var(--panel-2); }
 .nav-end { display: flex; align-items: center; gap: 6px; }
 .icon-btn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; transition: background .15s, transform .15s var(--ease); }
 .icon-btn:hover { background: var(--panel-2); }
@@ -148,6 +150,14 @@ p { text-wrap: pretty; }
 @media (min-width: 900px) {
   .links { display: flex; }
   .menu-btn { display: none; }
+}
+/* All seven links stay visible from 900px up. Below 1100px they get a little
+   tighter and the brand shows just its logo (its aria-label still names it),
+   so the longer Hindi and Tamil labels fit on one line too. */
+.links a { white-space: nowrap; }
+@media (min-width: 900px) and (max-width: 1099px) {
+  .links a { padding: 8px 10px; }
+  .topnav .brand { gap: 0; font-size: 0; }
 }
 
 /* Mobile menu (Popover API, with a class fallback) */
@@ -375,8 +385,14 @@ h1 .you path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-lineca
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* ---------- Translated page ---------- */
-.tr-note { margin: 14px 0 0; padding: 10px 14px; border: 1px dashed var(--line-strong); border-radius: 14px; background: var(--panel); font-size: 13.5px; color: var(--muted); }
-.tr-note a { color: var(--accent); }
+.tr-note { margin: 0; padding: 10px 14px; border: 1px dashed var(--line-strong); border-radius: 14px; background: var(--panel); font-size: 13.5px; color: var(--muted); }
+.tr-note a { display: inline-block; padding: 4px 0; color: var(--accent); }
+.tr-end { padding-top: clamp(32px, 5vw, 48px); }
+.tr-flag { margin: 0 0 10px; }
+.tr-flag a { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 12px; border: 1px dashed var(--line-strong); border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; }
+.tr-flag a:hover { color: var(--ink); border-color: var(--ink-2); }
+.tr-flag .icon { width: 14px; height: 14px; }
+@media (pointer: coarse) { .tr-flag a { min-height: 40px; } }
 .xprompt::before { content: "आप: "; }
 
 /* ---------- Works with ---------- */
@@ -459,7 +475,6 @@ body.has-dl-bar { padding-bottom: 72px; }
 
 /* ---------- Sections ---------- */
 section { padding: var(--section-space) 0 0; }
-section[id], #top { scroll-margin-top: 88px; }
 .section-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px 48px; align-items: end; margin-bottom: 28px; }
 @media (min-width: 900px) { .section-head { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); margin-bottom: 40px; } }
 .eyebrow { display: inline-flex; align-items: center; gap: 8px; font: 600 12.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
@@ -633,7 +648,11 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .acc details p a { color: var(--accent); }
 .acc details code { font: 600 .9em var(--mono); background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; color: var(--ink-2); }
 .faq-report { margin: 8px 0 0; padding: 0 4px; font-size: 14.5px; color: var(--muted); }
-.faq-report a { color: var(--accent); font-weight: 600; }
+.faq-report a { display: inline-flex; align-items: center; min-height: 32px; color: var(--accent); font-weight: 600; }
+.guide-langs { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
+.guide-langs a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--ink-2); font-size: 13.5px; font-weight: 600; text-decoration: none; }
+.guide-langs a:hover { border-color: var(--line-strong); color: var(--ink); }
+@media (pointer: coarse) { .faq-report a, .guide-langs a { min-height: 44px; } }
 .sub-links { display: flex; flex-wrap: wrap; gap: 0 20px; margin: 4px 0 0; }
 .sub-links .more-link { margin-top: 6px; }
 .acc details::details-content { block-size: 0; overflow: hidden; transition: block-size .3s var(--ease), content-visibility .3s allow-discrete; }
@@ -704,6 +723,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
     </a>
     <div class="links">
       <a href="#features">खूबियाँ</a>
+      <a href="../examples.html">उदाहरण</a>
       <a href="#developers">Developers</a>
       <a href="guide.html">गाइड</a>
       <a href="#install">Install</a>
@@ -725,9 +745,9 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 
 <div class="menu" id="menu" popover>
   <a href="#files">Files <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="#developers">Developers <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#features">खूबियाँ <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="../examples.html">उदाहरण <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="#developers">Developers <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="guide.html">गाइड <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#install">Install <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="#faq">सवाल-जवाब <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
@@ -736,13 +756,12 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
   <div class="lang-switch" role="group" aria-label="भाषा"><a href="../" lang="en">English</a><a href="./" lang="hi" aria-current="page">हिंदी</a><a href="../ta/" lang="ta">தமிழ்</a></div>
 </div>
 
-<div class="wrap"><p class="tr-note" role="note">यह <a href="../">अंग्रेज़ी page</a> का हिंदी अनुवाद है। असली page अंग्रेज़ी वाला है, और वह इससे नया हो सकता है। अगर कुछ अटपटा लगे तो <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md#help-wanted">सुधार भेजिए</a>।</p></div>
-
 <main id="main">
 
 <header class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
+      <p class="tr-flag"><a href="#tr-note">यह page हिंदी अनुवाद है <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a></p>
       <a class="announce" href="../changelog.html" hreflang="en"><span class="tag">नया</span><span class="ann-text"><span class="ann-long">v0.9.0 यानी 1.0 का release candidate: अच्छे से test करके सुधारा गया</span><span class="ann-short">v0.9.0 release candidate</span></span><span class="ann-arrow" aria-hidden="true">→</span></a>
       <h1><span class="you">आपकी<svg viewBox="0 0 120 12" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M3 8c12-6 22-6 30 0s18 6 28 0 20-6 28 0 18 6 28 0"/></svg></span> आवाज़ में लिखाई।</h1>
       <p class="lede">एक free Claude skill जो अकड़ी हुई, chatbot जैसी लिखाई को सीधी, सहज भाषा में बदल देती है। आपकी बातें, नंबर और formatting जैसे थे, वैसे ही रहते हैं।</p>
@@ -1100,7 +1119,8 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
     <div>
       <p class="eyebrow">सवाल-जवाब</p>
       <h2 id="faq-h">आम सवाल</h2>
-      <p class="sub">ज़्यादा जानकारी <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.hi.md">हिंदी install guide</a> में है, <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.md">English</a> में भी।</p>
+      <p class="sub">ज़्यादा जानकारी install guide में है, तीन भाषाओं में:</p>
+      <p class="guide-langs"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.md" lang="en">English</a><a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.hi.md" lang="hi" hreflang="hi">हिंदी</a><a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.ta.md" lang="ta" hreflang="ta">தமிழ்</a></p>
     </div>
     <div class="acc">
       <details name="faq"><summary>क्या यह free है?<span class="plus" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M6 1v10M1 6h10"/></svg></span></summary><p>हाँ। WriteLikeHuman MIT license के तहत free और open source है। बस ऐसा Claude account चाहिए जिसमें skills मिलती हों।</p></details>
@@ -1130,6 +1150,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
   </div>
 </section>
 
+<div class="wrap tr-end"><p class="tr-note" id="tr-note" role="note">यह <a href="../">अंग्रेज़ी page</a> का हिंदी अनुवाद है। असली page अंग्रेज़ी वाला है, और वह इससे नया हो सकता है। अगर कुछ अटपटा लगे तो <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md#help-wanted">सुधार भेजिए</a>।</p></div>
 </main>
 
 <footer>

@@ -41,7 +41,7 @@ CSS = """
 @media (min-width: 640px) { .p-hero { padding: 56px 0 12px; } }
 .p-hero h1 { font-size: clamp(2.2rem, 1.4rem + 4vw, 3.8rem); }
 .p-body { max-width: 760px; padding-top: 20px; }
-.p-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); margin-bottom: 14px; box-shadow: var(--shadow-sm); scroll-margin-top: 100px; }
+.p-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); margin-bottom: 14px; box-shadow: var(--shadow-sm); }
 .p-card h2 { font-size: clamp(1.2rem, 1rem + .8vw, 1.5rem); margin: 0 0 10px; }
 .p-card p { margin: 0 0 10px; color: var(--ink-2); }
 .p-card p:last-child { margin-bottom: 0; }
@@ -51,14 +51,13 @@ CSS = """
 
 
 def build(idx):
-    page = gen_guide.build(idx, "en")
+    page = gen_guide.build(idx, "en", current=None)
     page = page.replace('<title>Guide | WriteLikeHuman</title>', '<title>Privacy | WriteLikeHuman</title>', 1)
     page = page.replace('<meta property="og:title" content="Guide | WriteLikeHuman">',
                         '<meta property="og:title" content="Privacy | WriteLikeHuman">', 1)
     page = page.replace('content="%s"' % gen_guide.EN_UI["desc"],
                         'content="What happens to your text with WriteLikeHuman: it stays in your own chat with Claude. Nothing is stored or sent."', 1)
     page = page.replace('WriteLikeHuman/guide.html">', 'WriteLikeHuman/privacy.html">', 1)
-    page = page.replace('<a href="guide.html" aria-current="page">Guide</a>', '<a href="guide.html">Guide</a>', 1)
     page = page.replace('<a href="privacy.html">Privacy</a>', '<a href="privacy.html" aria-current="page">Privacy</a>', 1)
     page = page.replace('<a href="guide.html" lang="en" aria-current="page">English</a>', '<a href="./" lang="en">English</a>', 1)
     page = page.replace('<a href="hi/guide.html" lang="hi">', '<a href="hi/" lang="hi">', 1)

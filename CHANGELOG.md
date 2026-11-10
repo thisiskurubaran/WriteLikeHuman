@@ -19,6 +19,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Fixed
 
 - Drafts no longer work out details you didn't give (like counting "three working days" from two dates), job posts swap buzzwords for plain words instead of placeholders, folder-structure notes stick to what you said, and change lists for other languages describe changes without word-by-word English glosses.
+- Website: the same top menu on every page, filters on the examples page wrap on phones, older changelog versions fold on phones (the page is about 4,400px tall instead of 22,000px), bigger tap targets for standalone links, slightly larger guide labels, the Hindi and Tamil translation note moved below the hero, a "Jump to a task" button on long guide pages, a direct download on the changelog page, the unreleased section labelled "Coming in the next release", and links to a section no longer stop about 100px too low.
 
 ## [0.9.0] - 2026-11-10
 

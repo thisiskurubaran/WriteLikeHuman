@@ -44,3 +44,7 @@ Add the sample to `write-like-human/examples/before-after.md`, then add its head
 - `gen_privacy.py` builds `docs/privacy.html` from its `SECTIONS` list, using the guide's page frame.
 - If `tests/evals/results/` holds a saved score (from `tests/run_evals.py --save`), `sync_site.py` shows the newest one by version as a tile in the stats row on the English, Hindi, and Tamil landing pages. With no saved score, the tile is left out.
 - `sync_site.py` also fills in the version next to the download buttons (between the `site-version` markers on the landing page) from the `write-like-human` entry in `.claude-plugin/marketplace.json`, so it changes at each release.
+
+## The top menu
+
+Every page shows the same top menu: Features, Examples, Developers, Guide, Install, FAQ, GitHub. The landing page's menu is written by hand in `docs/index.html` (with Hindi and Tamil rows in `gen_lang.py`). Every other page gets it from `nav_html()` in `gen_guide.py`, which marks the current page with `aria-current="page"`. If you add or rename a menu link, change both.

@@ -248,15 +248,22 @@ EXTRA_CSS = '''
 .g-tasks { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
 @media (min-width: 760px) and (max-width: 1023px) { .g-tasks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1280px) { .g-tasks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.task { scroll-margin-top: 100px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); min-width: 0; box-shadow: var(--shadow-sm); }
+.task { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); min-width: 0; box-shadow: var(--shadow-sm); }
 .task h3 { font-size: 1.1rem; letter-spacing: -0.015em; margin: 0 0 12px; }
 .task .say { display: block; margin: 0 0 14px; font-size: 14.5px; color: var(--ink-2); background: var(--panel-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; overflow-wrap: anywhere; }
-.task .say b { display: block; font: 600 11.5px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.task .say b { display: block; font: 600 12.5px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
 .task ol { margin: 0; padding: 0; list-style: none; counter-reset: step; display: grid; gap: 8px; }
 .task li { counter-increment: step; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; font-size: 14.5px; color: var(--ink-2); }
 .task li::before { content: counter(step); width: 26px; height: 26px; border-radius: 8px; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-size: 12.5px; font-weight: 700; }
 .task .note { margin: 14px 0 0; padding-top: 12px; border-top: 1px dashed var(--line); font-size: 13.5px; color: var(--muted); }
 .g-cta { margin-top: 8px; }
+/* Phones: a floating button back to the jump list, shown once you scroll past the first few tasks */
+.g-back { position: fixed; z-index: 25; right: var(--gutter); bottom: max(14px, env(safe-area-inset-bottom)); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 600; text-decoration: none; box-shadow: var(--shadow-lg); }
+.g-back .icon { rotate: -90deg; }
+.g-back[hidden] { display: none; }
+body.has-g-back { padding-bottom: 76px; }
+@media (prefers-reduced-motion: no-preference) { .g-back { animation: g-back-in .2s var(--ease); } @keyframes g-back-in { from { opacity: 0; translate: 0 12px; } } }
+@media (min-width: 700px) { .g-back, .g-back[hidden] { display: none; } body.has-g-back { padding-bottom: 0; } }
 '''
 
 
@@ -273,6 +280,7 @@ EN_UI = {
     "cta_h": "Not installed yet?", "cta_p": "It takes two minutes: download the zip, then upload it in Claude.",
     "cta_dl": "Download the skill", "cta_how": "How to install", "note": None,
     "home": "Home", "files": "Files", "features": "Features", "examples": "Examples", "guide": "Guide",
+    "developers": "Developers", "faq": "FAQ",
     "install": "Install", "download": "Download", "top": "Top",
     "foot_note": "Free and open source under the MIT license.",
     "contribute": "Contribute", "feedback": "Share feedback", "privacy": "Privacy", "changelog": "Changelog",
@@ -282,18 +290,18 @@ EN_UI = {
 
 # Where links point from each version of the guide.
 PATHS = {
-    "en": {"home": "./", "examples": "examples.html", "privacy": "privacy.html", "changelog": "changelog.html",
+    "en": {"home": "./", "guide": "guide.html", "examples": "examples.html", "privacy": "privacy.html", "changelog": "changelog.html",
            "en": "guide.html", "hi": "hi/guide.html", "ta": "ta/guide.html", "url": "guide.html"},
-    "hi": {"home": "./", "examples": "../examples.html", "privacy": "../privacy.html", "changelog": "../changelog.html",
+    "hi": {"home": "./", "guide": "guide.html", "examples": "../examples.html", "privacy": "../privacy.html", "changelog": "../changelog.html",
            "en": "../guide.html", "hi": "guide.html", "ta": "../ta/guide.html", "url": "hi/guide.html"},
-    "ta": {"home": "./", "examples": "../examples.html", "privacy": "../privacy.html", "changelog": "../changelog.html",
+    "ta": {"home": "./", "guide": "guide.html", "examples": "../examples.html", "privacy": "../privacy.html", "changelog": "../changelog.html",
            "en": "../guide.html", "hi": "../hi/guide.html", "ta": "guide.html", "url": "ta/guide.html"},
 }
 
 TR_CSS = """
 /* ---------- Translated page ---------- */
 .tr-note { margin: 14px 0 0; padding: 10px 14px; border: 1px dashed var(--line-strong); border-radius: 14px; background: var(--panel); font-size: 13.5px; color: var(--muted); }
-.tr-note a { color: var(--accent); }
+.tr-note a { display: inline-block; padding: 4px 0; color: var(--accent); }
 """
 
 THEME_LABEL = {
@@ -304,6 +312,25 @@ THEME_LABEL = {
 GUIDE_JS = """  /* Guide: close the jump list after a pick, and mark the task in view */
   var jump = document.querySelector('.g-jump');
   if (jump) jump.addEventListener('click', function (e) { if (e.target.closest('a')) jump.open = false; });
+  /* Phones: show the "Jump to a task" button after the first few tasks */
+  var back = document.getElementById('g-back'), allTasks = document.querySelectorAll('.task');
+  if (back && jump && allTasks.length > 3) {
+    var phone = window.matchMedia('(max-width: 699px)'), mark = allTasks[3];
+    var updateBack = function () {
+      var show = phone.matches && mark.getBoundingClientRect().top < 0;
+      if (show === back.hidden) { back.hidden = !show; document.body.classList.toggle('has-g-back', show); }
+    };
+    window.addEventListener('scroll', updateBack, { passive: true });
+    if (phone.addEventListener) phone.addEventListener('change', updateBack);
+    updateBack();
+    back.addEventListener('click', function (e) {
+      e.preventDefault();
+      jump.open = true;
+      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      jump.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
+      jump.querySelector('summary').focus({ preventScroll: true });
+    });
+  }
   var links = {};
   document.querySelectorAll('.g-toc a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
   if ('IntersectionObserver' in window) {
@@ -334,8 +361,63 @@ GROUP = """      <section class="g-group" aria-labelledby="g-{id}" style="paddin
       </section>"""
 
 
-def build(idx, lang="en"):
-    """Return the guide page HTML for lang ('en', 'hi', or 'ta'), built on top of the landing page."""
+def nav_html(ui, P, current, langs_html):
+    """The top nav and phone menu for every page except the landing pages.
+
+    The links match the landing page's nav (docs/index.html) exactly, with
+    section links pointing back to the landing page. Keep the two in step.
+    """
+    home = P["home"]
+    land = "index.html"
+    top = [("features", land + "#features"), ("examples", P["examples"]), ("developers", land + "#developers"),
+           ("guide", P["guide"]), ("install", land + "#install"), ("faq", land + "#faq")]
+    menu = [("home", home), ("files", land + "#files")] + top
+
+    def cur(key):
+        return ' aria-current="page"' if key == current else ''
+
+    gh = "https://github.com/thisiskurubaran/WriteLikeHuman"
+    zip_url = gh + "/releases/latest/download/WriteLikeHuman.zip"
+    arrow = ' ' + ARROW
+    return "\n".join(
+        ['<nav class="topnav" aria-label="Main">',
+         '  <div class="wrap bar">',
+         '    <a class="brand" href="%s" aria-label="WriteLikeHuman home">' % home,
+         '      <svg class="logo" aria-hidden="true" focusable="false"><use href="#logo"/></svg>',
+         '      WriteLikeHuman',
+         '    </a>',
+         '    <div class="links">']
+        + ['      <a href="%s"%s>%s</a>' % (href, cur(key), ui[key]) for key, href in top]
+        + ['      <a href="%s">GitHub</a>' % gh,
+           '    </div>',
+           '    <div class="nav-end">',
+           '      <button class="icon-btn theme-btn" id="theme-btn" type="button" aria-label="%s">' % ui["theme"],
+           '        <svg class="icon moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>',
+           '        <svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
+           '      </button>',
+           '      <button class="icon-btn menu-btn" id="menu-btn" type="button" popovertarget="menu" aria-label="%s" aria-controls="menu">' % ui["menu"],
+           '        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
+           '      </button>',
+           '      <a class="nav-cta" href="%s">%s</a>' % (zip_url, ui["download"]),
+           '    </div>',
+           '  </div>',
+           '</nav>',
+           '',
+           '<div class="menu" id="menu" popover>']
+        + ['  <a href="%s"%s>%s%s</a>' % (href, cur(key), ui[key], arrow) for key, href in menu]
+        + ['  <a href="%s">GitHub%s</a>' % (gh, arrow),
+           '  <a href="%s">%s <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>' % (zip_url, ui["download"]),
+           '  ' + langs_html,
+           '</div>',
+           ''])
+
+
+def build(idx, lang="en", current="guide"):
+    """Return the guide page HTML for lang ('en', 'hi', or 'ta'), built on top of the landing page.
+
+    current is the top nav link to mark as the current page: "guide",
+    "examples", or None (the privacy and changelog pages build on this frame).
+    """
     if lang == "en":
         ui, groups, text = EN_UI, dict(GROUPS), esc
         tasks = {t[0]: t[2:] for t in TASKS}
@@ -373,46 +455,7 @@ def build(idx, lang="en"):
                 % (extra_class, ui["lang"], P["en"], cur["en"], P["hi"], cur["hi"], P["ta"], cur["ta"]))
 
     arrow = ' ' + ARROW
-    nav = "\n".join([
-        '<nav class="topnav" aria-label="Main">',
-        '  <div class="wrap bar">',
-        '    <a class="brand" href="%s" aria-label="WriteLikeHuman home">' % h,
-        '      <svg class="logo" aria-hidden="true" focusable="false"><use href="#logo"/></svg>',
-        '      WriteLikeHuman',
-        '    </a>',
-        '    <div class="links">',
-        '      <a href="%s#files">%s</a>' % (h, ui["files"]),
-        '      <a href="%s#features">%s</a>' % (h, ui["features"]),
-        '      <a href="%s">%s</a>' % (P["examples"], ui["examples"]),
-        '      <a href="guide.html" aria-current="page">%s</a>' % ui["guide"],
-        '      <a href="%s#install">%s</a>' % (h, ui["install"]),
-        '      <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>',
-        '    </div>',
-        '    <div class="nav-end">',
-        '      <button class="icon-btn theme-btn" id="theme-btn" type="button" aria-label="%s">' % ui["theme"],
-        '        <svg class="icon moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>',
-        '        <svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',
-        '      </button>',
-        '      <button class="icon-btn menu-btn" id="menu-btn" type="button" popovertarget="menu" aria-label="%s" aria-controls="menu">' % ui["menu"],
-        '        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
-        '      </button>',
-        '      <a class="nav-cta" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip">%s</a>' % ui["download"],
-        '    </div>',
-        '  </div>',
-        '</nav>',
-        '',
-        '<div class="menu" id="menu" popover>',
-        '  <a href="%s">%s%s</a>' % (h, ui["home"], arrow),
-        '  <a href="%s#files">%s%s</a>' % (h, ui["files"], arrow),
-        '  <a href="%s#features">%s%s</a>' % (h, ui["features"], arrow),
-        '  <a href="%s">%s%s</a>' % (P["examples"], ui["examples"], arrow),
-        '  <a href="%s#install">%s%s</a>' % (h, ui["install"], arrow),
-        '  <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub%s</a>' % arrow,
-        '  <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip">%s <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>' % ui["download"],
-        '  ' + langs(),
-        '</div>',
-        '',
-    ])
+    nav = nav_html(ui, P, current, langs())
 
     footer = "\n".join([
         '<footer>',
@@ -481,7 +524,7 @@ def build(idx, lang="en"):
         '    ' + ''.join(toc_parts),
         '  </aside>',
         '  <div>',
-        '    <details class="g-jump">',
+        '    <details class="g-jump" id="jump">',
         '      <summary>%s%s</summary>' % (ui["jump"], arrow),
         '      <ul>%s</ul>' % ''.join(jump_items),
         '    </details>',
@@ -498,6 +541,7 @@ def build(idx, lang="en"):
         '    </div>',
         '  </div>',
         '</div>',
+        '<a class="g-back" id="g-back" href="#jump" hidden><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>%s</a>' % ui["jump"],
         '</main>',
         '',
     ])

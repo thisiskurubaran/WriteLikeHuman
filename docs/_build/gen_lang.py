@@ -20,6 +20,7 @@ T=[
 ('<a class="skip" href="#main">Skip to content</a>','<a class="skip" href="#main">सीधे content पर जाएँ</a>','<a class="skip" href="#main">நேரடியாக content-க்கு செல்லவும்</a>',False),
 # nav
 ('      <a href="#features">Features</a>','      <a href="#features">खूबियाँ</a>','      <a href="#features">வசதிகள்</a>',False),
+('      <a href="examples.html">Examples</a>','      <a href="../examples.html">उदाहरण</a>','      <a href="../examples.html">உதாரணங்கள்</a>',False),
 ('      <a href="guide.html">Guide</a>\n      <a href="#install">','      <a href="guide.html">गाइड</a>\n      <a href="#install">','      <a href="guide.html">வழிகாட்டி</a>\n      <a href="#install">',False),
 ('      <a href="#install">Install</a>','      <a href="#install">Install</a>','      <a href="#install">Install</a>',False),
 ('      <a href="#faq">FAQ</a>','      <a href="#faq">सवाल-जवाब</a>','      <a href="#faq">கேள்விகள்</a>',False),
@@ -199,9 +200,7 @@ T=[
 # faq
 ('<p class="eyebrow">FAQ</p>','<p class="eyebrow">सवाल-जवाब</p>','<p class="eyebrow">கேள்விகள்</p>',False),
 ('<h2 id="faq-h">Questions</h2>','<h2 id="faq-h">आम सवाल</h2>','<h2 id="faq-h">பொதுவான கேள்விகள்</h2>',False),
-('<p class="sub">More in the <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.md">install guide</a>, also in <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.hi.md">हिंदी</a> and <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.ta.md">தமிழ்</a>.</p>',
- '<p class="sub">ज़्यादा जानकारी <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.hi.md">हिंदी install guide</a> में है, <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.md">English</a> में भी।</p>',
- '<p class="sub">மேலும் விவரம் <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.ta.md">தமிழ் install guide</a>-ல, <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/INSTALL.md">English</a>-லயும் இருக்கு.</p>',False),
+('<p class="sub">More in the install guide, in three languages:</p>','<p class="sub">ज़्यादा जानकारी install guide में है, तीन भाषाओं में:</p>','<p class="sub">மேலும் விவரம் install guide-ல இருக்கு, மூணு மொழிகள்ல:</p>',False),
 ('<summary>Is it free?','<summary>क्या यह free है?','<summary>இது இலவசமா?',False),
 ('<p>Yes. WriteLikeHuman is free and open source under the MIT license. You need a Claude account where skills are available.</p>','<p>हाँ। WriteLikeHuman MIT license के तहत free और open source है। बस ऐसा Claude account चाहिए जिसमें skills मिलती हों।</p>','<p>ஆமா. WriteLikeHuman MIT license-ல இலவசம், open source. Skills கிடைக்கிற Claude account மட்டும் வேணும்.</p>',False),
 ('<summary>Will it mess up my document?','<summary>कहीं मेरा document बिगड़ तो नहीं जाएगा?','<summary>என் document கெட்டுப் போயிடுமா?',False),
@@ -295,13 +294,22 @@ T=[
 ('<span class="fold-more">Show more</span><span class="fold-less">Show less</span>','<span class="fold-more">और देखें</span><span class="fold-less">कम दिखाएँ</span>','<span class="fold-more">மேலும் பாருங்க</span><span class="fold-less">குறைவா காட்டு</span>',True),
 ]
 
-NOTE={'hi':'<div class="wrap"><p class="tr-note" role="note">यह <a href="../">अंग्रेज़ी page</a> का हिंदी अनुवाद है। असली page अंग्रेज़ी वाला है, और वह इससे नया हो सकता है। अगर कुछ अटपटा लगे तो <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md#help-wanted">सुधार भेजिए</a>।</p></div>',
-      'ta':'<div class="wrap"><p class="tr-note" role="note">இது <a href="../">ஆங்கில page</a>-ஓட தமிழ் மொழிபெயர்ப்பு. முதன்மை page ஆங்கிலத்தில் இருப்பதுதான், அது இதைவிட புதுசா இருக்கலாம். ஏதாவது சரியில்லைன்னா <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md#help-wanted">திருத்தம் அனுப்புங்க</a>.</p></div>'}
+# The full note sits at the end of the page, and a small label near the top links to it.
+NOTE={'hi':'<div class="wrap"><p class="tr-note" id="tr-note" role="note">यह <a href="../">अंग्रेज़ी page</a> का हिंदी अनुवाद है। असली page अंग्रेज़ी वाला है, और वह इससे नया हो सकता है। अगर कुछ अटपटा लगे तो <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md#help-wanted">सुधार भेजिए</a>।</p></div>',
+      'ta':'<div class="wrap"><p class="tr-note" id="tr-note" role="note">இது <a href="../">ஆங்கில page</a>-ஓட தமிழ் மொழிபெயர்ப்பு. முதன்மை page ஆங்கிலத்தில் இருப்பதுதான், அது இதைவிட புதுசா இருக்கலாம். ஏதாவது சரியில்லைன்னா <a href="https://github.com/thisiskurubaran/WriteLikeHuman/blob/main/CONTRIBUTING.md#help-wanted">திருத்தம் அனுப்புங்க</a>.</p></div>'}
+FLAG={'hi':'<p class="tr-flag"><a href="#tr-note">यह page हिंदी अनुवाद है <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a></p>',
+      'ta':'<p class="tr-flag"><a href="#tr-note">இது தமிழ் மொழிபெயர்ப்பு page <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a></p>'}
 PREFIX={'hi':'आप: ','ta':'நீங்க: '}
 EXTRA_CSS='''
 /* ---------- Translated page ---------- */
-.tr-note { margin: 14px 0 0; padding: 10px 14px; border: 1px dashed var(--line-strong); border-radius: 14px; background: var(--panel); font-size: 13.5px; color: var(--muted); }
-.tr-note a { color: var(--accent); }
+.tr-note { margin: 0; padding: 10px 14px; border: 1px dashed var(--line-strong); border-radius: 14px; background: var(--panel); font-size: 13.5px; color: var(--muted); }
+.tr-note a { display: inline-block; padding: 4px 0; color: var(--accent); }
+.tr-end { padding-top: clamp(32px, 5vw, 48px); }
+.tr-flag { margin: 0 0 10px; }
+.tr-flag a { display: inline-flex; align-items: center; gap: 6px; min-height: 32px; padding: 0 12px; border: 1px dashed var(--line-strong); border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; }
+.tr-flag a:hover { color: var(--ink); border-color: var(--ink-2); }
+.tr-flag .icon { width: 14px; height: 14px; }
+@media (pointer: coarse) { .tr-flag a { min-height: 40px; } }
 .xprompt::before { content: "%s"; }
 '''
 
@@ -319,7 +327,8 @@ def build(src):
             if en not in s:
                 raise NotFound('[%s] English text not found on the page, update its row in gen_lang.py: %s' % (lang, en[:90]))
             s = s.replace(en, tr) if all_ else s.replace(en, tr, 1)
-        s = s.replace('<main id="main">', NOTE[lang] + '\n\n<main id="main">', 1)
+        s = s.replace('\n</main>', '\n' + NOTE[lang].replace('<div class="wrap">', '<div class="wrap tr-end">', 1) + '\n</main>', 1)
+        s = s.replace('<a class="announce" ', FLAG[lang] + '\n      <a class="announce" ', 1)
         s = s.replace('/* ---------- Works with ---------- */', (EXTRA_CSS % PREFIX[lang]).strip() + '\n\n/* ---------- Works with ---------- */', 1)
         pages[lang] = s
     return pages

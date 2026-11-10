@@ -119,8 +119,7 @@ def build(idx, md):
 .ex-search .icon { width: 18px; height: 18px; color: var(--muted); flex: none; }
 .ex-search input { flex: 1; width: 100%; min-width: 0; border: 0; background: transparent; color: var(--ink); font: inherit; font-size: 16px; padding: 10px 0; outline: none; }
 .ex-search:focus-within { border-color: var(--accent); }
-.fchips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
-.fchips::-webkit-scrollbar { display: none; }
+.fchips { display: flex; flex-wrap: wrap; gap: 6px; }
 .fchip { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--ink-2); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
 .fchip .n { font: 600 12px var(--mono); color: var(--muted); }
 .fchip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
@@ -130,7 +129,7 @@ def build(idx, md):
 @media (min-width: 900px) { .ex-tools { position: sticky; top: calc(max(12px, env(safe-area-inset-top)) + 76px); z-index: 20; } }
 .ex-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
 @media (min-width: 900px) { .ex-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; align-items: start; } }
-.ex-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); min-width: 0; box-shadow: var(--shadow-sm); scroll-margin-top: 180px; }
+.ex-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); min-width: 0; box-shadow: var(--shadow-sm); scroll-margin-top: 84px; }
 .ex-card[hidden] { display: none; }
 .ex-head { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 14px; }
 .ex-head h2 { font-size: 1.15rem; line-height: 1.25; letter-spacing: -0.015em; margin: 0; }
@@ -162,44 +161,9 @@ def build(idx, md):
 .ex-empty { padding: 32px 16px; text-align: center; color: var(--muted); border: 1px dashed var(--line-strong); border-radius: var(--r-lg); }
 .ex-cta { margin-top: var(--section-space); }
 '''
-    nav='''<nav class="topnav" aria-label="Main">
-  <div class="wrap bar">
-    <a class="brand" href="./" aria-label="WriteLikeHuman home">
-      <svg class="logo" aria-hidden="true" focusable="false"><use href="#logo"/></svg>
-      WriteLikeHuman
-    </a>
-    <div class="links">
-      <a href="./#files">Files</a>
-      <a href="./#features">Features</a>
-      <a href="examples.html" aria-current="page">Examples</a>
-      <a href="guide.html">Guide</a>
-      <a href="./#install">Install</a>
-      <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>
-    </div>
-    <div class="nav-end">
-      <button class="icon-btn theme-btn" id="theme-btn" type="button" aria-label="Switch theme">
-        <svg class="icon moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
-        <svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      </button>
-      <button class="icon-btn menu-btn" id="menu-btn" type="button" popovertarget="menu" aria-label="Open menu" aria-controls="menu">
-        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-      </button>
-      <a class="nav-cta" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip">Download</a>
-    </div>
-  </div>
-</nav>
-
-<div class="menu" id="menu" popover>
-  <a href="./">Home <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="./#files">Files <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="./#features">Features <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="guide.html">Guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="./#install">Install <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip">Download <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>
-  <div class="lang-switch" role="group" aria-label="Language"><a href="./" lang="en">English</a><a href="hi/" lang="hi">हिंदी</a><a href="ta/" lang="ta">தமிழ்</a></div>
-</div>
-'''
+    import gen_guide
+    langs_html='<div class="lang-switch" role="group" aria-label="Language"><a href="./" lang="en">English</a><a href="hi/" lang="hi">हिंदी</a><a href="ta/" lang="ta">தமிழ்</a></div>'
+    nav=gen_guide.nav_html(gen_guide.EN_UI, gen_guide.PATHS["en"], "examples", langs_html)
     footer='''<footer>
   <div class="wrap foot">
     <div class="foot-top">

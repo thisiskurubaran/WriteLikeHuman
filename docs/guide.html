@@ -135,6 +135,8 @@ p { text-wrap: pretty; }
 .links { display: none; align-items: center; gap: 2px; font-size: 14px; }
 .links a { text-decoration: none; color: var(--muted); padding: 8px 12px; border-radius: 999px; transition: color .15s, background .15s; }
 .links a:hover { color: var(--ink); background: var(--panel-2); }
+.links a[aria-current="page"] { color: var(--ink); background: var(--panel-2); font-weight: 600; }
+.menu a[aria-current="page"] { background: var(--panel-2); }
 .nav-end { display: flex; align-items: center; gap: 6px; }
 .icon-btn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; transition: background .15s, transform .15s var(--ease); }
 .icon-btn:hover { background: var(--panel-2); }
@@ -148,6 +150,14 @@ p { text-wrap: pretty; }
 @media (min-width: 900px) {
   .links { display: flex; }
   .menu-btn { display: none; }
+}
+/* All seven links stay visible from 900px up. Below 1100px they get a little
+   tighter and the brand shows just its logo (its aria-label still names it),
+   so the longer Hindi and Tamil labels fit on one line too. */
+.links a { white-space: nowrap; }
+@media (min-width: 900px) and (max-width: 1099px) {
+  .links a { padding: 8px 10px; }
+  .topnav .brand { gap: 0; font-size: 0; }
 }
 
 /* Mobile menu (Popover API, with a class fallback) */
@@ -454,7 +464,6 @@ body.has-dl-bar { padding-bottom: 72px; }
 
 /* ---------- Sections ---------- */
 section { padding: var(--section-space) 0 0; }
-section[id], #top { scroll-margin-top: 88px; }
 .section-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px 48px; align-items: end; margin-bottom: 28px; }
 @media (min-width: 900px) { .section-head { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); margin-bottom: 40px; } }
 .eyebrow { display: inline-flex; align-items: center; gap: 8px; font: 600 12.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
@@ -628,7 +637,11 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .acc details p a { color: var(--accent); }
 .acc details code { font: 600 .9em var(--mono); background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; color: var(--ink-2); }
 .faq-report { margin: 8px 0 0; padding: 0 4px; font-size: 14.5px; color: var(--muted); }
-.faq-report a { color: var(--accent); font-weight: 600; }
+.faq-report a { display: inline-flex; align-items: center; min-height: 32px; color: var(--accent); font-weight: 600; }
+.guide-langs { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
+.guide-langs a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--ink-2); font-size: 13.5px; font-weight: 600; text-decoration: none; }
+.guide-langs a:hover { border-color: var(--line-strong); color: var(--ink); }
+@media (pointer: coarse) { .faq-report a, .guide-langs a { min-height: 44px; } }
 .sub-links { display: flex; flex-wrap: wrap; gap: 0 20px; margin: 4px 0 0; }
 .sub-links .more-link { margin-top: 6px; }
 .acc details::details-content { block-size: 0; overflow: hidden; transition: block-size .3s var(--ease), content-visibility .3s allow-discrete; }
@@ -704,15 +717,22 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 .g-tasks { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
 @media (min-width: 760px) and (max-width: 1023px) { .g-tasks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1280px) { .g-tasks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.task { scroll-margin-top: 100px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); min-width: 0; box-shadow: var(--shadow-sm); }
+.task { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); min-width: 0; box-shadow: var(--shadow-sm); }
 .task h3 { font-size: 1.1rem; letter-spacing: -0.015em; margin: 0 0 12px; }
 .task .say { display: block; margin: 0 0 14px; font-size: 14.5px; color: var(--ink-2); background: var(--panel-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; overflow-wrap: anywhere; }
-.task .say b { display: block; font: 600 11.5px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.task .say b { display: block; font: 600 12.5px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
 .task ol { margin: 0; padding: 0; list-style: none; counter-reset: step; display: grid; gap: 8px; }
 .task li { counter-increment: step; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; font-size: 14.5px; color: var(--ink-2); }
 .task li::before { content: counter(step); width: 26px; height: 26px; border-radius: 8px; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-size: 12.5px; font-weight: 700; }
 .task .note { margin: 14px 0 0; padding-top: 12px; border-top: 1px dashed var(--line); font-size: 13.5px; color: var(--muted); }
 .g-cta { margin-top: 8px; }
+/* Phones: a floating button back to the jump list, shown once you scroll past the first few tasks */
+.g-back { position: fixed; z-index: 25; right: var(--gutter); bottom: max(14px, env(safe-area-inset-bottom)); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 600; text-decoration: none; box-shadow: var(--shadow-lg); }
+.g-back .icon { rotate: -90deg; }
+.g-back[hidden] { display: none; }
+body.has-g-back { padding-bottom: 76px; }
+@media (prefers-reduced-motion: no-preference) { .g-back { animation: g-back-in .2s var(--ease); } @keyframes g-back-in { from { opacity: 0; translate: 0 12px; } } }
+@media (min-width: 700px) { .g-back, .g-back[hidden] { display: none; } body.has-g-back { padding-bottom: 0; } }
 </style>
 </head>
 <body>
@@ -736,11 +756,12 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       WriteLikeHuman
     </a>
     <div class="links">
-      <a href="./#files">Files</a>
-      <a href="./#features">Features</a>
+      <a href="index.html#features">Features</a>
       <a href="examples.html">Examples</a>
+      <a href="index.html#developers">Developers</a>
       <a href="guide.html" aria-current="page">Guide</a>
-      <a href="./#install">Install</a>
+      <a href="index.html#install">Install</a>
+      <a href="index.html#faq">FAQ</a>
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>
     </div>
     <div class="nav-end">
@@ -758,10 +779,13 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 
 <div class="menu" id="menu" popover>
   <a href="./">Home <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="./#files">Files <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="./#features">Features <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="index.html#files">Files <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="index.html#features">Features <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="examples.html">Examples <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="./#install">Install <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="index.html#developers">Developers <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="guide.html" aria-current="page">Guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="index.html#install">Install <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="index.html#faq">FAQ <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip">Download <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>
   <div class="lang-switch" role="group" aria-label="Language"><a href="guide.html" lang="en" aria-current="page">English</a><a href="hi/guide.html" lang="hi">हिंदी</a><a href="ta/guide.html" lang="ta">தமிழ்</a></div>
@@ -782,7 +806,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
     <h3>Everyday writing</h3><ul><li><a href="#humanize-email">Make an email sound less robotic</a></li><li><a href="#before-send">Check a message before sending it</a></li><li><a href="#tricky-reply">Reply to a tricky message</a></li><li><a href="#work-chat">Write a Slack, Teams, or Google Chat message</a></li><li><a href="#read">Understand how a message sounds</a></li><li><a href="#negotiation">Ask for a better salary, price, or rent</a></li><li><a href="#quick-options">Get quick choices when you're not sure what to ask</a></li></ul><h3>Files</h3><ul><li><a href="#word-file">Fix a Word file, with the reasons in comments</a></li><li><a href="#form">Fill in a form</a></li><li><a href="#template">Fill a template</a></li><li><a href="#slides">Make slides from notes</a></li><li><a href="#spreadsheet">Make a spreadsheet</a></li><li><a href="#google">Edit a Google Sheet or Slides deck</a></li><li><a href="#long-document">Fix a long thesis, manual, or report</a></li></ul><h3>Your voice</h3><ul><li><a href="#voice">Build my voice profile</a></li><li><a href="#style-guide">Set up a team style guide</a></li></ul><h3>Small business</h3><ul><li><a href="#payment-reminder">Send a payment reminder</a></li><li><a href="#support-reply">Reply to a customer</a></li><li><a href="#out-of-office">Set an out-of-office reply</a></li><li><a href="#personalised">Send personal messages to a list of people</a></li></ul><h3>Languages and access</h3><ul><li><a href="#script">Write in Hindi or Tamil script</a></li><li><a href="#alt-text">Write alt text for images</a></li><li><a href="#easy-read">Make something Easy Read or dyslexia friendly</a></li></ul><h3>For developers</h3><ul><li><a href="#readme">Write or fix a README</a></li><li><a href="#commit-message">Write a commit message or PR description</a></li><li><a href="#architecture">Explain the architecture or folder structure</a></li><li><a href="#code-comments">Clean up code comments without touching the code</a></li><li><a href="#error-messages">Write clearer error messages and app text</a></li></ul><h3>Claude Code</h3><ul><li><a href="#claude-code">Use it in Claude Code</a></li></ul>
   </aside>
   <div>
-    <details class="g-jump">
+    <details class="g-jump" id="jump">
       <summary>Jump to a task <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></summary>
       <ul><li><a href="#humanize-email">Make an email sound less robotic</a></li><li><a href="#before-send">Check a message before sending it</a></li><li><a href="#tricky-reply">Reply to a tricky message</a></li><li><a href="#work-chat">Write a Slack, Teams, or Google Chat message</a></li><li><a href="#read">Understand how a message sounds</a></li><li><a href="#negotiation">Ask for a better salary, price, or rent</a></li><li><a href="#quick-options">Get quick choices when you're not sure what to ask</a></li><li><a href="#word-file">Fix a Word file, with the reasons in comments</a></li><li><a href="#form">Fill in a form</a></li><li><a href="#template">Fill a template</a></li><li><a href="#slides">Make slides from notes</a></li><li><a href="#spreadsheet">Make a spreadsheet</a></li><li><a href="#google">Edit a Google Sheet or Slides deck</a></li><li><a href="#long-document">Fix a long thesis, manual, or report</a></li><li><a href="#voice">Build my voice profile</a></li><li><a href="#style-guide">Set up a team style guide</a></li><li><a href="#payment-reminder">Send a payment reminder</a></li><li><a href="#support-reply">Reply to a customer</a></li><li><a href="#out-of-office">Set an out-of-office reply</a></li><li><a href="#personalised">Send personal messages to a list of people</a></li><li><a href="#script">Write in Hindi or Tamil script</a></li><li><a href="#alt-text">Write alt text for images</a></li><li><a href="#easy-read">Make something Easy Read or dyslexia friendly</a></li><li><a href="#readme">Write or fix a README</a></li><li><a href="#commit-message">Write a commit message or PR description</a></li><li><a href="#architecture">Explain the architecture or folder structure</a></li><li><a href="#code-comments">Clean up code comments without touching the code</a></li><li><a href="#error-messages">Write clearer error messages and app text</a></li><li><a href="#claude-code">Use it in Claude Code</a></li></ul>
     </details>
@@ -1007,6 +1031,7 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
     </div>
   </div>
 </div>
+<a class="g-back" id="g-back" href="#jump" hidden><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>Jump to a task</a>
 </main>
 
 <footer>
@@ -1085,6 +1110,25 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
   /* Guide: close the jump list after a pick, and mark the task in view */
   var jump = document.querySelector('.g-jump');
   if (jump) jump.addEventListener('click', function (e) { if (e.target.closest('a')) jump.open = false; });
+  /* Phones: show the "Jump to a task" button after the first few tasks */
+  var back = document.getElementById('g-back'), allTasks = document.querySelectorAll('.task');
+  if (back && jump && allTasks.length > 3) {
+    var phone = window.matchMedia('(max-width: 699px)'), mark = allTasks[3];
+    var updateBack = function () {
+      var show = phone.matches && mark.getBoundingClientRect().top < 0;
+      if (show === back.hidden) { back.hidden = !show; document.body.classList.toggle('has-g-back', show); }
+    };
+    window.addEventListener('scroll', updateBack, { passive: true });
+    if (phone.addEventListener) phone.addEventListener('change', updateBack);
+    updateBack();
+    back.addEventListener('click', function (e) {
+      e.preventDefault();
+      jump.open = true;
+      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      jump.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
+      jump.querySelector('summary').focus({ preventScroll: true });
+    });
+  }
   var links = {};
   document.querySelectorAll('.g-toc a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
   if ('IntersectionObserver' in window) {

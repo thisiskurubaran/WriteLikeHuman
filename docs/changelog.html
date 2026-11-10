@@ -135,6 +135,8 @@ p { text-wrap: pretty; }
 .links { display: none; align-items: center; gap: 2px; font-size: 14px; }
 .links a { text-decoration: none; color: var(--muted); padding: 8px 12px; border-radius: 999px; transition: color .15s, background .15s; }
 .links a:hover { color: var(--ink); background: var(--panel-2); }
+.links a[aria-current="page"] { color: var(--ink); background: var(--panel-2); font-weight: 600; }
+.menu a[aria-current="page"] { background: var(--panel-2); }
 .nav-end { display: flex; align-items: center; gap: 6px; }
 .icon-btn { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); cursor: pointer; transition: background .15s, transform .15s var(--ease); }
 .icon-btn:hover { background: var(--panel-2); }
@@ -148,6 +150,14 @@ p { text-wrap: pretty; }
 @media (min-width: 900px) {
   .links { display: flex; }
   .menu-btn { display: none; }
+}
+/* All seven links stay visible from 900px up. Below 1100px they get a little
+   tighter and the brand shows just its logo (its aria-label still names it),
+   so the longer Hindi and Tamil labels fit on one line too. */
+.links a { white-space: nowrap; }
+@media (min-width: 900px) and (max-width: 1099px) {
+  .links a { padding: 8px 10px; }
+  .topnav .brand { gap: 0; font-size: 0; }
 }
 
 /* Mobile menu (Popover API, with a class fallback) */
@@ -454,7 +464,6 @@ body.has-dl-bar { padding-bottom: 72px; }
 
 /* ---------- Sections ---------- */
 section { padding: var(--section-space) 0 0; }
-section[id], #top { scroll-margin-top: 88px; }
 .section-head { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px 48px; align-items: end; margin-bottom: 28px; }
 @media (min-width: 900px) { .section-head { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); margin-bottom: 40px; } }
 .eyebrow { display: inline-flex; align-items: center; gap: 8px; font: 600 12.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
@@ -628,7 +637,11 @@ mark { background: var(--mark); color: inherit; border-radius: 4px; padding: 0 3
 .acc details p a { color: var(--accent); }
 .acc details code { font: 600 .9em var(--mono); background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; color: var(--ink-2); }
 .faq-report { margin: 8px 0 0; padding: 0 4px; font-size: 14.5px; color: var(--muted); }
-.faq-report a { color: var(--accent); font-weight: 600; }
+.faq-report a { display: inline-flex; align-items: center; min-height: 32px; color: var(--accent); font-weight: 600; }
+.guide-langs { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 0; }
+.guide-langs a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--ink-2); font-size: 13.5px; font-weight: 600; text-decoration: none; }
+.guide-langs a:hover { border-color: var(--line-strong); color: var(--ink); }
+@media (pointer: coarse) { .faq-report a, .guide-langs a { min-height: 44px; } }
 .sub-links { display: flex; flex-wrap: wrap; gap: 0 20px; margin: 4px 0 0; }
 .sub-links .more-link { margin-top: 6px; }
 .acc details::details-content { block-size: 0; overflow: hidden; transition: block-size .3s var(--ease), content-visibility .3s allow-discrete; }
@@ -704,15 +717,22 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 .g-tasks { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
 @media (min-width: 760px) and (max-width: 1023px) { .g-tasks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1280px) { .g-tasks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.task { scroll-margin-top: 100px; background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); min-width: 0; box-shadow: var(--shadow-sm); }
+.task { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); min-width: 0; box-shadow: var(--shadow-sm); }
 .task h3 { font-size: 1.1rem; letter-spacing: -0.015em; margin: 0 0 12px; }
 .task .say { display: block; margin: 0 0 14px; font-size: 14.5px; color: var(--ink-2); background: var(--panel-2); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; overflow-wrap: anywhere; }
-.task .say b { display: block; font: 600 11.5px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
+.task .say b { display: block; font: 600 12.5px var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: 3px; }
 .task ol { margin: 0; padding: 0; list-style: none; counter-reset: step; display: grid; gap: 8px; }
 .task li { counter-increment: step; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; font-size: 14.5px; color: var(--ink-2); }
 .task li::before { content: counter(step); width: 26px; height: 26px; border-radius: 8px; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-size: 12.5px; font-weight: 700; }
 .task .note { margin: 14px 0 0; padding-top: 12px; border-top: 1px dashed var(--line); font-size: 13.5px; color: var(--muted); }
 .g-cta { margin-top: 8px; }
+/* Phones: a floating button back to the jump list, shown once you scroll past the first few tasks */
+.g-back { position: fixed; z-index: 25; right: var(--gutter); bottom: max(14px, env(safe-area-inset-bottom)); display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; border-radius: 999px; background: var(--ink); color: var(--bg); font-size: 14px; font-weight: 600; text-decoration: none; box-shadow: var(--shadow-lg); }
+.g-back .icon { rotate: -90deg; }
+.g-back[hidden] { display: none; }
+body.has-g-back { padding-bottom: 76px; }
+@media (prefers-reduced-motion: no-preference) { .g-back { animation: g-back-in .2s var(--ease); } @keyframes g-back-in { from { opacity: 0; translate: 0 12px; } } }
+@media (min-width: 700px) { .g-back, .g-back[hidden] { display: none; } body.has-g-back { padding-bottom: 0; } }
 
 /* ---------- Changelog ---------- */
 .c-hero { padding: 40px 0 8px; }
@@ -724,7 +744,8 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 .c-jump ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .c-jump a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--ink-2); font: 600 13.5px var(--mono); text-decoration: none; }
 .c-jump a:hover { border-color: var(--line-strong); color: var(--ink); }
-.c-ver { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); margin-bottom: 14px; box-shadow: var(--shadow-sm); scroll-margin-top: 100px; }
+.c-ver { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); margin-bottom: 14px; box-shadow: var(--shadow-sm); }
+section.c-ver[id] { scroll-margin-top: 0; }
 .c-ver-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
 .c-ver h2 { font-size: clamp(1.4rem, 1.1rem + 1vw, 1.8rem); margin: 0; }
 .c-date { margin: 0; color: var(--muted); font-size: 14.5px; }
@@ -738,8 +759,24 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 .c-ver p { margin: 0 0 10px; color: var(--ink-2); }
 .c-ver li a, .c-ver p a { color: var(--accent); }
 .c-ver code { font: 600 .9em var(--mono); background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; }
-.c-more { color: var(--muted); font-size: 14px; margin: 18px 0 0; }
-.c-more a { color: var(--accent); }
+.c-fold > summary { list-style: none; cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; min-height: 44px; border-radius: 12px; }
+.c-fold > summary::-webkit-details-marker { display: none; }
+.c-fold > summary .c-ver-head { min-width: 0; }
+.c-toggle { display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel-2); color: var(--ink-2); font-size: 13.5px; font-weight: 600; white-space: nowrap; }
+.c-fold > summary:hover .c-toggle { border-color: var(--line-strong); color: var(--ink); }
+.c-toggle .icon { width: 14px; height: 14px; transition: rotate .2s; }
+.c-fold[open] .c-toggle .icon { rotate: 180deg; }
+.c-fold:not([open]) .c-hide, .c-fold[open] .c-show { display: none; }
+.c-fold-body { padding-top: 4px; }
+.c-next { background: transparent; border-style: dashed; border-color: var(--line-strong); box-shadow: none; }
+.c-next h2 { font-size: clamp(1.15rem, 1rem + .6vw, 1.4rem); }
+.c-next-note { display: block; flex-basis: 100%; margin: 4px 0 0; color: var(--muted); font-size: 14px; font-weight: 400; }
+.c-jump a.c-jump-next { border-style: dashed; background: transparent; font-family: var(--sans); }
+.c-more { margin: 26px 0 0; padding: var(--tile-pad); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--panel); }
+.c-more p { margin: 0 0 12px; font-weight: 600; color: var(--ink); }
+.c-more-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; }
+.c-all { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent); font-weight: 600; font-size: 14.5px; }
+@media (prefers-reduced-motion: reduce) { .c-toggle .icon { transition: none; } }
 </style>
 </head>
 <body>
@@ -763,11 +800,12 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       WriteLikeHuman
     </a>
     <div class="links">
-      <a href="./#files">Files</a>
-      <a href="./#features">Features</a>
+      <a href="index.html#features">Features</a>
       <a href="examples.html">Examples</a>
+      <a href="index.html#developers">Developers</a>
       <a href="guide.html">Guide</a>
-      <a href="./#install">Install</a>
+      <a href="index.html#install">Install</a>
+      <a href="index.html#faq">FAQ</a>
       <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub</a>
     </div>
     <div class="nav-end">
@@ -785,10 +823,13 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
 
 <div class="menu" id="menu" popover>
   <a href="./">Home <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="./#files">Files <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="./#features">Features <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="index.html#files">Files <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="index.html#features">Features <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="examples.html">Examples <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-  <a href="./#install">Install <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="index.html#developers">Developers <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="guide.html">Guide <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="index.html#install">Install <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+  <a href="index.html#faq">FAQ <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="https://github.com/thisiskurubaran/WriteLikeHuman">GitHub <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
   <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip">Download <svg class="icon" aria-hidden="true"><use href="#i-down"/></svg></a>
   <div class="lang-switch" role="group" aria-label="Language"><a href="./" lang="en">English</a><a href="hi/" lang="hi">हिंदी</a><a href="ta/" lang="ta">தமிழ்</a></div>
@@ -807,27 +848,34 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
   <div class="c-body">
     <nav class="c-jump" aria-labelledby="c-jump-h">
       <h2 id="c-jump-h">Jump to a version</h2>
-      <ul><li><a href="#unreleased">Unreleased</a></li><li><a href="#v0.9.0">v0.9.0</a></li><li><a href="#v0.8.0">v0.8.0</a></li><li><a href="#v0.7.0">v0.7.0</a></li><li><a href="#v0.6.1">v0.6.1</a></li><li><a href="#v0.6.0">v0.6.0</a></li><li><a href="#v0.5.0">v0.5.0</a></li><li><a href="#v0.4.0">v0.4.0</a></li><li><a href="#v0.3.2">v0.3.2</a></li><li><a href="#v0.3.1">v0.3.1</a></li><li><a href="#v0.3.0">v0.3.0</a></li><li><a href="#v0.2.0">v0.2.0</a></li><li><a href="#v0.1.0">v0.1.0</a></li></ul>
+      <ul><li><a href="#unreleased" class="c-jump-next">Coming in the next release</a></li><li><a href="#v0.9.0">v0.9.0</a></li><li><a href="#v0.8.0">v0.8.0</a></li><li><a href="#v0.7.0">v0.7.0</a></li><li><a href="#v0.6.1">v0.6.1</a></li><li><a href="#v0.6.0">v0.6.0</a></li><li><a href="#v0.5.0">v0.5.0</a></li><li><a href="#v0.4.0">v0.4.0</a></li><li><a href="#v0.3.2">v0.3.2</a></li><li><a href="#v0.3.1">v0.3.1</a></li><li><a href="#v0.3.0">v0.3.0</a></li><li><a href="#v0.2.0">v0.2.0</a></li><li><a href="#v0.1.0">v0.1.0</a></li></ul>
     </nav>
-    <section class="c-ver" id="unreleased" aria-labelledby="unreleased-h">
-      <div class="c-ver-head">
-        <h2 id="unreleased-h">Unreleased</h2>
-      </div>
-      <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.9.0...HEAD">Code changes since v0.9.0</a></p>
-      <h3>Added</h3>
-      <ul>
-        <li>A changelog page on the website, built from CHANGELOG.md, with every release, newest first, and links to each release on GitHub.</li>
-        <li>Website: a &quot;What do you want to do?&quot; chooser that links common tasks to their guide steps, a direct download button showing the latest version, a download bar on phones, copy buttons on example prompts, a Hinglish before-and-after example, four more FAQs (privacy, plans, updating, removing), and &quot;Report a problem&quot; links.</li>
-      </ul>
-      <h3>Changed</h3>
-      <ul>
-        <li>The website&#x27;s announcement bar points to v0.9.0, the 1.0 release candidate.</li>
-        <li>Website: a shorter phone page (long sections fold behind &quot;Show more&quot;), a shorter top menu, before and after side by side on wide screens, wrapped language list on phones, and the test pass rate as its own tile. Copy fixes in English, Hindi, and Tamil.</li>
-      </ul>
-      <h3>Fixed</h3>
-      <ul>
-        <li>Drafts no longer work out details you didn&#x27;t give (like counting &quot;three working days&quot; from two dates), job posts swap buzzwords for plain words instead of placeholders, folder-structure notes stick to what you said, and change lists for other languages describe changes without word-by-word English glosses.</li>
-      </ul>
+    <section class="c-ver c-next" id="unreleased" aria-labelledby="unreleased-h">
+      <details class="c-fold" open>
+        <summary>
+          <span class="c-ver-head"><h2 id="unreleased-h">Coming in the next release</h2></span>
+          <span class="c-toggle"><span class="c-show">Show changes</span><span class="c-hide">Hide changes</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+          <span class="c-next-note">These changes are on the website or the main branch, but not in the downloadable zip yet.</span>
+        </summary>
+        <div class="c-fold-body">
+        <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.9.0...HEAD">Code changes since v0.9.0</a></p>
+        <h3>Added</h3>
+        <ul>
+          <li>A changelog page on the website, built from CHANGELOG.md, with every release, newest first, and links to each release on GitHub.</li>
+          <li>Website: a &quot;What do you want to do?&quot; chooser that links common tasks to their guide steps, a direct download button showing the latest version, a download bar on phones, copy buttons on example prompts, a Hinglish before-and-after example, four more FAQs (privacy, plans, updating, removing), and &quot;Report a problem&quot; links.</li>
+        </ul>
+        <h3>Changed</h3>
+        <ul>
+          <li>The website&#x27;s announcement bar points to v0.9.0, the 1.0 release candidate.</li>
+          <li>Website: a shorter phone page (long sections fold behind &quot;Show more&quot;), a shorter top menu, before and after side by side on wide screens, wrapped language list on phones, and the test pass rate as its own tile. Copy fixes in English, Hindi, and Tamil.</li>
+        </ul>
+        <h3>Fixed</h3>
+        <ul>
+          <li>Drafts no longer work out details you didn&#x27;t give (like counting &quot;three working days&quot; from two dates), job posts swap buzzwords for plain words instead of placeholders, folder-structure notes stick to what you said, and change lists for other languages describe changes without word-by-word English glosses.</li>
+          <li>Website: the same top menu on every page, filters on the examples page wrap on phones, older changelog versions fold on phones (the page is about 4,400px tall instead of 22,000px), bigger tap targets for standalone links, slightly larger guide labels, the Hindi and Tamil translation note moved below the hero, a &quot;Jump to a task&quot; button on long guide pages, a direct download on the changelog page, the unreleased section labelled &quot;Coming in the next release&quot;, and links to a section no longer stop about 100px too low.</li>
+        </ul>
+        </div>
+      </details>
     </section>
     <section class="c-ver" id="v0.9.0" aria-labelledby="v0.9.0-h">
       <div class="c-ver-head">
@@ -856,351 +904,423 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
       </ul>
     </section>
     <section class="c-ver" id="v0.8.0" aria-labelledby="v0.8.0-h">
-      <div class="c-ver-head">
-        <h2 id="v0.8.0-h">v0.8.0</h2>
-        <p class="c-date"><time datetime="2026-11-10">10 November 2026</time></p>
-      </div>
-      <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.8.0">v0.8.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.7.0...v0.8.0">Code changes since v0.7.0</a></p>
-      <h3>Added</h3>
-      <ul>
-        <li>Size budgets for what Claude reads per request: SKILL.md and the pattern catalog stay under 6,000 words together, and a common request under 11,000, checked on every pull request.</li>
-        <li>An app testing checklist: twenty prompts to try in the Claude app before a release, with made-up Word, PDF, Excel, PowerPoint, subtitle, LaTeX, and code files to attach.</li>
-      </ul>
-      <h3>Changed</h3>
-      <ul>
-        <li>Word and slide extracts now show line breaks and tabs as <code>\n</code> and <code>\t</code>, so they can be kept when the text is rewritten.</li>
-      </ul>
-      <h3>Fixed</h3>
-      <ul>
-        <li>The API eval runner skips cases that need Claude Code with a real repository, instead of failing them.</li>
-        <li>Word files: line breaks and tabs inside a paragraph stay where they were, text boxes are no longer mixed into the paragraph around them, and tracked changes keep fields like dates and page numbers in place.</li>
-        <li>Slides: soft line breaks inside a slide paragraph are kept, so words no longer run together.</li>
-        <li>Messages from a spreadsheet: dates, percentages, and PIN codes come out the way the sheet shows them, two columns with the same heading no longer overwrite each other, row numbers in the report match the sheet, and non-UTF-8 CSV files get a plain message instead of a crash.</li>
-        <li>Fillable PDFs: fields inside groups are really filled, and drop-downs accept the text shown on the form. Password-protected PDFs get a plain message instead of a crash.</li>
-        <li>PDF to Word: numbered clauses keep their own numbers instead of turning into Word&#x27;s automatic numbering, and odd characters in page text no longer crash it.</li>
-        <li>The date check no longer mistakes words like &quot;renewed&quot; or &quot;Simon&quot; for weekdays, or opening hours like &quot;Monday to Friday 9-5&quot; for dates, and handles 29 February with no year.</li>
-        <li>Change reports no longer crash on text copied from PDFs, the dyslexia layout reaches text inside links and nested tables, and word counts treat Windows line breaks the same everywhere.</li>
-      </ul>
+      <details class="c-fold" open>
+        <summary>
+          <span class="c-ver-head"><h2 id="v0.8.0-h">v0.8.0</h2><span class="c-date"><time datetime="2026-11-10">10 November 2026</time></span></span>
+          <span class="c-toggle"><span class="c-show">Show changes</span><span class="c-hide">Hide changes</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="c-fold-body">
+        <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.8.0">v0.8.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.7.0...v0.8.0">Code changes since v0.7.0</a></p>
+        <h3>Added</h3>
+        <ul>
+          <li>Size budgets for what Claude reads per request: SKILL.md and the pattern catalog stay under 6,000 words together, and a common request under 11,000, checked on every pull request.</li>
+          <li>An app testing checklist: twenty prompts to try in the Claude app before a release, with made-up Word, PDF, Excel, PowerPoint, subtitle, LaTeX, and code files to attach.</li>
+        </ul>
+        <h3>Changed</h3>
+        <ul>
+          <li>Word and slide extracts now show line breaks and tabs as <code>\n</code> and <code>\t</code>, so they can be kept when the text is rewritten.</li>
+        </ul>
+        <h3>Fixed</h3>
+        <ul>
+          <li>The API eval runner skips cases that need Claude Code with a real repository, instead of failing them.</li>
+          <li>Word files: line breaks and tabs inside a paragraph stay where they were, text boxes are no longer mixed into the paragraph around them, and tracked changes keep fields like dates and page numbers in place.</li>
+          <li>Slides: soft line breaks inside a slide paragraph are kept, so words no longer run together.</li>
+          <li>Messages from a spreadsheet: dates, percentages, and PIN codes come out the way the sheet shows them, two columns with the same heading no longer overwrite each other, row numbers in the report match the sheet, and non-UTF-8 CSV files get a plain message instead of a crash.</li>
+          <li>Fillable PDFs: fields inside groups are really filled, and drop-downs accept the text shown on the form. Password-protected PDFs get a plain message instead of a crash.</li>
+          <li>PDF to Word: numbered clauses keep their own numbers instead of turning into Word&#x27;s automatic numbering, and odd characters in page text no longer crash it.</li>
+          <li>The date check no longer mistakes words like &quot;renewed&quot; or &quot;Simon&quot; for weekdays, or opening hours like &quot;Monday to Friday 9-5&quot; for dates, and handles 29 February with no year.</li>
+          <li>Change reports no longer crash on text copied from PDFs, the dyslexia layout reaches text inside links and nested tables, and word counts treat Windows line breaks the same everywhere.</li>
+        </ul>
+        </div>
+      </details>
     </section>
     <section class="c-ver" id="v0.7.0" aria-labelledby="v0.7.0-h">
-      <div class="c-ver-head">
-        <h2 id="v0.7.0-h">v0.7.0</h2>
-        <p class="c-date"><time datetime="2026-11-09">9 November 2026</time></p>
-      </div>
-      <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.7.0">v0.7.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.1...v0.7.0">Code changes since v0.6.1</a></p>
-      <h3>Added</h3>
-      <ul>
-        <li>Quick options: when a request is unclear, like &quot;help with this&quot; with some text, Claude offers two to four short choices. In Claude Code they&#x27;re tap-to-pick buttons. Clear requests skip it.</li>
-        <li>README writing for developers: what the project does, how to install and use it, in plain words, with every command kept exactly.</li>
-        <li>Commit messages and pull request descriptions written from the diff, following the repo&#x27;s own style.</li>
-        <li>Architecture docs, decision records (ADRs), and folder-structure explanations that describe only what&#x27;s really in the code.</li>
-        <li>API docs, error messages people can act on, and app text like buttons and empty states, with keys and placeholders kept exactly.</li>
-        <li>In Claude Code, inside a git repository, README and docs files are edited in place, with a line on how to see or undo the change with git. Elsewhere a new copy is made, as before.</li>
-        <li>A developer section in the buzzword list: emoji headings, badge walls, &quot;seamlessly integrates&quot;, &quot;simply run&quot;, and similar.</li>
-        <li>Work chat messages for Slack, Teams, and Google Chat.</li>
-        <li>Mail merge templates can include real curly braces by doubling them, so {{SAVE10}} comes out as {SAVE10}.</li>
-        <li>Eval cases and test prompts for every v0.7.0 guide, plus checks that coding requests still don&#x27;t start the skill (161 cases in all).</li>
-        <li>Code comments and docstrings: a new script rewrites only comment text in 20 languages and refuses to write anything if a single character of code would change. Licence headers, tool directives, doc tags, and commented-out code are left alone.</li>
-      </ul>
-      <h3>Changed</h3>
-      <ul>
-        <li>Developers are now part of the audience, for the words around code only. The skill never writes or changes code.</li>
-        <li>README in English, Hindi, and Tamil lists the v0.7.0 features.</li>
-        <li>The website has a For developers section, v0.7.0 in What&#x27;s new, and new guide tasks in English, Hindi, and Tamil for developers, work chat, and quick options.</li>
-      </ul>
+      <details class="c-fold" open>
+        <summary>
+          <span class="c-ver-head"><h2 id="v0.7.0-h">v0.7.0</h2><span class="c-date"><time datetime="2026-11-09">9 November 2026</time></span></span>
+          <span class="c-toggle"><span class="c-show">Show changes</span><span class="c-hide">Hide changes</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="c-fold-body">
+        <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.7.0">v0.7.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.1...v0.7.0">Code changes since v0.6.1</a></p>
+        <h3>Added</h3>
+        <ul>
+          <li>Quick options: when a request is unclear, like &quot;help with this&quot; with some text, Claude offers two to four short choices. In Claude Code they&#x27;re tap-to-pick buttons. Clear requests skip it.</li>
+          <li>README writing for developers: what the project does, how to install and use it, in plain words, with every command kept exactly.</li>
+          <li>Commit messages and pull request descriptions written from the diff, following the repo&#x27;s own style.</li>
+          <li>Architecture docs, decision records (ADRs), and folder-structure explanations that describe only what&#x27;s really in the code.</li>
+          <li>API docs, error messages people can act on, and app text like buttons and empty states, with keys and placeholders kept exactly.</li>
+          <li>In Claude Code, inside a git repository, README and docs files are edited in place, with a line on how to see or undo the change with git. Elsewhere a new copy is made, as before.</li>
+          <li>A developer section in the buzzword list: emoji headings, badge walls, &quot;seamlessly integrates&quot;, &quot;simply run&quot;, and similar.</li>
+          <li>Work chat messages for Slack, Teams, and Google Chat.</li>
+          <li>Mail merge templates can include real curly braces by doubling them, so {{SAVE10}} comes out as {SAVE10}.</li>
+          <li>Eval cases and test prompts for every v0.7.0 guide, plus checks that coding requests still don&#x27;t start the skill (161 cases in all).</li>
+          <li>Code comments and docstrings: a new script rewrites only comment text in 20 languages and refuses to write anything if a single character of code would change. Licence headers, tool directives, doc tags, and commented-out code are left alone.</li>
+        </ul>
+        <h3>Changed</h3>
+        <ul>
+          <li>Developers are now part of the audience, for the words around code only. The skill never writes or changes code.</li>
+          <li>README in English, Hindi, and Tamil lists the v0.7.0 features.</li>
+          <li>The website has a For developers section, v0.7.0 in What&#x27;s new, and new guide tasks in English, Hindi, and Tamil for developers, work chat, and quick options.</li>
+        </ul>
+        </div>
+      </details>
     </section>
     <section class="c-ver" id="v0.6.1" aria-labelledby="v0.6.1-h">
-      <div class="c-ver-head">
-        <h2 id="v0.6.1-h">v0.6.1</h2>
-        <p class="c-date"><time datetime="2026-11-09">9 November 2026</time></p>
-      </div>
-      <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.6.1">v0.6.1 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.0...v0.6.1">Code changes since v0.6.0</a></p>
-      <h3>Fixed</h3>
-      <ul>
-        <li>Long LaTeX theses can now be split into chapters and sections. Before, the first step refused .tex files.</li>
-        <li>Subtitle, LaTeX, and web page files keep their Windows line endings and byte-order mark, so captions still show correctly on TVs and older players, and LaTeX files really do keep every other byte the same.</li>
-        <li>The date check now flags dates that can&#x27;t exist, like &quot;31 April&quot; or &quot;29 Feb 2023&quot;, even with no weekday next to them.</li>
-        <li>Spreadsheet text on hidden sheets, rows, and columns is marked as hidden and left alone unless you ask.</li>
-        <li>The consistency list for long documents no longer lists ordinary words that start sentences, like &quot;Final&quot; or &quot;Then&quot;, as names.</li>
-        <li>The LaTeX script exits with code 2 when it skips an unsafe change, so the skip can&#x27;t go unnoticed.</li>
-        <li>Chat sender counts no longer include media and deleted messages.</li>
-        <li>Script messages say &quot;1 section&quot; and &quot;1 cell&quot; instead of &quot;1 sections&quot; and &quot;1 cells&quot;.</li>
-      </ul>
-      <h3>Removed</h3>
-      <ul>
-        <li>Dependabot. The pinned GitHub Actions versions are now updated by hand.</li>
-      </ul>
+      <details class="c-fold" open>
+        <summary>
+          <span class="c-ver-head"><h2 id="v0.6.1-h">v0.6.1</h2><span class="c-date"><time datetime="2026-11-09">9 November 2026</time></span></span>
+          <span class="c-toggle"><span class="c-show">Show changes</span><span class="c-hide">Hide changes</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="c-fold-body">
+        <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.6.1">v0.6.1 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.6.0...v0.6.1">Code changes since v0.6.0</a></p>
+        <h3>Fixed</h3>
+        <ul>
+          <li>Long LaTeX theses can now be split into chapters and sections. Before, the first step refused .tex files.</li>
+          <li>Subtitle, LaTeX, and web page files keep their Windows line endings and byte-order mark, so captions still show correctly on TVs and older players, and LaTeX files really do keep every other byte the same.</li>
+          <li>The date check now flags dates that can&#x27;t exist, like &quot;31 April&quot; or &quot;29 Feb 2023&quot;, even with no weekday next to them.</li>
+          <li>Spreadsheet text on hidden sheets, rows, and columns is marked as hidden and left alone unless you ask.</li>
+          <li>The consistency list for long documents no longer lists ordinary words that start sentences, like &quot;Final&quot; or &quot;Then&quot;, as names.</li>
+          <li>The LaTeX script exits with code 2 when it skips an unsafe change, so the skip can&#x27;t go unnoticed.</li>
+          <li>Chat sender counts no longer include media and deleted messages.</li>
+          <li>Script messages say &quot;1 section&quot; and &quot;1 cell&quot; instead of &quot;1 sections&quot; and &quot;1 cells&quot;.</li>
+        </ul>
+        <h3>Removed</h3>
+        <ul>
+          <li>Dependabot. The pinned GitHub Actions versions are now updated by hand.</li>
+        </ul>
+        </div>
+      </details>
     </section>
     <section class="c-ver" id="v0.6.0" aria-labelledby="v0.6.0-h">
-      <div class="c-ver-head">
-        <h2 id="v0.6.0-h">v0.6.0</h2>
-        <p class="c-date"><time datetime="2026-11-09">9 November 2026</time></p>
-      </div>
-      <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.6.0">v0.6.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.5.0...v0.6.0">Code changes since v0.5.0</a></p>
-      <h3>Added</h3>
-      <ul>
-        <li>Size budgets for SKILL.md, the pattern catalog, and every guide, checked on every pull request, so the skill stays quick.</li>
-        <li>Hindi, Tamil, and Hinglish eval cases for payment reminders, support replies, and personalised messages.</li>
-        <li>&quot;How does this sound?&quot; mode: a calm reading of a message someone else sent, with no invented intent, then help replying.</li>
-        <li>Negotiation messages for salary, prices, and rent, using only your real numbers and reasons.</li>
-        <li>Recommendation and reference letters written from what the recommender actually saw.</li>
-        <li>Scripts and descriptions for YouTube videos, Reels, and Shorts, written to be spoken.</li>
-        <li>Easy Read: a simple accessible format with one idea per line and picture suggestions.</li>
-        <li>Keeping your voice profile or house style in a Claude Project so it applies without attaching it each time.</li>
-        <li>Long documents: theses, manuals, and long reports handled section by section, with names and terms kept consistent and nothing dropped.</li>
-        <li>Dyslexia-friendly layout for Word files: clear font, wider spacing, left alignment, and no long italics. The words don&#x27;t change.</li>
-        <li>Voice profiles from Telegram and Signal chat exports, as well as WhatsApp.</li>
-        <li>LaTeX files: prose rewritten while commands, maths, and citations stay exactly as they were.</li>
-        <li>Eval cases and test prompts for every v0.6.0 guide (146 cases in all).</li>
-        <li>A privacy page on the website that explains what happens to your text and files.</li>
-        <li>The usage guide in Hindi and Tamil, linked from the Hindi and Tamil pages.</li>
-        <li>The landing page can show the latest eval pass rate, once a saved eval result is in the repo.</li>
-        <li>An accessibility scan of every website page in light and dark mode, run on every pull request.</li>
-        <li>A weekly check that links in the README, guides, and website still work.</li>
-      </ul>
-      <h3>Changed</h3>
-      <ul>
-        <li>The router links every v0.6.0 guide.</li>
-        <li>The README lists every v0.6.0 feature and links the privacy page.</li>
-        <li>Hindi and Tamil README brought up to date with v0.6.0.</li>
-        <li>The website&#x27;s What&#x27;s new section and the guide (in English, Hindi, and Tamil) cover reading a message, negotiation, long documents, and Easy Read.</li>
-      </ul>
-      <h3>Fixed</h3>
-      <ul>
-        <li>Better text contrast on the landing page&#x27;s call-to-action card and the demo legend, in light and dark mode.</li>
-        <li>The examples table can now be scrolled with a keyboard.</li>
-      </ul>
+      <details class="c-fold" open>
+        <summary>
+          <span class="c-ver-head"><h2 id="v0.6.0-h">v0.6.0</h2><span class="c-date"><time datetime="2026-11-09">9 November 2026</time></span></span>
+          <span class="c-toggle"><span class="c-show">Show changes</span><span class="c-hide">Hide changes</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="c-fold-body">
+        <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.6.0">v0.6.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.5.0...v0.6.0">Code changes since v0.5.0</a></p>
+        <h3>Added</h3>
+        <ul>
+          <li>Size budgets for SKILL.md, the pattern catalog, and every guide, checked on every pull request, so the skill stays quick.</li>
+          <li>Hindi, Tamil, and Hinglish eval cases for payment reminders, support replies, and personalised messages.</li>
+          <li>&quot;How does this sound?&quot; mode: a calm reading of a message someone else sent, with no invented intent, then help replying.</li>
+          <li>Negotiation messages for salary, prices, and rent, using only your real numbers and reasons.</li>
+          <li>Recommendation and reference letters written from what the recommender actually saw.</li>
+          <li>Scripts and descriptions for YouTube videos, Reels, and Shorts, written to be spoken.</li>
+          <li>Easy Read: a simple accessible format with one idea per line and picture suggestions.</li>
+          <li>Keeping your voice profile or house style in a Claude Project so it applies without attaching it each time.</li>
+          <li>Long documents: theses, manuals, and long reports handled section by section, with names and terms kept consistent and nothing dropped.</li>
+          <li>Dyslexia-friendly layout for Word files: clear font, wider spacing, left alignment, and no long italics. The words don&#x27;t change.</li>
+          <li>Voice profiles from Telegram and Signal chat exports, as well as WhatsApp.</li>
+          <li>LaTeX files: prose rewritten while commands, maths, and citations stay exactly as they were.</li>
+          <li>Eval cases and test prompts for every v0.6.0 guide (146 cases in all).</li>
+          <li>A privacy page on the website that explains what happens to your text and files.</li>
+          <li>The usage guide in Hindi and Tamil, linked from the Hindi and Tamil pages.</li>
+          <li>The landing page can show the latest eval pass rate, once a saved eval result is in the repo.</li>
+          <li>An accessibility scan of every website page in light and dark mode, run on every pull request.</li>
+          <li>A weekly check that links in the README, guides, and website still work.</li>
+        </ul>
+        <h3>Changed</h3>
+        <ul>
+          <li>The router links every v0.6.0 guide.</li>
+          <li>The README lists every v0.6.0 feature and links the privacy page.</li>
+          <li>Hindi and Tamil README brought up to date with v0.6.0.</li>
+          <li>The website&#x27;s What&#x27;s new section and the guide (in English, Hindi, and Tamil) cover reading a message, negotiation, long documents, and Easy Read.</li>
+        </ul>
+        <h3>Fixed</h3>
+        <ul>
+          <li>Better text contrast on the landing page&#x27;s call-to-action card and the demo legend, in light and dark mode.</li>
+          <li>The examples table can now be scrolled with a keyboard.</li>
+        </ul>
+        </div>
+      </details>
     </section>
     <section class="c-ver" id="v0.5.0" aria-labelledby="v0.5.0-h">
-      <div class="c-ver-head">
-        <h2 id="v0.5.0-h">v0.5.0</h2>
-        <p class="c-date"><time datetime="2026-11-09">9 November 2026</time></p>
-      </div>
-      <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.5.0">v0.5.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.4.0...v0.5.0">Code changes since v0.4.0</a></p>
-      <h3>Added</h3>
-      <ul>
-        <li>A GitHub workflow you start by hand that runs the evals with your API key and attaches the score. It never runs on its own.</li>
-        <li>Script conversion: write the same words in Hindi, Tamil, or another Indian script, or back into Roman letters, without translating.</li>
-        <li>Payment reminders and invoice notes, with amounts, invoice numbers, and due dates kept exactly as given.</li>
-        <li>Customer support replies for small businesses, with no refunds or dates promised that the owner didn&#x27;t approve.</li>
-        <li>Out-of-office and away messages, WhatsApp Business greetings, and email signatures.</li>
-        <li>Alt text for images: describes what is visible and never guesses who people are.</li>
-        <li>A quick starter voice profile from just three messages, which can grow later.</li>
-        <li>Personalised messages from a spreadsheet: one draft per person using their name, saved to a file. Nothing is sent, and it&#x27;s only for people you already know.</li>
-        <li>Explanations as Word comments: each change can come with a short margin note saying why.</li>
-        <li>Google Sheets and Google Slides edited in place when a Google connector is attached, on a copy unless you say otherwise.</li>
-        <li>Golden-file tests for form filling, web pages, and Word comments, and tests for the new message script.</li>
-        <li>Eval cases and test prompts for every v0.5.0 guide, including a decline case for bulk messages to a bought list (131 cases in all).</li>
-        <li>The scripts that build the Hindi, Tamil, examples, and guide pages are in the repo, and a check fails if those pages fall out of date with the English page.</li>
-        <li>A How do I guide on the website with short steps for every common task, and a What&#x27;s new section on the home page.</li>
-      </ul>
-      <h3>Changed</h3>
-      <ul>
-        <li>Python cache folders and Node packages are ignored, so test runs no longer leave untracked files.</li>
-        <li>GitHub Actions in the workflows are pinned to exact versions, and Dependabot keeps those pins up to date.</li>
-        <li>The router links the new writing types, alt text, and script conversion.</li>
-        <li>A tighter skill description that leads with the most common requests and leaves room for future features.</li>
-        <li>The README lists every v0.5.0 feature.</li>
-        <li>Hindi and Tamil README brought up to date with v0.5.0.</li>
-      </ul>
+      <details class="c-fold" open>
+        <summary>
+          <span class="c-ver-head"><h2 id="v0.5.0-h">v0.5.0</h2><span class="c-date"><time datetime="2026-11-09">9 November 2026</time></span></span>
+          <span class="c-toggle"><span class="c-show">Show changes</span><span class="c-hide">Hide changes</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="c-fold-body">
+        <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.5.0">v0.5.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.4.0...v0.5.0">Code changes since v0.4.0</a></p>
+        <h3>Added</h3>
+        <ul>
+          <li>A GitHub workflow you start by hand that runs the evals with your API key and attaches the score. It never runs on its own.</li>
+          <li>Script conversion: write the same words in Hindi, Tamil, or another Indian script, or back into Roman letters, without translating.</li>
+          <li>Payment reminders and invoice notes, with amounts, invoice numbers, and due dates kept exactly as given.</li>
+          <li>Customer support replies for small businesses, with no refunds or dates promised that the owner didn&#x27;t approve.</li>
+          <li>Out-of-office and away messages, WhatsApp Business greetings, and email signatures.</li>
+          <li>Alt text for images: describes what is visible and never guesses who people are.</li>
+          <li>A quick starter voice profile from just three messages, which can grow later.</li>
+          <li>Personalised messages from a spreadsheet: one draft per person using their name, saved to a file. Nothing is sent, and it&#x27;s only for people you already know.</li>
+          <li>Explanations as Word comments: each change can come with a short margin note saying why.</li>
+          <li>Google Sheets and Google Slides edited in place when a Google connector is attached, on a copy unless you say otherwise.</li>
+          <li>Golden-file tests for form filling, web pages, and Word comments, and tests for the new message script.</li>
+          <li>Eval cases and test prompts for every v0.5.0 guide, including a decline case for bulk messages to a bought list (131 cases in all).</li>
+          <li>The scripts that build the Hindi, Tamil, examples, and guide pages are in the repo, and a check fails if those pages fall out of date with the English page.</li>
+          <li>A How do I guide on the website with short steps for every common task, and a What&#x27;s new section on the home page.</li>
+        </ul>
+        <h3>Changed</h3>
+        <ul>
+          <li>Python cache folders and Node packages are ignored, so test runs no longer leave untracked files.</li>
+          <li>GitHub Actions in the workflows are pinned to exact versions, and Dependabot keeps those pins up to date.</li>
+          <li>The router links the new writing types, alt text, and script conversion.</li>
+          <li>A tighter skill description that leads with the most common requests and leaves room for future features.</li>
+          <li>The README lists every v0.5.0 feature.</li>
+          <li>Hindi and Tamil README brought up to date with v0.5.0.</li>
+        </ul>
+        </div>
+      </details>
     </section>
     <section class="c-ver" id="v0.4.0" aria-labelledby="v0.4.0-h">
-      <div class="c-ver-head">
-        <h2 id="v0.4.0-h">v0.4.0</h2>
-        <p class="c-date"><time datetime="2026-11-09">9 November 2026</time></p>
-      </div>
-      <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.4.0">v0.4.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.2...v0.4.0">Code changes since v0.3.2</a></p>
-      <h3>Added</h3>
-      <ul>
-        <li>The eval runner can save a score summary per release (--save v0.4.0), so pass rates can be compared over time.</li>
-        <li>Golden-file tests that prove everything you didn&#x27;t ask to change in a Word, Excel, or PowerPoint file stays byte for byte the same.</li>
-        <li>Sindhi, Maithili, Vietnamese, Thai, and Swahili language guides, and a section on formal and official Hindi.</li>
-        <li>Singapore, Nigerian, Kenyan, Philippine, and South African English, kept as the user writes them.</li>
-        <li>Reply options for tricky messages: one reply plus a single tone offer, never a pile of versions.</li>
-        <li>Voice profiles can be built from Word, PDF, or text files the user wrote.</li>
-        <li>Team style guides: a shared house style for a small business or team, with a fill-in template.</li>
-        <li>Explain mode: ask why any single change was made and get a plain answer, with an offer to undo it.</li>
-        <li>Learning mode: a short lesson on the three most noticeable habits in your own text, so you can write better yourself.</li>
-        <li>Six more kinds of writing: event announcements, rental agreements in plain words, product FAQs, school circulars, grievance letters to an employer, and insurance claims.</li>
-        <li>Create PowerPoint decks from notes: short slide text, fuller speaker notes, and no invented figures.</li>
-        <li>Fill a Word or PowerPoint template, such as a letterhead or a resume layout, keeping its look.</li>
-        <li>Fill in forms: fillable PDFs and Word forms, with personal details never guessed and missing answers listed.</li>
-        <li>Scanned PDF pages are read from their images, and names and numbers read that way are confirmed with the user.</li>
-        <li>Photos of handwritten notes, whiteboards, and letters turned into typed text, with unclear words marked instead of guessed.</li>
-        <li>A router check that every guide can be reached and every link and example points at a real guide.</li>
-        <li>Eval cases and test prompts for every new v0.4.0 guide (124 cases in all).</li>
-        <li>An examples page on the website: every before and after sample, searchable and filterable by kind of writing.</li>
-        <li>Hindi and Tamil versions of the website, labeled as translations of the English page.</li>
-        <li>A feedback form for saying what worked and what didn&#x27;t, without sharing personal text.</li>
-      </ul>
-      <h3>Changed</h3>
-      <ul>
-        <li>The skill description names the new abilities (forms, templates, scanned PDFs, handwriting, and creating files) so those requests trigger it.</li>
-        <li>The Claude Code plugin now installs only the skill folder (about 670 KB), not the website, tests, and translations.</li>
-        <li>SKILL.md is about a fifth shorter. The kinds-of-writing tables moved to a lookup file that is read only when needed, so every request costs fewer tokens.</li>
-        <li>The README lists every v0.4.0 feature and links the new examples page.</li>
-      </ul>
+      <details class="c-fold" open>
+        <summary>
+          <span class="c-ver-head"><h2 id="v0.4.0-h">v0.4.0</h2><span class="c-date"><time datetime="2026-11-09">9 November 2026</time></span></span>
+          <span class="c-toggle"><span class="c-show">Show changes</span><span class="c-hide">Hide changes</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="c-fold-body">
+        <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.4.0">v0.4.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.2...v0.4.0">Code changes since v0.3.2</a></p>
+        <h3>Added</h3>
+        <ul>
+          <li>The eval runner can save a score summary per release (--save v0.4.0), so pass rates can be compared over time.</li>
+          <li>Golden-file tests that prove everything you didn&#x27;t ask to change in a Word, Excel, or PowerPoint file stays byte for byte the same.</li>
+          <li>Sindhi, Maithili, Vietnamese, Thai, and Swahili language guides, and a section on formal and official Hindi.</li>
+          <li>Singapore, Nigerian, Kenyan, Philippine, and South African English, kept as the user writes them.</li>
+          <li>Reply options for tricky messages: one reply plus a single tone offer, never a pile of versions.</li>
+          <li>Voice profiles can be built from Word, PDF, or text files the user wrote.</li>
+          <li>Team style guides: a shared house style for a small business or team, with a fill-in template.</li>
+          <li>Explain mode: ask why any single change was made and get a plain answer, with an offer to undo it.</li>
+          <li>Learning mode: a short lesson on the three most noticeable habits in your own text, so you can write better yourself.</li>
+          <li>Six more kinds of writing: event announcements, rental agreements in plain words, product FAQs, school circulars, grievance letters to an employer, and insurance claims.</li>
+          <li>Create PowerPoint decks from notes: short slide text, fuller speaker notes, and no invented figures.</li>
+          <li>Fill a Word or PowerPoint template, such as a letterhead or a resume layout, keeping its look.</li>
+          <li>Fill in forms: fillable PDFs and Word forms, with personal details never guessed and missing answers listed.</li>
+          <li>Scanned PDF pages are read from their images, and names and numbers read that way are confirmed with the user.</li>
+          <li>Photos of handwritten notes, whiteboards, and letters turned into typed text, with unclear words marked instead of guessed.</li>
+          <li>A router check that every guide can be reached and every link and example points at a real guide.</li>
+          <li>Eval cases and test prompts for every new v0.4.0 guide (124 cases in all).</li>
+          <li>An examples page on the website: every before and after sample, searchable and filterable by kind of writing.</li>
+          <li>Hindi and Tamil versions of the website, labeled as translations of the English page.</li>
+          <li>A feedback form for saying what worked and what didn&#x27;t, without sharing personal text.</li>
+        </ul>
+        <h3>Changed</h3>
+        <ul>
+          <li>The skill description names the new abilities (forms, templates, scanned PDFs, handwriting, and creating files) so those requests trigger it.</li>
+          <li>The Claude Code plugin now installs only the skill folder (about 670 KB), not the website, tests, and translations.</li>
+          <li>SKILL.md is about a fifth shorter. The kinds-of-writing tables moved to a lookup file that is read only when needed, so every request costs fewer tokens.</li>
+          <li>The README lists every v0.4.0 feature and links the new examples page.</li>
+        </ul>
+        </div>
+      </details>
     </section>
     <section class="c-ver" id="v0.3.2" aria-labelledby="v0.3.2-h">
-      <div class="c-ver-head">
-        <h2 id="v0.3.2-h">v0.3.2</h2>
-        <p class="c-date"><time datetime="2026-11-08">8 November 2026</time></p>
-      </div>
-      <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.3.2">v0.3.2 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.1...v0.3.2">Code changes since v0.3.1</a></p>
-      <h3>Added</h3>
-      <ul>
-        <li>Draft mode can hand back a new Word file, PDF, or spreadsheet when asked. The skill writes the words and Claude builds the file.</li>
-        <li>Eleven more chatbot habits in the pattern catalog, including template letter phrases, biodata and listing cliches, and engagement-bait endings.</li>
-        <li>Eval cases for every language guide and the pattern catalog, so all 94 guides are covered (103 cases).</li>
-        <li>Before and after samples for creating a Word file and a spreadsheet.</li>
-        <li>A social preview image, so links to the website show a picture on WhatsApp, LinkedIn, and X.</li>
-        <li>A check on every pull request that loads the website at phone, tablet, and desktop sizes in Chromium and WebKit and fails if it doesn&#x27;t fit the screen.</li>
-      </ul>
-      <h3>Changed</h3>
-      <ul>
-        <li>The website has its own icon, a speech bubble with a hand-drawn line, in the header and the browser tab.</li>
-        <li>A simpler, more modern website with a bento grid of interactive examples, a typing prompt bar, and a language marquee.</li>
-        <li>The website has a new section on creating and editing Word, PDF, and Excel files, and larger tap targets on phones.</li>
-        <li>The README shows how to create new Word, PDF, and Excel files, not only edit existing ones.</li>
-      </ul>
-      <h3>Fixed</h3>
-      <ul>
-        <li>The website now lays out at the phone&#x27;s real width. A chat mock-up in the hero was forcing every phone to 444 pixels wide and zooming the page out.</li>
-        <li>On phones, the website&#x27;s &quot;New&quot; badge stays on one line, the footer has full-width buttons, and page content no longer shows above the floating menu bar.</li>
-        <li>The website&#x27;s numbers were typed by hand and had gone stale (81 test cases instead of 103). A test now checks them against the repo.</li>
-      </ul>
+      <details class="c-fold" open>
+        <summary>
+          <span class="c-ver-head"><h2 id="v0.3.2-h">v0.3.2</h2><span class="c-date"><time datetime="2026-11-08">8 November 2026</time></span></span>
+          <span class="c-toggle"><span class="c-show">Show changes</span><span class="c-hide">Hide changes</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="c-fold-body">
+        <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.3.2">v0.3.2 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.1...v0.3.2">Code changes since v0.3.1</a></p>
+        <h3>Added</h3>
+        <ul>
+          <li>Draft mode can hand back a new Word file, PDF, or spreadsheet when asked. The skill writes the words and Claude builds the file.</li>
+          <li>Eleven more chatbot habits in the pattern catalog, including template letter phrases, biodata and listing cliches, and engagement-bait endings.</li>
+          <li>Eval cases for every language guide and the pattern catalog, so all 94 guides are covered (103 cases).</li>
+          <li>Before and after samples for creating a Word file and a spreadsheet.</li>
+          <li>A social preview image, so links to the website show a picture on WhatsApp, LinkedIn, and X.</li>
+          <li>A check on every pull request that loads the website at phone, tablet, and desktop sizes in Chromium and WebKit and fails if it doesn&#x27;t fit the screen.</li>
+        </ul>
+        <h3>Changed</h3>
+        <ul>
+          <li>The website has its own icon, a speech bubble with a hand-drawn line, in the header and the browser tab.</li>
+          <li>A simpler, more modern website with a bento grid of interactive examples, a typing prompt bar, and a language marquee.</li>
+          <li>The website has a new section on creating and editing Word, PDF, and Excel files, and larger tap targets on phones.</li>
+          <li>The README shows how to create new Word, PDF, and Excel files, not only edit existing ones.</li>
+        </ul>
+        <h3>Fixed</h3>
+        <ul>
+          <li>The website now lays out at the phone&#x27;s real width. A chat mock-up in the hero was forcing every phone to 444 pixels wide and zooming the page out.</li>
+          <li>On phones, the website&#x27;s &quot;New&quot; badge stays on one line, the footer has full-width buttons, and page content no longer shows above the floating menu bar.</li>
+          <li>The website&#x27;s numbers were typed by hand and had gone stale (81 test cases instead of 103). A test now checks them against the repo.</li>
+        </ul>
+        </div>
+      </details>
     </section>
     <section class="c-ver" id="v0.3.1" aria-labelledby="v0.3.1-h">
-      <div class="c-ver-head">
-        <h2 id="v0.3.1-h">v0.3.1</h2>
-        <p class="c-date"><time datetime="2026-11-07">7 November 2026</time></p>
-      </div>
-      <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.3.1">v0.3.1 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.0...v0.3.1">Code changes since v0.3.0</a></p>
-      <h3>Added</h3>
-      <ul>
-        <li>Checks that every module has the standard sections, that the newest changelog section has entries, and that the plugin version matches the changelog.</li>
-        <li>Eval cases for every writing, file, adjust, voice, and mode module (81 cases in all).</li>
-        <li>Ten more before and after samples covering the v0.2.0 and v0.3.0 modules.</li>
-        <li>Web pages: image descriptions (alt text) and meta descriptions can be rewritten too, when asked.</li>
-      </ul>
-      <h3>Changed</h3>
-      <ul>
-        <li>The router&#x27;s input table is split into groups (files, work, official, selling, personal) so the right module is easier to find.</li>
-        <li>Hindi and Tamil README and install guide brought up to date, including the plugin install.</li>
-        <li>Spreadsheets with charts: a plainer warning, and the option to get only the rewritten text cells back.</li>
-        <li>A redesigned project website, with an interactive before and after, the plugin install, and every language.</li>
-      </ul>
-      <h3>Fixed</h3>
-      <ul>
-        <li>The skill description now names the newer writing types and files, so requests for them trigger the skill.</li>
-        <li>Four modules now use the standard section headings, and the tone presets module has an Output section.</li>
-        <li>PDF text keeps its paragraph breaks, including greeting lines and numbered lists.</li>
-      </ul>
+      <details class="c-fold" open>
+        <summary>
+          <span class="c-ver-head"><h2 id="v0.3.1-h">v0.3.1</h2><span class="c-date"><time datetime="2026-11-07">7 November 2026</time></span></span>
+          <span class="c-toggle"><span class="c-show">Show changes</span><span class="c-hide">Hide changes</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="c-fold-body">
+        <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.3.1">v0.3.1 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.3.0...v0.3.1">Code changes since v0.3.0</a></p>
+        <h3>Added</h3>
+        <ul>
+          <li>Checks that every module has the standard sections, that the newest changelog section has entries, and that the plugin version matches the changelog.</li>
+          <li>Eval cases for every writing, file, adjust, voice, and mode module (81 cases in all).</li>
+          <li>Ten more before and after samples covering the v0.2.0 and v0.3.0 modules.</li>
+          <li>Web pages: image descriptions (alt text) and meta descriptions can be rewritten too, when asked.</li>
+        </ul>
+        <h3>Changed</h3>
+        <ul>
+          <li>The router&#x27;s input table is split into groups (files, work, official, selling, personal) so the right module is easier to find.</li>
+          <li>Hindi and Tamil README and install guide brought up to date, including the plugin install.</li>
+          <li>Spreadsheets with charts: a plainer warning, and the option to get only the rewritten text cells back.</li>
+          <li>A redesigned project website, with an interactive before and after, the plugin install, and every language.</li>
+        </ul>
+        <h3>Fixed</h3>
+        <ul>
+          <li>The skill description now names the newer writing types and files, so requests for them trigger the skill.</li>
+          <li>Four modules now use the standard section headings, and the tone presets module has an Output section.</li>
+          <li>PDF text keeps its paragraph breaks, including greeting lines and numbered lists.</li>
+        </ul>
+        </div>
+      </details>
     </section>
     <section class="c-ver" id="v0.3.0" aria-labelledby="v0.3.0-h">
-      <div class="c-ver-head">
-        <h2 id="v0.3.0-h">v0.3.0</h2>
-        <p class="c-date"><time datetime="2026-11-07">7 November 2026</time></p>
-      </div>
-      <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.3.0">v0.3.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.2.0...v0.3.0">Code changes since v0.2.0</a></p>
-      <h3>Added</h3>
-      <ul>
-        <li>Marriage biodata and matrimony profiles, warm and factual.</li>
-        <li>Cold messages: LinkedIn notes, referral requests, and cold emails.</li>
-        <li>Complaints to companies, with order numbers kept exact and an escalation path.</li>
-        <li>RTI applications in the standard Indian format.</li>
-        <li>Flat for rent, PG, and roommate posts with fair wording.</li>
-        <li>Notes and messages to teachers, schools, and class groups.</li>
-        <li>Eulogies and obituary notices, written with care.</li>
-        <li>Release notes and app store &quot;What&#x27;s new&quot; text.</li>
-        <li>Interview thank-you notes as an email preset.</li>
-        <li>A consistency check for long documents: terms, spelling, numbers, and headings.</li>
-        <li>A cross-cultural check that notes what might read badly to a reader in another country.</li>
-        <li>Two lengths at once, only when asked.</li>
-        <li>Nepali, Sinhala, Konkani, Italian, Turkish, Korean, Chinese, and Filipino language guides, and Taglish in the mixed language guide.</li>
-        <li>A before-you-send check: missing attachments, weekdays that don&#x27;t match dates, unanswered questions, leftover placeholders.</li>
-        <li>Speech timing per section, with optional pause marks in a reading copy.</li>
-        <li>Apple Pages and Keynote files.</li>
-        <li>Web pages: visible text rewritten, tags, links, and code left exactly as they were.</li>
-        <li>Posters and flyers: a cleaner version of the text to retype.</li>
-        <li>Gmail and Outlook drafts edited in place when a mail connector is attached. Nothing is ever sent.</li>
-        <li>An optional eval runner that sends the evals through the Claude API with your own key.</li>
-        <li>Releases build and attach WriteLikeHuman.zip automatically.</li>
-        <li>A language review issue form for native speakers.</li>
-        <li>Claude Code plugin: install with two commands instead of copying the folder.</li>
-        <li>A simple project website in docs/, ready for GitHub Pages.</li>
-      </ul>
+      <details class="c-fold" open>
+        <summary>
+          <span class="c-ver-head"><h2 id="v0.3.0-h">v0.3.0</h2><span class="c-date"><time datetime="2026-11-07">7 November 2026</time></span></span>
+          <span class="c-toggle"><span class="c-show">Show changes</span><span class="c-hide">Hide changes</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="c-fold-body">
+        <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.3.0">v0.3.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.2.0...v0.3.0">Code changes since v0.2.0</a></p>
+        <h3>Added</h3>
+        <ul>
+          <li>Marriage biodata and matrimony profiles, warm and factual.</li>
+          <li>Cold messages: LinkedIn notes, referral requests, and cold emails.</li>
+          <li>Complaints to companies, with order numbers kept exact and an escalation path.</li>
+          <li>RTI applications in the standard Indian format.</li>
+          <li>Flat for rent, PG, and roommate posts with fair wording.</li>
+          <li>Notes and messages to teachers, schools, and class groups.</li>
+          <li>Eulogies and obituary notices, written with care.</li>
+          <li>Release notes and app store &quot;What&#x27;s new&quot; text.</li>
+          <li>Interview thank-you notes as an email preset.</li>
+          <li>A consistency check for long documents: terms, spelling, numbers, and headings.</li>
+          <li>A cross-cultural check that notes what might read badly to a reader in another country.</li>
+          <li>Two lengths at once, only when asked.</li>
+          <li>Nepali, Sinhala, Konkani, Italian, Turkish, Korean, Chinese, and Filipino language guides, and Taglish in the mixed language guide.</li>
+          <li>A before-you-send check: missing attachments, weekdays that don&#x27;t match dates, unanswered questions, leftover placeholders.</li>
+          <li>Speech timing per section, with optional pause marks in a reading copy.</li>
+          <li>Apple Pages and Keynote files.</li>
+          <li>Web pages: visible text rewritten, tags, links, and code left exactly as they were.</li>
+          <li>Posters and flyers: a cleaner version of the text to retype.</li>
+          <li>Gmail and Outlook drafts edited in place when a mail connector is attached. Nothing is ever sent.</li>
+          <li>An optional eval runner that sends the evals through the Claude API with your own key.</li>
+          <li>Releases build and attach WriteLikeHuman.zip automatically.</li>
+          <li>A language review issue form for native speakers.</li>
+          <li>Claude Code plugin: install with two commands instead of copying the folder.</li>
+          <li>A simple project website in docs/, ready for GitHub Pages.</li>
+        </ul>
+        </div>
+      </details>
     </section>
     <section class="c-ver" id="v0.2.0" aria-labelledby="v0.2.0-h">
-      <div class="c-ver-head">
-        <h2 id="v0.2.0-h">v0.2.0</h2>
-        <p class="c-date"><time datetime="2026-11-07">7 November 2026</time></p>
-      </div>
-      <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.2.0">v0.2.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.1.0...v0.2.0">Code changes since v0.1.0</a></p>
-      <h3>Added</h3>
-      <ul>
-        <li>Replies to customer reviews for small business owners, written as themselves.</li>
-        <li>Product and listing descriptions, with every fact taken from the seller.</li>
-        <li>Invitations for weddings, housewarmings, naming ceremonies, and birthdays.</li>
-        <li>Apologies, boundaries, and saying no to friends and family.</li>
-        <li>Plain, inclusive job posts and job descriptions.</li>
-        <li>Newsletters and community notices for societies, schools, clubs, and offices.</li>
-        <li>Freelance proposals and quotes, with no invented clients or credentials.</li>
-        <li>School and college essays, improved in the student&#x27;s own words.</li>
-        <li>Email threads: read the whole thread before drafting the reply.</li>
-        <li>Protected words: a list of terms that must never change, kept on its own or inside a voice profile.</li>
-        <li>Switching between US, UK, Australian, and Indian English.</li>
-        <li>Ready-to-paste formatting for each social platform.</li>
-        <li>Gujarati, Punjabi, Odia, Urdu, and Assamese language guides.</li>
-        <li>Portuguese, Indonesian, Arabic, and Japanese language guides, with right-to-left notes for Urdu and Arabic files.</li>
-        <li>Manglish, Benglish, and Kanglish examples in the mixed language guide.</li>
-        <li>Plain text and Markdown files.</li>
-        <li>Subtitle files (.srt, .vtt): only caption text changes, never the timings.</li>
-        <li>Drafting replies from screenshots of chats and emails.</li>
-        <li>OpenDocument and RTF files, returned as Word files when they can&#x27;t be edited directly.</li>
-        <li>Several files at once, with each file&#x27;s facts kept separate.</li>
-        <li>A Word file that marks every change, for any input.</li>
-        <li>Building a voice profile from the user&#x27;s own WhatsApp messages, with other people&#x27;s messages dropped and contact details hidden.</li>
-        <li>An optional reading age in the accessibility check, only when asked.</li>
-        <li>Tests for every helper script, using sample files made at run time.</li>
-        <li>Skill evals: prompts with expected behavior to run before each release.</li>
-        <li>Automatic style, structure, and script checks on every pull request.</li>
-        <li>Hindi and Tamil translations of the README and install guide, labeled as translations.</li>
-      </ul>
-      <h3>Changed</h3>
-      <ul>
-        <li>Language files and the contributing guide now ask native speakers to review them, and the guide asks for install screenshots.</li>
-      </ul>
-      <h3>Fixed</h3>
-      <ul>
-        <li>The dash check in the contributing guide now runs under a UTF-8 locale, so it no longer passes silently.</li>
-      </ul>
+      <details class="c-fold" open>
+        <summary>
+          <span class="c-ver-head"><h2 id="v0.2.0-h">v0.2.0</h2><span class="c-date"><time datetime="2026-11-07">7 November 2026</time></span></span>
+          <span class="c-toggle"><span class="c-show">Show changes</span><span class="c-hide">Hide changes</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="c-fold-body">
+        <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.2.0">v0.2.0 on GitHub</a> <a href="https://github.com/thisiskurubaran/WriteLikeHuman/compare/v0.1.0...v0.2.0">Code changes since v0.1.0</a></p>
+        <h3>Added</h3>
+        <ul>
+          <li>Replies to customer reviews for small business owners, written as themselves.</li>
+          <li>Product and listing descriptions, with every fact taken from the seller.</li>
+          <li>Invitations for weddings, housewarmings, naming ceremonies, and birthdays.</li>
+          <li>Apologies, boundaries, and saying no to friends and family.</li>
+          <li>Plain, inclusive job posts and job descriptions.</li>
+          <li>Newsletters and community notices for societies, schools, clubs, and offices.</li>
+          <li>Freelance proposals and quotes, with no invented clients or credentials.</li>
+          <li>School and college essays, improved in the student&#x27;s own words.</li>
+          <li>Email threads: read the whole thread before drafting the reply.</li>
+          <li>Protected words: a list of terms that must never change, kept on its own or inside a voice profile.</li>
+          <li>Switching between US, UK, Australian, and Indian English.</li>
+          <li>Ready-to-paste formatting for each social platform.</li>
+          <li>Gujarati, Punjabi, Odia, Urdu, and Assamese language guides.</li>
+          <li>Portuguese, Indonesian, Arabic, and Japanese language guides, with right-to-left notes for Urdu and Arabic files.</li>
+          <li>Manglish, Benglish, and Kanglish examples in the mixed language guide.</li>
+          <li>Plain text and Markdown files.</li>
+          <li>Subtitle files (.srt, .vtt): only caption text changes, never the timings.</li>
+          <li>Drafting replies from screenshots of chats and emails.</li>
+          <li>OpenDocument and RTF files, returned as Word files when they can&#x27;t be edited directly.</li>
+          <li>Several files at once, with each file&#x27;s facts kept separate.</li>
+          <li>A Word file that marks every change, for any input.</li>
+          <li>Building a voice profile from the user&#x27;s own WhatsApp messages, with other people&#x27;s messages dropped and contact details hidden.</li>
+          <li>An optional reading age in the accessibility check, only when asked.</li>
+          <li>Tests for every helper script, using sample files made at run time.</li>
+          <li>Skill evals: prompts with expected behavior to run before each release.</li>
+          <li>Automatic style, structure, and script checks on every pull request.</li>
+          <li>Hindi and Tamil translations of the README and install guide, labeled as translations.</li>
+        </ul>
+        <h3>Changed</h3>
+        <ul>
+          <li>Language files and the contributing guide now ask native speakers to review them, and the guide asks for install screenshots.</li>
+        </ul>
+        <h3>Fixed</h3>
+        <ul>
+          <li>The dash check in the contributing guide now runs under a UTF-8 locale, so it no longer passes silently.</li>
+        </ul>
+        </div>
+      </details>
     </section>
     <section class="c-ver" id="v0.1.0" aria-labelledby="v0.1.0-h">
-      <div class="c-ver-head">
-        <h2 id="v0.1.0-h">v0.1.0</h2>
-        <p class="c-date"><time datetime="2026-11-07">7 November 2026</time></p>
-      </div>
-      <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.1.0">v0.1.0 on GitHub</a></p>
-      <h3>Added</h3>
-      <ul>
-        <li>The WriteLikeHuman skill, shipped as one folder (<code>write-like-human/</code>) with a router that loads only the parts each request needs.</li>
-        <li>A catalog of common AI writing habits, each with a plain explanation and a before and after.</li>
-        <li>Four ways to work: rewrite, draft new text, check without changing, and side by side approval of each change.</li>
-        <li>File support for Word, PDF (returned as an editable Word file), Google Docs and Claude docs, spreadsheets, and slides, with helper scripts that keep formatting and never touch numbers or formulas.</li>
-        <li>Writing guides for emails, WhatsApp and SMS replies, Indian format letters, resumes and cover letters, social posts, bios, reports, meeting notes, speeches, wishes and cards, honest reviews, form answers, and voice note transcripts.</li>
-        <li>Adjustments for tone, reading level, length (with an exact word count script), accessibility, and optional inclusive wording.</li>
-        <li>Personal voice profiles, including more than one per person, with a fill-in template.</li>
-        <li>Language guides for translation, Hinglish and other mixed writing, Indian English, Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, Spanish, French, and German.</li>
-        <li>Before and after samples and a list of test prompts.</li>
-        <li>MIT license and a generic <code>.gitignore</code>.</li>
-        <li>Install guide for claude.ai, the desktop app, the mobile app, and Claude Code.</li>
-        <li>Contributing guide and Code of Conduct (Contributor Covenant 2.1).</li>
-        <li>Security policy with private reporting.</li>
-        <li>Issue templates for bugs and feature requests, and a pull request checklist.</li>
-      </ul>
+      <details class="c-fold" open>
+        <summary>
+          <span class="c-ver-head"><h2 id="v0.1.0-h">v0.1.0</h2><span class="c-date"><time datetime="2026-11-07">7 November 2026</time></span></span>
+          <span class="c-toggle"><span class="c-show">Show changes</span><span class="c-hide">Hide changes</span><svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></span>
+        </summary>
+        <div class="c-fold-body">
+        <p class="c-links"><a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/tag/v0.1.0">v0.1.0 on GitHub</a></p>
+        <h3>Added</h3>
+        <ul>
+          <li>The WriteLikeHuman skill, shipped as one folder (<code>write-like-human/</code>) with a router that loads only the parts each request needs.</li>
+          <li>A catalog of common AI writing habits, each with a plain explanation and a before and after.</li>
+          <li>Four ways to work: rewrite, draft new text, check without changing, and side by side approval of each change.</li>
+          <li>File support for Word, PDF (returned as an editable Word file), Google Docs and Claude docs, spreadsheets, and slides, with helper scripts that keep formatting and never touch numbers or formulas.</li>
+          <li>Writing guides for emails, WhatsApp and SMS replies, Indian format letters, resumes and cover letters, social posts, bios, reports, meeting notes, speeches, wishes and cards, honest reviews, form answers, and voice note transcripts.</li>
+          <li>Adjustments for tone, reading level, length (with an exact word count script), accessibility, and optional inclusive wording.</li>
+          <li>Personal voice profiles, including more than one per person, with a fill-in template.</li>
+          <li>Language guides for translation, Hinglish and other mixed writing, Indian English, Hindi, Tamil, Telugu, Kannada, Malayalam, Bengali, Marathi, Spanish, French, and German.</li>
+          <li>Before and after samples and a list of test prompts.</li>
+          <li>MIT license and a generic <code>.gitignore</code>.</li>
+          <li>Install guide for claude.ai, the desktop app, the mobile app, and Claude Code.</li>
+          <li>Contributing guide and Code of Conduct (Contributor Covenant 2.1).</li>
+          <li>Security policy with private reporting.</li>
+          <li>Issue templates for bugs and feature requests, and a pull request checklist.</li>
+        </ul>
+        </div>
+      </details>
     </section>
-    <p class="c-more">Want the newest version? <a href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest">Download it from GitHub</a>.</p>
+    <script>
+    (function () {
+      function openFor(hash) {
+        if (!hash || hash.length < 2) return null;
+        var el = document.getElementById(decodeURIComponent(hash.slice(1)));
+        if (!el) return null;
+        var d = el.querySelector('.c-fold');
+        if (d) d.open = true;
+        return el;
+      }
+      if (window.matchMedia('(max-width: 699px)').matches) {
+        document.querySelectorAll('.c-fold').forEach(function (d) { d.open = false; });
+      }
+      var start = openFor(location.hash);
+      if (start) start.scrollIntoView();
+      window.addEventListener('hashchange', function () { var t = openFor(location.hash); if (t) t.scrollIntoView(); });
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href^="#"]');
+        if (a) openFor(a.getAttribute('href'));
+      });
+    })();
+    </script>
+    <div class="c-more">
+      <p>Want the newest version?</p>
+      <div class="c-more-actions">
+        <a class="btn btn-primary" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases/latest/download/WriteLikeHuman.zip"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Download the latest version</a>
+        <a class="c-all" href="https://github.com/thisiskurubaran/WriteLikeHuman/releases">All releases</a>
+      </div>
+    </div>
   </div>
 </div>
 </main>
@@ -1281,6 +1401,25 @@ footer { padding: 40px 0 calc(32px + env(safe-area-inset-bottom)); font-size: 14
   /* Guide: close the jump list after a pick, and mark the task in view */
   var jump = document.querySelector('.g-jump');
   if (jump) jump.addEventListener('click', function (e) { if (e.target.closest('a')) jump.open = false; });
+  /* Phones: show the "Jump to a task" button after the first few tasks */
+  var back = document.getElementById('g-back'), allTasks = document.querySelectorAll('.task');
+  if (back && jump && allTasks.length > 3) {
+    var phone = window.matchMedia('(max-width: 699px)'), mark = allTasks[3];
+    var updateBack = function () {
+      var show = phone.matches && mark.getBoundingClientRect().top < 0;
+      if (show === back.hidden) { back.hidden = !show; document.body.classList.toggle('has-g-back', show); }
+    };
+    window.addEventListener('scroll', updateBack, { passive: true });
+    if (phone.addEventListener) phone.addEventListener('change', updateBack);
+    updateBack();
+    back.addEventListener('click', function (e) {
+      e.preventDefault();
+      jump.open = true;
+      var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      jump.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' });
+      jump.querySelector('summary').focus({ preventScroll: true });
+    });
+  }
   var links = {};
   document.querySelectorAll('.g-toc a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
   if ('IntersectionObserver' in window) {

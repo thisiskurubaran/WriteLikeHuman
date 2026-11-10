@@ -33,7 +33,8 @@ CSS = """
 .c-jump ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .c-jump a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--ink-2); font: 600 13.5px var(--mono); text-decoration: none; }
 .c-jump a:hover { border-color: var(--line-strong); color: var(--ink); }
-.c-ver { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); margin-bottom: 14px; box-shadow: var(--shadow-sm); scroll-margin-top: 100px; }
+.c-ver { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--tile-pad); margin-bottom: 14px; box-shadow: var(--shadow-sm); }
+section.c-ver[id] { scroll-margin-top: 0; }
 .c-ver-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
 .c-ver h2 { font-size: clamp(1.4rem, 1.1rem + 1vw, 1.8rem); margin: 0; }
 .c-date { margin: 0; color: var(--muted); font-size: 14.5px; }
@@ -47,8 +48,24 @@ CSS = """
 .c-ver p { margin: 0 0 10px; color: var(--ink-2); }
 .c-ver li a, .c-ver p a { color: var(--accent); }
 .c-ver code { font: 600 .9em var(--mono); background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px; padding: 1px 5px; overflow-wrap: anywhere; }
-.c-more { color: var(--muted); font-size: 14px; margin: 18px 0 0; }
-.c-more a { color: var(--accent); }
+.c-fold > summary { list-style: none; cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 14px; min-height: 44px; border-radius: 12px; }
+.c-fold > summary::-webkit-details-marker { display: none; }
+.c-fold > summary .c-ver-head { min-width: 0; }
+.c-toggle { display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 0 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel-2); color: var(--ink-2); font-size: 13.5px; font-weight: 600; white-space: nowrap; }
+.c-fold > summary:hover .c-toggle { border-color: var(--line-strong); color: var(--ink); }
+.c-toggle .icon { width: 14px; height: 14px; transition: rotate .2s; }
+.c-fold[open] .c-toggle .icon { rotate: 180deg; }
+.c-fold:not([open]) .c-hide, .c-fold[open] .c-show { display: none; }
+.c-fold-body { padding-top: 4px; }
+.c-next { background: transparent; border-style: dashed; border-color: var(--line-strong); box-shadow: none; }
+.c-next h2 { font-size: clamp(1.15rem, 1rem + .6vw, 1.4rem); }
+.c-next-note { display: block; flex-basis: 100%; margin: 4px 0 0; color: var(--muted); font-size: 14px; font-weight: 400; }
+.c-jump a.c-jump-next { border-style: dashed; background: transparent; font-family: var(--sans); }
+.c-more { margin: 26px 0 0; padding: var(--tile-pad); border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--panel); }
+.c-more p { margin: 0 0 12px; font-weight: 600; color: var(--ink); }
+.c-more-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 18px; }
+.c-all { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent); font-weight: 600; font-size: 14.5px; }
+@media (prefers-reduced-motion: reduce) { .c-toggle .icon { transition: none; } }
 """
 
 
@@ -142,27 +159,75 @@ def render_items(items, indent):
     return out
 
 
+NEXT_LABEL = "Coming in the next release"
+NEXT_NOTE = "These changes are on the website or the main branch, but not in the downloadable zip yet."
+CHEVRON = '<svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>'
+
+# Older versions start open, so they show with JavaScript off. On phones this
+# folds them, and a link to a version (on load, from the jump list, or any
+# other #hash) opens it and scrolls to it.
+FOLD_JS = """    <script>
+    (function () {
+      function openFor(hash) {
+        if (!hash || hash.length < 2) return null;
+        var el = document.getElementById(decodeURIComponent(hash.slice(1)));
+        if (!el) return null;
+        var d = el.querySelector('.c-fold');
+        if (d) d.open = true;
+        return el;
+      }
+      if (window.matchMedia('(max-width: 699px)').matches) {
+        document.querySelectorAll('.c-fold').forEach(function (d) { d.open = false; });
+      }
+      var start = openFor(location.hash);
+      if (start) start.scrollIntoView();
+      window.addEventListener('hashchange', function () { var t = openFor(location.hash); if (t) t.scrollIntoView(); });
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href^="#"]');
+        if (a) openFor(a.getAttribute('href'));
+      });
+    })();
+    </script>"""
+
+
 def version_id(name):
     """Return (anchor id, label) for a version name like '0.9.0' or 'Unreleased'."""
     if name.lower() == "unreleased":
-        return "unreleased", "Unreleased"
+        return "unreleased", NEXT_LABEL
     vid = "v" + name.lstrip("v")
     return vid, vid
 
 
-def render_version(v, links):
+def render_version(v, links, fold):
+    """One version as a card. fold=True puts its changes behind a <details> disclosure."""
     name = v["name"]
     unreleased = name.lower() == "unreleased"
     vid, label = version_id(name)
     esc_id = html.escape(vid, quote=True)
-    lines = ['    <section class="c-ver" id="%s" aria-labelledby="%s-h">' % (esc_id, esc_id),
-             '      <div class="c-ver-head">',
-             '        <h2 id="%s-h">%s</h2>' % (esc_id, html.escape(label)),
-             ]
-    if v["date"]:
-        lines.append('        <p class="c-date">%s</p>' % nice_date(v["date"]))
-    lines.append('      </div>')
+    date = nice_date(v["date"]) if v["date"] else ""
+    cls = "c-ver c-next" if unreleased else "c-ver"
+    lines = ['    <section class="%s" id="%s" aria-labelledby="%s-h">' % (cls, esc_id, esc_id)]
+    pad = 6
+    if fold:
+        pad = 8
+        lines += ['      <details class="c-fold" open>',
+                  '        <summary>',
+                  '          <span class="c-ver-head"><h2 id="%s-h">%s</h2>%s</span>'
+                  % (esc_id, html.escape(label), ('<span class="c-date">%s</span>' % date) if date else ''),
+                  '          <span class="c-toggle"><span class="c-show">Show changes</span><span class="c-hide">Hide changes</span>%s</span>' % CHEVRON]
+        if unreleased:
+            lines.append('          <span class="c-next-note">%s</span>' % NEXT_NOTE)
+        lines += ['        </summary>', '        <div class="c-fold-body">']
+    else:
+        lines += ['      <div class="c-ver-head">',
+                  '        <h2 id="%s-h">%s</h2>' % (esc_id, html.escape(label))]
+        if date:
+            lines.append('        <p class="c-date">%s</p>' % date)
+        lines.append('      </div>')
+        if unreleased:
+            lines.append('      <p class="c-next-note">%s</p>' % NEXT_NOTE)
 
+    sp = " " * pad
     actions = []
     if not unreleased:
         actions.append('<a href="%s/releases/tag/%s">%s on GitHub</a>'
@@ -174,28 +239,41 @@ def render_version(v, links):
             text = "Code changes since %s" % m.group(1)
             actions.append('<a href="%s">%s</a>' % (html.escape(compare, quote=True), html.escape(text)))
     if actions:
-        lines.append('      <p class="c-links">%s</p>' % " ".join(actions))
+        lines.append(sp + '<p class="c-links">%s</p>' % " ".join(actions))
 
     for s in v["sections"]:
         if not s["items"]:
             continue
         if s["title"]:
-            lines.append('      <h3>%s</h3>' % inline(s["title"]))
-        lines.extend(render_items(s["items"], 6))
+            lines.append(sp + '<h3>%s</h3>' % inline(s["title"]))
+        lines.extend(render_items(s["items"], pad))
+    if fold:
+        lines += ['        </div>', '      </details>']
     lines.append('    </section>')
     return "\n".join(lines)
 
 
+def render_versions(versions, links):
+    """Unreleased (if any) and older releases fold; the newest release stays open."""
+    out, newest_done = [], False
+    for v in versions:
+        released = v["name"].lower() != "unreleased"
+        fold = not released or newest_done
+        out.append(render_version(v, links, fold))
+        if released:
+            newest_done = True
+    return "\n".join(out)
+
+
 def build(idx, md):
     versions, links = parse(md)
-    page = gen_guide.build(idx, "en")
+    page = gen_guide.build(idx, "en", current=None)
     page = page.replace('<title>Guide | WriteLikeHuman</title>', '<title>Changelog | WriteLikeHuman</title>', 1)
     page = page.replace('<meta property="og:title" content="Guide | WriteLikeHuman">',
                         '<meta property="og:title" content="Changelog | WriteLikeHuman">', 1)
     page = page.replace('content="%s"' % gen_guide.EN_UI["desc"],
                         'content="Every WriteLikeHuman release, newest first: what was added, changed, and fixed."', 1)
     page = page.replace('WriteLikeHuman/guide.html">', 'WriteLikeHuman/changelog.html">', 1)
-    page = page.replace('<a href="guide.html" aria-current="page">Guide</a>', '<a href="guide.html">Guide</a>', 1)
     page = page.replace('<a href="changelog.html">Changelog</a>', '<a href="changelog.html" aria-current="page">Changelog</a>', 1)
     # There is no Hindi or Tamil changelog, so the language links go to the landing pages.
     page = page.replace('<a href="guide.html" lang="en" aria-current="page">English</a>', '<a href="./" lang="en">English</a>')
@@ -205,7 +283,8 @@ def build(idx, md):
                         'This page is built from CHANGELOG.md in the repository.', 1)
     page = page.replace('</style>', CSS + '</style>', 1)
 
-    jump = "".join('<li><a href="#%s">%s</a></li>' % (html.escape(vid, quote=True), html.escape(label))
+    jump = "".join('<li><a href="#%s"%s>%s</a></li>'
+                   % (html.escape(vid, quote=True), ' class="c-jump-next"' if vid == "unreleased" else '', html.escape(label))
                    for vid, label in (version_id(v["name"]) for v in versions))
     main = "\n".join([
         '<main id="main">',
@@ -223,8 +302,15 @@ def build(idx, md):
         '      <h2 id="c-jump-h">Jump to a version</h2>',
         '      <ul>%s</ul>' % jump,
         '    </nav>',
-        "\n".join(render_version(v, links) for v in versions),
-        '    <p class="c-more">Want the newest version? <a href="%s/releases/latest">Download it from GitHub</a>.</p>' % REPO,
+        render_versions(versions, links),
+        FOLD_JS,
+        '    <div class="c-more">',
+        '      <p>Want the newest version?</p>',
+        '      <div class="c-more-actions">',
+        '        <a class="btn btn-primary" href="%s/releases/latest/download/WriteLikeHuman.zip"><svg class="icon" aria-hidden="true"><use href="#i-down"/></svg>Download the latest version</a>' % REPO,
+        '        <a class="c-all" href="%s/releases">All releases</a>' % REPO,
+        '      </div>',
+        '    </div>',
         '  </div>',
         '</div>',
         '</main>',
